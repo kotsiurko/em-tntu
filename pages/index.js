@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import electricMan from '../public/assets/img/hero-img.png'
 
 import { client } from "../lib/client";
 
@@ -9,8 +10,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ fetchedData }) {
 
-  console.log(fetchedData);
-  console.log(fetchedData[0].title)
+  // console.log(fetchedData);
+  // console.log(fetchedData[0].title)
 
   return (
     <>
@@ -20,27 +21,42 @@ export default function Home({ fetchedData }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
+      <main>
+
+
+        {/* ======= Hero Section ======= */}
+        <section id="hero" className="hero d-flex align-items-center">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Кафедра <br /> Електричної Інженерії ТНТУ ім. І.Пулюя</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">Спеціальність 141 <br /> "Електроенергетика, електротехніка та електромеханіка"</h2><br />
+                <h3 data-aos="fade-up" data-aos-delay="400" className="h5">Шукаємо талановитих абітурієнтів, які хочуть пов'язати своє життя з електротехнікою та інженерією</h3>
+                <div data-aos="fade-up" data-aos-delay="600">
+                  <div className="text-center text-lg-start">
+                    <a href="#faq" className="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                      <span>Навчатись в нас</span>
+                      <i className="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <Image
+                  src={electricMan}
+                  alt="Picture of the man near electric box"
+                  className="col-lg-6 hero-img"
+                  data-aos="zoom-out"
+                  data-aos-delay="200"
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={styles.center}>{fetchedData[0].title}...</div>
+        </section>
+        {/* End Hero */}
+
+
       </main>
     </>
   )

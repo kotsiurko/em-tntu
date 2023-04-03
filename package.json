@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sanity/client": "^5.4.1",
+    "aos": "^2.3.4",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",

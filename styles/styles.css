@@ -1,0 +1,51 @@
+﻿.text-justify {
+    text-align: justify
+}
+
+.header .logo {
+    line-height: 1;
+}
+
+.h10 {
+    font-size: 1.1rem;
+}
+.h11 {
+    font-size:0.9rem;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.contact .my-font-size .info-box p {
+    font-size: 1rem;
+}
+
+.contact .my-font-size .info-box p i {
+    font-size: 0.8rem;
+    padding-right: 0.6rem;
+}
+
+.section-header p {
+    font-size: 28px;
+}
+
+
+.features .feature-icons {
+    margin-top: 20px;
+}
+
+.ei-logo {
+    height: 120px;
+}
+
+.container .my-style {
+    padding: 0;
+}
+
+th.counter-width {
+    min-width: 40px;
+}
+.features .feature-icons .content .my-dstyle {
+    display: block;
+}
