@@ -10,8 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ fetchedData }) {
 
-  // console.log(fetchedData);
-  // console.log(fetchedData[0].title)
+  console.log(fetchedData[0].title)
 
   return (
     <>
@@ -30,7 +29,7 @@ export default function Home({ fetchedData }) {
             <div className="row">
               <div className="col-lg-6 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up">Кафедра <br /> Електричної Інженерії ТНТУ ім. І.Пулюя</h1>
-                <h2 data-aos="fade-up" data-aos-delay="400">Спеціальність 141 <br /> `Електроенергетика, електротехніка та електромеханіка`</h2><br />
+                <h2 data-aos="fade-up" data-aos-delay="400">Спеціальність 141 <br /> &ldquo;Електроенергетика, електротехніка та електромеханіка&rdquo;</h2><br />
                 <h3 data-aos="fade-up" data-aos-delay="400" className="h5">Шукаємо талановитих абітурієнтів, які хочуть пов`язати своє життя з електротехнікою та інженерією</h3>
                 <div data-aos="fade-up" data-aos-delay="600">
                   <div className="text-center text-lg-start">
