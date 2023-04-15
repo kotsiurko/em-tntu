@@ -9,7 +9,7 @@ import Footer from '@/components/Footer/Footer'
 
 // Images
 import electricMan from '../public/assets/img/hero-img.png'
-import departmentStaff from '../public/assets/img/about.jpg'
+import departmentStaff from '../public/assets/img/departmentStaff.jpg'
 import value1 from '../public/assets/img/val-1.png'
 import value2 from '../public/assets/img/val-2.png'
 import value3 from '../public/assets/img/val-3.png'
@@ -71,6 +71,7 @@ export default function Home({ fetchedData }) {
                   alt="Picture of the man near electric box"
                   className="img-fluid"
                   style={{ width: '100%', hight: '100%' }}
+                  priority="true"
                 />
               </div>
             </div>
@@ -230,6 +231,7 @@ export default function Home({ fetchedData }) {
                   src={departmentStaff}
                   alt="Staff of EE department"
                   className="img-fluid"
+                  priority="true"
                 />
               </div>
 
