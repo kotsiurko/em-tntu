@@ -8,7 +8,7 @@ import { menuItems } from "./menuItems";
 // import { client } from "../../lib/client";
 
 // Images
-import headerLogo from "../../public/assets/img/logo-header.png";
+import headerLogo from "../../public/assets/img/logo-header-new.png";
 
 // const client = createClient({
 //   projectId: "asnyakur",
