@@ -274,14 +274,14 @@ section {
   visibility: visible;
 }
 /* Якщо це не закоментувати, то елементи підменю з'являються зліва на екрані */
-/* @media (max-width: 1366px) {
+@media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
   }
   .navbar .dropdown .dropdown:hover > ul {
     left: -100%;
   }
-} */
+}
 
 /**
 * Mobile Navigation 
