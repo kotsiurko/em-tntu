@@ -6,10 +6,7 @@ import logo from "../../public/assets/img/logo.png";
 const Footer = () => {
   return (
     // ======= Footer =======
-    <footer
-      id="footer"
-      className="footer"
-    >
+    <footer id="footer" className="footer">
       <div className="footer-top">
         <div className="container">
           <div className="row gy-4">
@@ -32,8 +29,7 @@ const Footer = () => {
                 <br />
                 електричної інженерії
                 <hr />
-                Тернопільський
-                національний
+                Тернопільський національний
                 <br />
                 технічний університет
                 <br />
@@ -47,30 +43,18 @@ const Footer = () => {
               <h4>Ми в соцмережах</h4>
 
               <div className="social-links mt-3">
-                <a
-                  href="https://www.facebook.com/kaf.ei.tntu/"
-                  className="facebook"
-                >
+                <a href="https://www.facebook.com/kaf.ei.tntu/" className="facebook">
                   {" "}
                   <i className="bi bi-facebook"></i>
                 </a>
-                <a
-                  href="https://scholar.google.com.ua/citations?user=IKmXP1oAAAAJ"
-                  className="google-schoolar"
-                >
+                <a href="https://scholar.google.com.ua/citations?user=IKmXP1oAAAAJ" className="google-schoolar">
                   <i className="bi bi-google"></i>
                 </a>
-                <a
-                  href="https://www.instagram.com/"
-                  className="instagram"
-                >
+                <a href="https://www.instagram.com/" className="instagram">
                   {" "}
                   <i className="bi bi-instagram"></i>
                 </a>
-                <a
-                  href="https://www.youtube.com/channel/UCkRiBJEjnihxVqZvl5lAv_A"
-                  className="youtube"
-                >
+                <a href="https://www.youtube.com/channel/UCkRiBJEjnihxVqZvl5lAv_A" className="youtube">
                   {" "}
                   <i className="bi bi-youtube"></i>
                 </a>
@@ -81,22 +65,14 @@ const Footer = () => {
               <h4>Наші Контакти</h4>
 
               <p>
-                м. Тернопіль, вул.
-                Микулинецька 46,
+                м. Тернопіль, вул. Микулинецька 46,
                 <br />
-                корпус ТНТУ № 7, кімн.
-                403
+                корпус ТНТУ № 7, кімн. 403
                 <br />
                 <br />
-                <strong>
-                  Телефон:
-                </strong>{" "}
-                (0352) 43-51-14
+                <strong>Телефон:</strong> (0352) 43-51-14
                 <br />
-                <strong>
-                  Email:
-                </strong>{" "}
-                kaf_ei@tu.edu.te.ua
+                <strong>Email:</strong> kaf_ei@tu.edu.te.ua
                 <br />
               </p>
             </div>
@@ -106,36 +82,27 @@ const Footer = () => {
 
       <div className="container">
         <div className="credits">
-          © 1999-2022. Тернопільський
-          національний технічний
-          університет імені Івана Пулюя
+          © 1999-2022. Тернопільський національний технічний університет імені Івана Пулюя
           <br />
-          © 1999-2022. Факультет
-          прикладних інформаційних
-          технологій та електроінженерії
+          © 1999-2022. Факультет прикладних інформаційних технологій та електроінженерії
           <br />
-          © 1999-2022. Кафедра
-          електричної інженерії
+          © 1999-2022. Кафедра електричної інженерії
           <br />
         </div>
         <div className="credits">
-          Розробка:{" "}
-          <a href="http://tntu.org.ua/person.aspx?name=kocjurko">
-            Коцюрко Роман Володимирович
-          </a>
+          Розробка: <a href="http://tntu.org.ua/person.aspx?name=kocjurko">Коцюрко Роман Володимирович</a>
           <br />
-          Інформацію поновлено: 15
-          квітня 2023 р.
+          {/* Тут можна прописати логіку для автоматичного оновлення дати змін: */}
+          {/* Треба зафетчити усі схеми із Сеніті та витягнути з кожної з них _createdAt || _updatedAt: */}
+          {/* І показувати лише найостаннішу дату */}
+          Інформацію поновлено: 15 квітня 2023 р.
         </div>
         <div className="credits">
           {/* All the links in the footer should remain intact. */}
           {/* You can delete the links only if you purchased the pro version. */}
           {/* Licensing information: https://bootstrapmade.com/license/ */}
           {/* Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ */}
-          Designed by{" "}
-          <a href="https://bootstrapmade.com/">
-            BootstrapMade
-          </a>
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
       </div>
     </footer>

@@ -5,7 +5,7 @@ import Head from "next/head";
 
 // Images
 
-const History = () => {
+const EeEtEm = () => {
   return (
     <>
       <Head>
@@ -417,7 +417,7 @@ const History = () => {
   );
 };
 
-export default History;
+export default EeEtEm;
 
 // export async function getStaticProps() {
 //   const fetchedData = await client.fetch(`*[_type == 'siteMenu'][0]`);

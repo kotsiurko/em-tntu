@@ -265,7 +265,7 @@ section {
 .navbar .dropdown .dropdown ul {
   top: 0;
   left: calc(100% - 30px);
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .navbar .dropdown .dropdown:hover > ul {
   opacity: 1;
@@ -273,14 +273,15 @@ section {
   left: 100%;
   visibility: visible;
 }
-@media (max-width: 1366px) {
+/* Якщо це не закоментувати, то елементи підменю з'являються зліва на екрані */
+/* @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
   }
   .navbar .dropdown .dropdown:hover > ul {
     left: -100%;
   }
-}
+} */
 
 /**
 * Mobile Navigation 
@@ -1193,7 +1194,7 @@ section {
 --------------------------------------------------------------*/
 .team {
   background: #fff;
-  padding: 60px 0;
+  padding: 30px 0;
 }
 .team .member {
   overflow: hidden;

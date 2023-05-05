@@ -49,3 +49,115 @@ th.counter-width {
 .features .feature-icons .content .my-dstyle {
     display: block;
 }
+
+/* Media query */
+/* 991 - 1199 */
+@media screen and (min-width: 991px) and (max-width: 1199px) {
+    .team .member .member-info {
+        padding: 10px 2px 20px;
+        text-align: left;
+    }
+}
+
+
+
+/* ============================================== */
+/* Responsive fix for the Next.js Image component */
+/* ============================================== */
+.image-container {
+    width: 100%;
+}
+
+.image-container > div {
+    position: unset !important;
+}
+
+.image-container .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+}
+
+.image-container .news-image {
+    object-fit: contain;
+    width: 40% !important;
+    position: relative !important;
+    height: unset !important;
+}
+/* ============================================== */
+
+.my-personal {
+    padding-top: 20px;
+}
+
+/* .features.my-personal blockquote{
+    font-style:italic ;
+} */
+
+.features.my-personal blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 0px 0.5em;
+    padding: 0.5em 10px;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+    font-size: 15px;
+    color: #848484;
+}
+
+.features.my-personal blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+
+
+/* NEWS */
+.member.news {
+    display: flex;
+    gap: .5rem;
+}
+
+.member.news .position-relative{
+    width: 40%;
+}
+
+.member-info.news{
+    display: flex;
+    flex-direction: column;
+    width: 58%;
+}
+
+.team .member .member-info {
+    text-align: center;
+    font-style: normal;
+}
+
+.team .member .member-info.news {
+    text-align: left;
+}
+
+.team .member .member-info.news p {
+    padding: 0;
+    margin: 0;
+    line-height: 1.4;
+    font-style: normal;
+}
+
+.member .member-info.news p.publishDate {
+    margin-bottom: 6px;
+}
+
+/* BREADCRUMBS */
+.breadcrumbs ol{
+    padding: 0;
+}
+
+.features.my-personal figure {
+    display: flex;
+    justify-content: center;
+}

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import { Inter } from 'next/font/google';
+import { menuItems } from '@/components/Header/menuItems';
+import { client } from "@/lib/client";
+import { arrayNormalization } from '@/lib/helpers';
+// import styles from '@/styles/Home.module.css'
 
 // Components
 
@@ -24,17 +27,41 @@ import Lupenko from '../public/assets/img/team/lupenko.jpg'
 import Andriychuk from '../public/assets/img/team/andriychuk.jpg'
 
 // Client connection
-import { client } from "../lib/client";
+// import { client } from "../lib/client";
 
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ fetchedData }) {
+export default function Home({ masterEls }) {
 
   const [purecounter, setPurecounter] = useState(0);
+  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
+  const [masterArr, setMasterArr] = useState(menuItems[3].children);
 
-  console.log(fetchedData[0].title)
+  useEffect(() => {
+    const transformedArr = arrayNormalization(masterEls);
+
+    setMainMenuArr((prevState) => {
+      if (prevState) {
+        return prevState.map((item, index) => {
+          // Тут можна через решту IF додати інші масиви в інші об'єкти
+          if (index === 3) {
+            return {
+              ...item,
+              children: [...masterArr, ...transformedArr],
+            };
+          }
+          return item;
+        });
+      }
+      return prevState;
+    });
+  }, [masterArr, masterEls]);
+
+  console.log('mainMenuArr UPD:>> ', mainMenuArr);
+
+
 
   return (
     <>
@@ -64,7 +91,7 @@ export default function Home({ fetchedData }) {
                     </a>
                   </div>
                 </div>
-              </div>
+              </div >
               <div className="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
                 <Image
                   src={electricMan}
@@ -74,9 +101,9 @@ export default function Home({ fetchedData }) {
                   priority="true"
                 />
               </div>
-            </div>
-          </div>
-        </section>
+            </div >
+          </div >
+        </section >
         {/* End Hero */}
 
 
@@ -98,11 +125,41 @@ export default function Home({ fetchedData }) {
 
                 <div className="row gy-4 my-font-size">
 
-                  <div className="col-lg-4 col-md-6 col-sm-12">
+
+                  {mainMenuArr.map(({ id, title, url, icon, children }) => {
+                    return (
+                      <div className="col-lg-4 col-md-6 col-sm-12" key={id}>
+                        <div className="info-box">
+                          <i className={icon}></i>
+                          <h3>{title}</h3>
+                          {children.map(({ title, url, children }) => {
+                            return (
+                              <div key={title} className='row'>
+                                <p><a href={url}><i className="bi bi-arrow-right"></i>{title}</a></p>
+                                <div className='mх-3'>
+                                  {
+                                    children && children.map((el) => {
+                                      return (
+                                        <p key={el.title}><a href={el.url}><i className="bi bi-dot"></i>{el.title}</a></p>
+                                      )
+                                    })
+                                  }
+                                </div>
+
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+
+                  {/* <div className="col-lg-4 col-md-6 col-sm-12">
                     <div className="info-box">
                       <i className="bi bi-mortarboard"></i>
                       <h3>Про кафедру</h3>
-                      <p><a href="kolektyv.aspx"><i className="bi bi-arrow-right"></i>Колектив кафедри</a></p>
+                      <p><a href="about/news"><i className="bi bi-arrow-right"></i>Новини кафедри</a></p>
+                      <p><a href="about/staff"><i className="bi bi-arrow-right"></i>Колектив кафедри</a></p>
                       <p><a href="about/responsibilities"><i className="bi bi-arrow-right"></i>Розподіл обов’язків</a></p>
                       <p><a href="about/history"><i className="bi bi-arrow-right"></i>Історія кафедри</a></p>
                       <p><a href="events.aspx"><i className="bi bi-arrow-right"></i>Події на кафедрі</a></p>
@@ -113,9 +170,9 @@ export default function Home({ fetchedData }) {
                       <p><a href="video.aspx"><i className="bi bi-arrow-right"></i>Відеоархів кафедри</a></p>
                       <p><a href="kadry.aspx"><i className="bi bi-arrow-right"></i>Працювали на кафедрі</a></p>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="col-lg-4 col-md-6 col-sm-12">
+                  {/* <div className="col-lg-4 col-md-6 col-sm-12">
                     <div className="info-box">
                       <i className="bi bi-lightbulb"></i>
                       <h3>Наука</h3>
@@ -186,7 +243,7 @@ export default function Home({ fetchedData }) {
                       <p><a href="energomenedzher.aspx"><i className="bi bi-arrow-right"></i>Навики та уміння енергоменеджера</a></p>
                       <p><a href="cikavi-statti.aspx"><i className="bi bi-arrow-right"></i>Цікаві статті</a></p>
                     </div>
-                  </div>
+                  </div> */}
 
                 </div>
 
@@ -807,12 +864,26 @@ export default function Home({ fetchedData }) {
   )
 }
 
+// export async function getStaticProps() {
+//   const fetchedData = await client.fetch(`*[_type == "movie"]`);
+
+//   return {
+//     props: {
+//       fetchedData
+//     }
+//   };
+// }
+
 export async function getStaticProps() {
-  const fetchedData = await client.fetch(`*[_type == "movie"]`);
+  const masterEls = await client.fetch(`*[_type == "master"]{
+      title,
+      positionNumber,
+      slug
+  }`);
 
   return {
     props: {
-      fetchedData
-    }
+      masterEls,
+    },
   };
 }
