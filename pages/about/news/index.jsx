@@ -7,9 +7,8 @@ import { useRouter } from "next/router";
 // Client connection
 import { menuItems } from "@/components/Header/menuItems";
 import { client } from "@/lib/client";
-import { itemsOrderAscTransform } from "@/lib/helpers";
-import { chapterTitleQuery, newsQuery } from "@/lib/queries";
-import { menuCreator } from "@/lib/menuCreator";
+import { mainMenuQueriesObjCreator, newsQuery } from "@/lib/queries";
+import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
@@ -18,7 +17,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 // Other libs
 import moment from "moment";
 
-const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterItems }) => {
+const News = ({ newsArr, mainMenuQO }) => {
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = newsArr.sort(
     (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
@@ -32,23 +31,14 @@ const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterIte
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
-    const transformedAbout = itemsOrderAscTransform(aboutItems, menuItems[0].children);
-    const transformedSpecialities = itemsOrderAscTransform(specialitiesItems, menuItems[1].children);
-    const transformedBachelor = itemsOrderAscTransform(bachelorItems, menuItems[2].children);
-    const transformedMaster = itemsOrderAscTransform(masterItems, menuItems[3].children);
+    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
 
     setMainMenuArr((prevState) => {
       if (prevState) {
-        return menuCreator(
-          transformedAbout,
-          transformedSpecialities,
-          transformedBachelor,
-          transformedMaster,
-          prevState
-        );
+        return menuCreator(menuObj, prevState);
       }
     });
-  }, [aboutItems, bachelorItems, masterItems, specialitiesItems]);
+  }, [newsArr, mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -59,7 +49,7 @@ const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterIte
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}
-      {pathname !== "/" && <Header mainMenuArr={mainMenuArr} />}
+      <Header mainMenuArr={mainMenuArr} />
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs chapterTitle="Про кафедру" pageTitle="Новини" pageUrl="/about/news" />
@@ -73,7 +63,7 @@ const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterIte
 
           <div className="row gy-4">
             {sortedArray.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `news/${slug.current}`;
+              const newsItemLink = `${slug.current}`;
 
               return (
                 <div
@@ -115,19 +105,12 @@ export default News;
 
 export async function getStaticProps() {
   const newsArr = await client.fetch(newsQuery);
-
-  const aboutItems = await client.fetch(chapterTitleQuery("about"));
-  const specialitiesItems = await client.fetch(chapterTitleQuery("specialities"));
-  const bachelorItems = await client.fetch(chapterTitleQuery("bachelor"));
-  const masterItems = await client.fetch(chapterTitleQuery("master"));
+  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       newsArr,
-      aboutItems,
-      specialitiesItems,
-      bachelorItems,
-      masterItems,
+      mainMenuQO,
     },
   };
 }

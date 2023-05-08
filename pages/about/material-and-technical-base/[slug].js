@@ -5,11 +5,10 @@ import Image from "next/image";
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client, clientConfig } from "@/lib/client";
-import { itemsOrderAscTransform } from '@/lib/helpers';
-import { chapterTitleQuery, chapterPageQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator } from '@/lib/menuCreator';
+import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
+import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
+import { urlFor } from '@/lib/client';
 
 import BlockContent from "@sanity/block-content-to-react";
 
@@ -23,55 +22,40 @@ import "yet-another-react-lightbox/styles.css";
 
 
 const AboutMTBPage = ({
-  aboutItems,
-  // aboutMTBItems,
-  specialitiesItems,
-  bachelorItems,
-  masterItems,
   aboutMTBPage,
+  mainMenuQO,
 }) => {
 
   const [open, setOpen] = useState(false);
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
-  // console.log(props);
+  // console.log('aboutMTBPage :>> ', aboutMTBPage);
 
   const { title, body, position, slug, } = aboutMTBPage;
   // const name = `${firstName} ${secondName} ${fatherName}`
   // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
 
+  // MENU FORMATION PART ==============================================
+
+  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
+
   useEffect(() => {
 
-    const menuItemsObj = {
-      aboutItems,
-      // aboutMTBItems,
-      specialitiesItems,
-      bachelorItems,
-      masterItems,
-      aboutMTBPage,
-    }
-
-    menuItemsMerger(menuItemsObj)
-
-    const transformedAbout = itemsOrderAscTransform(aboutItems, menuItems[0].children);
-    // const transformedAboutMTB = itemsOrderAscTransform(aboutMTBItems, menuItems[5].children);
-    const transformedSpecialities = itemsOrderAscTransform(specialitiesItems, menuItems[1].children);
-    const transformedBachelor = itemsOrderAscTransform(bachelorItems, menuItems[2].children);
-    const transformedMaster = itemsOrderAscTransform(masterItems, menuItems[3].children);
+    const menuObj = menuItemsMerger(
+      menuItems,
+      mainMenuQO,
+    )
 
     setMainMenuArr((prevState) => {
       if (prevState) {
         return menuCreator(
-          transformedAbout,
-          // transformedAboutMTB,
-          transformedSpecialities,
-          transformedBachelor,
-          transformedMaster,
+          menuObj,
           prevState,
         )
       }
     });
-  }, [aboutItems, bachelorItems, masterItems, specialitiesItems]);
+  }, [aboutMTBPage, mainMenuQO]);
+
+  // MENU FORMATION PART ENDS =========================================
 
 
   // console.log('mainMenuArr :>> ', mainMenuArr);
@@ -89,8 +73,10 @@ const AboutMTBPage = ({
 
       <Breadcrumbs
         chapterTitle="Про кафедру"
-        pageTitle={title}
-        pageUrl={slug.current.slice(6)}
+        pageTitle="Матеріально-технічна база"
+        pageUrl={null}
+        subPageTitle={title}
+        subPageUrl={slug.current}
       />
 
       {/* < !-- ======= Features Section ======= --> */}
@@ -143,10 +129,9 @@ export default AboutMTBPage;
 
 export async function getStaticPaths() {
   const pages = await client.fetch(slugCurrent("about-mtb"));
-
-  const paths = pages.map((aboutMTB) => ({
+  const paths = pages.map((page) => ({
     params: {
-      slug: aboutMTB.slug.current
+      slug: page.slug.current
     }
   }));
   return {
@@ -155,22 +140,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const aboutMTBPage = await client.fetch(chapterPageQuery("about-mtb", slug));
 
-  const aboutItems = await client.fetch(chapterTitleQuery("about"));
-  const aboutMTBItems = await client.fetch(chapterTitleQuery("about-mtb"));
-  const specialitiesItems = await client.fetch(chapterTitleQuery("specialities"));
-  const bachelorItems = await client.fetch(chapterTitleQuery("bachelor"));
-  const masterItems = await client.fetch(chapterTitleQuery("master"));
+  // console.log('slug :>> ', slug);
+
+  const aboutMTBPage = await client.fetch(chapterItemQuery("about-mtb", `/about/material-and-technical-base/${slug}`));
+  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      aboutItems,
-      aboutMTBItems,
-      specialitiesItems,
-      bachelorItems,
-      masterItems,
       aboutMTBPage,
+      mainMenuQO,
     }
   }
 }

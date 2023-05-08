@@ -8,9 +8,8 @@ import BlockContent from "@sanity/block-content-to-react";
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client, clientConfig } from "@/lib/client";
-import { itemsOrderAscTransform } from '@/lib/helpers';
-import { chapterTitleQuery, chapterItemQuery } from '@/lib/queries';
-import { menuCreator } from '@/lib/menuCreator';
+import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
+import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 // Components
 import Header from "/components/Header/Header";
@@ -24,10 +23,7 @@ import "yet-another-react-lightbox/styles.css";
 
 const PersonInfo = ({
   personItem,
-  aboutItems,
-  specialitiesItems,
-  bachelorItems,
-  masterItems,
+  mainMenuQO,
 }) => {
 
   const [open, setOpen] = useState(false);
@@ -75,22 +71,20 @@ const PersonInfo = ({
 
   useEffect(() => {
 
-    const transformedAbout = itemsOrderAscTransform(aboutItems, menuItems[0].children);
-    const transformedSpecialities = itemsOrderAscTransform(specialitiesItems, menuItems[1].children);
-    const transformedBachelor = itemsOrderAscTransform(bachelorItems, menuItems[2].children);
-    const transformedMaster = itemsOrderAscTransform(masterItems, menuItems[3].children);
+    const menuObj = menuItemsMerger(
+      menuItems,
+      mainMenuQO,
+    )
 
     setMainMenuArr((prevState) => {
       if (prevState) {
         return menuCreator(
-          transformedAbout, transformedSpecialities, transformedBachelor, transformedMaster,
+          menuObj,
           prevState,
         )
       }
     });
-  }, [aboutItems, bachelorItems, masterItems, specialitiesItems]);
-
-
+  }, [personItem, mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -105,7 +99,7 @@ const PersonInfo = ({
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}
-      {pathname !== "/" && <Header mainMenuArr={mainMenuArr} />}
+      <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
         chapterTitle="Про кафедру"
@@ -316,12 +310,8 @@ const PersonInfo = ({
 export default PersonInfo;
 
 export async function getStaticPaths() {
-  const query = `*[type=='person']{
-slug{
-  current
-}
-  }`;
-  const persons = await client.fetch(query);
+
+  const persons = await client.fetch(slugCurrent("person"));
   const paths = persons.map((person) => ({
     params: {
       slug: person.slug.current
@@ -335,19 +325,12 @@ slug{
 export async function getStaticProps({ params: { slug } }) {
 
   const personItem = await client.fetch(chapterItemQuery("person", slug));
-
-  const aboutItems = await client.fetch(chapterTitleQuery("about"));
-  const specialitiesItems = await client.fetch(chapterTitleQuery("specialities"));
-  const bachelorItems = await client.fetch(chapterTitleQuery("bachelor"));
-  const masterItems = await client.fetch(chapterTitleQuery("master"));
+  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       personItem,
-      aboutItems,
-      specialitiesItems,
-      bachelorItems,
-      masterItems,
+      mainMenuQO,
     }
   }
 }

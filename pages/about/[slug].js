@@ -5,9 +5,8 @@ import Image from "next/image";
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client, clientConfig } from "@/lib/client";
-import { itemsOrderAscTransform } from '@/lib/helpers';
-import { chapterTitleQuery, chapterPageQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator } from '@/lib/menuCreator';
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from '@/lib/queries';
+import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 import { urlFor } from "../../lib/client";
 
@@ -22,13 +21,7 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 
-const AboutPage = ({
-  aboutItems,
-  specialitiesItems,
-  bachelorItems,
-  masterItems,
-  aboutPage,
-}) => {
+const AboutPage = ({ aboutPage, mainMenuQO }) => {
 
   const [open, setOpen] = useState(false);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -41,20 +34,20 @@ const AboutPage = ({
 
   useEffect(() => {
 
-    const transformedAbout = itemsOrderAscTransform(aboutItems, menuItems[0].children);
-    const transformedSpecialities = itemsOrderAscTransform(specialitiesItems, menuItems[1].children);
-    const transformedBachelor = itemsOrderAscTransform(bachelorItems, menuItems[2].children);
-    const transformedMaster = itemsOrderAscTransform(masterItems, menuItems[3].children);
+    const menuObj = menuItemsMerger(
+      menuItems,
+      mainMenuQO,
+    )
 
     setMainMenuArr((prevState) => {
       if (prevState) {
         return menuCreator(
-          transformedAbout, transformedSpecialities, transformedBachelor, transformedMaster,
+          menuObj,
           prevState,
         )
       }
     });
-  }, [aboutItems, bachelorItems, masterItems, specialitiesItems]);
+  }, [aboutPage, mainMenuQO]);
 
 
   // console.log('mainMenuArr :>> ', mainMenuArr);
@@ -138,20 +131,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const aboutPage = await client.fetch(chapterPageQuery("about", slug));
 
-  const aboutItems = await client.fetch(chapterTitleQuery("about"));
-  const specialitiesItems = await client.fetch(chapterTitleQuery("specialities"));
-  const bachelorItems = await client.fetch(chapterTitleQuery("bachelor"));
-  const masterItems = await client.fetch(chapterTitleQuery("master"));
+  const aboutPage = await client.fetch(chapterPageQuery("about", slug));
+  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      aboutItems,
-      specialitiesItems,
-      bachelorItems,
-      masterItems,
       aboutPage,
+      mainMenuQO,
     }
   }
 }

@@ -5,10 +5,8 @@ import { Inter } from 'next/font/google';
 
 import { menuItems } from '@/components/Header/menuItems';
 import { client } from "@/lib/client";
-import { itemsOrderAscTransform } from '@/lib/helpers';
-import { chapterTitleQuery } from '@/lib/queries';
-
-import { menuCreator } from '@/lib/menuCreator';
+import { mainMenuQueriesObjCreator } from '@/lib/queries';
+import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 // import styles from '@/styles/Home.module.css'
 
 
@@ -37,31 +35,27 @@ import Andriychuk from '../public/assets/img/team/andriychuk.jpg'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({
-  aboutItems,
-  specialitiesItems,
-  bachelorItems,
-  masterItems,
-}) {
+export default function Home({ mainMenuQO }) {
+
   const [purecounter, setPurecounter] = useState(0);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
 
-    const transformedAbout = itemsOrderAscTransform(aboutItems, menuItems[0].children);
-    const transformedSpecialities = itemsOrderAscTransform(specialitiesItems, menuItems[1].children);
-    const transformedBachelor = itemsOrderAscTransform(bachelorItems, menuItems[2].children);
-    const transformedMaster = itemsOrderAscTransform(masterItems, menuItems[3].children);
+    const menuObj = menuItemsMerger(
+      menuItems,
+      mainMenuQO,
+    )
 
     setMainMenuArr((prevState) => {
       if (prevState) {
         return menuCreator(
-          transformedAbout, transformedSpecialities, transformedBachelor, transformedMaster,
+          menuObj,
           prevState,
         )
       }
     });
-  }, [aboutItems, bachelorItems, masterItems, specialitiesItems]);
+  }, [mainMenuQO]);
 
 
 
@@ -872,17 +866,11 @@ export default function Home({
 
 export async function getStaticProps() {
 
-  const aboutItems = await client.fetch(chapterTitleQuery("about"));
-  const specialitiesItems = await client.fetch(chapterTitleQuery("specialities"));
-  const bachelorItems = await client.fetch(chapterTitleQuery("bachelor"));
-  const masterItems = await client.fetch(chapterTitleQuery("master"));
+  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      aboutItems,
-      specialitiesItems,
-      bachelorItems,
-      masterItems,
+      mainMenuQO
     },
   };
 }

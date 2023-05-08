@@ -8,26 +8,37 @@ import { useRouter } from "next/router";
 // Client connection
 import { menuItems } from "@/components/Header/menuItems";
 import { client } from "@/lib/client";
-import { itemsOrderAscTransform } from "@/lib/helpers";
-import { chapterTitleQuery, newsQuery } from "@/lib/queries";
-import { menuCreator } from "@/lib/menuCreator";
+import { staffListQuery, mainMenuQueriesObjCreator } from "@/lib/queries";
+import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
-const Staff = ({ fetchedData }) => {
+const Staff = ({ staffData, mainMenuQO }) => {
   // console.log("Staff page data:", fetchedData);
 
-  const sortedArray = fetchedData.sort((a, b) => b.weight - a.weight);
+  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
-  // console.log("client :>> ", client);
+  const sortedArray = staffData.sort((a, b) => b.weight - a.weight);
+
+  useEffect(() => {
+    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
+
+    setMainMenuArr((prevState) => {
+      if (prevState) {
+        return menuCreator(menuObj, prevState);
+      }
+    });
+  }, [staffData, mainMenuQO]);
 
   return (
     <>
       <Head>
         <title>Кафедра електричної інженерії ТНТУ :: Історія кафедри</title>
       </Head>
+
+      <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs chapterTitle="Про кафедру" pageTitle="Колектив" pageUrl="/about/staff" />
 
@@ -156,23 +167,13 @@ const Staff = ({ fetchedData }) => {
 export default Staff;
 
 export async function getStaticProps() {
-  const fetchedData = await client.fetch(
-    `*[_type == "person"] {
-        firstName,
-        secondName,
-        fatherName,
-        sciDegree,
-        acadStatus,
-        position,
-        mainPhoto,
-        weight,
-        slug,
-      }`
-  );
+  const staffData = await client.fetch(staffListQuery);
+  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      fetchedData,
+      staffData,
+      mainMenuQO,
     },
   };
 }
