@@ -18,9 +18,12 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 // Other libs
 import moment from "moment";
 
-const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterItems }) => {
+const Seminars = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterItems }) => {
+  console.log('newsArr :>> ', newsArr);
+  // Фільтрую масив і залишаю лише ті новини, що містять поле studentsDevs
+  const filteredArray = newsArr.filter(item => item.studentsDevs);
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
-  const sortedArray = newsArr.sort(
+  const sortedArray = filteredArray.sort(
     (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
   );
 
@@ -55,20 +58,20 @@ const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterIte
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: Новини</title>
+        <title>Кафедра електричної інженерії ТНТУ :: Розробки студентів</title>
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}
       {pathname !== "/" && <Header mainMenuArr={mainMenuArr} />}
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
-      <Breadcrumbs chapterTitle="Про кафедру" pageTitle="Новини" pageUrl="/about/news" />
+      <Breadcrumbs chapterTitle="Про кафедру" pageTitle="Матеріально-технічна база" subPageUrl="devs-of-students" subPageTitle="Розробки студентів" />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>НОВИНИ КАФЕДРИ</p>
+            <p>РОЗРОБКИ СТУДЕНТІВ</p>
           </header>
 
           <div className="row gy-4">
@@ -111,7 +114,7 @@ const News = ({ newsArr, aboutItems, specialitiesItems, bachelorItems, masterIte
   );
 };
 
-export default News;
+export default Seminars;
 
 export async function getStaticProps() {
   const newsArr = await client.fetch(newsQuery);

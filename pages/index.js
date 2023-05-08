@@ -2,12 +2,19 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google';
+
 import { menuItems } from '@/components/Header/menuItems';
 import { client } from "@/lib/client";
-import { arrayNormalization } from '@/lib/helpers';
+import { itemsOrderAscTransform } from '@/lib/helpers';
+import { chapterTitleQuery } from '@/lib/queries';
+
+import { menuCreator } from '@/lib/menuCreator';
 // import styles from '@/styles/Home.module.css'
 
+
+
 // Components
+import Header from "/components/Header/Header";
 
 // Images
 import electricMan from '../public/assets/img/hero-img.png'
@@ -26,40 +33,36 @@ import Koval from '../public/assets/img/team/koval.jpg'
 import Lupenko from '../public/assets/img/team/lupenko.jpg'
 import Andriychuk from '../public/assets/img/team/andriychuk.jpg'
 
-// Client connection
-// import { client } from "../lib/client";
-
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ masterEls }) {
-
+export default function Home({
+  aboutItems,
+  specialitiesItems,
+  bachelorItems,
+  masterItems,
+}) {
   const [purecounter, setPurecounter] = useState(0);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-  const [masterArr, setMasterArr] = useState(menuItems[3].children);
 
   useEffect(() => {
-    const transformedArr = arrayNormalization(masterEls);
+
+    const transformedAbout = itemsOrderAscTransform(aboutItems, menuItems[0].children);
+    const transformedSpecialities = itemsOrderAscTransform(specialitiesItems, menuItems[1].children);
+    const transformedBachelor = itemsOrderAscTransform(bachelorItems, menuItems[2].children);
+    const transformedMaster = itemsOrderAscTransform(masterItems, menuItems[3].children);
 
     setMainMenuArr((prevState) => {
       if (prevState) {
-        return prevState.map((item, index) => {
-          // Тут можна через решту IF додати інші масиви в інші об'єкти
-          if (index === 3) {
-            return {
-              ...item,
-              children: [...masterArr, ...transformedArr],
-            };
-          }
-          return item;
-        });
+        return menuCreator(
+          transformedAbout, transformedSpecialities, transformedBachelor, transformedMaster,
+          prevState,
+        )
       }
-      return prevState;
     });
-  }, [masterArr, masterEls]);
+  }, [aboutItems, bachelorItems, masterItems, specialitiesItems]);
 
-  console.log('mainMenuArr UPD:>> ', mainMenuArr);
 
 
 
@@ -74,6 +77,7 @@ export default function Home({ masterEls }) {
 
       <>
 
+        <Header mainMenuArr={mainMenuArr} />
 
         {/* ======= Hero Section ======= */}
         <section id="hero" className="hero d-flex align-items-center">
@@ -864,26 +868,21 @@ export default function Home({ masterEls }) {
   )
 }
 
-// export async function getStaticProps() {
-//   const fetchedData = await client.fetch(`*[_type == "movie"]`);
 
-//   return {
-//     props: {
-//       fetchedData
-//     }
-//   };
-// }
 
 export async function getStaticProps() {
-  const masterEls = await client.fetch(`*[_type == "master"]{
-      title,
-      positionNumber,
-      slug
-  }`);
+
+  const aboutItems = await client.fetch(chapterTitleQuery("about"));
+  const specialitiesItems = await client.fetch(chapterTitleQuery("specialities"));
+  const bachelorItems = await client.fetch(chapterTitleQuery("bachelor"));
+  const masterItems = await client.fetch(chapterTitleQuery("master"));
 
   return {
     props: {
-      masterEls,
+      aboutItems,
+      specialitiesItems,
+      bachelorItems,
+      masterItems,
     },
   };
 }

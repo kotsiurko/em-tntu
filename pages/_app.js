@@ -1,6 +1,6 @@
 import Layout from '../components/Layout/Layout'
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -16,6 +16,8 @@ import "../public/assets/css/style.css"
 // Custom styles
 import "styles/styles.css"
 
+
+
 export default function App({ Component, pageProps }) {
 
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function App({ Component, pageProps }) {
       // duration: 15,
     });
   }, [])
+
 
   return (
     <Layout>

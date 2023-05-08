@@ -1,26 +1,17 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { menuItems } from "./menuItems";
 
-// Client connection
-// import { createClient } from "@sanity/client";
-// import { createClient } from "next-sanity";
-// import { client } from "../../lib/client";
+// import { menuItems } from "./menuItems";
 
 // Images
 import headerLogo from "../../public/assets/img/logo-header-new.png";
 
-// const client = createClient({
-//   projectId: "asnyakur",
-//   dataset: "production",
-//   apiVersion: "2023-04-02",
-//   // token: process.env.MAIN_TOKEN,
-//   useCdn: true, // optional, enable if you want to use the Content Delivery Network
-// });
+const Header = (props) => {
+  // console.log("props :>> ", props);
+  const { mainMenuArr } = props;
+  // console.log("mainMenuArr from HEADER:>> ", mainMenuArr);
 
-const Header = ({ menuArrray }) => {
   const [data, setData] = useState([]);
-  // console.log("fetchedData :>> ", fetchedData);
 
   const [headerStyles, setHeaderStyles] = useState("header fixed-top");
 
@@ -99,7 +90,7 @@ const Header = ({ menuArrray }) => {
   return (
     <>
       <header id="header" className={headerStyles}>
-        <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+        <div className="container-fluid container-xl">
           {/* NEED TO FIX ON PRODUCTION */}
           <a href="http://localhost:3000" className="logo d-flex align-items-center">
             <Image src={headerLogo} alt="Header Logo" />
@@ -110,7 +101,7 @@ const Header = ({ menuArrray }) => {
           {/* МЕНЮ ДИНАМІЧНО ПІДСТАВЛЯЄТЬСЯ ІЗ МАСИВУ ОБ'ЄКТІВ menuItems */}
           <nav id="navbar" className={isMobileMenuOpen ? "navbar navbar-mobile" : "navbar"}>
             <ul>
-              {menuItems.map(({ id, title, url, children }) => {
+              {mainMenuArr.map(({ id, title, url, children }) => {
                 return (
                   <li
                     className={children.length > 0 ? "dropdown" : null}
@@ -191,13 +182,3 @@ const Header = ({ menuArrray }) => {
 };
 
 export default Header;
-
-// export async function getStaticProps() {
-//   const fetchedData = await client.fetch(`*[_type=='siteMenu']`);
-
-//   return {
-//     props: {
-//       fetchedData,
-//     },
-//   };
-// }

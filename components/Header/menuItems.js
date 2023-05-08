@@ -8,38 +8,32 @@ export const menuItems = [
       {
         title: "Події на кафедрі",
         url: "/about/news",
-        id: 110,
+        id: 101,
       },
-      {
-        title: "Історія кафедри",
-        url: "/about/history",
-        id: 120,
-      },
-      {
-        title: "Концепція розвитку кафедри",
-        url: "/about/concept",
-        id: 130,
-      },
+      // тут інші пункти з адмінки
       {
         title: "Колектив кафедри",
         url: "/about/staff",
-        id: 140,
+        id: 130,
       },
       {
-        title: "Підвищення кваліфікації",
-        url: "/about/certification-training",
+        title: "Матеріально-технічна база",
+        url: null,
         id: 150,
+        children: [
+          {
+            title: "Семінари",
+            url: "/about/material-and-technical-base/seminars",
+            id: 15030,
+          },
+          {
+            title: "Розробки студентів",
+            url: "/about/material-and-technical-base/devs-of-students",
+            id: 15040,
+          },
+        ]
       },
-      {
-        title: "Матеріально-технічна база кафедри",
-        url: "/about/material-technical-base",
-        id: 160,
-      },
-      {
-        title: "Контакти",
-        url: "/about/contacts",
-        id: 170,
-      },
+      // тут решта сторінок з адмінки
     ],
   },
   {
@@ -49,24 +43,8 @@ export const menuItems = [
     icon: "bi bi-wrench",
     children: [
       {
-        title: "Електроенергетика, електротехніка та електромеханіка",
-        url: "/specialities/ee-et-em",
-        id: 210,
-      },
-      {
-        title: "Енергетичний менеджмент та енергоефективність",
-        url: "/specialities/em-ee",
-        id: 220,
-      },
-      {
-        title: "Випускники",
-        url: "/specialities/alumni",
-        id: 230,
-      },
-      {
         title: "Наші стейкхолдери",
-        // url: "/specialities/stakeholders",
-        url: "#",
+        url: "/specialities/stakeholders",
         id: 240,
         children: [
           {
@@ -86,49 +64,6 @@ export const menuItems = [
           },
         ],
       },
-      {
-        title: "Практико-орієнтована освіта",
-        url: "/specialities/practice-oriented-education",
-        id: 250,
-      },
-      {
-        title: "Тематичні екскурсії",
-        // url: "/specialities/thematic-excursions",
-        url: "#",
-        id: 260,
-        children: [
-          {
-            title: "Експертна рада роботодавців",
-            url: "/specialities/stakeholders/employers-expert-council",
-            id: 26010,
-          },
-          {
-            title: "Комунікації із стейкхолдерами",
-            url: "/specialities/stakeholders/communications-with-stakeholders",
-            id: 26020,
-          },
-          {
-            title: "Положення",
-            url: "/specialities/stakeholders/principles",
-            id: 26030,
-          },
-        ],
-      },
-      {
-        title: "Неформальна освіта",
-        url: "/specialities/non-formal-education",
-        id: 270,
-      },
-      {
-        title: "Дуальна освіта",
-        url: "/specialities/dual-education",
-        id: 280,
-      },
-      {
-        title: "Психологічна підтримка студентів",
-        url: "/specialities/students-psychological-support",
-        id: 290,
-      },
     ],
   },
   {
@@ -143,18 +78,7 @@ export const menuItems = [
     title: "Магістру",
     url: "#",
     icon: "bi bi-emoji-sunglasses",
-    children: [
-      {
-        title: "Електроенергетика, електротехніка та електромеханіка",
-        url: "master/ee-et-em",
-        id: 401,
-      },
-      {
-        title: "Енергетичний менеджмент та енергоефективність",
-        url: "master/em-ee",
-        id: 402,
-      },
-    ],
+    children: [],
   },
   {
     id: 5,
@@ -165,7 +89,7 @@ export const menuItems = [
   },
   {
     id: 6,
-    title: "Наукова діяльність",
+    title: "Наука",
     url: "#",
     icon: "bi bi-lightbulb",
     children: [],

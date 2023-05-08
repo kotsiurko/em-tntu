@@ -1,9 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import { urlFor } from "../../../lib/client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // Client connection
-import { client } from "../../../lib/client";
+// Client connection
+import { menuItems } from "@/components/Header/menuItems";
+import { client } from "@/lib/client";
+import { itemsOrderAscTransform } from "@/lib/helpers";
+import { chapterTitleQuery, newsQuery } from "@/lib/queries";
+import { menuCreator } from "@/lib/menuCreator";
+
+// Components
+import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
 const Staff = ({ fetchedData }) => {

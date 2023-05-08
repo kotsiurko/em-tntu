@@ -1,5 +1,6 @@
 // Client connection
 import { client, clientConfig } from "../../lib/client";
+import { chapterItemQuery, slugCurrent } from "@/lib/queries";
 
 import Image from "next/image";
 import { urlFor } from "../../lib/client";
@@ -81,11 +82,14 @@ const MasterPage = ({ masterPageData }) => {
 export default MasterPage;
 
 export async function getStaticPaths() {
-  const query = `*[type=='master']{
-slug{
-  current
-}
-  }`;
+  const query = slugCurrent('master');
+
+  //   `*[type=='master']{
+  // slug{
+  //   current
+  // }
+  //   }`;
+
   const pages = await client.fetch(query);
   const paths = pages.map((master) => ({
     params: {
@@ -98,7 +102,9 @@ slug{
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const query = `*[_type=='master' && slug.current == '${slug}'][0]`;
+  const query = chapterItemQuery('master', slug);
+
+  // `*[_type=='master' && slug.current == '${slug}'][0]`;
 
   const masterPageData = await client.fetch(query);
 

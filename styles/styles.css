@@ -153,6 +153,16 @@ th.counter-width {
 }
 
 /* BREADCRUMBS */
+.breadcrumbs {
+    min-height: 0;
+    margin-top: 82px;
+}
+@media (max-width: 1366px) {
+    .breadcrumbs {
+        margin-top: 66px;
+    }
+}
+
 .breadcrumbs ol{
     padding: 0;
 }
@@ -160,4 +170,59 @@ th.counter-width {
 .features.my-personal figure {
     display: flex;
     justify-content: center;
+}
+
+
+/* NAVBAR */
+.navbar a,
+.navbar a:focus {
+    padding: 10px 15px 10px 5px;
+    font-size: 14px;
+    letter-spacing: -.02em;
+    font-weight: 700;
+}
+
+/* На випадок, якщо меню все ж буде зменшене */
+.navbar-mobile ul {
+    padding-left: 20px;
+}
+
+/* @media (max-width: 1399px) {
+    .navbar a,
+    .navbar a:focus {
+        padding: 10px 15px 10px 0;
+        font-weight: 500;
+    }
+} */
+
+/* mobile menu appearing width */
+@media (max-width: 1366px) {
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .navbar ul {
+    display: none;
+  }
+
+  .navbar-mobile ul {
+    display: block;
+  }
+}
+
+
+/* ---------------------- */
+
+
+header .container-fluid.container-xl {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1366px) {
+    header .container-fluid.container-xl {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
