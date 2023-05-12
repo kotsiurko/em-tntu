@@ -44,25 +44,35 @@ export const menuItems = [
     children: [
       {
         title: "Наші стейкхолдери",
-        url: "/specialities/stakeholders",
+        url: null,
         id: 240,
         children: [
           {
-            title: "Експертна рада роботодавців",
-            url: "/specialities/stakeholders/employers-expert-council",
-            id: 24010,
-          },
-          {
             title: "Комунікації із стейкхолдерами",
             url: "/specialities/stakeholders/communications-with-stakeholders",
-            id: 24020,
-          },
-          {
-            title: "Положення",
-            url: "/specialities/stakeholders/principles",
             id: 24030,
           },
         ],
+      },
+      {
+        title: "Практико-орієнтована освіта",
+        url: '/specialities/practice-oriented-education',
+        id: 250,
+      },
+      {
+        title: "Тематичні екскурсії",
+        url: '/specialities/thematic-excursions',
+        id: 260,
+      },
+      {
+        title: "Дуальна освіта",
+        url: '/specialities/dual-education',
+        id: 280,
+      },
+      {
+        title: "Психологічна підтримка студентів",
+        url: '/specialities/students-psychological-support',
+        id: 290,
       },
     ],
   },
@@ -71,14 +81,40 @@ export const menuItems = [
     title: "Бакалавру",
     url: "#",
     icon: "bi bi-emoji-laughing",
-    children: [],
+    children: [
+      {
+        title: "Освітньо-професійні програми",
+        url: null,
+        id: 310,
+        children: [
+          {
+            title: "Зустрічі",
+            url: "/bachelor/educational-and-professional-programs/meetings",
+            id: 31050,
+          },
+        ],
+      },
+    ],
   },
   {
     id: 4,
     title: "Магістру",
     url: "#",
     icon: "bi bi-emoji-sunglasses",
-    children: [],
+    children: [
+      {
+        title: "Освітньо-професійні програми",
+        url: null,
+        id: 410,
+        children: [
+          {
+            title: "Зустрічі",
+            url: "/master/educational-and-professional-programs/meetings",
+            id: 41050,
+          },
+        ],
+      },
+    ],
   },
   {
     id: 5,

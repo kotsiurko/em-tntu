@@ -17,12 +17,14 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 // Other libs
 import moment from "moment";
 
-const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
-  // Фільтрую масив і залишаю лише ті новини, що містять поле studentsDevs
-  const filteredArray = newsArr.filter((item) => item.studentsDevsBool);
+const DualEducationNews = ({ newsArr, mainMenuQO }) => {
+  // Фільтрую масив і залишаю лише ті новини, що містять поле seninars
+  const filteredArray = newsArr.filter((item) => item.dualEducationBool);
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
+    (a, b) =>
+      moment(b.publishedDate).format("YYYYMMDDHHmm") -
+      moment(a.publishedDate).format("YYYYMMDDHHmm")
   );
 
   const router = useRouter();
@@ -47,7 +49,7 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: Розробки студентів</title>
+        <title>Кафедра електричної інженерії ТНТУ :: Дуальна освіта</title>
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}
@@ -55,51 +57,61 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
-        chapterTitle="Про кафедру"
-        pageTitle="Матеріально-технічна база"
-        subPageUrl="devs-of-students"
-        subPageTitle="Розробки студентів"
+        chapterTitle="Спеціальності"
+        pageTitle="Дуальна освіта"
+        pageUrl="dual-education"
       />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>РОЗРОБКИ СТУДЕНТІВ</p>
+            <p>ДУАЛЬНА ОСВІТА</p>
           </header>
 
           <div className="row gy-4">
-            {sortedArray.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
+            {sortedArray.map(
+              ({
+                newsTitle,
+                publishedDate,
+                newsItemBodyShort,
+                mainPhoto,
+                slug,
+              }) => {
+                const newsItemLink = `${slug.current}`;
 
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={newsTitle}
-                >
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(mainPhoto).url()}
-                        className="img-fluid"
-                        alt={mainPhoto.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
+                return (
+                  <div
+                    className="col-lg-6 d-flex align-items-stretch"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                    key={newsTitle}
+                  >
+                    <div className="member news">
+                      <div className="position-relative">
+                        <Image
+                          src={urlFor(mainPhoto).url()}
+                          className="img-fluid"
+                          alt={mainPhoto.caption}
+                          width={440}
+                          height={280}
+                        />
+                      </div>
+                      <div className="member-info news">
+                        <a href={newsItemLink}>
+                          <h4>{newsTitle}</h4>
+                        </a>
+                        <p className="publishDate">
+                          Опубліковано:{" "}
+                          {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
+                        </p>
+                        <p>{newsItemBodyShort}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </div>
         </div>
       </section>
@@ -108,7 +120,7 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
   );
 };
 
-export default DevsOfStudents;
+export default DualEducationNews;
 
 export async function getStaticProps() {
   const newsArr = await client.fetch(newsQuery);

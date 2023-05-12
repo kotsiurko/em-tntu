@@ -17,9 +17,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 // Other libs
 import moment from "moment";
 
-const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
-  // Фільтрую масив і залишаю лише ті новини, що містять поле studentsDevs
-  const filteredArray = newsArr.filter((item) => item.studentsDevsBool);
+const PracticeOrientedEducationNews = ({ newsArr, mainMenuQO }) => {
+  // Фільтрую масив і залишаю лише ті новини, що містять поле seninars
+  const filteredArray = newsArr.filter((item) => item.practiceOrientedEducationBool);
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort(
     (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
@@ -47,7 +47,7 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: Розробки студентів</title>
+        <title>Кафедра електричної інженерії ТНТУ :: Практико-орієнтована освіта </title>
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}
@@ -55,17 +55,16 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
-        chapterTitle="Про кафедру"
-        pageTitle="Матеріально-технічна база"
-        subPageUrl="devs-of-students"
-        subPageTitle="Розробки студентів"
+        chapterTitle="Спеціальності"
+        pageTitle="Практико-орієнтована освіта"
+        pageUrl="practice-oriented-education"
       />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>РОЗРОБКИ СТУДЕНТІВ</p>
+            <p>ПРАКТИКО-ОРІЄНТОВАНА ОСВІТА</p>
           </header>
 
           <div className="row gy-4">
@@ -108,7 +107,7 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
   );
 };
 
-export default DevsOfStudents;
+export default PracticeOrientedEducationNews;
 
 export async function getStaticProps() {
   const newsArr = await client.fetch(newsQuery);

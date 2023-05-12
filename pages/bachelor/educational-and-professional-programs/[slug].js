@@ -5,10 +5,10 @@ import Image from "next/image";
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client, clientConfig } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
+import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
+import { urlFor } from "../../../lib/client";
 
 import BlockContent from "@sanity/block-content-to-react";
 
@@ -22,20 +22,13 @@ import "yet-another-react-lightbox/styles.css";
 import moment from "moment";
 
 
-const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
+const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
 
   const [open, setOpen] = useState(false);
 
-  const { title, body, positionNumber, slug, academicHonesty, } = masterPage;
+  const { title, body, positionNumber, slug, } = masterEPPPage;
   // const name = `${firstName} ${secondName} ${fatherName}`
   // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
-
-  // Фільтрую масив і залишаю лише ті новини, що містять поле academicHonestyBool
-  const filteredArray = newsArr.filter((item) => item.masterAcademicHonestyBool);
-  // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
-  const sortedArray = filteredArray.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -54,7 +47,7 @@ const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
         )
       }
     });
-  }, [masterPage, mainMenuQO]);
+  }, [masterEPPPage, mainMenuQO]);
 
   return (
     <>
@@ -69,8 +62,10 @@ const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
 
       <Breadcrumbs
         chapterTitle="Магістру"
-        pageTitle={title}
-        pageUrl={slug.current}
+        pageTitle="Освітньо-професійні програми"
+        pageUrl={null}
+        subPageTitle={title}
+        subPageUrl={slug.current}
       />
 
       {/* < !-- ======= Features Section ======= --> */}
@@ -114,69 +109,19 @@ const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
         </div >
       </section >
       {/* <!--End Features Section-- > */}
-
-
-      {(academicHonesty && sortedArray) && <section id="team" className="team">
-        <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>Події розділу</p>
-          </header>
-
-          <div className="row gy-4">
-            {sortedArray.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
-
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={newsTitle}
-                >
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(mainPhoto).url()}
-                        className="img-fluid"
-                        alt={mainPhoto.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>}
     </>
   )
 }
 
 
-export default MasterPage;
+export default MasterPPPage;
 
 export async function getStaticPaths() {
-  const query = slugCurrent('master');
+  const pages = await client.fetch(slugCurrent('master'));
 
-  //   `*[type=='master']{
-  // slug{
-  //   current
-  // }
-  //   }`;
-
-  const pages = await client.fetch(query);
-  const paths = pages.map((master) => ({
+  const paths = pages.map((page) => ({
     params: {
-      slug: master.slug.current
+      slug: page.slug.current
     }
   }));
   return {
@@ -186,15 +131,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  const masterPage = await client.fetch(chapterPageQuery('master', slug));
+  const masterEPPPage = await client.fetch(chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`));
   const mainMenuQO = await mainMenuQueriesObjCreator();
-  const newsArr = await client.fetch(newsQuery);
 
   return {
     props: {
-      masterPage,
+      masterEPPPage,
       mainMenuQO,
-      newsArr,
     }
   }
 }

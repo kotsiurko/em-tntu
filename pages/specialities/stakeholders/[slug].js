@@ -1,33 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from "react";
 import Head from 'next/head'
+import { useRouter } from "next/router";
+import { urlFor } from "../../../lib/client";
 import Image from "next/image";
+import BlockContent from "@sanity/block-content-to-react";
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client, clientConfig } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from '@/lib/queries';
+import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
-
-import BlockContent from "@sanity/block-content-to-react";
-
 // Components
-import Header from '@/components/Header/Header';
+import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
 // Other libs
-import Lightbox from "yet-another-react-lightbox";
+import moment from "moment";
+import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 
-const AboutPage = ({ aboutPage, mainMenuQO }) => {
+
+const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
 
   const [open, setOpen] = useState(false);
 
-  const { title, body, position, slug, } = aboutPage;
-  // const name = `${firstName} ${secondName} ${fatherName}`
-  // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
+  const { title, body, position, slug, } = stakeholdersPage;
+
+  // const galleryImgArr = [{ src: urlFor(mainPhoto).url() }];
+
+  const router = useRouter();
+  const { pathname } = router;
+
+  // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -46,10 +52,12 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
         )
       }
     });
-  }, [aboutPage, mainMenuQO]);
+  }, [stakeholdersPage, mainMenuQO]);
 
 
-  // console.log('mainMenuArr :>> ', mainMenuArr);
+
+  // MENU FORMATION PART ENDS =========================================
+
 
   return (
     <>
@@ -60,12 +68,21 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
+      {/* В хедер треба передавати вже сформований масив */}
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
-        pageTitle={title}
-        pageUrl={slug.current}
+        chapterTitle="Спеціальності"
+        pageTitle="Наші стейкхолдери"
+        pageUrl={null}
+        subPageTitle={title}
+        subPageUrl={slug.current}
+
+      // chapterTitle="Спеціальності"
+      // pageTitle="Наші стейкхолдери"
+      // pageUrl={null}
+      // subPageTitle={}
+      // subPageUrl={}
       />
 
       {/* < !-- ======= Features Section ======= --> */}
@@ -114,14 +131,14 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
 }
 
 
-export default AboutPage;
+export default StakeholdersItemArticle;
 
 export async function getStaticPaths() {
-  const pages = await client.fetch(slugCurrent("about"));
+  const newsArr = await client.fetch(slugCurrent("stakeholders"));
 
-  const paths = pages.map((about) => ({
+  const paths = newsArr.map((newsItem) => ({
     params: {
-      slug: about.slug.current
+      slug: newsItem.slug.current
     }
   }));
   return {
@@ -130,12 +147,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const aboutPage = await client.fetch(chapterPageQuery('about', slug));
+
+  const stakeholdersPage = await client.fetch(chapterItemQuery("specialities-sh", `/specialities/stakeholders/${slug}`));
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      aboutPage,
+      stakeholdersPage,
       mainMenuQO,
     }
   }

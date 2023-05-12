@@ -22,16 +22,16 @@ import "yet-another-react-lightbox/styles.css";
 import moment from "moment";
 
 
-const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
+const BachelorPage = ({ bachelorPage, mainMenuQO, newsArr }) => {
 
   const [open, setOpen] = useState(false);
 
-  const { title, body, positionNumber, slug, academicHonesty, } = masterPage;
+  const { title, body, positionNumber, slug, academicHonesty, } = bachelorPage;
   // const name = `${firstName} ${secondName} ${fatherName}`
   // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
 
-  // Фільтрую масив і залишаю лише ті новини, що містять поле academicHonestyBool
-  const filteredArray = newsArr.filter((item) => item.masterAcademicHonestyBool);
+  // Фільтрую масив і залишаю лише ті новини, що містять поле bachelorAcademicHonestyBool
+  const filteredArray = newsArr.filter((item) => item.bachelorAcademicHonestyBool);
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort(
     (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
@@ -54,7 +54,7 @@ const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
         )
       }
     });
-  }, [masterPage, mainMenuQO]);
+  }, [bachelorPage, mainMenuQO]);
 
   return (
     <>
@@ -68,7 +68,7 @@ const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Магістру"
+        chapterTitle="Бакалавру"
         pageTitle={title}
         pageUrl={slug.current}
       />
@@ -162,10 +162,10 @@ const MasterPage = ({ masterPage, mainMenuQO, newsArr }) => {
 }
 
 
-export default MasterPage;
+export default BachelorPage;
 
 export async function getStaticPaths() {
-  const query = slugCurrent('master');
+  const query = slugCurrent('bachelor');
 
   //   `*[type=='master']{
   // slug{
@@ -174,9 +174,9 @@ export async function getStaticPaths() {
   //   }`;
 
   const pages = await client.fetch(query);
-  const paths = pages.map((master) => ({
+  const paths = pages.map((page) => ({
     params: {
-      slug: master.slug.current
+      slug: page.slug.current
     }
   }));
   return {
@@ -186,13 +186,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  const masterPage = await client.fetch(chapterPageQuery('master', slug));
+  const bachelorPage = await client.fetch(chapterPageQuery('bachelor', slug));
   const mainMenuQO = await mainMenuQueriesObjCreator();
   const newsArr = await client.fetch(newsQuery);
 
   return {
     props: {
-      masterPage,
+      bachelorPage,
       mainMenuQO,
       newsArr,
     }
