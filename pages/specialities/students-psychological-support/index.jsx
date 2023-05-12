@@ -71,7 +71,7 @@ const StudentPsychologicalSupportNews = ({ newsArr, mainMenuQO }) => {
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>ПСИХОЛОГІЧНА ПІДТРИМКА СТУДЕНТІВ. РОЗВ'ЯЗАННЯ КОНФЛІКТІВ</p>
+            <p>ПСИХОЛОГІЧНА ПІДТРИМКА СТУДЕНТІВ. РОЗВ&apos;ЯЗАННЯ КОНФЛІКТІВ</p>
           </header>
 
           <div className="row gy-4">
