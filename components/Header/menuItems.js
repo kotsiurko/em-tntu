@@ -121,14 +121,78 @@ export const menuItems = [
     title: "Абітурієнту",
     url: "#",
     icon: "bi bi-emoji-smile-upside-down",
-    children: [],
+    children: [
+      {
+        title: "Правила прийому",
+        url: "https://tntu.edu.ua/?p=uk/admission/rules",
+        id: 520,
+      },
+      {
+        title: "Сертифікати ЗНО (НМТ)",
+        url: "https://tntu.edu.ua/storage/pages/00000314/tntu-pp2023-d2.pdf",
+        id: 530,
+      },
+      {
+        title: "Документи для вступу",
+        url: "https://tntu.edu.ua/?p=uk/admission/admission-docs",
+        id: 540,
+      },
+      {
+        title: "Обсяг державного замовлення",
+        url: "https://tntu.edu.ua/?p=uk/admission/dz",
+        id: 550,
+      },
+      {
+        title: "Вартість навчання",
+        url: "https://tntu.edu.ua/?p=uk/admission/prices",
+        id: 570,
+      },
+      {
+        title: "Інформаційний сайт абітурієнта ТНТУ",
+        url: "https://vstup.tntu.edu.ua",
+        id: 5100,
+      },
+    ],
   },
   {
     id: 6,
     title: "Наука",
     url: "#",
     icon: "bi bi-lightbulb",
-    children: [],
+    children: [
+      {
+        title: "Конференція “Світлотехніка й електроенергетика”",
+        url: null,
+        id: 630,
+        children: [
+          {
+            title: "Сайт конференції",
+            url: "#",
+            id: 63010,
+          },
+          {
+            title: "Новини розділу",
+            url: "/science/conference-lighting-and-power-engineering/news",
+            id: 63020,
+          },
+          {
+            title: "Матеріаіли 2015",
+            url: "#",
+            id: 63030,
+          },
+          {
+            title: "Матеріаіли 2018",
+            url: "#",
+            id: 63040,
+          },
+        ]
+      },
+      {
+        title: "Лабораторія енергоощадності",
+        url: "/about/material-and-technical-base/laboratory-of-energy-saving",
+        id: 660,
+      },
+    ],
   },
   {
     id: 7,

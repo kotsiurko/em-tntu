@@ -28,8 +28,6 @@ const PersonInfo = ({
 
   const [open, setOpen] = useState(false);
 
-  // console.log(person);
-
   const { mainPhoto,
     firstName,
     secondName,
