@@ -206,7 +206,13 @@ export const menuItems = [
     title: "Міжнародна діяльність",
     url: "#",
     icon: "bi bi-flag",
-    children: [],
+    children: [
+      {
+        title: "Відділ міжнародного співробітництва ТНТУ",
+        url: "https://tntu.edu.ua/?p=uk/inter/vms",
+        id: 810,
+      },
+    ],
   },
   {
     id: 9,
