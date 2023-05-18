@@ -20,13 +20,14 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import moment from "moment";
+import PageContentSection from '@/components/PageContentSection/PageContentSection';
 
 
-const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
+const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO }) => {
 
   const [open, setOpen] = useState(false);
 
-  const { title, body, positionNumber, slug, } = masterEPPPage;
+  const { title, body, positionNumber, slug, } = bachelorEPPPage;
   // const name = `${firstName} ${secondName} ${fatherName}`
   // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
 
@@ -47,7 +48,7 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
         )
       }
     });
-  }, [masterEPPPage, mainMenuQO]);
+  }, [bachelorEPPPage, mainMenuQO]);
 
   return (
     <>
@@ -61,7 +62,7 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Магістру"
+        chapterTitle="Бакалавру"
         pageTitle="Освітньо-професійні програми"
         pageUrl={null}
         subPageTitle={title}
@@ -69,55 +70,17 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
       />
 
       {/* < !-- ======= Features Section ======= --> */}
-      <section className="features my-personal">
-        <div className="container" data-aos="fade-up">
-
-          {/* <!-- Feature Icons --> */}
-          <div className="row feature-icons" data-aos="fade-up">
-
-            <div className="row gx-0">
-
-              <h3>{title}</h3>
-
-              <div className="col-xl-12 pt-2 px-2">
-                <div className="row align-self-start content text-justify">
-                  <div className="icon-box my-dstyle" data-aos="fade-up">
-
-                    <BlockContent
-                      blocks={body}
-                      projectId={clientConfig.projectId}
-                      dataset={clientConfig.dataset}
-                    />
-
-                  </div>
-                </div>
-              </div>
-
-              {/* <div> */}
-              {/* <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={galleryArray}
-              /> */}
-              {/* </div> */}
-
-            </div>
-
-          </div>
-          {/* <!-- End Feature Icons --> */}
-
-        </div >
-      </section >
+      <PageContentSection data={bachelorEPPPage} />
       {/* <!--End Features Section-- > */}
     </>
   )
 }
 
 
-export default MasterPPPage;
+export default BachelorPPPage;
 
 export async function getStaticPaths() {
-  const pages = await client.fetch(slugCurrent('master'));
+  const pages = await client.fetch(slugCurrent('bachelor'));
 
   const paths = pages.map((page) => ({
     params: {
@@ -131,12 +94,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  const masterEPPPage = await client.fetch(chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`));
+  const bachelorEPPPage = await client.fetch(chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`));
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      masterEPPPage,
+      bachelorEPPPage,
       mainMenuQO,
     }
   }

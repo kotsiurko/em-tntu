@@ -15,28 +15,12 @@ import BlockContent from "@sanity/block-content-to-react";
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-
-// Lightbox
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import moment from "moment";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
 
 
-const BachelorPage = ({ bachelorPage, mainMenuQO, newsArr }) => {
+const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
 
-  const [open, setOpen] = useState(false);
-
-  const { title, body, positionNumber, slug, academicHonesty, } = bachelorPage;
-  // const name = `${firstName} ${secondName} ${fatherName}`
-  // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
-
-  // Фільтрую масив і залишаю лише ті новини, що містять поле bachelorAcademicHonestyBool
-  const filteredArray = newsArr.filter((item) => item.bachelorAcademicHonestyBool);
-  // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
-  const sortedArray = filteredArray.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
+  const { title, body, slug, postGraduateStudentArray } = postgraduateStudyData;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -55,7 +39,8 @@ const BachelorPage = ({ bachelorPage, mainMenuQO, newsArr }) => {
         )
       }
     });
-  }, [bachelorPage, mainMenuQO]);
+
+  }, [postgraduateStudyData, mainMenuQO]);
 
   return (
     <>
@@ -69,70 +54,71 @@ const BachelorPage = ({ bachelorPage, mainMenuQO, newsArr }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Бакалавру"
+        chapterTitle="Абітурієнту"
         pageTitle={title}
         pageUrl={slug.current}
       />
 
-      {/* Page Content */}
-      <PageContentSection data={bachelorPage} />
+      {/* < !-- ======= Features Section ======= --> */}
+      {body && <PageContentSection data={postgraduateStudyData} />}
+      {/* <!--End Features Section-- > */}
 
-      {(academicHonesty && sortedArray) && <section id="team" className="team">
+      {postGraduateStudentArray && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>Події розділу</p>
+            <p>{title}</p>
           </header>
 
           <div className="row gy-4">
-            {sortedArray.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
+            {postGraduateStudentArray.map((el) => {
+
+              console.log('el :>> ', el);
+              const { name, body, photo, _key } = el;
 
               return (
+
                 <div
                   className="col-lg-6 d-flex align-items-stretch"
                   data-aos="fade-up"
                   data-aos-delay="100"
-                  key={newsTitle}
+                  key={_key}
                 >
                   <div className="member news">
                     <div className="position-relative">
                       <Image
-                        src={urlFor(mainPhoto).url()}
+                        src={urlFor(photo).url()}
                         className="img-fluid"
-                        alt={mainPhoto.caption}
+                        alt={photo.caption}
                         width={440}
                         height={280}
                       />
                     </div>
                     <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
+                      <h4>{name}</h4>
+                      <BlockContent
+                        blocks={body}
+                        projectId={clientConfig.projectId}
+                        dataset={clientConfig.dataset}
+                      />
                     </div>
                   </div>
-                </div>
+                </div >
+
               );
             })}
           </div>
-        </div>
-      </section>}
+        </div >
+      </section >}
+
     </>
   )
 }
 
 
-export default BachelorPage;
+export default PostgraduateStudyPage;
 
 export async function getStaticPaths() {
-  const query = slugCurrent('bachelor');
-
-  //   `*[type=='master']{
-  // slug{
-  //   current
-  // }
-  //   }`;
+  const query = slugCurrent('postgraduate');
 
   const pages = await client.fetch(query);
   const paths = pages.map((page) => ({
@@ -146,16 +132,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-
-  const bachelorPage = await client.fetch(chapterPageQuery('bachelor', slug));
+  const postgraduateStudyData = await client.fetch(chapterPageQuery('postgraduate', slug));
   const mainMenuQO = await mainMenuQueriesObjCreator();
-  const newsArr = await client.fetch(newsQuery);
 
   return {
     props: {
-      bachelorPage,
+      postgraduateStudyData,
       mainMenuQO,
-      newsArr,
     }
   }
 }

@@ -18,11 +18,13 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import moment from "moment";
 
 const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
-  // Фільтрую масив і залишаю лише ті новини, що містять поле studentsDevs
+  // Фільтрую масив і залишаю лише ті новини, що містять поле studentsDevsBool
   const filteredArray = newsArr.filter((item) => item.studentsDevsBool);
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
+    (a, b) =>
+      moment(b.publishedDate).format("YYYYMMDDHHmm") -
+      moment(a.publishedDate).format("YYYYMMDDHHmm")
   );
 
   const router = useRouter();
@@ -69,37 +71,48 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
           </header>
 
           <div className="row gy-4">
-            {sortedArray.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
+            {sortedArray.map(
+              ({
+                newsTitle,
+                publishedDate,
+                newsItemBodyShort,
+                mainPhoto,
+                slug,
+              }) => {
+                const newsItemLink = `${slug.current}`;
 
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={newsTitle}
-                >
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(mainPhoto).url()}
-                        className="img-fluid"
-                        alt={mainPhoto.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
+                return (
+                  <div
+                    className="col-lg-6 d-flex align-items-stretch"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                    key={newsTitle}
+                  >
+                    <div className="member news">
+                      <div className="position-relative">
+                        <Image
+                          src={urlFor(mainPhoto).url()}
+                          className="img-fluid"
+                          alt={mainPhoto.caption}
+                          width={440}
+                          height={280}
+                        />
+                      </div>
+                      <div className="member-info news">
+                        <a href={newsItemLink}>
+                          <h4>{newsTitle}</h4>
+                        </a>
+                        <p className="publishDate">
+                          Опубліковано:{" "}
+                          {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
+                        </p>
+                        <p>{newsItemBodyShort}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </div>
         </div>
       </section>

@@ -1,32 +1,21 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Image from "next/image";
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
-import { client, clientConfig } from "@/lib/client";
+import { client } from "@/lib/client";
 import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
-
-import { urlFor } from "../../lib/client";
-
-import BlockContent from "@sanity/block-content-to-react";
 
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-
-// Other libs
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
+import PageContentSection from '@/components/PageContentSection/PageContentSection';
 
 
 const AboutPage = ({ aboutPage, mainMenuQO }) => {
 
-  const [open, setOpen] = useState(false);
-
-  const { title, body, slug, } = aboutPage;
-  // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
+  const { title, slug } = aboutPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -63,47 +52,8 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
-      {/* < !-- ======= Features Section ======= --> */}
-      <section className="features my-personal">
-        <div className="container" data-aos="fade-up">
-
-          {/* <!-- Feature Icons --> */}
-          <div className="row feature-icons" data-aos="fade-up">
-
-            <div className="row gx-0">
-
-              <h3>{title}</h3>
-
-              <div className="col-xl-12 pt-2 px-2">
-                <div className="row align-self-start content text-justify">
-                  <div className="icon-box my-dstyle" data-aos="fade-up">
-
-                    <BlockContent
-                      blocks={body}
-                      projectId={clientConfig.projectId}
-                      dataset={clientConfig.dataset}
-                    />
-
-                  </div>
-                </div>
-              </div>
-
-              {/* <div> */}
-              {/* <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={galleryArray}
-              /> */}
-              {/* </div> */}
-
-            </div>
-
-          </div>
-          {/* <!-- End Feature Icons --> */}
-
-        </div >
-      </section >
-      {/* <!--End Features Section-- > */}
+      {/* Page Content */}
+      <PageContentSection data={aboutPage} />
     </>
   )
 }

@@ -40,7 +40,11 @@ const Staff = ({ staffData, mainMenuQO }) => {
 
       <Header mainMenuArr={mainMenuArr} />
 
-      <Breadcrumbs chapterTitle="Про кафедру" pageTitle="Колектив" pageUrl="/about/staff" />
+      <Breadcrumbs
+        chapterTitle="Про кафедру"
+        pageTitle="Колектив"
+        pageUrl="/about/staff"
+      />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
@@ -51,7 +55,16 @@ const Staff = ({ staffData, mainMenuQO }) => {
 
           <div className="row gy-4">
             {sortedArray.map(
-              ({ firstName, secondName, fatherName, sciDegree, acadStatus, position, mainPhoto, slug }) => {
+              ({
+                firstName,
+                secondName,
+                fatherName,
+                sciDegree,
+                acadStatus,
+                position,
+                mainPhoto,
+                slug,
+              }) => {
                 const personLink = `staff/${slug.current}`;
                 const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
                 const positionMarkup =
@@ -78,11 +91,17 @@ const Staff = ({ staffData, mainMenuQO }) => {
                     <div className="member">
                       <div className="position-relative">
                         <a href={personLink} className="stretched-link"></a>
-                        <img src={urlFor(mainPhoto).url()} className="img-fluid" alt="" />
+                        <img
+                          src={urlFor(mainPhoto).url()}
+                          className="img-fluid"
+                          alt=""
+                        />
                       </div>
                       <div className="member-info">
                         <h4>
-                          <firstname style={{ textTransform: "uppercase" }}>{firstName}</firstname>
+                          <firstname style={{ textTransform: "uppercase" }}>
+                            {firstName}
+                          </firstname>
                           <br />
                           {secondName}
                           <br />
@@ -96,66 +115,6 @@ const Staff = ({ staffData, mainMenuQO }) => {
                 );
               }
             )}
-
-            {/* HARDCODED ELEMENTS */}
-            {/* <div
-              className="col-lg-2 col-md-4 d-flex align-items-stretch"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div className="member">
-                <div className="position-relative">
-                  <a
-                    href="person/tarasenko/tarasenko.aspx"
-                    className="stretched-link"
-                  ></a>
-                  <img
-                    src="../person/tarasenko/01.jpg"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="member-info">
-                  <h4>
-                    ТАРАСЕНКО
-                    <br />
-                    Микола Григорович
-                  </h4>
-                  <span>д.т.н., професор,</span>
-                  <span>завідувач кафедри</span>
-                  <a href="#">розклад</a>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="col-lg-2 col-md-4 d-flex align-items-stretch"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div className="member">
-                <div className="position-relative">
-                  <a
-                    href="person.aspx?name=levytskyj"
-                    className="stretched-link"
-                  ></a>
-                  <img
-                    src="../person/levytskyj/01.jpg"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="member-info">
-                  <h4>
-                    ЛЕВИЦЬКИЙ
-                    <br />
-                    Андрій Михайлович
-                  </h4>
-                  <span>інженер 2 категорії</span>
-                  <a href="#">розклад</a>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </section>
