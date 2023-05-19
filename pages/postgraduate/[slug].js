@@ -59,9 +59,8 @@ const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
-      {/* < !-- ======= Features Section ======= --> */}
+      {/* Page Content */}
       {body && <PageContentSection data={postgraduateStudyData} />}
-      {/* <!--End Features Section-- > */}
 
       {postGraduateStudentArray && <section id="team" className="team">
         <div className="container" data-aos="fade-up">

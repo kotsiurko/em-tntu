@@ -5,24 +5,20 @@ import { useRouter } from "next/router";
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
-import { client, clientConfig } from "@/lib/client";
+import { client } from "@/lib/client";
 import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 import { urlFor } from "../../lib/client";
 
-import BlockContent from "@sanity/block-content-to-react";
-
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-
-// Lightbox
-import { Lightbox } from 'yet-another-react-lightbox';
-// import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import moment from "moment";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
+
+// Other libs
+import moment from "moment";
+
 
 
 const EducationalActivityPage = ({
@@ -173,12 +169,6 @@ const EducationalActivityPage = ({
         </section>}
 
 
-      {/* <Lightbox
-        index={selectedIndex}
-        open={open}
-        close={() => setOpen(false)}
-        slides={imgArr}
-      /> */}
     </>
   )
 }

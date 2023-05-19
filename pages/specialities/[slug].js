@@ -15,24 +15,16 @@ import BlockContent from "@sanity/block-content-to-react";
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-
-// Lightbox
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import moment from "moment";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
+
+// Other libs
+import moment from "moment";
+
 
 
 const SpecialitiesPage = ({ specialitiesPage, mainMenuQO, newsArr }) => {
 
-  const [open, setOpen] = useState(false);
-
-  // console.log(person);
-
-  const { title, body, positionNumber, slug, nonFormalEducation, alumni, } = specialitiesPage;
-  // const name = `${firstName} ${secondName} ${fatherName}`
-  // const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
-
+  const { title, slug, nonFormalEducation, alumni, } = specialitiesPage;
 
   // Фільтрую масив і залишаю лише ті новини, що містять поле seninars
   const filteredArray = newsArr.filter((item) => item.nonFormalEducationBool);
@@ -77,9 +69,8 @@ const SpecialitiesPage = ({ specialitiesPage, mainMenuQO, newsArr }) => {
         pageUrl={slug.current}
       />
 
-      {/* < !-- ======= Features Section ======= --> */}
+      {/* Page Content */}
       <PageContentSection data={specialitiesPage} />
-      {/* <!--End Features Section-- > */}
 
       {(nonFormalEducation === "true" && sortedArray) && <section id="team" className="team">
         <div className="container" data-aos="fade-up">

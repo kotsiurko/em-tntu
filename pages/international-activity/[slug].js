@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
-import { client, clientConfig } from "@/lib/client";
+import { client } from "@/lib/client";
 import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
@@ -16,13 +16,10 @@ import BlockContent from "@sanity/block-content-to-react";
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-
-// Lightbox
-import { Lightbox } from 'yet-another-react-lightbox';
-// import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import moment from "moment";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
+
+// Other libs
+import moment from "moment";
 
 
 const InternationalActivityPage = ({
@@ -31,17 +28,10 @@ const InternationalActivityPage = ({
   newsArr,
 }) => {
 
-  // console.log('postgraduateStudyData :>> ', postgraduateStudyData);
-
-  const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
-  const [imgArr, setImgArr] = useState();
   const [newsArrForMap, setNewsArrForMap] = useState([]);
 
   const {
     title,
-    body,
-    positionNumber,
     slug,
     academicMobility,
     intPractOfStudents,
@@ -85,23 +75,6 @@ const InternationalActivityPage = ({
     (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
   );
 
-  // if (asPath === "/international-activity/academic-mobility") {
-  //   setNewsArrForMap(sortedArrayAcademicMobility);
-  // }
-  // if (asPath === "/international-activity/international-practice-of-students") {
-  //   setNewsArrForMap(sortedArrayIntPractOfStudents);
-  // }
-  // if (asPath === "/international-activity/international-internship") {
-  //   setNewsArrForMap(sortedArrayIntInternship);
-  // }
-  // if (asPath === "/international-activity/events-conferences-forums") {
-  //   setNewsArrForMap(sortedArrayEventsConferencesForums);
-  // }
-  // if (asPath === "/international-activity/programs-trainings-projects") {
-  //   setNewsArrForMap(sortedArrayProgramsTrainingsProjects);
-  // }
-
-
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -141,6 +114,7 @@ const InternationalActivityPage = ({
 
     // --------------------------------------
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [internationalActivityData, mainMenuQO]);
 
   return (
@@ -213,13 +187,6 @@ const InternationalActivityPage = ({
           </div>
         </section>}
 
-
-      {/* <Lightbox
-        index={selectedIndex}
-        open={open}
-        close={() => setOpen(false)}
-        slides={imgArr}
-      /> */}
     </>
   )
 }

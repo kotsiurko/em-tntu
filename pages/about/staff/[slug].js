@@ -115,7 +115,6 @@ const PersonInfo = ({
           <div className="row feature-icons" data-aos="fade-up">
 
             <div className="row gx-0">
-
               <h3>{name}</h3>
 
               <div className="col-xl-4 pt-2 px-2 d-flex" data-aos="fade-right" data-aos-delay="100">

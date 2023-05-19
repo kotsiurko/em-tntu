@@ -226,14 +226,51 @@ export const menuItems = [
     title: "Посилання",
     url: "#",
     icon: "bi bi-link-45deg",
-    children: [],
+    children: [
+      {
+        title: "Сайт університету ТНТУ",
+        url: "https://tntu.edu.ua",
+        id: 1010,
+      },
+      {
+        title: "Сайт факультету ФПТ",
+        url: "https://fpt.tntu.edu.ua",
+        id: 1020,
+      },
+      {
+        title: "Телефони та пошти підрозділів ТНТУ",
+        url: "https://tntu.edu.ua/?p=uk/about/contacts",
+        id: 1030,
+      },
+      {
+        title: "Сторінка кафедри у Facebook",
+        url: "https://www.facebook.com/kaf.ei.tntu",
+        id: 1040,
+      },
+      {
+        title: "Електронна Бібліотека ТНТУ",
+        url: "https://library.tntu.edu.ua",
+        id: 1050,
+      },
+      {
+        title: "Нормативна база",
+        url: "https://docs.tntu.edu.ua",
+        id: 1070,
+      },
+    ],
   },
   {
     id: 11,
     title: "Це цікаво",
     url: "#",
     icon: "bi bi-pin",
-    children: [],
+    children: [
+      {
+        title: "Відеоархів кафедри",
+        url: "https://www.youtube.com/@user-qe1wj7xn4u",
+        id: 1120,
+      },
+    ],
   },
 ];
 

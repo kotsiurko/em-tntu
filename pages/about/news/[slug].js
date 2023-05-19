@@ -97,7 +97,8 @@ const NewsItemArticle = ({
             <div className="row gx-0">
               <h3>{newsTitle}</h3>
 
-              <a href="#" className="image-container text-center"
+              <a href="#"
+                className="image-container text-center"
                 style={{ position: "relative" }}
                 onClick={() => setOpen(true)}
               >

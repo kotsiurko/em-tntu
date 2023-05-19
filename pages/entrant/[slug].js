@@ -10,17 +10,16 @@ import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 import { urlFor } from "../../lib/client";
 
-import BlockContent from "@sanity/block-content-to-react";
-
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from '@/components/PageContentSection/PageContentSection';
 
-// Lightbox
+// Other libs
 import { Lightbox } from 'yet-another-react-lightbox';
-// import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import moment from "moment";
+
 
 
 const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
@@ -29,7 +28,7 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [imgArr, setImgArr] = useState();
 
-  const { title, body, positionNumber, slug, studentsHonors, schoolsCooperation, studentOlympiads } = entrantsPage;
+  const { title, slug, studentsHonors, schoolsCooperation, studentOlympiads } = entrantsPage;
 
   // Фільтрую масив і залишаю лише ті новини, що містять поле schoolsCooperationBool
   const filteredArrayCooperation = newsArr.filter((item) => item.schoolsCooperationBool);
@@ -82,47 +81,8 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
         pageUrl={slug.current}
       />
 
-      {/* < !-- ======= Features Section ======= --> */}
-      <section className="features my-personal">
-        <div className="container" data-aos="fade-up">
-
-          {/* <!-- Feature Icons --> */}
-          <div className="row feature-icons" data-aos="fade-up">
-
-            <div className="row gx-0">
-
-              <h3>{title}</h3>
-
-              <div className="col-xl-12 pt-2 px-2">
-                <div className="row align-self-start content text-justify">
-                  <div className="icon-box my-dstyle" data-aos="fade-up">
-
-                    <BlockContent
-                      blocks={body}
-                      projectId={clientConfig.projectId}
-                      dataset={clientConfig.dataset}
-                    />
-
-                  </div>
-                </div>
-              </div>
-
-              {/* <div> */}
-              {/* <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={galleryArray}
-              /> */}
-              {/* </div> */}
-
-            </div>
-
-          </div>
-          {/* <!-- End Feature Icons --> */}
-
-        </div >
-      </section >
-      {/* <!--End Features Section-- > */}
+      {/* Page Content */}
+      <PageContentSection data={entrantsPage} />
 
       {(schoolsCooperation === 'true' && sortedArrayCooperation) && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
@@ -208,53 +168,6 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
         </div>
       </section>}
 
-      {/* {studentsHonors && <section id="team" className="team">
-        <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>Наші випускники</p>
-          </header>
-
-          <div className="row gy-4">
-            {studentsHonors.map((el) => {
-
-              const { year, honorsPerYear, _key } = el;
-              console.log('el :>> ', el);
-              console.log('name :>> ', name);
-
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={_key}
-                >
-                  <p>{year}</p>
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(photo).url()}
-                        className="img-fluid"
-                        alt={photo.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <h4>Заголовок</h4>
-                      <BlockContent
-                        blocks={body}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>} */}
-
       {studentsHonors && <section className="features">
         <div className="container text-justify">
           {studentsHonors.map(el => {
@@ -324,6 +237,7 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
         close={() => setOpen(false)}
         slides={imgArr}
       />
+
     </>
   )
 }

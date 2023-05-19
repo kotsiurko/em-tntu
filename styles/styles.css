@@ -85,6 +85,25 @@ th.counter-width {
     position: relative !important;
     height: unset !important;
 }
+
+.photo-archive-images{
+    /* object-fit: contain; */
+    object-fit: cover;
+}
+
+.new-image-container {
+    width: 250px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.flex-elements{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
 /* ============================================== */
 
 .my-personal {
