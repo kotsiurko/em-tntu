@@ -137,8 +137,6 @@ const InternationalActivityPage = ({
       {/* Page Content */}
       <PageContentSection data={internationalActivityData} />
 
-      {/* Тут через АБО додати решту умов. щоб не дублювати код */}
-      {/* Тут уважно подумати над логікою поведінки сторінок щодо виведення новин*/}
       {(
         (academicMobility === 'true' && newsArrForMap.length > 0) ||
         (intPractOfStudents === 'true' && newsArrForMap.length > 0) ||

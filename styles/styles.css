@@ -215,7 +215,7 @@ th.counter-width {
 } */
 
 /* mobile menu appearing width */
-@media (max-width: 1366px) {
+@media (max-width: 1399px) {
   .mobile-nav-toggle {
     display: block;
   }
@@ -238,10 +238,16 @@ header .container-fluid.container-xl {
     flex-direction: column;
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 1399px) {
     header .container-fluid.container-xl {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
+}
+
+.form-group{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }

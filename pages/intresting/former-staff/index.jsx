@@ -15,7 +15,7 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
-const Staff = ({ staffData, mainMenuQO }) => {
+const FormerStaff = ({ staffData, mainMenuQO }) => {
   // console.log("Staff page data:", fetchedData);
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -25,7 +25,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
   // Фільтрую масив і залишаю лише ті новини, що містять поле formerEmployeeBool
   console.log("staffData :>> ", staffData);
   const filteredArray = staffData.filter(
-    (item) => item.formerEmployeeBool !== true
+    (item) => item.formerEmployeeBool === true
   );
   console.log("filteredArray :>> ", filteredArray);
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
@@ -50,8 +50,8 @@ const Staff = ({ staffData, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
-        pageTitle="Колектив"
+        chapterTitle="Це цікаво"
+        pageTitle="Працювали на кафедрі"
         pageUrl="/about/staff"
       />
 
@@ -59,7 +59,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>КОЛЕКТИВ КАФЕДРИ</p>
+            <p>ПРАЦЮВАЛИ НА КАФЕДРІ</p>
           </header>
 
           <div className="row gy-4">
@@ -132,7 +132,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
   );
 };
 
-export default Staff;
+export default FormerStaff;
 
 export async function getStaticProps() {
   const staffData = await client.fetch(staffListQuery);

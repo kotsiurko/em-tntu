@@ -5,13 +5,12 @@ import { useState, useEffect } from "react";
 
 // Images
 import headerLogo from "../../public/assets/img/logo-header-new.png";
+import Link from "next/link";
 
 const Header = (props) => {
-  // console.log("props :>> ", props);
   const { mainMenuArr } = props;
-  // console.log("mainMenuArr from HEADER:>> ", mainMenuArr);
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   const [headerStyles, setHeaderStyles] = useState("header fixed-top");
 
@@ -34,7 +33,12 @@ const Header = (props) => {
   }
 
   function toggleMobileMenuItem(event, index) {
-    if (event.target.nodeName !== "A" && event.target.nodeName !== "I" && event.target.nodeName !== "SPAN") return;
+    if (
+      event.target.nodeName !== "A" &&
+      event.target.nodeName !== "I" &&
+      event.target.nodeName !== "SPAN"
+    )
+      return;
     if (isMobileMenuLIOpen && mobileMenuLIOpenIndex === index) {
       setIsMobileMenuLIOpen(false);
       setMobileMenuLIOpenIndex(null);
@@ -45,7 +49,12 @@ const Header = (props) => {
   }
 
   function toggleMobileMenuSUBItem(event, index) {
-    if (event.target.nodeName !== "A" && event.target.nodeName !== "I" && event.target.nodeName !== "SPAN") return;
+    if (
+      event.target.nodeName !== "A" &&
+      event.target.nodeName !== "I" &&
+      event.target.nodeName !== "SPAN"
+    )
+      return;
     if (isMobileMenuSubLIOpen && mobileMenuSubItemIndex === index) {
       setIsMobileMenuSubLIOpen(false);
       setMobileMenuSubItemIndex(null);
@@ -60,16 +69,6 @@ const Header = (props) => {
   // ---------------------------------------------------
 
   useEffect(() => {
-    // ----------------------------------------------
-    // async function fetchData() {
-    //   const query = `*[_type == "master"]`;
-    //   const result = await client.fetch(query);
-    //   setData(result);
-    // }
-    // fetchData();
-    // console.log("data :>> ", data);
-    // ----------------------------------------------
-
     const handleScroll = () => {
       const scrollPosition = window.scrollY; // => scroll position
       if (scrollPosition > 50) {
@@ -92,14 +91,17 @@ const Header = (props) => {
       <header id="header" className={headerStyles}>
         <div className="container-fluid container-xl">
           {/* NEED TO FIX ON PRODUCTION */}
-          <a href="http://localhost:3000" className="logo d-flex align-items-center">
+          <Link href="/" className="logo d-flex align-items-center">
             <Image src={headerLogo} alt="Header Logo" />
             &nbsp;|&nbsp;
             <div>ЕЛЕКТРИЧНА ІНЖЕНЕРІЯ</div>
-          </a>
+          </Link>
 
           {/* МЕНЮ ДИНАМІЧНО ПІДСТАВЛЯЄТЬСЯ ІЗ МАСИВУ ОБ'ЄКТІВ menuItems */}
-          <nav id="navbar" className={isMobileMenuOpen ? "navbar navbar-mobile" : "navbar"}>
+          <nav
+            id="navbar"
+            className={isMobileMenuOpen ? "navbar navbar-mobile" : "navbar"}
+          >
             <ul>
               {mainMenuArr.map(({ id, title, url, children }) => {
                 return (
@@ -109,7 +111,12 @@ const Header = (props) => {
                     key={id}
                     data-id={id}
                   >
-                    <a href={url} className={children.length > 0 ? null : "nav-link scrollto"}>
+                    <Link
+                      href={url}
+                      className={
+                        children.length > 0 ? null : "nav-link scrollto"
+                      }
+                    >
                       {children.length > 0 ? (
                         <>
                           <span>{title}</span>
@@ -118,21 +125,31 @@ const Header = (props) => {
                       ) : (
                         <>{title}</>
                       )}
-                    </a>
+                    </Link>
                     {/* ==================================================================== */}
                     {/* ТУТ ВСТАВЛЯЄТЬСЯ УМОВА ДЛЯ ПІДМЕНЮ */}
                     {/* UL */}
                     {children.length > 0 ? (
-                      <ul className={isMobileMenuLIOpen && mobileMenuLIOpenIndex === id ? "dropdown-active" : null}>
+                      <ul
+                        className={
+                          isMobileMenuLIOpen && mobileMenuLIOpenIndex === id
+                            ? "dropdown-active"
+                            : null
+                        }
+                      >
                         {children.map(({ title, url, children, id }) => {
                           return (
                             <li
-                              className={children?.length > 0 ? "dropdown" : null}
-                              onClick={(evt) => toggleMobileMenuSUBItem(evt, id)}
+                              className={
+                                children?.length > 0 ? "dropdown" : null
+                              }
+                              onClick={(evt) =>
+                                toggleMobileMenuSUBItem(evt, id)
+                              }
                               key={title}
                               data-id={id}
                             >
-                              <a href={url}>
+                              <Link href={url}>
                                 {children ? (
                                   <>
                                     <span>{title}</span>
@@ -141,17 +158,20 @@ const Header = (props) => {
                                 ) : (
                                   <>{title}</>
                                 )}
-                              </a>
+                              </Link>
                               {children?.length > 0 ? (
                                 <ul
                                   className={
-                                    isMobileMenuSubLIOpen && mobileMenuSubItemIndex === id ? "dropdown-active" : null
+                                    isMobileMenuSubLIOpen &&
+                                    mobileMenuSubItemIndex === id
+                                      ? "dropdown-active"
+                                      : null
                                   }
                                 >
                                   {children.map((el) => {
                                     return (
                                       <li key={el.id}>
-                                        <a href={el.url}>{el.title}</a>
+                                        <Link href={el.url}>{el.title}</Link>
                                       </li>
                                     );
                                   })}
@@ -170,7 +190,11 @@ const Header = (props) => {
               })}
             </ul>
             <i
-              className={isMobileMenuOpen ? "bi mobile-nav-toggle bi-x" : "bi mobile-nav-toggle bi-list"}
+              className={
+                isMobileMenuOpen
+                  ? "bi mobile-nav-toggle bi-x"
+                  : "bi mobile-nav-toggle bi-list"
+              }
               onClick={toggleMobileMenu}
             ></i>
           </nav>

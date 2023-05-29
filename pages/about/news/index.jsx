@@ -1,3 +1,7 @@
+// import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import ReactPaginate from "react-paginate";
+
 import Head from "next/head";
 import Image from "next/image";
 import { urlFor } from "@/lib/client";
@@ -17,11 +21,82 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 // Other libs
 import moment from "moment";
 
-const News = ({ newsArr, mainMenuQO }) => {
-  // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
-  const sortedArray = newsArr.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
+const itemsPerPage = 4;
+
+const PaginatedItems = ({
+  allNewsArr,
+  totalNewsAmount,
+  initArr,
+  mainMenuQO,
+}) => {
+  const [newsArr, setNewsArr] = useState(initArr);
+  const [currPage, setCurrPage] = useState(1);
+
+  console.log("totalNewsAmount :>> ", totalNewsAmount);
+  console.log("allNewsArr :>> ", allNewsArr);
+  console.log("currPage :>> ", currPage);
+  const totalPages = Math.ceil(totalNewsAmount / itemsPerPage);
+
+  let lastId = "";
+  if (newsArr[3]) {
+    lastId = newsArr[3]._id;
+  }
+
+  // Подумати над універсальним алгоритмом, який би
+  // дозволяв переходити на наступну і попередню сторінку
+  //
+  // Вияснити, як такий функціонал впливає на SEO
+
+  async function fetchPrevPage() {
+    // Цей запис дозволяє отримувати порції новин на останній сторінці
+    let startIdx = itemsPerPage * currPage - 4;
+    let endIdx = itemsPerPage * currPage;
+
+    const result = await client.fetch(
+      `*[_type == "news"] | order(publishedDate) [${startIdx}...${endIdx}]`
+    );
+
+    setCurrPage(currPage - 1);
+    setNewsArr(result);
+    return result;
+  }
+
+  async function fetchNextPage() {
+    // Цей запис дозволяє отримувати порції новин на останній сторінці
+    let startIdx = itemsPerPage * currPage;
+    let endIdx = startIdx + 4;
+
+    const result = await client.fetch(
+      `*[_type == "news"] | order(publishedDate) [${startIdx}...${endIdx}]`
+    );
+
+    setCurrPage(currPage + 1);
+    setNewsArr(result);
+    return result;
+  }
+
+  async function fetchLastPage() {
+    let startIdx = itemsPerPage * (totalPages - 1);
+    let endIdx = totalNewsAmount + 1;
+    const result = await client.fetch(
+      `*[_type == "news"] | order(publishedDate) [${startIdx}...${endIdx}]`
+    );
+
+    setCurrPage(totalPages);
+    setNewsArr(result);
+    return result;
+  }
+  async function fetchFirstPage() {
+    let startIdx = 0;
+    let endIdx = startIdx + itemsPerPage;
+    const result = await client.fetch(
+      `*[_type == "news"] | order(publishedDate) [${startIdx}...${endIdx}]`
+    );
+
+    setCurrPage(1);
+    setNewsArr(result);
+    return result;
+  }
 
   const router = useRouter();
   const { pathname } = router;
@@ -38,7 +113,7 @@ const News = ({ newsArr, mainMenuQO }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [newsArr, mainMenuQO]);
+  }, [initArr, mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -52,7 +127,11 @@ const News = ({ newsArr, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
-      <Breadcrumbs chapterTitle="Про кафедру" pageTitle="Новини" pageUrl="/about/news" />
+      <Breadcrumbs
+        chapterTitle="Про кафедру"
+        pageTitle="Новини"
+        pageUrl="/about/news"
+      />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
@@ -62,38 +141,86 @@ const News = ({ newsArr, mainMenuQO }) => {
           </header>
 
           <div className="row gy-4">
-            {sortedArray.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
-
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={newsTitle}
-                >
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(mainPhoto).url()}
-                        className="img-fluid"
-                        alt={mainPhoto.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <Items currentItems={newsArr} />
           </div>
+
+          {/* PAGINATION BLOCK */}
+          {/* <div className="btn-group" role="group" aria-label="Basic example">
+            {currPage !== 1 && (
+              <button
+                className="btn btn-secondary"
+                style={{ width: "120px" }}
+                onClick={fetchFirstPage}
+              >
+                Load First Page
+              </button>
+            )}
+            {currPage !== 1 && (
+              <button
+                className="btn btn-secondary"
+                style={{ width: "120px" }}
+                onClick={fetchPrevPage}
+              >
+                Load Previous Page
+              </button>
+            )}
+            {currPage < totalPages && (
+              <button
+                className="btn btn-secondary"
+                style={{ width: "120px" }}
+                onClick={fetchNextPage}
+              >
+                Load Next Page
+              </button>
+            )}
+            {currPage < totalPages && (
+              <button
+                className="btn btn-secondary"
+                style={{ width: "120px" }}
+                onClick={fetchLastPage}
+              >
+                Load Last Page
+              </button>
+            )}
+          </div> */}
+          <div class="blog">
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                <li className="page">
+                  {currPage !== 1 && (
+                    <a href={null} onClick={fetchFirstPage}>
+                      Перша
+                    </a>
+                  )}
+                </li>
+                <li className="page">
+                  {currPage !== 1 && (
+                    <a href={null} onClick={fetchPrevPage}>
+                      Попередня
+                    </a>
+                  )}
+                </li>
+                <li className="active">
+                  <a href={null}>{currPage}</a>
+                </li>
+                <li className="page">
+                  {currPage < totalPages && (
+                    <a href={null} onClick={fetchNextPage}>
+                      Наступна
+                    </a>
+                  )}
+                </li>
+                <li className="page">
+                  {currPage < totalPages && (
+                    <a href={null} onClick={fetchLastPage}>
+                      Остання
+                    </a>
+                  )}
+                </li>
+              </ul>
+            </div>
+          </div>
+          {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
@@ -101,15 +228,70 @@ const News = ({ newsArr, mainMenuQO }) => {
   );
 };
 
-export default News;
+export default PaginatedItems;
+
+function Items({ currentItems }) {
+  console.log("currentItems :>> ", currentItems);
+  return (
+    <>
+      {currentItems &&
+        currentItems.map((item) => {
+          const {
+            newsTitle,
+            publishedDate,
+            newsItemBodyShort,
+            mainPhoto,
+            slug,
+          } = item;
+          const newsItemLink = `${slug.current}`;
+          return (
+            <div
+              className="col-lg-6 d-flex align-items-stretch"
+              key={newsItemLink}
+            >
+              <div className="member news">
+                <div className="position-relative">
+                  <Image
+                    src={urlFor(mainPhoto).url()}
+                    className="img-fluid"
+                    alt={mainPhoto.caption}
+                    width={440}
+                    height={280}
+                  />
+                </div>
+                <div className="member-info news">
+                  <a href={newsItemLink}>
+                    <h4>{newsTitle}</h4>
+                  </a>
+                  <p className="publishDate">
+                    Опубліковано:{" "}
+                    {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
+                  </p>
+                  <p>{newsItemBodyShort}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+    </>
+  );
+}
 
 export async function getStaticProps() {
-  const newsArr = await client.fetch(newsQuery);
+  const allNewsArr = await client.fetch(
+    `*[_type == "news"] | order(publishedDate)`
+  );
+  const totalNewsAmount = await client.fetch(`count(*[_type == "news"])`);
+  const initArr = await client.fetch(
+    `*[_type == "news"] | order(publishedDate) [0...4]`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      newsArr,
+      allNewsArr,
+      totalNewsAmount,
+      initArr,
       mainMenuQO,
     },
   };

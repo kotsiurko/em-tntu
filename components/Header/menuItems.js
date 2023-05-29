@@ -1,8 +1,8 @@
 export const menuItems = [
   {
     id: 1,
-    title: "Про кафедру",
-    url: "#",
+    title: "Кафедра",
+    url: "/",
     icon: "bi bi-mortarboard",
     children: [
       {
@@ -18,7 +18,7 @@ export const menuItems = [
       },
       {
         title: "Матеріально-технічна база",
-        url: null,
+        url: "/",
         id: 150,
         children: [
           {
@@ -44,7 +44,7 @@ export const menuItems = [
     children: [
       {
         title: "Наші стейкхолдери",
-        url: null,
+        url: "/",
         id: 240,
         children: [
           {
@@ -84,7 +84,7 @@ export const menuItems = [
     children: [
       {
         title: "Освітньо-професійні програми",
-        url: null,
+        url: "/",
         id: 310,
         children: [
           {
@@ -104,7 +104,7 @@ export const menuItems = [
     children: [
       {
         title: "Освітньо-професійні програми",
-        url: null,
+        url: "/",
         id: 410,
         children: [
           {
@@ -162,7 +162,7 @@ export const menuItems = [
     children: [
       {
         title: "Конференція “Світлотехніка й електроенергетика”",
-        url: null,
+        url: "/",
         id: 630,
         children: [
           {
@@ -203,7 +203,7 @@ export const menuItems = [
   },
   {
     id: 8,
-    title: "Міжнародна діяльність",
+    title: "Міжн. діяльність",
     url: "#",
     icon: "bi bi-flag",
     children: [
@@ -269,6 +269,11 @@ export const menuItems = [
         title: "Відеоархів кафедри",
         url: "https://www.youtube.com/@user-qe1wj7xn4u",
         id: 1120,
+      },
+      {
+        title: "Працювали на кафедрі",
+        url: "/intresting/former-staff",
+        id: 1130,
       },
     ],
   },
