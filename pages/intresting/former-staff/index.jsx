@@ -23,7 +23,6 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
   // const sortedArray = staffData.sort((a, b) => b.weight - a.weight);
 
   // Фільтрую масив і залишаю лише ті новини, що містять поле formerEmployeeBool
-  console.log("staffData :>> ", staffData);
   const filteredArray = staffData.filter(
     (item) => item.formerEmployeeBool === true
   );
@@ -44,7 +43,11 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: Історія кафедри</title>
+        <title>Колишні працівники | Кафедра електричної інженерії ТНТУ</title>
+        <meta
+          name="description"
+          content="Колишні працівники кафедри електричної інженерії"
+        />
       </Head>
 
       <Header mainMenuArr={mainMenuArr} />
@@ -52,7 +55,7 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
       <Breadcrumbs
         chapterTitle="Це цікаво"
         pageTitle="Працювали на кафедрі"
-        pageUrl="/about/staff"
+        pageUrl="/intresting/former-staff"
       />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
@@ -74,7 +77,8 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
                 mainPhoto,
                 slug,
               }) => {
-                const personLink = `staff/${slug.current}`;
+                console.log("slug :>> ", slug);
+                const personLink = `${slug.current}`;
                 const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
                 const positionMarkup =
                   acadStatus.toLowerCase() === position.short.toLowerCase() ? (

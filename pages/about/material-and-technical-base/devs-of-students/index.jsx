@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { urlFor } from "@/lib/client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 // Client connection
 import { menuItems } from "@/components/Header/menuItems";
@@ -27,9 +26,6 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
       moment(a.publishedDate).format("YYYYMMDDHHmm")
   );
 
-  const router = useRouter();
-  const { pathname } = router;
-
   // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -49,11 +45,17 @@ const DevsOfStudents = ({ newsArr, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: Розробки студентів</title>
+        <title>
+          Розробки студентів - новини | Кафедра електричної інженерії ТНТУ
+        </title>
+        <meta
+          name="description"
+          content="Розробки студентів кафедри електричної інженерії"
+        />
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}
-      {pathname !== "/" && <Header mainMenuArr={mainMenuArr} />}
+      <Header mainMenuArr={mainMenuArr} />
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs

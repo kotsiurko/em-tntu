@@ -2,9 +2,7 @@
 import Head from "next/head";
 import { urlFor } from "../../../lib/client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
-// Client connection
 // Client connection
 import { menuItems } from "@/components/Header/menuItems";
 import { client } from "@/lib/client";
@@ -16,14 +14,9 @@ import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
 const Staff = ({ staffData, mainMenuQO }) => {
-  // console.log("Staff page data:", fetchedData);
-
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
-  // const sortedArray = staffData.sort((a, b) => b.weight - a.weight);
-
   // Фільтрую масив і залишаю лише ті новини, що містять поле formerEmployeeBool
-  console.log("staffData :>> ", staffData);
   const filteredArray = staffData.filter(
     (item) => item.formerEmployeeBool !== true
   );
@@ -45,6 +38,10 @@ const Staff = ({ staffData, mainMenuQO }) => {
     <>
       <Head>
         <title>Кафедра електричної інженерії ТНТУ :: Історія кафедри</title>
+        <meta
+          name="description"
+          content="Колектив кафедри електричної інженерії"
+        />
       </Head>
 
       <Header mainMenuArr={mainMenuArr} />

@@ -2,7 +2,7 @@ export const menuItems = [
   {
     id: 1,
     title: "Кафедра",
-    url: "/",
+    url: "#",
     icon: "bi bi-mortarboard",
     children: [
       {
@@ -18,7 +18,7 @@ export const menuItems = [
       },
       {
         title: "Матеріально-технічна база",
-        url: "/",
+        url: "#",
         id: 150,
         children: [
           {
@@ -44,7 +44,7 @@ export const menuItems = [
     children: [
       {
         title: "Наші стейкхолдери",
-        url: "/",
+        url: "#",
         id: 240,
         children: [
           {
@@ -84,7 +84,7 @@ export const menuItems = [
     children: [
       {
         title: "Освітньо-професійні програми",
-        url: "/",
+        url: "#",
         id: 310,
         children: [
           {
@@ -104,7 +104,7 @@ export const menuItems = [
     children: [
       {
         title: "Освітньо-професійні програми",
-        url: "/",
+        url: "#",
         id: 410,
         children: [
           {
@@ -162,7 +162,7 @@ export const menuItems = [
     children: [
       {
         title: "Конференція “Світлотехніка й електроенергетика”",
-        url: "/",
+        url: "#",
         id: 630,
         children: [
           {

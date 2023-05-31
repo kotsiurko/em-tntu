@@ -93,13 +93,11 @@ const SecretForm = ({ mainMenuQO, other }) => {
 export default SecretForm;
 
 export async function getStaticProps() {
-  // const staffData = await client.fetch(staffListQuery);
   const mainMenuQO = await mainMenuQueriesObjCreator();
   const other = await client.fetch(`*[_type=='other']`);
 
   return {
     props: {
-      // staffData,
       mainMenuQO,
       other,
     },

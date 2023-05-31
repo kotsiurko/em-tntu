@@ -12,15 +12,54 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import Pagination from "@/components/Pagination/Pagination";
 
 // Other libs
 import moment from "moment";
 
+const itemsPerPage = 10;
+
 const PaginatedItems = ({ totalNewsAmount, initArr, mainMenuQO }) => {
-  // Тут треба буде написати функцію, яка витягує сформований масив із
-  // компонента пагінації і записує його в сетстейт
-  // const [newsArr, setNewsArr] = useState(initArr);
+  const [newsArr, setNewsArr] = useState(initArr);
+  const [currPage, setCurrPage] = useState(1);
+
+  const totalPages = Math.ceil(totalNewsAmount / itemsPerPage);
+
+  async function fetchPrevPage() {
+    let startIdx = itemsPerPage * currPage - 2 * itemsPerPage;
+    let endIdx = itemsPerPage * currPage - itemsPerPage;
+
+    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+
+    setCurrPage(currPage - 1);
+    setNewsArr(result);
+  }
+
+  async function fetchNextPage() {
+    let startIdx = itemsPerPage * currPage;
+    let endIdx = startIdx + itemsPerPage;
+
+    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+
+    setCurrPage(currPage + 1);
+    setNewsArr(result);
+  }
+
+  async function fetchLastPage() {
+    let startIdx = itemsPerPage * (totalPages - 1);
+    let endIdx = totalNewsAmount + 1;
+    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+
+    setCurrPage(totalPages);
+    setNewsArr(result);
+  }
+  async function fetchFirstPage() {
+    let startIdx = 0;
+    let endIdx = startIdx + itemsPerPage;
+    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+
+    setCurrPage(1);
+    setNewsArr(result);
+  }
 
   // MENU FORMATION PART ==============================================
 
@@ -70,7 +109,43 @@ const PaginatedItems = ({ totalNewsAmount, initArr, mainMenuQO }) => {
           </div>
 
           {/* PAGINATION BLOCK STARTS */}
-          <Pagination totalNewsAmount={totalNewsAmount} />
+          <div class="blog">
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                <li className="page">
+                  {currPage !== 1 && (
+                    <a href={null} onClick={fetchFirstPage}>
+                      Перша
+                    </a>
+                  )}
+                </li>
+                <li className="page">
+                  {currPage !== 1 && (
+                    <a href={null} onClick={fetchPrevPage}>
+                      Попередня
+                    </a>
+                  )}
+                </li>
+                <li className="active">
+                  <a href={null}>{currPage}</a>
+                </li>
+                <li className="page">
+                  {currPage < totalPages && (
+                    <a href={null} onClick={fetchNextPage}>
+                      Наступна
+                    </a>
+                  )}
+                </li>
+                <li className="page">
+                  {currPage < totalPages && (
+                    <a href={null} onClick={fetchLastPage}>
+                      Остання
+                    </a>
+                  )}
+                </li>
+              </ul>
+            </div>
+          </div>
           {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>
