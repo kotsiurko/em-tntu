@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 // Client connection
@@ -17,9 +16,6 @@ import BlockContent from "@sanity/block-content-to-react";
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
-
-// Other libs
-import moment from "moment";
 import NewsItems from '@/components/NewsItems/NewsItems';
 import Pagination from '@/components/Pagination/Pagination';
 
