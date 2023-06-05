@@ -5,7 +5,7 @@ import Image from "next/image";
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 import { urlFor } from "../../lib/client";
@@ -18,11 +18,19 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 // Other libs
 import { Lightbox } from 'yet-another-react-lightbox';
 import "yet-another-react-lightbox/styles.css";
-import moment from "moment";
+import NewsItems from '@/components/NewsItems/NewsItems';
+import Pagination from '@/components/Pagination/Pagination';
+
+const schoolsCooperationBool = "schoolsCooperationBool";
+const studentOlympiadsBool = "studentOlympiadsBool";
 
 
-
-const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
+const EntrantsPage = ({ entrantsPage,
+  totalNewsAmountSchoolsCooperation,
+  initArrSchoolsCooperation,
+  totalNewsAmountStudentOlympiads,
+  initArrstudentOlympiads,
+  mainMenuQO, }) => {
 
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -30,17 +38,19 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
 
   const { title, slug, studentsHonors, schoolsCooperation, studentOlympiads, metaDescription } = entrantsPage;
 
-  // Фільтрую масив і залишаю лише ті новини, що містять поле schoolsCooperationBool
-  const filteredArrayCooperation = newsArr.filter((item) => item.schoolsCooperationBool);
-  const sortedArrayCooperation = filteredArrayCooperation.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
+  const [dataFromChildSchoolsCoop, setDataFromChildSchoolsCoop] = useState(initArrSchoolsCooperation);
 
-  // Фільтрую масив і залишаю лише ті новини, що містять поле studentOlympiads
-  const filteredArrayStudOlymp = newsArr.filter((item) => item.studentOlympiadsBool);
-  const sortedArrayStudOlymp = filteredArrayStudOlymp.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
+  const updateDataFromChildSchoolsCoop = (data) => {
+    setDataFromChildSchoolsCoop(data);
+  };
+
+  const [dataFromChildStudOlymp, setDataFromChildStudOlymp] = useState(initArrstudentOlympiads);
+
+  const updateDataFromChildStudOlymp = (data) => {
+    setDataFromChildStudOlymp(data);
+  };
+
+  // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -60,7 +70,9 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
       }
     });
 
-  }, [entrantsPage, mainMenuQO]);
+  }, [initArrSchoolsCooperation, initArrstudentOlympiads, mainMenuQO]);
+
+  // MENU FORMATION PART ENDS =========================================
 
   return (
     <>
@@ -80,87 +92,47 @@ const EntrantsPage = ({ entrantsPage, mainMenuQO, newsArr }) => {
       {/* Page Content */}
       <PageContentSection data={entrantsPage} />
 
-      {(schoolsCooperation === 'true' && sortedArrayCooperation) && <section id="team" className="team">
+      {schoolsCooperation && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
             <p>Події розділу</p>
           </header>
 
           <div className="row gy-4">
-            {sortedArrayCooperation.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
-
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={newsTitle}
-                >
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(mainPhoto).url()}
-                        className="img-fluid"
-                        alt={mainPhoto.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <NewsItems currentItems={dataFromChildSchoolsCoop} />
           </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {totalNewsAmountSchoolsCooperation > newsPerPage && (
+            <Pagination
+              bool={schoolsCooperationBool}
+              totalNewsAmount={totalNewsAmountSchoolsCooperation}
+              sendDataToParent={updateDataFromChildSchoolsCoop}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>}
 
-      {(studentOlympiads === 'true' && sortedArrayStudOlymp) && <section id="team" className="team">
+      {studentOlympiads && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
             <p>Події розділу</p>
           </header>
 
           <div className="row gy-4">
-            {sortedArrayStudOlymp.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-              const newsItemLink = `${slug.current}`;
-
-              return (
-                <div
-                  className="col-lg-6 d-flex align-items-stretch"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                  key={newsTitle}
-                >
-                  <div className="member news">
-                    <div className="position-relative">
-                      <Image
-                        src={urlFor(mainPhoto).url()}
-                        className="img-fluid"
-                        alt={mainPhoto.caption}
-                        width={440}
-                        height={280}
-                      />
-                    </div>
-                    <div className="member-info news">
-                      <a href={newsItemLink}>
-                        <h4>{newsTitle}</h4>
-                      </a>
-                      <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                      <p>{newsItemBodyShort}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <NewsItems currentItems={dataFromChildStudOlymp} />
           </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {totalNewsAmountStudentOlympiads > newsPerPage && (
+            <Pagination
+              bool={studentOlympiadsBool}
+              totalNewsAmount={totalNewsAmountStudentOlympiads}
+              sendDataToParent={updateDataFromChildStudOlymp}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>}
 
@@ -252,14 +224,28 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const entrantsPage = await client.fetch(chapterPageQuery('entrant', slug));
+  const totalNewsAmountSchoolsCooperation = await client.fetch(
+    `count(*[_type == "news" && ${schoolsCooperationBool}])`
+  );
+  const initArrSchoolsCooperation = await client.fetch(
+    `*[_type == "news" && ${schoolsCooperationBool}] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+  const totalNewsAmountStudentOlympiads = await client.fetch(
+    `count(*[_type == "news" && ${studentOlympiadsBool}])`
+  );
+  const initArrstudentOlympiads = await client.fetch(
+    `*[_type == "news" && ${studentOlympiadsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
-  const newsArr = await client.fetch(newsQuery);
 
   return {
     props: {
       entrantsPage,
+      totalNewsAmountSchoolsCooperation,
+      initArrSchoolsCooperation,
+      totalNewsAmountStudentOlympiads,
+      initArrstudentOlympiads,
       mainMenuQO,
-      newsArr,
     }
   }
 }

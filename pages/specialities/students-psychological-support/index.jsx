@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // Client connection
 import { menuItems } from "@/components/Header/menuItems";
 import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, newsQuery } from "@/lib/queries";
+import { mainMenuQueriesObjCreator, newsPerPage } from "@/lib/queries";
 import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 
 // Components
@@ -15,18 +15,21 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
 // Other libs
 import moment from "moment";
+import NewsItems from "@/components/NewsItems/NewsItems";
+import Pagination from "@/components/Pagination/Pagination";
 
-const StudentPsychologicalSupportNews = ({ newsArr, mainMenuQO }) => {
-  // Фільтрую масив і залишаю лише ті новини, що містять поле studentsPsychologicalSupportBool
-  const filteredArray = newsArr.filter(
-    (item) => item.studentsPsychologicalSupportBool
-  );
-  // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
-  const sortedArray = filteredArray.sort(
-    (a, b) =>
-      moment(b.publishedDate).format("YYYYMMDDHHmm") -
-      moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
+const newsBool = "studentsPsychologicalSupportBool";
+
+const StudentPsychologicalSupportNews = ({
+  totalNewsAmount,
+  initArr,
+  mainMenuQO,
+}) => {
+  const [dataFromChild, setDataFromChild] = useState(initArr);
+
+  const updateDataFromChild = (data) => {
+    setDataFromChild(data);
+  };
 
   // MENU FORMATION PART ==============================================
 
@@ -40,7 +43,7 @@ const StudentPsychologicalSupportNews = ({ newsArr, mainMenuQO }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [newsArr, mainMenuQO]);
+  }, [initArr, mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -75,49 +78,18 @@ const StudentPsychologicalSupportNews = ({ newsArr, mainMenuQO }) => {
           </header>
 
           <div className="row gy-4">
-            {sortedArray.map(
-              ({
-                newsTitle,
-                publishedDate,
-                newsItemBodyShort,
-                mainPhoto,
-                slug,
-              }) => {
-                const newsItemLink = `${slug.current}`;
-
-                return (
-                  <div
-                    className="col-lg-6 d-flex align-items-stretch"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    key={newsTitle}
-                  >
-                    <div className="member news">
-                      <div className="position-relative">
-                        <Image
-                          src={urlFor(mainPhoto).url()}
-                          className="img-fluid"
-                          alt={mainPhoto.caption}
-                          width={440}
-                          height={280}
-                        />
-                      </div>
-                      <div className="member-info news">
-                        <a href={newsItemLink}>
-                          <h4>{newsTitle}</h4>
-                        </a>
-                        <p className="publishDate">
-                          Опубліковано:{" "}
-                          {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
-                        </p>
-                        <p>{newsItemBodyShort}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-            )}
+            <NewsItems currentItems={dataFromChild} />
           </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {totalNewsAmount > newsPerPage && (
+            <Pagination
+              bool={newsBool}
+              totalNewsAmount={totalNewsAmount}
+              sendDataToParent={updateDataFromChild}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
@@ -128,12 +100,18 @@ const StudentPsychologicalSupportNews = ({ newsArr, mainMenuQO }) => {
 export default StudentPsychologicalSupportNews;
 
 export async function getStaticProps() {
-  const newsArr = await client.fetch(newsQuery);
+  const totalNewsAmount = await client.fetch(
+    `count(*[_type == "news" && ${newsBool}])`
+  );
+  const initArr = await client.fetch(
+    `*[_type == "news" && ${newsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      newsArr,
+      totalNewsAmount,
+      initArr,
       mainMenuQO,
     },
   };

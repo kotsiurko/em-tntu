@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 import { urlFor } from "../../lib/client";
@@ -20,62 +20,43 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 
 // Other libs
 import moment from "moment";
-
+import NewsItems from '@/components/NewsItems/NewsItems';
+import Pagination from '@/components/Pagination/Pagination';
 
 const InternationalActivityPage = ({
-  internationalActivityData,
+  internationalActivityPageData,
+  totalNewsAmountAcadMobil,
+  initArrAcadMobil,
+  totalNewsAmountIntPractOfStudents,
+  initArrIntPractOfStudents,
+  totalNewsAmountIntInternship,
+  initArrIntInternship,
+  totalNewsAmountECF,
+  initArrECF,
+  totalNewsAmountPTP,
+  initArrPTP,
   mainMenuQO,
-  newsArr,
 }) => {
 
-  const [newsArrForMap, setNewsArrForMap] = useState([]);
+
+  const [dataFromChild, setDataFromChild] = useState([]);
+  const [dataFromChildAmount, setDataFromChildAmount] = useState();
+  const [dataFromChildBool, setDataFromChildBool] = useState('');
+  const updateDataFromChild = (data) => {
+    setDataFromChild(data);
+  }
 
   const {
     title,
     slug,
-    academicMobility,
-    intPractOfStudents,
-    intInternship,
-    eventsConferencesForums,
-    programsTrainingsProjects,
     metaDescription,
-  } = internationalActivityData;
+  } = internationalActivityPageData;
 
 
   const router = useRouter();
-
   const { asPath } = router;
 
-  // Фільтрую і сортую масив (по academicMobilityBool)
-  const filteredArrayAcademicMobility = newsArr.filter((item) => item.academicMobilityBool);
-  const sortedArrayAcademicMobility = filteredArrayAcademicMobility.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
-  // Фільтрую і сортую масив (по intPractOfStudentsBool)
-  const filteredArrayIntPractOfStudents = newsArr.filter((item) => item.intPractOfStudentsBool);
-  const sortedArrayIntPractOfStudents = filteredArrayIntPractOfStudents.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
-  // Фільтрую і сортую масив (по intInternshipBool)
-  const filteredArrayIntInternship = newsArr.filter((item) => item.intInternshipBool);
-  const sortedArrayIntInternship = filteredArrayIntInternship.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
-  // Фільтрую і сортую масив (по eventsConferencesForumsBool)
-  const filteredArrayEventsConferencesForums = newsArr.filter((item) => item.eventsConferencesForumsBool);
-  const sortedArrayEventsConferencesForums = filteredArrayEventsConferencesForums.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
-  // Фільтрую і сортую масив (по programsTrainingsProjectsBool)
-  const filteredArrayProgramsTrainingsProjects = newsArr.filter((item) => item.programsTrainingsProjectsBool);
-  const sortedArrayProgramsTrainingsProjects = filteredArrayProgramsTrainingsProjects.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
+  // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -95,28 +76,39 @@ const InternationalActivityPage = ({
       }
     });
 
-    // ---------------------------------
+    // MENU FORMATION PART ENDS =========================================
 
+    // ------------------------------------------------------------------
     if (asPath === "/international-activity/academic-mobility") {
-      setNewsArrForMap(sortedArrayAcademicMobility);
+      setDataFromChild(initArrAcadMobil);
+      setDataFromChildAmount(totalNewsAmountAcadMobil);
+      setDataFromChildBool("academicMobilityBool");
     }
     if (asPath === "/international-activity/international-practice-of-students") {
-      setNewsArrForMap(sortedArrayIntPractOfStudents);
+      setDataFromChild(initArrIntPractOfStudents);
+      setDataFromChildAmount(totalNewsAmountIntPractOfStudents);
+      setDataFromChildBool("intPractOfStudentsBool");
     }
     if (asPath === "/international-activity/international-internship") {
-      setNewsArrForMap(sortedArrayIntInternship);
+      setDataFromChild(initArrIntInternship);
+      setDataFromChildAmount(totalNewsAmountIntInternship);
+      setDataFromChildBool("intInternshipBool");
     }
     if (asPath === "/international-activity/events-conferences-forums") {
-      setNewsArrForMap(sortedArrayEventsConferencesForums);
+      setDataFromChild(initArrECF);
+      setDataFromChildAmount(totalNewsAmountECF);
+      setDataFromChildBool("eventsConferencesForumsBool");
     }
     if (asPath === "/international-activity/programs-trainings-projects") {
-      setNewsArrForMap(sortedArrayProgramsTrainingsProjects);
+      setDataFromChild(initArrPTP);
+      setDataFromChildAmount(totalNewsAmountPTP);
+      setDataFromChildBool("programsTrainingsProjectsBool");
     }
+    // ------------------------------------------------------------------
 
-    // --------------------------------------
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [internationalActivityData, mainMenuQO]);
+
+  }, [asPath, initArrAcadMobil, initArrECF, initArrIntInternship, initArrIntPractOfStudents, initArrPTP, internationalActivityPageData, mainMenuQO, totalNewsAmountAcadMobil, totalNewsAmountECF, totalNewsAmountIntInternship, totalNewsAmountIntPractOfStudents, totalNewsAmountPTP]);
 
   return (
     <>
@@ -134,55 +126,34 @@ const InternationalActivityPage = ({
       />
 
       {/* Page Content */}
-      <PageContentSection data={internationalActivityData} />
+      <PageContentSection data={internationalActivityPageData} />
 
-      {(
-        (academicMobility === 'true' && newsArrForMap.length > 0) ||
-        (intPractOfStudents === 'true' && newsArrForMap.length > 0) ||
-        (intInternship === 'true' && newsArrForMap.length > 0) ||
-        (eventsConferencesForums === 'true' && newsArrForMap.length > 0) ||
-        (programsTrainingsProjects === 'true' && newsArrForMap.length > 0)
-      ) && <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+      {/* ======= Inner Page Team-Staff Section ======= */}
+      <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
 
-            <div className="row gy-4">
-              {newsArrForMap.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-                const newsItemLink = `${slug.current}`;
 
-                return (
-                  <div
-                    className="col-lg-6 d-flex align-items-stretch"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    key={newsTitle}
-                  >
-                    <div className="member news">
-                      <div className="position-relative">
-                        <Image
-                          src={urlFor(mainPhoto).url()}
-                          className="img-fluid"
-                          alt={mainPhoto.caption}
-                          width={440}
-                          height={280}
-                        />
-                      </div>
-                      <div className="member-info news">
-                        <a href={newsItemLink}>
-                          <h4>{newsTitle}</h4>
-                        </a>
-                        <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                        <p>{newsItemBodyShort}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          <div className="row gy-4">
+            <NewsItems currentItems={dataFromChild} />
           </div>
-        </section>}
+
+          {/* PAGINATION BLOCK STARTS */}
+          {(dataFromChildAmount > newsPerPage) && (
+            <Pagination
+              bool={dataFromChildBool}
+              totalNewsAmount={dataFromChildAmount}
+              sendDataToParent={updateDataFromChild}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
+
+
+        </div>
+      </section>
+      {/* ======= End Team-Staff Page Section ======= */}
 
     </>
   )
@@ -206,15 +177,59 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const internationalActivityData = await client.fetch(chapterPageQuery('international-activity', slug));
+  const internationalActivityPageData = await client.fetch(chapterPageQuery('international-activity', slug));
+
+  const totalNewsAmountAcadMobil = await client.fetch(
+    `count(*[_type == "news" && academicMobilityBool])`
+  );
+  const initArrAcadMobil = await client.fetch(
+    `*[_type == "news" && academicMobilityBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
+  const totalNewsAmountIntPractOfStudents = await client.fetch(
+    `count(*[_type == "news" && intPractOfStudentsBool])`
+  );
+  const initArrIntPractOfStudents = await client.fetch(
+    `*[_type == "news" && intPractOfStudentsBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
+  const totalNewsAmountIntInternship = await client.fetch(
+    `count(*[_type == "news" && intInternshipBool])`
+  );
+  const initArrIntInternship = await client.fetch(
+    `*[_type == "news" && intInternshipBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
+  const totalNewsAmountECF = await client.fetch(
+    `count(*[_type == "news" && eventsConferencesForumsBool])`
+  );
+  const initArrECF = await client.fetch(
+    `*[_type == "news" && eventsConferencesForumsBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
+  const totalNewsAmountPTP = await client.fetch(
+    `count(*[_type == "news" && programsTrainingsProjectsBool])`
+  );
+  const initArrPTP = await client.fetch(
+    `*[_type == "news" && programsTrainingsProjectsBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
   const mainMenuQO = await mainMenuQueriesObjCreator();
-  const newsArr = await client.fetch(newsQuery);
 
   return {
     props: {
-      internationalActivityData,
+      internationalActivityPageData,
+      totalNewsAmountAcadMobil,
+      initArrAcadMobil,
+      totalNewsAmountIntPractOfStudents,
+      initArrIntPractOfStudents,
+      totalNewsAmountIntInternship,
+      initArrIntInternship,
+      totalNewsAmountECF,
+      initArrECF,
+      totalNewsAmountPTP,
+      initArrPTP,
       mainMenuQO,
-      newsArr,
-    }
-  }
+    },
+  };
 }

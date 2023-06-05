@@ -1,55 +1,55 @@
-// import BlockContent from "@sanity/block-content-to-react";
-// import { clientConfig } from "@/lib/client";
-import { useEffect, useState } from "react";
+import { client } from "@/lib/client";
+import { useState } from "react";
 
-const itemsPerPage = 10;
+// Client connection
+import { paginationQuery, newsPerPage } from "@/lib/queries";
 
-function Pagination({ totalNewsAmount }) {
-  const [newsArr, setNewsArr] = useState(initArr);
+function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
   const [currPage, setCurrPage] = useState(1);
-  const totalPages = Math.ceil(totalNewsAmount / itemsPerPage);
+  const totalPages = Math.ceil(totalNewsAmount / newsPerPage);
 
   async function fetchPrevPage() {
-    let startIdx = itemsPerPage * currPage - 2 * itemsPerPage;
-    let endIdx = itemsPerPage * currPage - itemsPerPage;
+    let startIdx = newsPerPage * currPage - 2 * newsPerPage;
+    let endIdx = newsPerPage * currPage - newsPerPage;
 
-    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+    const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(currPage - 1);
-    setNewsArr(result);
+    sendDataToParent(result);
   }
 
   async function fetchNextPage() {
-    let startIdx = itemsPerPage * currPage;
-    let endIdx = startIdx + itemsPerPage;
+    let startIdx = newsPerPage * currPage;
+    let endIdx = startIdx + newsPerPage;
 
-    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+    const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(currPage + 1);
-    setNewsArr(result);
+    sendDataToParent(result);
   }
 
   async function fetchLastPage() {
-    let startIdx = itemsPerPage * (totalPages - 1);
+    let startIdx = newsPerPage * (totalPages - 1);
     let endIdx = totalNewsAmount + 1;
-    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+    const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(totalPages);
-    setNewsArr(result);
+    sendDataToParent(result);
   }
+
   async function fetchFirstPage() {
     let startIdx = 0;
-    let endIdx = startIdx + itemsPerPage;
-    const result = await client.fetch(paginationQuery(startIdx, endIdx));
+    let endIdx = startIdx + newsPerPage;
+    const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(1);
-    setNewsArr(result);
+    sendDataToParent(result);
   }
 
   return (
-    <div class="blog">
-      <div class="blog-pagination">
-        <ul class="justify-content-center">
+    <div className="blog">
+      <div className="blog-pagination">
+        <ul className="justify-content-center">
           <li className="page">
             {currPage !== 1 && (
               <a href={null} onClick={fetchFirstPage}>

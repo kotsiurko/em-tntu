@@ -1,26 +1,26 @@
 import Head from "next/head";
-import Image from "next/image";
-import { urlFor } from "@/lib/client";
 import { useEffect, useState } from "react";
 
 // Client connection
 import { menuItems } from "@/components/Header/menuItems";
 import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, paginationQuery } from "@/lib/queries";
+import { mainMenuQueriesObjCreator, newsPerPage } from "@/lib/queries";
 import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import Pagination from "@/components/Pagination/Pagination";
+import NewsItems from "@/components/NewsItems/NewsItems";
 
-// Other libs
-import moment from "moment";
+const newsBool = "allNewsBool";
 
-const PaginatedItems = ({ totalNewsAmount, initArr, mainMenuQO }) => {
-  // Тут треба буде написати функцію, яка витягує сформований масив із
-  // компонента пагінації і записує його в сетстейт
-  // const [newsArr, setNewsArr] = useState(initArr);
+const NewsList = ({ totalNewsAmount, initArr, mainMenuQO }) => {
+  const [dataFromChild, setDataFromChild] = useState(initArr);
+
+  const updateDataFromChild = (data) => {
+    setDataFromChild(data);
+  };
 
   // MENU FORMATION PART ==============================================
 
@@ -66,11 +66,17 @@ const PaginatedItems = ({ totalNewsAmount, initArr, mainMenuQO }) => {
           </header>
 
           <div className="row gy-4">
-            <Items currentItems={newsArr} />
+            <NewsItems currentItems={dataFromChild} />
           </div>
 
           {/* PAGINATION BLOCK STARTS */}
-          <Pagination totalNewsAmount={totalNewsAmount} />
+          {totalNewsAmount > newsPerPage && (
+            <Pagination
+              bool={newsBool}
+              totalNewsAmount={totalNewsAmount}
+              sendDataToParent={updateDataFromChild}
+            />
+          )}
           {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>
@@ -79,58 +85,12 @@ const PaginatedItems = ({ totalNewsAmount, initArr, mainMenuQO }) => {
   );
 };
 
-export default PaginatedItems;
-
-function Items({ currentItems }) {
-  return (
-    <>
-      {currentItems &&
-        currentItems.map((item) => {
-          const {
-            newsTitle,
-            publishedDate,
-            newsItemBodyShort,
-            mainPhoto,
-            slug,
-          } = item;
-          const newsItemLink = `${slug.current}`;
-          return (
-            <div
-              className="col-lg-6 d-flex align-items-stretch"
-              key={newsItemLink}
-            >
-              <div className="member news">
-                <div className="position-relative">
-                  <Image
-                    src={urlFor(mainPhoto).url()}
-                    className="img-fluid"
-                    alt={mainPhoto.caption}
-                    width={440}
-                    height={280}
-                  />
-                </div>
-                <div className="member-info news">
-                  <a href={newsItemLink}>
-                    <h4>{newsTitle}</h4>
-                  </a>
-                  <p className="publishDate">
-                    Опубліковано:{" "}
-                    {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
-                  </p>
-                  <p>{newsItemBodyShort}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-    </>
-  );
-}
+export default NewsList;
 
 export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(`count(*[_type == "news"])`);
   const initArr = await client.fetch(
-    `*[_type == "news"] | order(publishedDate) [0...${itemsPerPage}]`
+    `*[_type == "news"] | order(publishedDate desc) [0...${newsPerPage}]`
   );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
