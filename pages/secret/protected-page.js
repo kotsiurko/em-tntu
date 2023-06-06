@@ -64,7 +64,7 @@ const ProtectedPage = ({
           </header>
 
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h6>Ця сторінка доступна лише за введенням правильного пароля.</h6>
+            <h6>Ця сторінка доступна лише за паролем</h6>
             <button type="submit"
               className="btn btn-primary"
               onClick={() => {

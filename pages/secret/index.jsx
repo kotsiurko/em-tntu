@@ -64,7 +64,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <div className="mx-sm-3 mb-2">
-                <label htmlFor="inputPassword2" className="sr-only">
+                <label htmlFor="inputPassword2" className="sr-only pb-2">
                   Введіть пароль доступу до сторінки
                 </label>
                 <input
