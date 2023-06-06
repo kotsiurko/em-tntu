@@ -8,10 +8,6 @@ import { client } from "@/lib/client";
 import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
-
-import BlockContent from "@sanity/block-content-to-react";
-
 // Components
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";

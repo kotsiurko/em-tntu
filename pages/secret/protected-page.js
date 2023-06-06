@@ -6,10 +6,22 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { mainMenuQueriesObjCreator } from "@/lib/queries";
 import { menuItems } from "@/components/Header/menuItems";
 import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+import { client } from "@/lib/client";
+
+// Other libs
+import moment from "moment";
 
 
+const ProtectedPage = ({
+  mainMenuQO,
+  secretDocsList,
+}) => {
 
-const ProtectedPage = ({ mainMenuQO }) => {
+  const [selectedItemId, setSelectedItemId] = useState(secretDocsList[0]._id);
+
+  const handleItemClick = (itemId) => {
+    setSelectedItemId(itemId);
+  };
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
   const router = useRouter();
@@ -28,8 +40,7 @@ const ProtectedPage = ({ mainMenuQO }) => {
     if (!authenticated) {
       router.push("/secret"); // Перенаправити на головну сторінку, якщо не аутентифіковано
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainMenuQO]);
+  }, [mainMenuQO, router]);
 
   return (
     <>
@@ -52,7 +63,7 @@ const ProtectedPage = ({ mainMenuQO }) => {
             <p>ВНУТРІШНЬОКАФЕДРАЛЬНІ ПОЛОЖЕННЯ, РОЗПОРЯДЖЕННЯ ТА НАКАЗИ</p>
           </header>
 
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center mb-4">
             <h6>Ця сторінка доступна лише за введенням правильного пароля.</h6>
             <button type="submit"
               className="btn btn-primary"
@@ -64,11 +75,65 @@ const ProtectedPage = ({ mainMenuQO }) => {
             </button>
           </div>
 
-          <div className="d-flex justify-content-between align-items-center">
-            Таблиця із списком документів
+          <div className="accordion" id="accordionExample">
+
+            {secretDocsList.map(({ pageTitle, _id, docs }) => {
+              return (
+                <div className="card" key={_id}>
+                  <div className="card-header" id="headingOne">
+                    <h2 className="mb-0">
+                      <button
+                        className="btn btn-link btn-block text-left"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                        onClick={() => { handleItemClick(_id) }}
+                      >
+                        {pageTitle}
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div
+                    id="collapseOne"
+                    className={selectedItemId === _id ? 'collapse show' : 'collapse'}
+                    aria-labelledby="headingOne"
+                    data-parent="#accordionExample"
+                  >
+                    <div className="card-body">
+                      <table className="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Назва документу</th>
+                            <th scope="col">Дата оприлюднення</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {docs.map(row => {
+                            return (
+                              <tr key={row._key}>
+                                <th scope="row">{row.docNumber}</th>
+                                <td><a href={row.docUrl} download>{row.docTitle}</a></td>
+                                <td>{moment(row.publishedDate).format("YYYY-MM-DD | HH:mm")}</td>
+                              </tr>
+                            )
+                          })}
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+
+
           </div>
         </div>
-      </section>
+      </section >
       {/* ======= End Inner Page Section ======= */}
     </>
   );
@@ -77,13 +142,13 @@ const ProtectedPage = ({ mainMenuQO }) => {
 export default ProtectedPage;
 
 export async function getStaticProps() {
-  // const staffData = await client.fetch(staffListQuery);
   const mainMenuQO = await mainMenuQueriesObjCreator();
+  const secretDocsList = await client.fetch(`*[_type == "secretPage" && defined(docs)] | order(year desc)`);
 
   return {
     props: {
-      // staffData,
       mainMenuQO,
+      secretDocsList,
     },
   };
 }

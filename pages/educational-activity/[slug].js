@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
 import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
 import { urlFor } from "../../lib/client";
@@ -17,17 +16,28 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
 
 // Other libs
-import moment from "moment";
+import NewsItems from '@/components/NewsItems/NewsItems';
+import Pagination from '@/components/Pagination/Pagination';
 
 
 
 const EducationalActivityPage = ({
   educationalActivityData,
+  totalNewsAmountSportLife,
+  initArrSportLife,
+  totalNewsAmountExcursions,
+  initArrExcursions,
+  totalNewsAmountFacultyDays,
+  initArrFacultyDays,
   mainMenuQO,
-  newsArr,
 }) => {
 
-  const [newsArrForMap, setNewsArrForMap] = useState([]);
+  const [dataFromChild, setDataFromChild] = useState([]);
+  const [dataFromChildAmount, setDataFromChildAmount] = useState();
+  const [dataFromChildBool, setDataFromChildBool] = useState('');
+  const updateDataFromChild = (data) => {
+    setDataFromChild(data);
+  }
 
   const {
     title,
@@ -40,26 +50,9 @@ const EducationalActivityPage = ({
 
 
   const router = useRouter();
-
   const { asPath } = router;
 
-  // Фільтрую і сортую масив (по eaSportLifeBool)
-  const filteredArraySportLife = newsArr.filter((item) => item.eaSportLifeBool);
-  const sortedArraySportLife = filteredArraySportLife.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
-  // Фільтрую і сортую масив (по intPractOfStudentsBool)
-  const filteredArrayExcursions = newsArr.filter((item) => item.eaExcursionsBool);
-  const sortedArrayExcursions = filteredArrayExcursions.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
-
-  // Фільтрую і сортую масив (по eaFacultyDaysBool)
-  const filteredArrayFacultyDays = newsArr.filter((item) => item.eaFacultyDaysBool);
-  const sortedArrayFacultyDays = filteredArrayFacultyDays.sort(
-    (a, b) => moment(b.publishedDate).format("YYYYMMDDHHmm") - moment(a.publishedDate).format("YYYYMMDDHHmm")
-  );
+  // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -79,22 +72,29 @@ const EducationalActivityPage = ({
       }
     });
 
+    // MENU FORMATION PART ENDS =========================================
+
     // ---------------------------------
 
     if (asPath === "/educational-activity/sport-life") {
-      setNewsArrForMap(sortedArraySportLife);
+      setDataFromChild(initArrSportLife);
+      setDataFromChildAmount(totalNewsAmountSportLife);
+      setDataFromChildBool("eaSportLifeBool");
     }
     if (asPath === "/educational-activity/excursions") {
-      setNewsArrForMap(sortedArrayExcursions);
+      setDataFromChild(initArrExcursions);
+      setDataFromChildAmount(totalNewsAmountExcursions);
+      setDataFromChildBool("eaExcursionsBool");
     }
     if (asPath === "/educational-activity/faculty-days") {
-      setNewsArrForMap(sortedArrayFacultyDays);
+      setDataFromChild(initArrFacultyDays);
+      setDataFromChildAmount(totalNewsAmountFacultyDays);
+      setDataFromChildBool("eaFacultyDaysBool");
     }
 
     // --------------------------------------
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [educationalActivityData, mainMenuQO]);
+  }, [asPath, educationalActivityData, initArrExcursions, initArrFacultyDays, initArrSportLife, mainMenuQO, totalNewsAmountExcursions, totalNewsAmountFacultyDays, totalNewsAmountSportLife]);
 
   return (
     <>
@@ -114,54 +114,32 @@ const EducationalActivityPage = ({
       {/* Page Content */}
       <PageContentSection data={educationalActivityData} />
 
-      {/* Тут через АБО додати решту умов. щоб не дублювати код */}
-      {/* Тут уважно подумати над логікою поведінки сторінок щодо виведення новин*/}
-      {(
-        (eaSportLife === 'true' && newsArrForMap.length > 0) ||
-        (eaExcursions === 'true' && newsArrForMap.length > 0) ||
-        (eaFacultyDays === 'true' && newsArrForMap.length > 0)
-      ) && <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+      {/* ======= Inner Page Team-Staff Section ======= */}
+      <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
 
-            <div className="row gy-4">
-              {newsArrForMap.map(({ newsTitle, publishedDate, newsItemBodyShort, mainPhoto, slug }) => {
-                const newsItemLink = `${slug.current}`;
 
-                return (
-                  <div
-                    className="col-lg-6 d-flex align-items-stretch"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    key={newsTitle}
-                  >
-                    <div className="member news">
-                      <div className="position-relative">
-                        <Image
-                          src={urlFor(mainPhoto).url()}
-                          className="img-fluid"
-                          alt={mainPhoto.caption}
-                          width={440}
-                          height={280}
-                        />
-                      </div>
-                      <div className="member-info news">
-                        <a href={newsItemLink}>
-                          <h4>{newsTitle}</h4>
-                        </a>
-                        <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p>
-                        <p>{newsItemBodyShort}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          <div className="row gy-4">
+            <NewsItems currentItems={dataFromChild} />
           </div>
-        </section>}
 
+          {/* PAGINATION BLOCK STARTS */}
+          {(dataFromChildAmount > newsPerPage) && (
+            <Pagination
+              bool={dataFromChildBool}
+              totalNewsAmount={dataFromChildAmount}
+              sendDataToParent={updateDataFromChild}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
+
+
+        </div>
+      </section>
+      {/* ======= End Team-Staff Page Section ======= */}
 
     </>
   )
@@ -186,14 +164,40 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const educationalActivityData = await client.fetch(chapterPageQuery('educational-activity', slug));
+
+  const totalNewsAmountSportLife = await client.fetch(
+    `count(*[_type == "news" && eaSportLifeBool])`
+  );
+  const initArrSportLife = await client.fetch(
+    `*[_type == "news" && eaSportLifeBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
+  const totalNewsAmountExcursions = await client.fetch(
+    `count(*[_type == "news" && eaExcursionsBool])`
+  );
+  const initArrExcursions = await client.fetch(
+    `*[_type == "news" && eaExcursionsBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
+  const totalNewsAmountFacultyDays = await client.fetch(
+    `count(*[_type == "news" && eaFacultyDaysBool])`
+  );
+  const initArrFacultyDays = await client.fetch(
+    `*[_type == "news" && eaFacultyDaysBool] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
+
   const mainMenuQO = await mainMenuQueriesObjCreator();
-  const newsArr = await client.fetch(newsQuery);
 
   return {
     props: {
       educationalActivityData,
+      totalNewsAmountSportLife,
+      initArrSportLife,
+      totalNewsAmountExcursions,
+      initArrExcursions,
+      totalNewsAmountFacultyDays,
+      initArrFacultyDays,
       mainMenuQO,
-      newsArr,
     }
   }
 }

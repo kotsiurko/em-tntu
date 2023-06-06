@@ -8,7 +8,7 @@ import { menuItems } from "@/components/Header/menuItems";
 import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 import { client } from "@/lib/client";
 
-const SecretForm = ({ mainMenuQO, other }) => {
+const SecretForm = ({ mainMenuQO, secretPage }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ const SecretForm = ({ mainMenuQO, other }) => {
     e.preventDefault();
 
     // Виконати перевірку пароля
-    if (password === other[0].secretPagePass) {
+    if (password === secretPage[0].secretPagePass) {
       localStorage.setItem("authenticated", "true"); // Зберегти статус аутентифікації
       setTimeout(() => {
         localStorage.removeItem("authenticated"); // Видалити статус аутентифікації через 15 хвилин
@@ -38,8 +38,6 @@ const SecretForm = ({ mainMenuQO, other }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainMenuQO]);
 
   return (
@@ -94,12 +92,14 @@ export default SecretForm;
 
 export async function getStaticProps() {
   const mainMenuQO = await mainMenuQueriesObjCreator();
-  const other = await client.fetch(`*[_type=='other']`);
+  const secretPage = await client.fetch(
+    `*[_type == "secretPage" && defined(secretPagePass)]`
+  );
 
   return {
     props: {
       mainMenuQO,
-      other,
+      secretPage,
     },
   };
 }
