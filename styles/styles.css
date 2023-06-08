@@ -256,3 +256,8 @@ header .container-fluid.container-xl {
 .header.header-scrolled {
     padding: 15px 0 0 0;
 }
+
+
+.features .feature-icons .content .icon-box p {
+    color: #444444;
+}
