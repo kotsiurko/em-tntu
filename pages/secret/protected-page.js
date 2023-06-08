@@ -17,11 +17,61 @@ const ProtectedPage = ({
   secretDocsList,
 }) => {
 
+  // console.log('secretDocsList :>> ', secretDocsList);
+  // const [initialList] = useState(secretDocsList.slice());
+  // const [selectedDocList, setSelectedDocList] = useState(secretDocsList.slice());
+
   const [selectedItemId, setSelectedItemId] = useState(secretDocsList[0]._id);
+  const [initialList] = useState(JSON.parse(JSON.stringify(secretDocsList)));
+  const [selectedDocList, setSelectedDocList] = useState(JSON.parse(JSON.stringify(secretDocsList)));
+  const [filteredByCat, setFilteredByCat] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleInputSubmit = (event) => {
+    event.preventDefault();
+
+    if (searchQuery.length > 0) {
+      const tempArr = JSON.parse(JSON.stringify(secretDocsList))
+      const searchedSelectedDocList = tempArr.map(obj => ({ ...obj, docs: obj.docs.slice() })).filter(obj => {
+        obj.docs = obj.docs.filter(doc =>
+        (doc.docForWhom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          doc.docTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          doc.docNumber.toLowerCase().includes(searchQuery.toLowerCase())
+        ));
+        return obj.docs.length > 0;
+      });
+      setSelectedDocList(searchedSelectedDocList);
+    } else {
+      setSelectedDocList(initialList);
+    }
+
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+    if (event.target.value.length === 0) {
+      setSelectedDocList(initialList);
+    }
+  };
 
   const handleItemClick = (itemId) => {
     setSelectedItemId(itemId);
   };
+
+  const handleCatClick = (category) => {
+    const tempArr = JSON.parse(JSON.stringify(secretDocsList));
+    const filteredSelectedDocList = tempArr.filter(obj => {
+      obj.docs = obj.docs.filter(doc => doc.docCats === category);
+      return obj.docs.length > 0;
+    });
+    setSelectedDocList(filteredSelectedDocList);
+    setFilteredByCat(true);
+  };
+
+  const filterReset = () => {
+    setFilteredByCat(false);
+    setSelectedDocList(initialList);
+  }
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
   const router = useRouter();
@@ -60,11 +110,32 @@ const ProtectedPage = ({
       <section className="inner-page">
         <div className="container">
           <header className="section-header">
-            <p>ВНУТРІШНЬОКАФЕДРАЛЬНІ ПОЛОЖЕННЯ, РОЗПОРЯДЖЕННЯ ТА НАКАЗИ</p>
+            <p>КАФЕДРАЛЬНІ ПОЛОЖЕННЯ, РОЗПОРЯДЖЕННЯ ТА НАКАЗИ</p>
           </header>
 
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h6>Ця сторінка доступна лише за паролем</h6>
+
+            <form className="d-flex" onSubmit={handleInputSubmit}>
+              <div className="form-group">
+                <input type="text"
+                  className="form-control"
+                  aria-describedby="emailHelp"
+                  placeholder="Введіть пошуковий запит"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary mx-2"
+              >Шукати</button>
+              {filteredByCat && <button
+                type="submit"
+                className="btn btn-primary mx-2"
+                onClick={filterReset}
+              >Скинути категорії</button>}
+            </form>
+
             <button type="submit"
               className="btn btn-primary"
               onClick={() => {
@@ -77,9 +148,9 @@ const ProtectedPage = ({
 
           <div className="accordion" id="accordionExample">
 
-            {secretDocsList.map(({ pageTitle, _id, docs }) => {
+            {selectedDocList.map(({ pageTitle, _id, docs }) => {
               return (
-                <div className="card" key={_id}>
+                <div className="card" key={_id} style={{ "fontSize": "0.9rem" }}>
                   <div className="card-header" id="headingOne">
                     <h2 className="mb-0">
                       <button
@@ -103,21 +174,33 @@ const ProtectedPage = ({
                     data-parent="#accordionExample"
                   >
                     <div className="card-body">
-                      <table className="table table-striped table-hover">
+                      <table className="table table-striped table-hover table-sm">
                         <thead>
-                          <tr>
-                            <th scope="col">#</th>
+                          <tr style={{ textAlign: 'center' }}>
+                            <th scope="col" style={{ minWidth: "50px" }}>Дата</th>
+                            <th scope="col" style={{ minWidth: "80px" }}>№ наказу</th>
                             <th scope="col">Назва документу</th>
-                            <th scope="col">Дата оприлюднення</th>
+                            <th scope="col" style={{ width: "160px" }}>Категорія</th>
+                            <th scope="col" style={{ minWidth: "140px" }}>Для кого</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {docs.map(row => {
+                          {docs && docs.map(row => {
                             return (
                               <tr key={row._key}>
+                                <td scope="row">{moment(row.publishedDate).format("MM-DD")}</td>
                                 <th scope="row">{row.docNumber}</th>
-                                <td><a href={row.docUrl} download>{row.docTitle}</a></td>
-                                <td>{moment(row.publishedDate).format("YYYY-MM-DD | HH:mm")}</td>
+                                <td scope="row"><a href={row.docUrl} download>{row.docTitle}</a></td>
+                                <td scope="row">
+                                  <button
+                                    type="button"
+                                    style={{ width: '100%' }}
+                                    className="btn btn-outline-primary btn-sm"
+                                    onClick={() => (handleCatClick(row.docCats))}
+                                  >{row.docCats}</button>
+                                </td>
+                                <td scope="row" style={{ textAlign: 'center' }}><a href={null} >{row.docForWhom}</a>
+                                </td>
                               </tr>
                             )
                           })}
