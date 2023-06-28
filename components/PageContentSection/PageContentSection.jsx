@@ -1,5 +1,7 @@
 import BlockContent from "@sanity/block-content-to-react";
 import { clientConfig } from "@/lib/client";
+import ComingSoon from "../../public/assets/img/coming-soon.png";
+import Image from "next/image";
 
 function PageContentSection({ data }) {
   const { title, body } = data;
@@ -15,11 +17,22 @@ function PageContentSection({ data }) {
             <div className="col-xl-12 pt-2 px-2">
               <div className="row align-self-start content text-justify">
                 <div className="icon-box my-dstyle" data-aos="fade-up">
-                  <BlockContent
-                    blocks={body}
-                    projectId={clientConfig.projectId}
-                    dataset={clientConfig.dataset}
-                  />
+                  {body && (
+                    <BlockContent
+                      blocks={body}
+                      projectId={clientConfig.projectId}
+                      dataset={clientConfig.dataset}
+                    />
+                  )}
+                  {!body && (
+                    // <div className="icon-box my-dstyle" data-aos="fade-up">
+                    <Image
+                      src={ComingSoon}
+                      alt="Контент скоро появиться"
+                      className="img-fluid"
+                    />
+                    // </div>
+                  )}
                 </div>
               </div>
             </div>
