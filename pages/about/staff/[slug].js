@@ -56,7 +56,7 @@ const PersonInfo = ({
   } = personItem;
   const name = `${firstName} ${secondName} ${fatherName}`
   const personMetaDescription = `${name} | Біографія та професійний шлях`
-  const galleryArray = imageGallery.map(el => { return { src: urlFor(el).url() } })
+  const galleryArray = imageGallery?.map(el => { return { src: urlFor(el).url() } })
 
   // MENU FORMATION PART ==============================================
 
@@ -111,7 +111,20 @@ const PersonInfo = ({
 
               <div className="col-xl-4 pt-2 px-2 d-flex" data-aos="fade-right" data-aos-delay="100">
                 <div className="row align-self-start">
-                  <Link href="#"
+                  {!galleryArray && <div
+                    className="image-container"
+                    style={{ position: "relative" }}
+                  >
+                    <Image
+                      src={urlFor(mainPhoto).url()}
+                      fill
+                      priority
+                      className="img-fluid rounded image"
+                      alt={mainPhoto.caption}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>}
+                  {galleryArray && <Link href="#"
                     className="image-container"
                     style={{ position: "relative" }}
                     onClick={() => setOpen(true)}
@@ -124,7 +137,7 @@ const PersonInfo = ({
                       alt={mainPhoto.caption}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                  </Link>
+                  </Link>}
                 </div>
               </div>
 
@@ -146,7 +159,7 @@ const PersonInfo = ({
                     <hr />
 
                     <h4>Освіта:</h4>
-                    <ul>{education.map(el => (
+                    <ul>{education?.map(el => (
                       <li key={el._key}>
                         <p><strong>{el.university}</strong></p>
                         <BlockContent
@@ -249,10 +262,10 @@ const PersonInfo = ({
 
                     <h4>УМІННЯ ТА НАВИЧКИ</h4>
 
-                    <h4>Мови: <span className="h5">
+                    {languages && <h4>Мови: <span className="h5">
                       {languages.map(el => el).join(", ") + "."}
                     </span>
-                    </h4>
+                    </h4>}
 
 
 
@@ -298,11 +311,11 @@ const PersonInfo = ({
               </div>
 
               {/* <div> */}
-              <Lightbox
+              {galleryArray && <Lightbox
                 open={open}
                 close={() => setOpen(false)}
                 slides={galleryArray}
-              />
+              />}
               {/* </div> */}
 
             </div>

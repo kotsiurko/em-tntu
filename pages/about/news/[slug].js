@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head'
-import { useRouter } from "next/router";
 import { urlFor } from "../../../lib/client";
 import Image from "next/image";
 import BlockContent from "@sanity/block-content-to-react";
@@ -38,9 +37,6 @@ const NewsItemArticle = ({
   } = newsItem;
 
   const galleryImgArr = [{ src: urlFor(mainPhoto).url() }];
-
-  const router = useRouter();
-  const { pathname } = router;
 
   // MENU FORMATION PART ==============================================
 
@@ -118,7 +114,7 @@ const NewsItemArticle = ({
 
                     <BlockContent
                       blocks={newsItemBody}
-                      imageOptions={{ w: 320, h: 480, fit: 'max' }}
+                      imageOptions={{ w: 640, h: 960, fit: 'max' }}
                       projectId={clientConfig.projectId}
                       dataset={clientConfig.dataset}
                     />

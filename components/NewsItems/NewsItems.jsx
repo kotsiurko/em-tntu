@@ -18,9 +18,6 @@ function NewsItems({ currentItems }) {
             slug,
           } = item;
           const newsItemLink = `/about/news/${slug.current}`;
-          // const newsItemLink = `${slug.current}`;
-          console.log("newsItemLink :>> ", newsItemLink);
-          console.log("item :>> ", item);
           return (
             <div
               className="col-lg-6 d-flex align-items-stretch"
@@ -32,8 +29,8 @@ function NewsItems({ currentItems }) {
                     src={urlFor(mainPhoto).url()}
                     className="img-fluid"
                     alt={mainPhoto.caption}
-                    width={440}
-                    height={280}
+                    sizes="(max-width: 768px) 100vw"
+                    fill={true}
                   />
                 </div>
                 <div className="member-info news">
