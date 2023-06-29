@@ -172,7 +172,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  const newsItem = await client.fetch(chapterItemQuery("news", `/about/news/${slug}`));
+  const newsItem = await client.fetch(chapterItemQuery("news", `${slug}`));
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {

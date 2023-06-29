@@ -3,6 +3,7 @@ import { urlFor } from "@/lib/client";
 
 // Other libs
 import moment from "moment";
+import Link from "next/link";
 
 function NewsItems({ currentItems }) {
   return (
@@ -16,7 +17,10 @@ function NewsItems({ currentItems }) {
             mainPhoto,
             slug,
           } = item;
-          const newsItemLink = `${slug.current}`;
+          const newsItemLink = `/about/news/${slug.current}`;
+          // const newsItemLink = `${slug.current}`;
+          console.log("newsItemLink :>> ", newsItemLink);
+          console.log("item :>> ", item);
           return (
             <div
               className="col-lg-6 d-flex align-items-stretch"
@@ -33,14 +37,18 @@ function NewsItems({ currentItems }) {
                   />
                 </div>
                 <div className="member-info news">
-                  <a href={newsItemLink}>
+                  <Link href={newsItemLink}>
                     <h4>{newsTitle}</h4>
-                  </a>
+                  </Link>
                   <p className="publishDate">
                     Опубліковано:{" "}
                     {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
                   </p>
                   <p>{newsItemBodyShort}</p>
+                  <hr />
+                  <Link href={newsItemLink}>
+                    <p style={{ color: "blue" }}>Читати далі...</p>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -261,3 +261,12 @@ header .container-fluid.container-xl {
 .features .feature-icons .content .icon-box p {
     color: #444444;
 }
+
+/*  */
+hr {
+    margin: .3rem 0;
+}
+
+.team .member .member-info {
+    padding: 10px 15px 10px 15px;
+}
