@@ -60,7 +60,7 @@ const NewsList = ({ totalNewsAmount, initArr, mainMenuQO }) => {
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
-        <div className="container" data-aos="fade-up">
+        <div className="container">
           <header className="section-header">
             <p>НОВИНИ КАФЕДРИ</p>
           </header>
