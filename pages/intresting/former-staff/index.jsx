@@ -16,17 +16,13 @@ import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
 const FormerStaff = ({ staffData, mainMenuQO }) => {
-  // console.log("Staff page data:", fetchedData);
-
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  // const sortedArray = staffData.sort((a, b) => b.weight - a.weight);
 
   // Фільтрую масив і залишаю лише ті новини, що містять поле formerEmployeeBool
   const filteredArray = staffData.filter(
     (item) => item.formerEmployeeBool === true
   );
-  console.log("filteredArray :>> ", filteredArray);
+
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort((a, b) => b.weight - a.weight);
 
@@ -77,7 +73,6 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
                 mainPhoto,
                 slug,
               }) => {
-                console.log("slug :>> ", slug);
                 const personLink = `former-staff/${slug.current}`;
                 const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
                 const positionMarkup =

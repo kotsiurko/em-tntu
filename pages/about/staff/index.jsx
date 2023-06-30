@@ -20,7 +20,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
   const filteredArray = staffData.filter(
     (item) => item.formerEmployeeBool !== true
   );
-  console.log("filteredArray :>> ", filteredArray);
+
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort((a, b) => b.weight - a.weight);
 
