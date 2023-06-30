@@ -78,7 +78,7 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
                 slug,
               }) => {
                 console.log("slug :>> ", slug);
-                const personLink = `${slug.current}`;
+                const personLink = `former-staff/${slug.current}`;
                 const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
                 const positionMarkup =
                   acadStatus.toLowerCase() === position.short.toLowerCase() ? (
