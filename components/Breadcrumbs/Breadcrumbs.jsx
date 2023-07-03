@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const Breadcrumbs = ({
   chapterTitle,
   pageTitle,
@@ -10,19 +12,18 @@ export const Breadcrumbs = ({
       <div className="container">
         <ol>
           <li>
-            <a href="default.aspx">Головна</a>
+            <Link href="/">Головна</Link>
           </li>
           <li>{chapterTitle}</li>
           <li>
-            <a href={pageUrl}>{pageTitle}</a>
+            <Link href={pageUrl}>{pageTitle}</Link>
           </li>
           {subPageTitle && (
             <li>
-              <a href={subPageUrl}>{subPageTitle}</a>
+              <Link href={subPageUrl}>{subPageTitle}</Link>
             </li>
           )}
         </ol>
-        {/* <h2>{subPageTitle ? subPageTitle : pageTitle}</h2> */}
       </div>
     </section>
   );
