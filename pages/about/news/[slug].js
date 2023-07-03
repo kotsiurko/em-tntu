@@ -32,6 +32,7 @@ const NewsItemArticle = ({
     slug,
     publishedDate,
     metaDescription,
+    newsItemBodyShort,
     newsItemBody,
     mainPhoto,
   } = newsItem;
@@ -67,8 +68,10 @@ const NewsItemArticle = ({
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: {newsTitle}</title>
+        <title>{newsTitle} | Кафедра електричної інженерії ТНТУ</title>
         <meta name="description" content={metaDescription} />
+        <meta property="og:title" content={newsTitle} />
+        <meta property="og:description" content={newsItemBodyShort} />
       </Head>
 
       {/* В хедер треба передавати вже сформований масив */}

@@ -18,6 +18,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 // Other libs
 import { Lightbox } from 'yet-another-react-lightbox';
 import "yet-another-react-lightbox/styles.css";
+import Link from 'next/link';
 
 
 const InternationalActivityPage = ({
@@ -33,6 +34,7 @@ const InternationalActivityPage = ({
     title,
     slug,
     photoarchive,
+    pressPublications,
     metaDescription,
   } = intrestingData;
 
@@ -136,7 +138,45 @@ const InternationalActivityPage = ({
       }
 
       {/* Публікації в пресі */}
-      {(asPath === "/intresting/press-publications") && <div>Публікації в пресі</div>}
+      {(asPath === "/intresting/press-publications") &&
+        <section id="values" className="values">
+          <div className="container" data-aos="fade-up">
+
+            {pressPublications.map((el) => {
+
+              const { _key, publScreen, publTitle, publUrl } = el;
+              console.log('el :>> ', el);
+
+              return (
+                <div key={_key}>
+                  <div className='flex-elements'>
+                    <div
+                      className="new-image-container"
+                      style={{ position: "relative" }}
+                    >
+                      <Image
+                        src={urlFor(publScreen).url()}
+                        fill
+                        className="img-thumbnail rounded photo-archive-images"
+                        alt={publScreen.caption}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+
+                    </div>
+                  </div>
+                  <Link href={publUrl}>
+                    <header className="section-header">
+                      <p>{publTitle}</p>
+                    </header>
+                  </Link>
+                  <hr />
+                </div>
+              )
+            })}
+
+          </div>
+
+        </section>}
 
     </>
   )
