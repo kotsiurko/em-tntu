@@ -126,7 +126,7 @@ const NewsItemArticle = ({
 
                     <p>
                       Опубліковано:{" "}
-                      {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
+                      {moment(publishedDate).format("YYYY-MM-DD")}
                     </p>
 
                   </div>

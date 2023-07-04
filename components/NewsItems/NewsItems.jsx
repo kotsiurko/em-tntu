@@ -37,15 +37,17 @@ function NewsItems({ currentItems }) {
                   <Link href={newsItemLink}>
                     <h4>{newsTitle}</h4>
                   </Link>
-                  <p className="publishDate">
-                    Опубліковано:{" "}
-                    {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}
-                  </p>
+
                   <p>{newsItemBodyShort}</p>
                   <hr />
-                  <Link href={newsItemLink}>
-                    <p style={{ color: "blue" }}>Читати далі...</p>
-                  </Link>
+                  <div className="d-flex justify-content-between">
+                    <Link href={newsItemLink}>
+                      <span style={{ color: "blue" }}>Читати далі...</span>
+                    </Link>
+                    <span className="publishDate">
+                      Опубліковано: {moment(publishedDate).format("YYYY-MM-DD")}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
