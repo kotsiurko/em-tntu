@@ -30,6 +30,7 @@ const InternationalActivityPage = ({
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [imgArr, setImgArr] = useState();
 
+  console.log('intrestingData :>> ', intrestingData);
   const {
     title,
     slug,
@@ -144,8 +145,8 @@ const InternationalActivityPage = ({
 
             {pressPublications.map((el) => {
 
-              const { _key, publScreen, publTitle, publUrl } = el;
               console.log('el :>> ', el);
+              const { _key, publScreen, publTitle, publUrl } = el;
 
               return (
                 <div key={_key}>

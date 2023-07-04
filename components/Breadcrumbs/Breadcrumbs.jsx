@@ -15,9 +15,13 @@ export const Breadcrumbs = ({
             <Link href="/">Головна</Link>
           </li>
           <li>{chapterTitle}</li>
-          <li>
-            <Link href={pageUrl}>{pageTitle}</Link>
-          </li>
+          {pageUrl && (
+            <li>
+              <Link href={pageUrl}>{pageTitle}</Link>
+            </li>
+          )}
+          {!pageUrl && <li>{pageTitle}</li>}
+
           {subPageTitle && (
             <li>
               <Link href={subPageUrl}>{subPageTitle}</Link>
