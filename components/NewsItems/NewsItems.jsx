@@ -27,7 +27,7 @@ function NewsItems({ currentItems }) {
                 <div className="position-relative">
                   <Image
                     src={urlFor(mainPhoto).url()}
-                    className="img-fluid"
+                    className="img-fluid image-fit"
                     alt={mainPhoto.caption}
                     sizes="(max-width: 768px) 100vw"
                     fill={true}
