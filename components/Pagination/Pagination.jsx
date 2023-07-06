@@ -50,37 +50,37 @@ function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
     <div className="blog">
       <div className="blog-pagination">
         <ul className="justify-content-center">
-          <li className="page">
-            {currPage !== 1 && (
+          {currPage !== 1 && (
+            <li className="page">
               <a href={null} onClick={fetchFirstPage}>
-                Перша
+                1
               </a>
-            )}
-          </li>
-          <li className="page">
-            {currPage !== 1 && (
+            </li>
+          )}
+          {currPage !== 1 && currPage - 1 !== 1 && (
+            <li className="page">
               <a href={null} onClick={fetchPrevPage}>
                 Попередня
               </a>
-            )}
-          </li>
+            </li>
+          )}
           <li className="active">
             <a href={null}>{currPage}</a>
           </li>
-          <li className="page">
-            {currPage < totalPages && (
+          {currPage < totalPages && currPage + 1 !== totalPages && (
+            <li className="page">
               <a href={null} onClick={fetchNextPage}>
                 Наступна
               </a>
-            )}
-          </li>
-          <li className="page">
-            {currPage < totalPages && (
+            </li>
+          )}
+          {currPage < totalPages && (
+            <li className="page">
               <a href={null} onClick={fetchLastPage}>
-                Остання
+                {totalPages}
               </a>
-            )}
-          </li>
+            </li>
+          )}
         </ul>
       </div>
     </div>
