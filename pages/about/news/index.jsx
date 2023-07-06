@@ -16,7 +16,9 @@ import NewsItems from "@/components/NewsItems/NewsItems";
 const newsBool = "allNewsBool";
 
 const NewsList = ({ totalNewsAmount, initArr, mainMenuQO }) => {
+  console.log("initArr :>> ", initArr);
   const [dataFromChild, setDataFromChild] = useState(initArr);
+  console.log("dataFromChild :>> ", dataFromChild);
 
   const updateDataFromChild = (data) => {
     setDataFromChild(data);
