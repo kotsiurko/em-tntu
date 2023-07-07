@@ -54,7 +54,7 @@ const NewsForEntrants = ({ totalNewsAmountForEntrants,
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
-        chapterTitle="Абітураієнту"
+        chapterTitle="Абітурієнту"
         pageTitle="Новини для абітурієнта"
         pageUrl="news"
       />
