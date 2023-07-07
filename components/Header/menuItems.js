@@ -128,6 +128,11 @@ export const menuItems = [
     icon: "bi bi-emoji-smile-upside-down",
     children: [
       {
+        title: "Новини для абітурієнтів",
+        url: "/entrant/news",
+        id: 509,
+      },
+      {
         title: "Правила прийому",
         url: "https://tntu.edu.ua/?p=uk/admission/rules",
         id: 520,

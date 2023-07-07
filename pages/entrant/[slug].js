@@ -39,13 +39,11 @@ const EntrantsPage = ({ entrantsPage,
   const { title, slug, studentsHonors, schoolsCooperation, studentOlympiads, metaDescription } = entrantsPage;
 
   const [dataFromChildSchoolsCoop, setDataFromChildSchoolsCoop] = useState(initArrSchoolsCooperation);
-
   const updateDataFromChildSchoolsCoop = (data) => {
     setDataFromChildSchoolsCoop(data);
   };
 
   const [dataFromChildStudOlymp, setDataFromChildStudOlymp] = useState(initArrstudentOlympiads);
-
   const updateDataFromChildStudOlymp = (data) => {
     setDataFromChildStudOlymp(data);
   };
@@ -91,6 +89,28 @@ const EntrantsPage = ({ entrantsPage,
 
       {/* Page Content */}
       <PageContentSection data={entrantsPage} />
+
+      {newsForEntrants && <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
+
+          <div className="row gy-4">
+            <NewsItems currentItems={newsForEntrants} />
+          </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {totalNewsAmountForEntrants > newsPerPage && (
+            <Pagination
+              bool={newsForEntrantsBool}
+              totalNewsAmount={totalNewsAmountForEntrants}
+              sendDataToParent={updateNewsForEntrants}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
+        </div>
+      </section>}
 
       {schoolsCooperation && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
@@ -224,12 +244,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const entrantsPage = await client.fetch(chapterPageQuery('entrant', slug));
+
   const totalNewsAmountSchoolsCooperation = await client.fetch(
     `count(*[_type == "news" && ${schoolsCooperationBool}])`
   );
   const initArrSchoolsCooperation = await client.fetch(
     `*[_type == "news" && ${schoolsCooperationBool}] | order(publishedDate desc) [0...${newsPerPage}]`
   );
+
   const totalNewsAmountStudentOlympiads = await client.fetch(
     `count(*[_type == "news" && ${studentOlympiadsBool}])`
   );
