@@ -36,7 +36,7 @@ const EntrantsPage = ({ entrantsPage,
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [imgArr, setImgArr] = useState();
 
-  const { title, slug, studentsHonors, schoolsCooperation, studentOlympiads, metaDescription } = entrantsPage;
+  const { title, slug, newsForEntrants, schoolsCooperation, studentOlympiads, studentsHonors, metaDescription } = entrantsPage;
 
   const [dataFromChildSchoolsCoop, setDataFromChildSchoolsCoop] = useState(initArrSchoolsCooperation);
   const updateDataFromChildSchoolsCoop = (data) => {
