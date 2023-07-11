@@ -21,6 +21,7 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
 
   const { title, body, slug, postGraduateStudentArray, metaDescription } = postgraduateStudyData;
+  // console.log('postgraduateStudyData :>> ', postgraduateStudyData);
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 

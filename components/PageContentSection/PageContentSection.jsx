@@ -3,6 +3,26 @@ import { clientConfig } from "@/lib/client";
 import ComingSoon from "../../public/assets/img/coming-soon.png";
 import Image from "next/image";
 
+import getYouTubeId from "get-youtube-id";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+
+const serializers = {
+  types: {
+    youtube: ({ node }) => {
+      console.log("node :>> ", node);
+      const { url } = node;
+      const id = getYouTubeId(url);
+      return (
+        <>
+          <LiteYouTubeEmbed id={id} />
+          <br />
+        </>
+      );
+    },
+  },
+};
+
 function PageContentSection({ data }) {
   const { title, body } = data;
 
@@ -22,16 +42,15 @@ function PageContentSection({ data }) {
                       blocks={body}
                       projectId={clientConfig.projectId}
                       dataset={clientConfig.dataset}
+                      serializers={serializers}
                     />
                   )}
                   {!body && (
-                    // <div className="icon-box my-dstyle" data-aos="fade-up">
                     <Image
                       src={ComingSoon}
                       alt="Контент скоро появиться"
                       className="img-fluid"
                     />
-                    // </div>
                   )}
                 </div>
               </div>

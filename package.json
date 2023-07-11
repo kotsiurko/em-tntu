@@ -16,11 +16,14 @@
     "aos": "^2.3.4",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "get-youtube-id": "^1.0.1",
     "moment": "^2.29.4",
     "next": "13.2.4",
     "next-sanity": "^4.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-lite-youtube-embed": "^2.3.52",
+    "react-youtube": "^10.1.0",
     "yet-another-react-lightbox": "^3.5.3"
   }
 }
