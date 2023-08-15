@@ -122,7 +122,7 @@ const NewsItemArticle = ({
                       dataset={clientConfig.dataset}
                     />
 
-                    {<section className="features">
+                    {/* {<section className="features">
                       <div className="container text-justify">
                         <div className="row">
                           <div class="ratio ratio-16x9">
@@ -130,7 +130,7 @@ const NewsItemArticle = ({
                           </div>
                         </div>
                       </div>
-                    </section>}
+                    </section>} */}
 
                     <hr />
 
