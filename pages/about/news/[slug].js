@@ -122,16 +122,6 @@ const NewsItemArticle = ({
                       dataset={clientConfig.dataset}
                     />
 
-                    {/* {<section className="features">
-                      <div className="container text-justify">
-                        <div className="row">
-                          <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/MXKeRqHbpOs?rel=0" title="YouTube video" allowFullScreen></iframe>
-                          </div>
-                        </div>
-                      </div>
-                    </section>} */}
-
                     <hr />
 
                     <p>
