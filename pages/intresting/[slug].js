@@ -214,6 +214,7 @@ export async function getStaticProps({ params: { slug } }) {
     props: {
       intrestingData,
       mainMenuQO,
-    }
+    },
+    revalidate: 300
   }
 }
