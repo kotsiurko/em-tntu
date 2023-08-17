@@ -10,7 +10,7 @@ import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 const serializers = {
   types: {
     youtube: ({ node }) => {
-      console.log("node :>> ", node);
+      // console.log("node :>> ", node);
       const { url } = node;
       const id = getYouTubeId(url);
       return (

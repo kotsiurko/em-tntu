@@ -16,6 +16,7 @@ import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 
 // Other libs
+import moment from "moment";
 import { Lightbox } from 'yet-another-react-lightbox';
 import "yet-another-react-lightbox/styles.css";
 import Link from 'next/link';
@@ -30,7 +31,7 @@ const InternationalActivityPage = ({
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [imgArr, setImgArr] = useState();
 
-  console.log('intrestingData :>> ', intrestingData);
+  // console.log('intrestingData :>> ', intrestingData);
   const {
     title,
     slug,
@@ -143,14 +144,25 @@ const InternationalActivityPage = ({
         <section id="values" className="values">
           <div className="container" data-aos="fade-up">
 
+            <header className="section-header header-publication">
+              <p>ПУБЛІКАЦІЇ В ПРЕСІ</p>
+            </header>
+
             {pressPublications.map((el) => {
 
-              console.log('el :>> ', el);
-              const { _key, publScreen, publTitle, publUrl } = el;
+              // console.log('el :>> ', el);
+              const { _key, publScreen, publTitle, publUrl, publAuthors, publDate } = el;
 
               return (
-                <div key={_key}>
-                  <div className='flex-elements'>
+                <div key={_key} className='publication-section'>
+                  <Link href={publUrl}>
+                    <header className="section-header publication-title">
+                      <h3>{publTitle}</h3>
+                      <h6>Автори: {publAuthors}</h6>
+                      <h6>Дата публікації: {moment(publDate).format("YYYY-MM-DD")}</h6>
+                    </header>
+                  </Link>
+                  <div className='flex-elements hr-line'>
                     <div
                       className="new-image-container"
                       style={{ position: "relative" }}
@@ -165,12 +177,6 @@ const InternationalActivityPage = ({
 
                     </div>
                   </div>
-                  <Link href={publUrl}>
-                    <header className="section-header">
-                      <p>{publTitle}</p>
-                    </header>
-                  </Link>
-                  <hr />
                 </div>
               )
             })}

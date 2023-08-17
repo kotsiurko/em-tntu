@@ -275,3 +275,35 @@ hr {
 .team .member .member-info {
     padding: 10px 15px 10px 15px;
 }
+
+
+/* ----------------------------------- */
+.values{
+    padding: 30px 0;
+}
+
+.header-publication{
+    padding: 0;
+}
+
+.publication-section{
+    margin: 40px 0 0;
+}
+
+.publication-section::after{
+    content: '';
+    background-color: #012970 ;
+    height: 1px;
+    opacity: .3;
+    display: block;
+}
+
+.publication-title{
+    padding-bottom: 15px;
+}
+
+.hr-line{
+    margin-bottom: 40px;
+}
+
+/* ----------------------------------- */
