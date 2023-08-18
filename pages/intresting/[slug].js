@@ -215,6 +215,6 @@ export async function getStaticProps({ params: { slug } }) {
       intrestingData,
       mainMenuQO,
     },
-    // revalidate: 300
+    revalidate: 300
   }
 }
