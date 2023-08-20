@@ -15,9 +15,9 @@ const handler = async (req, res) => {
       return res.status(401).json({ msg: 'Invalid request!' });
 
     //getting payload
-    // const { id } = req.body;
+    const { id } = req.body;
     await res.revalidate(`/intresting/`);
-    // await res.revalidate(`/intresting/${id}`);
+    await res.revalidate(`/intresting/${id}`);
 
     res.status(200).json({ msg: 'Product pages revalidated.' });
   } catch (error) {
