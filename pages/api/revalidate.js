@@ -18,7 +18,7 @@ const handler = async (req, res) => {
     // const { slug } = req.body;
     // console.log(slug);
     await res.revalidate(`/intresting/`);
-    await res.revalidate(`/intresting/press-publications/`);
+    await res.revalidate(`/intresting/${slug.current}`);
     // await res.revalidate(`/intresting/press-publications/${slug.current}`);
 
     res.status(200).json({ msg: 'Product pages revalidated.' });
