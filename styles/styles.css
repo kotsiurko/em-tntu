@@ -284,6 +284,7 @@ hr {
 
 .header-publication{
     padding: 0;
+    text-transform: uppercase;
 }
 
 .publication-section{

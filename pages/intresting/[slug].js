@@ -145,7 +145,7 @@ const InternationalActivityPage = ({
           <div className="container" data-aos="fade-up">
 
             <header className="section-header header-publication">
-              <p>ПУБЛІКАЦІЇ В ПРЕСІ</p>
+              <p>{title}</p>
             </header>
 
             {pressPublications.map((el) => {
