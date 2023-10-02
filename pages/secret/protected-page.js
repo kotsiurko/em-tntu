@@ -188,7 +188,7 @@ const ProtectedPage = ({
                           {docs && docs.map(row => {
                             return (
                               <tr key={row._key}>
-                                <td scope="row">{moment(row.publishedDate).format("MM-DD")}</td>
+                                <td scope="row">{moment(row.publishedDate).format("DD-MM")}</td>
                                 <th scope="row">{row.docNumber}</th>
                                 <td scope="row"><a href={row.docUrl} download>{row.docTitle}</a></td>
                                 <td scope="row">
