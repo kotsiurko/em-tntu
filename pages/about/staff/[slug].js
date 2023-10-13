@@ -19,6 +19,12 @@ import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Link from "next/link";
 
+const getFullSciDegree = (shortName) => {
+  if (shortName === 'к.т.н.') return 'кандидат технічних наук';
+  else if (shortName === 'доктор наук / ph.D') return 'доктор наук';
+  else if (shortName === 'д.т.н.') return 'доктор технічних наук';
+}
+
 
 const PersonInfo = ({
   personItem,
@@ -35,10 +41,10 @@ const PersonInfo = ({
     acadStatus,
     position,
     edGuarantee,
+    socials,
     education,
     achievements,
     experience,
-    sciWork,
     sciInterests,
     publications,
     inventions,
@@ -51,12 +57,23 @@ const PersonInfo = ({
     awards,
     teachingSubjectList,
     imageGallery,
-    bio,
     slug,
   } = personItem;
+
+  console.log("personItem", personItem);
+
   const name = `${firstName} ${secondName} ${fatherName}`
   const personMetaDescription = `${name} | Біографія та професійний шлях`
   const galleryArray = imageGallery?.map(el => { return { src: urlFor(el).url() } })
+  const sciDegreeFullName = getFullSciDegree(sciDegree);
+  const { tntuNTB, googleScholar, scopus, orcid, rgsn, rIDtr, fb, li, iCi } = socials;
+  function socialsPresent() {
+    if (tntuNTB || googleScholar || scopus || orcid || rgsn || rIDtr || fb || li || iCi) return true;
+    else return false;
+  }
+  // const socialBool = socialsPresent;
+  // console.log('socialBool', socialBool());
+
 
   // MENU FORMATION PART ==============================================
 
@@ -104,7 +121,7 @@ const PersonInfo = ({
         <div className="container" data-aos="fade-up">
 
           {/* <!-- Feature Icons --> */}
-          <div className="row feature-icons" data-aos="fade-up">
+          <div className="row feature-icons">
 
             <div className="row gx-0">
               <h3>{name}</h3>
@@ -143,22 +160,52 @@ const PersonInfo = ({
 
               <div className="col-xl-8 pt-2 px-2">
                 <div className="row align-self-start content text-justify">
-                  <div className="icon-box my-dstyle" data-aos="fade-up">
-                    {sciDegree && <h4>Науковий ступінь: <span className="h5">{sciDegree}(напис має бути повністю))</span> </h4>}
-                    {acadStatus && <h4>Вчене звання: <span className="h5">{acadStatus}</span> </h4>}
+                  <div className="icon-box my-dstyle">
+                    {/* <div className="icon-box my-dstyle" data-aos="fade-up"> */}
+                    {sciDegree !== 'Немає' && <h4>Науковий ступінь: <span className="h5">{sciDegreeFullName}</span> </h4>}
+                    {acadStatus !== 'Немає' && <h4>Вчене звання: <span className="h5">{acadStatus}</span> </h4>}
                     {position && <h4>Посада: <span className="h5">{position.long}</span> </h4>}
+
+                    <hr />
+
                     {edGuarantee && <>
                       <h4>Гарант освітньої програми:</h4>
                       <ul>{edGuarantee.map(el => (<li key={el}>{el}</li>))}</ul>
                     </>}
 
-                    <hr />
+                    {(socialsPresent()) &&
+                      <h4>Профілі на порталах науковометричних баз та соцмереж</h4>}
+                    {(socialsPresent()) && <ul>
+                      {tntuNTB && <li>
+                        <Link href={tntuNTB}>Науково-технічна бібліотека ТНТУ</Link>
+                      </li>}
+                      {googleScholar && <li>
+                        <Link href={googleScholar}>Google Scholar</Link>
+                      </li>}
+                      {scopus && <li>
+                        <Link href={scopus}>Scopus</Link>
+                      </li>}
+                      {orcid && <li>
+                        <Link href={orcid}>ORCID</Link>
+                      </li>}
+                      {rgsn && <li>
+                        <Link href={rgsn}>ResearchGate SN</Link>
+                      </li>}
+                      {rIDtr && <li>
+                        <Link href={rIDtr}>ResearcherID TR</Link>
+                      </li>}
+                      {fb && <li>
+                        <Link href={fb}>Facebook</Link>
+                      </li>}
+                      {li && <li>
+                        <Link href={li}>LinkedIn</Link>
+                      </li>}
+                      {iCi && <li>
+                        <Link href={iCi}>Index Copernicus International</Link>
+                      </li>}
+                    </ul>}
 
-                    <p>Посилання (може зробити картинками як було?) </p>
-
-                    <hr />
-
-                    <h4>Освіта:</h4>
+                    <h4>Освіта</h4>
                     <ul>{education?.map(el => (
                       <li key={el._key}>
                         <p><strong>{el.university}</strong></p>
@@ -176,16 +223,11 @@ const PersonInfo = ({
 
               <div className="col-xl-12 pt-2 px-2">
                 <div className="row align-self-start content text-justify">
-                  <div className="icon-box my-dstyle" data-aos="fade-up">
-                    <h4>Присудження наукового ступеня:</h4>
-                    <p>Кандидат технічних наук, спеціальність 01.02.04 «Механіка деформівного твердого тіла», 2000 р. Диплом ДК 008799. Дисертаційне дослідження на тему: «Прогнозування динамічної повзучості алюмінієвого сплаву».</p>
-                    <h4>Присудження наукового звання:</h4>
-                    <p>Доцент кафедри менеджменту у виробничій сфері, 2008, атестат доцента ДЦ № 019187.</p>
-
-                    <hr />
+                  <div className="icon-box my-dstyle">
 
                     {achievements && <>
-                      <h4>ПРОФЕСІЙНІ ЗДОБУТКИ:</h4>
+                      <h4>Професійні здобутки</h4>
+                      <hr />
                       <BlockContent
                         blocks={achievements}
                         projectId={clientConfig.projectId}
@@ -193,7 +235,7 @@ const PersonInfo = ({
                       />
                     </>}
                     {experience && <>
-                      <h4>ДОСВІД РОБОТИ:</h4>
+                      <h4>Досвід роботи</h4>
                       <ul>
                         {experience.map(el =>
                           <li key={el._key}>
@@ -202,19 +244,11 @@ const PersonInfo = ({
                           </li>
                         )}
                       </ul>
-
-                      <hr />
                     </>}
 
-                    {sciWork && <>
-                      <h4>НАУКОВА РОБОТА</h4>
-                      <BlockContent
-                        blocks={sciWork}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>}
-                    <p>[значення, але чи потрібне?] </p>
+                    <br />
+                    <h4>НАУКОВА РОБОТА</h4>
+                    <hr />
                     {sciInterests && <>
                       <h4>Наукові інтереси</h4>
                       <ul>
@@ -258,9 +292,9 @@ const PersonInfo = ({
                       />
                     </>}
 
-                    <hr />
-
+                    <br />
                     <h4>УМІННЯ ТА НАВИЧКИ</h4>
+                    <hr />
 
                     {languages && <h4>Мови: <span className="h5">
                       {languages.map(el => el).join(", ") + "."}
@@ -287,8 +321,9 @@ const PersonInfo = ({
                     </>}
 
                     {teachingSubjectList && <>
-                      <hr />
+                      <br />
                       <h4>НАВЧАЛЬНІ ДИСЦИПЛІНИ</h4>
+                      <hr />
                       <ul>
                         {teachingSubjectList.map(el =>
                           <li key={el.teachingSubjectId}>
@@ -297,7 +332,7 @@ const PersonInfo = ({
                       </ul>
                     </>}
 
-                    {bio && <>
+                    {/* {bio && <>
                       <hr />
                       <h4>БІОГРАФІЯ</h4>
                       <BlockContent
@@ -305,7 +340,7 @@ const PersonInfo = ({
                         projectId={clientConfig.projectId}
                         dataset={clientConfig.dataset}
                       />
-                    </>}
+                    </>} */}
                   </div>
                 </div>
               </div>
