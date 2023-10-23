@@ -13,12 +13,15 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
 import NewsItems from '@/components/NewsItems/NewsItems';
 import Pagination from '@/components/Pagination/Pagination';
+import DocsViewer from '@/components/DocsViewer/DocsViewer';
 
 const newsBool = "bachelorAcademicHonestyBool";
 
 const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) => {
 
-  const { title, slug, academicHonesty, metaDescription } = bachelorPage;
+  console.log('bachelorPage :>> ', bachelorPage);
+
+  const { title, slug, academicHonesty, metaDescription, docURL } = bachelorPage;
 
   const [dataFromChild, setDataFromChild] = useState(initArr);
 
@@ -69,6 +72,8 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
 
       {/* Page Content */}
       <PageContentSection data={bachelorPage} />
+
+      <DocsViewer docURL={docURL} />
 
       {academicHonesty && <section id="team" className="team">
         <div className="container" data-aos="fade-up">

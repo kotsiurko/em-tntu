@@ -24,7 +24,7 @@ const serializers = {
 };
 
 function PageContentSection({ data }) {
-  const { title, body } = data;
+  const { title, body, slug } = data;
 
   return (
     <section className="features my-personal">
@@ -34,27 +34,29 @@ function PageContentSection({ data }) {
           <div className="row gx-0">
             <h3>{title}</h3>
 
-            <div className="col-xl-12 pt-2 px-2">
-              <div className="row align-self-start content text-justify">
-                <div className="icon-box my-dstyle" data-aos="fade-up">
-                  {body && (
-                    <BlockContent
-                      blocks={body}
-                      projectId={clientConfig.projectId}
-                      dataset={clientConfig.dataset}
-                      serializers={serializers}
-                    />
-                  )}
-                  {!body && (
-                    <Image
-                      src={ComingSoon}
-                      alt="Контент скоро появиться"
-                      className="img-fluid"
-                    />
-                  )}
+            {slug.current !== "/bachelor/сonsultations" && (
+              <div className="col-xl-12 pt-2 px-2">
+                <div className="row align-self-start content text-justify">
+                  <div className="icon-box my-dstyle" data-aos="fade-up">
+                    {body && (
+                      <BlockContent
+                        blocks={body}
+                        projectId={clientConfig.projectId}
+                        dataset={clientConfig.dataset}
+                        serializers={serializers}
+                      />
+                    )}
+                    {!body && (
+                      <Image
+                        src={ComingSoon}
+                        alt="Контент скоро появиться"
+                        className="img-fluid"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         {/* <!-- End Feature Icons --> */}

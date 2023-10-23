@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cyntler/react-doc-viewer": "^1.14.0",
     "@portabletext/react": "^3.0.0",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^5.4.1",

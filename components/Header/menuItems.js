@@ -119,6 +119,11 @@ export const menuItems = [
           },
         ],
       },
+      {
+        title: "Консультації",
+        url: "/bachelor/сonsultations",
+        id: 470,
+      },
     ],
   },
   {
