@@ -18,6 +18,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Link from "next/link";
+import RepeatingLists from "@/components/RepeatingLists/RepeatingLists";
 
 const getFullSciDegree = (shortName) => {
   if (shortName === 'к.т.н.') return 'кандидат технічних наук';
@@ -206,17 +207,8 @@ const PersonInfo = ({
                     </ul>}
 
                     <h4>Освіта</h4>
-                    <ul>{education?.map(el => (
-                      <li key={el._key}>
-                        <p><strong>{el.university}</strong></p>
-                        <BlockContent
-                          blocks={el.description}
-                          projectId={clientConfig.projectId}
-                          dataset={clientConfig.dataset}
-                        />
-                      </li>
-                    ))}
-                    </ul>
+                    <RepeatingLists listTitle={education} />
+
                   </div>
                 </div>
               </div>
@@ -234,16 +226,11 @@ const PersonInfo = ({
                         dataset={clientConfig.dataset}
                       />
                     </>}
+
+
                     {experience && <>
                       <h4>Досвід роботи</h4>
-                      <ul>
-                        {experience.map(el =>
-                          <li key={el._key}>
-                            <p><strong>{el.jobPlace}</strong></p>
-                            <p>{el.jobPosition}</p>
-                          </li>
-                        )}
-                      </ul>
+                      <RepeatingLists listTitle={experience} />
                     </>}
 
                     <br />
@@ -332,15 +319,6 @@ const PersonInfo = ({
                       </ul>
                     </>}
 
-                    {/* {bio && <>
-                      <hr />
-                      <h4>БІОГРАФІЯ</h4>
-                      <BlockContent
-                        blocks={bio}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>} */}
                   </div>
                 </div>
               </div>
