@@ -11,11 +11,12 @@ import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import GuarantorsList from '@/components/GuarantorsList/GuarantorsList';
 
 
 const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
 
-  const { title, slug, metaDescription } = masterEPPPage;
+  const { title, slug, metaDescription, filteredPerson } = masterEPPPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -55,6 +56,10 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
 
       {/* Page Content */}
       <PageContentSection data={masterEPPPage} />
+
+      {/* Тут має бути компонент зі списком гарантів */}
+      {/* ... */}
+      < GuarantorsList personList={filteredPerson} />
     </>
   )
 }
@@ -77,7 +82,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  const masterEPPPage = await client.fetch(chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`));
+  const masterEPPPage = await client.fetch(
+    `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}
+    {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {

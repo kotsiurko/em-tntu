@@ -132,7 +132,7 @@ const PersonInfo = ({
                   <div className="icon-box my-dstyle" data-aos="fade-up">
                     <h4>Науковий ступінь: <span className="h5">{sciDegree}(напис має бути повністю))</span> </h4>
                     <h4>Вчене звання: <span className="h5">{acadStatus}</span> </h4>
-                    <h4>Посада: <span className="h5">{position.long}</span> </h4>
+                    <h4>Посада: <span className="h5">{position}</span> </h4>
                     <h4>Гарант освітньої програми:</h4>
                     <ul>{edGuarantee.map(el => (<li key={el}>{el}</li>))}</ul>
 

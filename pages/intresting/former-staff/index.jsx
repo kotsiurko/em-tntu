@@ -76,16 +76,16 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
                 const personLink = `former-staff/${slug.current}`;
                 const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
                 const positionMarkup =
-                  acadStatus.toLowerCase() === position.short.toLowerCase() ? (
+                  acadStatus.toLowerCase() === position.toLowerCase() ? (
                     <span>
-                      {sciDegree}, {position.short}
+                      {sciDegree}, {position}
                     </span>
                   ) : (
                     <>
                       <span>
                         {sciDegree}, {acadStatus},
                       </span>
-                      <span>{position.short}</span>
+                      <span>{position}</span>
                     </>
                   );
 

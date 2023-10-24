@@ -15,6 +15,8 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 
 const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO }) => {
 
+  console.log('bachelorEPPPage :>> ', bachelorEPPPage);
+
   const { title, slug, metaDescription } = bachelorEPPPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -76,7 +78,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  const bachelorEPPPage = await client.fetch(chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`));
+  const bachelorEPPPage = await client.fetch(
+    `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}
+    {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {

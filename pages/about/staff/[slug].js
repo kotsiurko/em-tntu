@@ -19,13 +19,7 @@ import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Link from "next/link";
 import RepeatingLists from "@/components/RepeatingLists/RepeatingLists";
-
-const getFullSciDegree = (shortName) => {
-  if (shortName === 'к.т.н.') return 'кандидат технічних наук';
-  else if (shortName === 'доктор наук / ph.D') return 'доктор наук';
-  else if (shortName === 'д.т.н.') return 'доктор технічних наук';
-}
-
+import { getFullSciDegree } from "@/lib/helpers";
 
 const PersonInfo = ({
   personItem,
@@ -61,7 +55,7 @@ const PersonInfo = ({
     slug,
   } = personItem;
 
-  console.log("personItem", personItem);
+  // console.log("personItem", personItem);
 
   const name = `${firstName} ${secondName} ${fatherName}`
   const personMetaDescription = `${name} | Біографія та професійний шлях`
@@ -165,7 +159,7 @@ const PersonInfo = ({
                     {/* <div className="icon-box my-dstyle" data-aos="fade-up"> */}
                     {sciDegree !== 'Немає' && <h4>Науковий ступінь: <span className="h5">{sciDegreeFullName}</span> </h4>}
                     {acadStatus !== 'Немає' && <h4>Вчене звання: <span className="h5">{acadStatus}</span> </h4>}
-                    {position && <h4>Посада: <span className="h5">{position.long}</span> </h4>}
+                    {position && <h4>Посада: <span className="h5">{position}</span> </h4>}
 
                     <hr />
 
