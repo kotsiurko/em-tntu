@@ -14,6 +14,7 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import StaffList from "@/components/StaffList/StaffList";
 
 const FormerStaff = ({ staffData, mainMenuQO }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -61,69 +62,7 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
             <p>ПРАЦЮВАЛИ НА КАФЕДРІ</p>
           </header>
 
-          <div className="row gy-4">
-            {sortedArray.map(
-              ({
-                firstName,
-                secondName,
-                fatherName,
-                sciDegree,
-                acadStatus,
-                position,
-                mainPhoto,
-                slug,
-              }) => {
-                const personLink = `former-staff/${slug.current}`;
-                const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
-                const positionMarkup =
-                  acadStatus.toLowerCase() === position.toLowerCase() ? (
-                    <span>
-                      {sciDegree}, {position}
-                    </span>
-                  ) : (
-                    <>
-                      <span>
-                        {sciDegree}, {acadStatus},
-                      </span>
-                      <span>{position}</span>
-                    </>
-                  );
-
-                return (
-                  <div
-                    className="col-lg-2 col-md-4 d-flex align-items-stretch"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    key={firstName}
-                  >
-                    <div className="member">
-                      <div className="position-relative">
-                        <a href={personLink} className="stretched-link"></a>
-                        <img
-                          src={urlFor(mainPhoto).url()}
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-                      <div className="member-info">
-                        <h4>
-                          <firstname style={{ textTransform: "uppercase" }}>
-                            {firstName}
-                          </firstname>
-                          <br />
-                          {secondName}
-                          <br />
-                          {fatherName}
-                        </h4>
-                        {positionMarkup}
-                        <a href={scheduleLink}>розклад</a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-            )}
-          </div>
+          <StaffList staff={sortedArray} />
         </div>
       </section>
       {/* ======= End Team-Staff Page Section ======= */}

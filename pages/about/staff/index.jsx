@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import { urlFor } from "../../../lib/client";
 import { useEffect, useState } from "react";
 
 // Client connection
@@ -12,7 +11,7 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import { personCredentials } from "@/lib/helpers";
+import StaffList from "@/components/StaffList/StaffList";
 
 const Staff = ({ staffData, mainMenuQO }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -60,56 +59,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
             <p>КОЛЕКТИВ КАФЕДРИ</p>
           </header>
 
-          <div className="row gy-4">
-            {sortedArray.map(
-              ({
-                firstName,
-                secondName,
-                fatherName,
-                sciDegree,
-                acadStatus,
-                position,
-                mainPhoto,
-                slug,
-              }) => {
-                const personLink = `staff/${slug.current}`;
-                const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
-
-                return (
-                  <div
-                    className="col-lg-2 col-md-4 d-flex align-items-stretch"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    key={firstName}
-                  >
-                    <div className="member">
-                      <div className="position-relative">
-                        <a href={personLink} className="stretched-link"></a>
-                        <img
-                          src={urlFor(mainPhoto).url()}
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-                      <div className="member-info">
-                        <h4>
-                          <firstname style={{ textTransform: "uppercase" }}>
-                            {firstName}
-                          </firstname>
-                          <br />
-                          {secondName}
-                          <br />
-                          {fatherName}
-                        </h4>
-                        {personCredentials(sciDegree, acadStatus, position)}
-                        <a href={scheduleLink}>розклад</a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-            )}
-          </div>
+          <StaffList staff={sortedArray} />
         </div>
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
