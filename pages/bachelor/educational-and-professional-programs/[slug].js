@@ -11,13 +11,12 @@ import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import GuarantorsList from '@/components/GuarantorsList/GuarantorsList';
 
 
 const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO }) => {
 
-  console.log('bachelorEPPPage :>> ', bachelorEPPPage);
-
-  const { title, slug, metaDescription } = bachelorEPPPage;
+  const { title, slug, metaDescription, filteredPerson } = bachelorEPPPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -56,6 +55,10 @@ const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO }) => {
       />
 
       <PageContentSection data={bachelorEPPPage} />
+
+      {slug.current === '/bachelor/educational-and-professional-programs/guarantor' &&
+        < GuarantorsList personList={filteredPerson} />
+      }
     </>
   )
 }

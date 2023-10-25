@@ -12,11 +12,12 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import { personCredentials } from "@/lib/helpers";
 
 const Staff = ({ staffData, mainMenuQO }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
-  // Фільтрую масив і залишаю лише ті новини, що містять поле formerEmployeeBool
+  // Фільтрую масив і залишаю лише ті новини, що містять false в полі formerEmployeeBool
   const filteredArray = staffData.filter(
     (item) => item.formerEmployeeBool !== true
   );
@@ -73,19 +74,6 @@ const Staff = ({ staffData, mainMenuQO }) => {
               }) => {
                 const personLink = `staff/${slug.current}`;
                 const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
-                const positionMarkup =
-                  acadStatus.toLowerCase() === position.toLowerCase() ? (
-                    <span>
-                      {sciDegree}, {position}
-                    </span>
-                  ) : (
-                    <>
-                      <span>
-                        {sciDegree}, {acadStatus},
-                      </span>
-                      <span>{position}</span>
-                    </>
-                  );
 
                 return (
                   <div
@@ -113,7 +101,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
                           <br />
                           {fatherName}
                         </h4>
-                        {positionMarkup}
+                        {personCredentials(sciDegree, acadStatus, position)}
                         <a href={scheduleLink}>розклад</a>
                       </div>
                     </div>

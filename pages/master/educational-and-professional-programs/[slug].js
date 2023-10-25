@@ -59,7 +59,9 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
 
       {/* Тут має бути компонент зі списком гарантів */}
       {/* ... */}
-      < GuarantorsList personList={filteredPerson} />
+      {slug.current === '/master/educational-and-professional-programs/guarantor' &&
+        < GuarantorsList personList={filteredPerson} />
+      }
     </>
   )
 }
@@ -68,7 +70,7 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
 export default MasterPPPage;
 
 export async function getStaticPaths() {
-  const pages = await client.fetch(slugCurrent('bachelor'));
+  const pages = await client.fetch(slugCurrent('master'));
 
   const paths = pages.map((page) => ({
     params: {

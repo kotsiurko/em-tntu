@@ -3,6 +3,8 @@ import { urlFor } from "@/lib/client";
 import ComingSoon from "../../public/assets/img/coming-soon.png";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./GuarantatorList.module.css";
+import { personCredentials } from "@/lib/helpers";
 
 function GuarantorsList({ personList }) {
   console.log("personList :>> ", personList);
@@ -42,15 +44,16 @@ function GuarantorsList({ personList }) {
 
               <div className="col-lg-8 mt-5 mt-lg-0 d-flex">
                 <div className="row align-self-center gy-4">
-                  <Link href={`/about/staff/${slug.current}`}>
-                    <h4 style={{ textTransform: "uppercase" }}>
-                      {firstName} {secondName} {fatherName}
-                    </h4>
-                  </Link>
-
-                  <h6>
-                    {sciDegree} {acadStatus} {position.long}
-                  </h6>
+                  <div className={styles.personTitle}>
+                    <Link href={`/about/staff/${slug.current}`}>
+                      <h2 className={styles.name}>
+                        {firstName} {secondName} {fatherName}
+                      </h2>
+                      <p>
+                        {personCredentials(sciDegree, acadStatus, position)}
+                      </p>
+                    </Link>
+                  </div>
 
                   {/* Список ОПП */}
                   {edGuarantee?.map((el) => (
