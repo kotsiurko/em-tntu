@@ -14,14 +14,18 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 import NewsItems from '@/components/NewsItems/NewsItems';
 import Pagination from '@/components/Pagination/Pagination';
 import DocsViewer from '@/components/DocsViewer/DocsViewer';
+import CallSchedule from '@/components/CallSchedule/CallSchedule';
 
 const newsBool = "bachelorAcademicHonestyBool";
 
 const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) => {
 
-  console.log('bachelorPage :>> ', bachelorPage);
 
-  const { title, slug, academicHonesty, metaDescription, docURL } = bachelorPage;
+
+  const { title, slug, academicHonesty, metaDescription, docURL, lessonDuration, callSchedule } = bachelorPage;
+
+  // console.log('bachelorPage :>> ', bachelorPage);
+  // console.log('callSchedule :>> ', callSchedule);
 
   const [dataFromChild, setDataFromChild] = useState(initArr);
 
@@ -73,7 +77,10 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
       {/* Page Content */}
       <PageContentSection data={bachelorPage} />
 
-      <DocsViewer docURL={docURL} />
+      {slug.current === '/bachelor/сonsultations' && <DocsViewer docURL={docURL} />}
+
+      {/* Графіки навчального процесу */}
+      <CallSchedule data={{ lessonDuration, callSchedule }} />
 
       {academicHonesty && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
