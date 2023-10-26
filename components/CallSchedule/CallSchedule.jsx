@@ -1,26 +1,15 @@
-// import ComingSoon from "../../public/assets/img/coming-soon.png";
 import moment from "moment";
 
 function CallSchedule({ data }) {
-  console.log("data :>> ", data);
   const { lessonDuration, callSchedule } = data;
-  console.log("callSchedule :>> ", callSchedule);
-  console.log("lessonDuration :>> ", lessonDuration);
-
-  {
-    /* <p>
-  {moment(callSchedule).format("HH:mm")} -{" "}
-  {moment(callSchedule).add(80, "m").format("HH:mm")}
-</p>; */
-  }
 
   return (
-    <section className="features my-personal">
-      <div className="container" data-aos="fade-up">
+    <section className="features myPT-0">
+      <div className="container">
         <header class="section-header">
           <p>Розклад дзвінків</p>
         </header>
-        <table className="table table-bordered table-hover centered">
+        <table className="table table-bordered table-hover table-striped centered">
           <thead className="thead-light">
             <tr>
               <th scope="col">Пара</th>

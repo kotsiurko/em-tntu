@@ -15,6 +15,7 @@ import NewsItems from '@/components/NewsItems/NewsItems';
 import Pagination from '@/components/Pagination/Pagination';
 import DocsViewer from '@/components/DocsViewer/DocsViewer';
 import CallSchedule from '@/components/CallSchedule/CallSchedule';
+import WeeksSchedule from '@/components/WeeksSchedule/WeeksSchedule';
 
 const newsBool = "bachelorAcademicHonestyBool";
 
@@ -22,9 +23,9 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
 
 
 
-  const { title, slug, academicHonesty, metaDescription, docURL, lessonDuration, callSchedule } = bachelorPage;
+  const { title, slug, academicHonesty, metaDescription, docURL, lessonDuration, callSchedule, semesterPeriod, weeksAmount, semesterStarts, eduPlanList } = bachelorPage;
 
-  // console.log('bachelorPage :>> ', bachelorPage);
+  console.log('bachelorPage :>> ', bachelorPage);
   // console.log('callSchedule :>> ', callSchedule);
 
   const [dataFromChild, setDataFromChild] = useState(initArr);
@@ -80,7 +81,28 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
       {slug.current === '/bachelor/сonsultations' && <DocsViewer docURL={docURL} />}
 
       {/* Графіки навчального процесу */}
-      <CallSchedule data={{ lessonDuration, callSchedule }} />
+      {slug.current === '/bachelor/schedules-of-educational-process' &&
+        <>
+          <CallSchedule data={{ lessonDuration, callSchedule }} />
+          <WeeksSchedule data={{ semesterPeriod, weeksAmount, semesterStarts }} />
+
+          <header class="section-header" style={{ paddingBottom: 0 }}>
+            <p>Навчальні плани</p>
+          </header>
+          {/* eduPlanList */}
+          {eduPlanList.map(el => {
+            const { eduPlanTitle, eduPlanURL } = el;
+            return (
+              <>
+                <header class="section-header">
+                  <span>{eduPlanTitle}</span>
+                </header>
+                <DocsViewer docURL={eduPlanURL} />
+              </>
+            )
+          })}
+        </>
+      }
 
       {academicHonesty && <section id="team" className="team">
         <div className="container" data-aos="fade-up">

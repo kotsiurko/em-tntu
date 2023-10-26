@@ -1,23 +1,57 @@
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import DocViewer, {
+  DocViewerRenderers,
+  PDFRenderer,
+} from "@cyntler/react-doc-viewer";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/TextLayer.css";
+
+import ComingSoon from "../../public/assets/img/coming-soon.png";
+import Image from "next/image";
 
 const DocsViewer = ({ docURL }) => {
-  console.log("docURL :>> ", docURL);
+  let fileFormat = "";
+  if (docURL?.endsWith("docx")) {
+    fileFormat = "docx";
+  } else {
+    fileFormat = "pdf";
+  }
+
   const docs = [
     {
       uri: docURL,
-      fileType: "docx",
-      filename: "Demo.docx",
+      fileType: fileFormat,
     },
   ];
 
   return (
-    <div style={{ height: 800, margin: "0 auto" }} className="container">
-      <DocViewer
-        documents={docs}
-        pluginRenderers={DocViewerRenderers}
-        config={{ header: { disableHeader: true } }}
-      />
-    </div>
+    <>
+      {docURL && (
+        <div
+          style={{
+            height: 800,
+            margin: "0 auto 40px",
+            outline: "2px solid #01297099",
+            borderRadius: "5px",
+          }}
+          className="container"
+        >
+          <DocViewer
+            documents={docs}
+            pluginRenderers={DocViewerRenderers}
+            config={{
+              header: { disableHeader: true },
+            }}
+          />
+        </div>
+      )}
+      {!docURL && (
+        <Image
+          src={ComingSoon}
+          alt="Контент скоро появиться"
+          className="img-fluid"
+        />
+      )}
+    </>
   );
 };
 

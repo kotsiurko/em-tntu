@@ -1,6 +1,5 @@
 // import { urlFor } from "../../../lib/client";
 import { urlFor } from "@/lib/client";
-import ComingSoon from "../../public/assets/img/coming-soon.png";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./GuarantatorList.module.css";
