@@ -14,7 +14,7 @@ const Footer = () => {
               <a href="default.aspx">
                 <Image
                   src={logo}
-                  alt="EE Logo"
+                  alt="Логотип кафедри Електричної інженерії"
                   className="ei-logo"
                   style={{
                     width: "auto",
@@ -43,18 +43,27 @@ const Footer = () => {
               <h4>Ми в соцмережах</h4>
 
               <div className="social-links mt-3">
-                <a href="https://www.facebook.com/kaf.ei.tntu/" className="facebook">
+                <a
+                  href="https://www.facebook.com/kaf.ei.tntu/"
+                  className="facebook"
+                >
                   {" "}
                   <i className="bi bi-facebook"></i>
                 </a>
-                <a href="https://scholar.google.com.ua/citations?user=IKmXP1oAAAAJ" className="google-schoolar">
+                <a
+                  href="https://scholar.google.com.ua/citations?user=IKmXP1oAAAAJ"
+                  className="google-schoolar"
+                >
                   <i className="bi bi-google"></i>
                 </a>
                 <a href="https://www.instagram.com/" className="instagram">
                   {" "}
                   <i className="bi bi-instagram"></i>
                 </a>
-                <a href="https://www.youtube.com/channel/UCkRiBJEjnihxVqZvl5lAv_A" className="youtube">
+                <a
+                  href="https://www.youtube.com/channel/UCkRiBJEjnihxVqZvl5lAv_A"
+                  className="youtube"
+                >
                   {" "}
                   <i className="bi bi-youtube"></i>
                 </a>
@@ -82,15 +91,20 @@ const Footer = () => {
 
       <div className="container">
         <div className="credits">
-          © 1999-2022. Тернопільський національний технічний університет імені Івана Пулюя
+          © 1999-2022. Тернопільський національний технічний університет імені
+          Івана Пулюя
           <br />
-          © 1999-2022. Факультет прикладних інформаційних технологій та електроінженерії
+          © 1999-2022. Факультет прикладних інформаційних технологій та
+          електроінженерії
           <br />
           © 1999-2022. Кафедра електричної інженерії
           <br />
         </div>
         <div className="credits">
-          Розробка: <a href="http://tntu.org.ua/person.aspx?name=kocjurko">Коцюрко Роман Володимирович</a>
+          Розробка:{" "}
+          <a href="http://tntu.org.ua/person.aspx?name=kocjurko">
+            Коцюрко Роман Володимирович
+          </a>
           <br />
           {/* Тут можна прописати логіку для автоматичного оновлення дати змін: */}
           {/* Треба зафетчити усі схеми із Сеніті та витягнути з кожної з них _createdAt || _updatedAt: */}

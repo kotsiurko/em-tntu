@@ -92,7 +92,7 @@ const StaffItem = ({ personInfo }) => {
                       fill
                       priority
                       className="img-fluid rounded image"
-                      alt={mainPhoto.caption}
+                      alt={`${firstName} ${secondName}`}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
@@ -109,7 +109,7 @@ const StaffItem = ({ personInfo }) => {
                       fill
                       priority
                       className="img-fluid rounded image"
-                      alt={mainPhoto.caption}
+                      alt={`${firstName} ${secondName}`}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </Link>

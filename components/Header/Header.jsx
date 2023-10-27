@@ -92,7 +92,10 @@ const Header = (props) => {
         <div className="container-fluid container-xl">
           {/* NEED TO FIX ON PRODUCTION */}
           <Link href="/" className="logo d-flex align-items-center">
-            <Image src={headerLogo} alt="Header Logo" />
+            <Image
+              src={headerLogo}
+              alt="Абревіатура кафедри Електричної інженерії"
+            />
             &nbsp;|&nbsp;
             <div>ЕЛЕКТРИЧНА ІНЖЕНЕРІЯ</div>
           </Link>

@@ -454,7 +454,7 @@ export default function Home({ mainMenuQO }) {
                   <div className="member-img">
                     <Image
                       src={Tarasenko}
-                      alt="Tarasenko Mykola Hryhorovych"
+                      alt="Тарасенко Микола Григорович"
                       className="img-fluid"
                     />
                     <div className="social">
@@ -487,7 +487,7 @@ export default function Home({ mainMenuQO }) {
                   <div className="member-img">
                     <Image
                       src={Koval}
-                      alt="Koval Vadym Petrovych"
+                      alt="Коваль Вадим Петрович"
                       className="img-fluid"
                     />
                     <div className="social">
@@ -517,7 +517,7 @@ export default function Home({ mainMenuQO }) {
                   <div className="member-img">
                     <Image
                       src={Lupenko}
-                      alt="Lupenko Anatolii Mykolaiovych"
+                      alt="Лупенко Анатолій Миколайович"
                       className="img-fluid"
                     />
                     <div className="social">
@@ -547,7 +547,7 @@ export default function Home({ mainMenuQO }) {
                   <div className="member-img">
                     <Image
                       src={Andriychuk}
-                      alt="Andriychuk Volodymyr Andriyovych"
+                      alt="Андрійчук Володимир Андрійович"
                       className="img-fluid"
                     />
                     <div className="social">

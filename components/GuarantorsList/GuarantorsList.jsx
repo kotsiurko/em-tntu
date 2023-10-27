@@ -6,8 +6,6 @@ import styles from "./GuarantatorList.module.css";
 import { personCredentials } from "@/lib/helpers";
 
 function GuarantorsList({ personList }) {
-  console.log("personList :>> ", personList);
-
   return (
     <section className="features guaranors">
       <div className="container aos-init aos-animate" data-aos="fade-up">
@@ -35,7 +33,7 @@ function GuarantorsList({ personList }) {
                     fill
                     priority
                     className="img-fluid rounded image"
-                    alt={mainPhoto.caption}
+                    alt={`${firstName} ${secondName}`}
                     // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
