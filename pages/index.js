@@ -16,7 +16,6 @@ import Header from "/components/Header/Header";
 
 // Images
 import electricMan from '../public/assets/img/hero-img.png'
-import departmentStaff from '../public/assets/img/departmentStaff.jpg'
 import value1 from '../public/assets/img/val-1.png'
 import value2 from '../public/assets/img/val-2.png'
 import value3 from '../public/assets/img/val-3.png'
@@ -30,12 +29,17 @@ import Tarasenko from '../public/assets/img/team/tarasenko.jpg'
 import Koval from '../public/assets/img/team/koval.jpg'
 import Lupenko from '../public/assets/img/team/lupenko.jpg'
 import Andriychuk from '../public/assets/img/team/andriychuk.jpg'
+import MainFAQ from '@/components/MainFAQ/MainFAQ';
+import MainAbout from '@/components/MainAbout/MainAbout';
 
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ mainMenuQO }) {
+export default function Home({ mainMenuQO, mainPage }) {
+
+  console.log('mainPage :>> ', mainPage);
+  const aboutData = mainPage.find(el => el.title === 'Хто ми є');
 
   const [purecounter, setPurecounter] = useState(0);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -167,41 +171,7 @@ export default function Home({ mainMenuQO }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= About Section ======= */}
-        <section id="about" className="about">
-
-          <div className="container" data-aos="fade-up">
-            <div className="row gx-0">
-
-              <div className="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                <div className="content">
-                  <h3>Хто ми є</h3>
-                  <h2>КАФЕДРА ЕЛЕКТРИЧНОЇ ІНЖЕНЕРІЇ -<br /> це колектив професіоналів із досвідом роботи не лише в сфері освіти, а й в різних галузях промисловості</h2>
-                  <p>
-                    Ми чудово знаємо потреби та виклики сучасного суспільства, йдемо в ногу з часом та готові ділитись знаннями, власним досвідом
-                    та корисними порадами щодо вирішення тієї чи іншої задачі адже перед інженером усі горизонти відкриті!
-                  </p>
-                  <div className="text-center text-lg-start">
-                    <a href="kolektyv.aspx" className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                      <span>Колектив кафедри</span>
-                      <i className="bi bi-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                <Image
-                  src={departmentStaff}
-                  alt="Staff of EE department"
-                  className="img-fluid"
-                  priority="true"
-                />
-              </div>
-
-            </div>
-          </div>
-
-        </section>
+        <MainAbout data={aboutData} />
         {/* End About Section */}
 
 
@@ -586,182 +556,7 @@ export default function Home({ mainMenuQO }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= F.A.Q Section ======= */}
-        <section id="faq" className="faq">
-
-          <div className="container" data-aos="fade-up">
-
-            <header className="section-header">
-              <h2>ЧаПи</h2>
-              <p>Часті питання</p>
-            </header>
-
-            <div className="row">
-              <div className="col-lg-6">
-                {/* F.A.Q List 1 */}
-                <div className="accordion accordion-flush" id="faqlist1">
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
-                        Яка у вас вартість навчання?
-                      </button>
-                    </h2>
-                    <div id="faq-content-1" className="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                      <div className="accordion-body">
-                        Вартість навчання, а також багато іншої корисної абітурієнту інформації Ви знайдете на <a href="https://tntu.edu.ua/?p=uk/admission/prices">сайті приймальної комісії ТНТУ</a>.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                        Кому надається гуртожиток?
-                      </button>
-                    </h2>
-                    <div id="faq-content-2" className="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                      <div className="accordion-body">
-                        Університет намагатиметься надати гуртожиток всім іногороднім студентам (в першу чергу, згідно закону, пільговикам) в межах наявних місць.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                        Де можна працювати після завершення навчання на Вашій спеціальності?
-                      </button>
-                    </h2>
-                    <div id="faq-content-3" className="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                      <div className="accordion-body text-justify">
-                        <p>
-                          В світі існує величезний ринок праці для випускників даної спеціальності. Тут продавці енергії, продавці обладнання, інсталятори.
-                          Усе, що стосується монтажу, ремонту, обслуговування, сервісу, проєктування тощо. Нині навіть для того, щоб в кімнаті зробити проводку,
-                          треба створити проєкт. І це тільки те коло професій і видів бізнесу, яке лежить на поверхні. Що вже казати про розподілену генерацію,
-                          відновлювану енергетику.
-                        </p>
-                        <p>
-                          Після випуску можна працювати в будь-якій енергетичній компанії, на будь-якому промисловому підприємстві
-                          або в будь-якій іншій організації, де потрібні фахівці того профілю, за яким отримали освіту. Можна піти до робочої команди на посаду
-                          енергетика або електрика.
-                        </p>
-                        <p>
-                          Також можна влаштуватися на будь-яке будівництво — там є цілі проєктні контори, які працюють над забезпеченням енергетичного
-                          живлення хмарочосів. Також зараз модно проектувати підсвічування архітектурних об’єктів та впроваджувати  енергоощадні технології.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <div className="col-lg-6">
-
-                {/* F.A.Q List 2 */}
-                <div className="accordion accordion-flush" id="faqlist2">
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
-                        Що входить в сферу діяльності інженера-електрика?
-                      </button>
-                    </h2>
-                    <div id="faq2-content-1" className="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                      <div className="accordion-body text-justify">
-                        <p>
-                          Найперше, інженер-електрик спеціалізується на технічному обслуговуванні, експлуатації та ремонті електричного і
-                          електромеханічного обладнання як на виробництві, так і в побуті.
-                        </p>
-                        <p>
-                          Сфера діяльності інженера-електрика включає в себе величезний спектр діяльності — від роботи з розетками,
-                          автоматичними вимикачами, побутової електропроводкою — до наладки і монтажу електроустаткування, ремонту кабельних
-                          та повітряних ліній електропередач, технічного обслуговування релейного захисту і автоматики, засобів вимірювання
-                          та обліку, систем сигналізації, електроніки, проектування систем електропостачання.
-                        </p>
-                        <p>
-                          І це далеко не все, що входить в список сфери діяльності інженера-електрика. Розвиток і постійні розробки в області
-                          електричної інженерії призводять до постійного розвитку і вдосконалення технічних знань фахівців в електричній сфері.
-                          Крім того, зміна електромеханічних і електромагнітних пристроїв на мікропроцесорні та цифрові технології, змушує
-                          електриків постійно рухатися вперед, йти в ногу з сучасними технологіями.
-                        </p>
-                        <p>
-                          Грунтуючись на всьому вище перерахованому, а також виходячи з особливостей роботи інженера-електрика, можна
-                          назвати основні вимоги, які є обов’язковими для фахівців даної професії, а саме — наявність відповідальності,
-                          уважності, технічного мислення, відмінної пам’яті.
-                        </p>
-                        <p>
-                          Сьогодні можна отримати освіту, а відповідно і диплом «інженера-електрика» у Тернопільському національному
-                          технічному університеті імені Івана Пулюя на кафедрі електричної інженерії.
-                        </p>
-                        <p>
-                          У зв’язку з стрімким зростанням глобальної електрифікації, ринок праці потребує більшої кількості кваліфікованих
-                          електриків. У зв’язку з цим кількість місць державного замовлення для студентів, що навчаються на спеціальності
-                          141 Електроенергетика, електротехніка та електромеханіка щороку зростає.
-                        </p>
-                        <p>
-                          Ситуація дефіциту фахівців в даній області ускладнюється також внаслідок збільшення кількості гуманітарних
-                          професій, що призводить до затребуваності фахівців-електриках в даний час.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-2">
-                        Чому мені варто вибрати професію інженера-електрика?
-                      </button>
-                    </h2>
-                    <div id="faq2-content-2" className="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                      <div className="accordion-body text-justify">
-                        <p>
-                          Всі розуміють, що на ринку праці України та світу багато незатребуваних випускників  університетів.
-                          Вони вимушені перекваліфіковуватися. Їх спеціальності можуть бути і важливі, але вони не затребувані
-                          в тому обсязі. Що стосується фаху «інженер-електрик», то тут ситуація складається навпаки.
-                          Попит випереджає пропозицію на ринку праці.
-                        </p>
-                        <p>
-                          Інженери-електрики завжди затребувані, їх праця просто необхідна, тому вона високооплачувана. Хороші
-                          інженери-електрики не залишаться без роботи. Всі сайти з пошуку роботи, всі газети і дошки оголошень
-                          рясніють вакансіями для інженерів-електриків. Також у інженера-електрика завжди є можливість
-                          додаткового заробітку, підробітку, виконання приватних замовлень.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-3">
-                        Чи можна навчитися професії електрика самостійно?
-                      </button>
-                    </h2>
-                    <div id="faq2-content-3" className="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                      <div className="accordion-body text-justify">
-                        <p>
-                          На це питання можна відповісти двояко. Якщо мова йде про професійний рівень електрика ЖЕКу, який займається заміною:<br />
-                          -	електричних апаратів (розеток, вимикачів);<br />
-                          -	запобіжників і ПЗВ;<br />
-                          -	здійснює заміну вигорілих частин електричної проводки або проводить нові лінії електричних комунікацій, тощо.<br />
-                        </p>
-                        <p>
-                          Безумовно, тут необхідно отримати досвід і допуск до виконання робіт.
-                          У переважній більшості випадків фахівці недовго затримуються на вищезазначеному рівні (електрик ЖЕКу ).
-                          Тому, щоб просунутися далі по кар’єрних сходах (не вічно ж лазити по стовпах), вже необхідно вища технічна освіта.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
+        <MainFAQ />
         {/* End F.A.Q Section */}
 
       </>
@@ -771,14 +566,16 @@ export default function Home({ mainMenuQO }) {
 }
 
 
-
 export async function getStaticProps() {
+
+  const mainPage = await client.fetch(`*[_type == 'mainPage']`);
 
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      mainMenuQO
+      mainMenuQO,
+      mainPage,
     },
   };
 }
