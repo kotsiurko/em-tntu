@@ -1,14 +1,8 @@
 import Image from "next/image";
 import { urlFor } from "@/lib/client";
 
-// Other libs
-import moment from "moment";
-import Link from "next/link";
-
-import departmentStaff from "../../public/assets/img/departmentStaff.jpg";
-
 function MainAbout({ data }) {
-  console.log("data inside MainAbout Component :>> ", data);
+  const { whoWeArePrimary, whoWeAreSecondary, whoWeArePhoto } = data;
   return (
     <section id="about" className="about">
       <div className="container" data-aos="fade-up">
@@ -20,17 +14,8 @@ function MainAbout({ data }) {
           >
             <div className="content">
               <h3>Хто ми є</h3>
-              <h2>
-                КАФЕДРА ЕЛЕКТРИЧНОЇ ІНЖЕНЕРІЇ - це колектив професіоналів із
-                досвідом роботи не лише в сфері освіти, а й в різних галузях
-                промисловості
-              </h2>
-              <p>
-                Ми чудово знаємо потреби та виклики сучасного суспільства, йдемо
-                в ногу з часом та готові ділитись знаннями, власним досвідом та
-                корисними порадами щодо вирішення тієї чи іншої задачі адже
-                перед інженером усі горизонти відкриті!
-              </p>
+              <h2>{whoWeArePrimary}</h2>
+              <p>{whoWeAreSecondary}</p>
               <div className="text-center text-lg-start">
                 <a
                   href="kolektyv.aspx"
@@ -49,10 +34,12 @@ function MainAbout({ data }) {
             data-aos-delay="200"
           >
             <Image
-              src={departmentStaff}
-              alt="Staff of EE department"
+              src={urlFor(whoWeArePhoto).url()}
               className="img-fluid"
-              priority="true"
+              priority
+              width={1000}
+              height={574}
+              alt={whoWeArePhoto.caption}
             />
           </div>
         </div>

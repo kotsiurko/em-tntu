@@ -11,11 +11,14 @@ import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import SciPublTypes from '@/components/SciPublTypes/SciPublTypes';
 
 
 const SciencePage = ({ chapterPage, mainMenuQO }) => {
 
-  const { title, slug, metaDescription } = chapterPage;
+  console.log('chapterPage :>> ', chapterPage);
+
+  const { title, slug, metaDescription, sciPublTypes } = chapterPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -52,7 +55,10 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
-      <PageContentSection data={chapterPage} />
+      {!sciPublTypes && <PageContentSection data={chapterPage} />}
+
+      {/* {sciPublTypes && Компонент, що відображає сторінку із вкладками} */}
+      {sciPublTypes && <SciPublTypes data={chapterPage} />}
 
     </>
   )

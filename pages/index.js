@@ -16,21 +16,15 @@ import Header from "/components/Header/Header";
 
 // Images
 import electricMan from '../public/assets/img/hero-img.png'
-import value1 from '../public/assets/img/val-1.png'
-import value2 from '../public/assets/img/val-2.png'
-import value3 from '../public/assets/img/val-3.png'
-import value4 from '../public/assets/img/val-4.png'
-import value5 from '../public/assets/img/val-5.png'
-import DepartmentBooklet1 from '../public/images/em-buklet-1-min.jpg'
-import DepartmentBooklet2 from '../public/images/em-buklet-2-min.jpg'
-import FacultyBooklet1 from '../public/images/fpt-buklet-1-min.jpg'
-import FacultyBooklet2 from '../public/images/fpt-buklet-2-min.jpg'
 import Tarasenko from '../public/assets/img/team/tarasenko.jpg'
 import Koval from '../public/assets/img/team/koval.jpg'
 import Lupenko from '../public/assets/img/team/lupenko.jpg'
 import Andriychuk from '../public/assets/img/team/andriychuk.jpg'
 import MainFAQ from '@/components/MainFAQ/MainFAQ';
 import MainAbout from '@/components/MainAbout/MainAbout';
+import MainCounter from '@/components/MainCounter/MainCounter';
+import MainValues from '@/components/MainValues/MainValues';
+import MainBooklet from '@/components/MainBooklet/MainBooklet';
 
 
 
@@ -38,10 +32,14 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ mainMenuQO, mainPage }) {
 
-  console.log('mainPage :>> ', mainPage);
+  // console.log('mainPage data:>> ', mainPage);
   const aboutData = mainPage.find(el => el.title === 'Хто ми є');
+  const faqData = mainPage.find(el => el.title === 'Часті питання');
+  const valuesData = mainPage.find(el => el.title === 'Наші цінності');
+  const bookletsData = mainPage.find(el => el.title === 'Буклети');
+  // bookletsList
+  // console.log('valuesData :>> ', valuesData);
 
-  const [purecounter, setPurecounter] = useState(0);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
@@ -171,7 +169,7 @@ export default function Home({ mainMenuQO, mainPage }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= About Section ======= */}
-        <MainAbout data={aboutData} />
+        {/* <MainAbout data={aboutData} /> */}
         {/* End About Section */}
 
 
@@ -179,59 +177,7 @@ export default function Home({ mainMenuQO, mainPage }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= Counts Section ======= */}
-        <section id="counts" className="counts">
-          <div className="container" data-aos="fade-up">
-
-            <div className="row gy-4">
-
-              <div className="col-lg-3 col-md-6">
-                <div className="count-box">
-                  <i className="ri-account-pin-circle-line" style={{ color: "#bb0852" }}></i>
-                  <div>
-                    <p>Колектив налічує</p>
-                    <span data-purecounter-start="0" data-purecounter-end="27" data-purecounter-duration="1" className="purecounter">{purecounter}</span>
-                    <p>працівників</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="count-box">
-                  <i className="bi bi-mortarboard-fill"></i>
-                  <div>
-                    <p>В тому числі</p>
-                    <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" className="purecounter">{purecounter}</span>
-                    <p>докторів/кандидатів наук</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="count-box">
-                  <i className="bi bi-emoji-smile" style={{ color: "#15be56" }}></i>
-                  <div>
-                    <p>У нас навчались понад</p>
-                    <span data-purecounter-start="0" data-purecounter-end="700" data-purecounter-duration="1" className="purecounter">{purecounter}</span>
-                    <p>фахівців</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="count-box">
-                  <i className="bi bi-journal-richtext" style={{ color: "#ee6c20" }}></i>
-                  <div>
-                    <p>Які захистили більше</p>
-                    <span data-purecounter-start="0" data-purecounter-end="500" data-purecounter-duration="1" className="purecounter">{purecounter}</span>
-                    <p>кваліфікаційних робіт</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
+        {/* <MainCounter data={aboutData.whoWeAreCounter} /> */}
         {/* End Counts Section */}
 
 
@@ -239,85 +185,7 @@ export default function Home({ mainMenuQO, mainPage }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= Values Section ======= */}
-        <section id="values" className="values">
-
-          <div className="container" data-aos="fade-up">
-
-            <header className="section-header">
-              <h2>Наші цінності</h2>
-              <p>Вік живи - вік учись!</p>
-            </header>
-
-            <div className="row justify-content-center">
-
-              <div className="col-lg-4 col-md-6 p-3 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
-                <div className="box">
-                  <Image
-                    src={value1}
-                    alt="First value"
-                    className="img-fluid"
-                  />
-                  <h3>Свобода слова</h3>
-                  <p>У нас можна вільно висловлювати свої думки, погляди, переконання та бути впевненим, що їх почують і
-                    на них зважать у прийнятті рішень, які стосуються всіх</p>
-                </div>
-              </div>
-
-              <div className="col-lg-4 col-md-6 p-3 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-                <div className="box">
-                  <Image
-                    src={value2}
-                    alt="Second value"
-                    className="img-fluid"
-                  />
-                  <h3>Любов та взаємоповага</h3>
-                  <p>Гідність людини є найголовнішим чинником будь-якої взаємодії: ми керуємося любов’ю до наших студентів, та будуємо стосунки, що характеризуються взаємною
-                    повагою між студентами, викладачами та адміністрацією університету</p>
-                </div>
-              </div>
-
-              <div className="col-lg-4 col-md-6 p-3 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-                <div className="box">
-                  <Image
-                    src={value3}
-                    alt="Third value"
-                    className="img-fluid"
-                  />
-                  <h3>Відкритість та прозорість</h3>
-                  <p>Процеси, які відбуваються на нашій кафедрі та рішення, які приймаються в колективі - завжди попередньо обговорюються на публічній відкритій дискусії</p>
-                </div>
-              </div>
-
-              <div className="col-lg-4 col-md-6 p-3 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-                <div className="box">
-                  <Image
-                    src={value4}
-                    alt="Fourth value"
-                    className="img-fluid"
-                  />
-                  <h3>Відповідальність за результат</h3>
-                  <p>Ми беремо відповідальність за те, що здобуті компетентності будуть корисними для формування особистого успіху
-                    та професійної реалізації кожного студента</p>
-                </div>
-              </div>
-
-              <div className="col-lg-4 col-md-6 p-3 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-                <div className="box">
-                  <Image
-                    src={value5}
-                    alt="Fifth value"
-                    className="img-fluid"
-                  />
-                  <h3>Активна громадянська позиція</h3>
-                  <p>Ми беремо соціальну відповідальність за процеси, які відбуваються в місті, регіоні, країні, світі</p>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
+        <MainValues data={valuesData} />
         {/* End Values Section */}
 
 
@@ -325,7 +193,7 @@ export default function Home({ mainMenuQO, mainPage }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= Services Section ======= */}
-        <section id="services" className="services">
+        {/* <section id="services" className="services">
 
           <div className="container" data-aos="fade-up">
 
@@ -400,7 +268,8 @@ export default function Home({ mainMenuQO, mainPage }) {
 
           </div>
 
-        </section>
+        </section> */}
+        <MainBooklet data={bookletsData} />
         {/* End Services Section */}
 
 
@@ -556,7 +425,7 @@ export default function Home({ mainMenuQO, mainPage }) {
         {/* ------------------------------------------------------------------------------- */}
 
         {/* ======= F.A.Q Section ======= */}
-        <MainFAQ />
+        <MainFAQ data={faqData} />
         {/* End F.A.Q Section */}
 
       </>
