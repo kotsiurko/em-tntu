@@ -16,7 +16,7 @@ import SciPublTypes from '@/components/SciPublTypes/SciPublTypes';
 
 const SciencePage = ({ chapterPage, mainMenuQO }) => {
 
-  console.log('chapterPage :>> ', chapterPage);
+  // console.log('chapterPage :>> ', chapterPage);
 
   const { title, slug, metaDescription, sciPublTypes } = chapterPage;
 

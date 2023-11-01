@@ -1,30 +1,10 @@
-import BlockContent from "@sanity/block-content-to-react";
-import { clientConfig } from "@/lib/client";
-import ComingSoon from "../../public/assets/img/coming-soon.png";
-import Image from "next/image";
-
-import getYouTubeId from "get-youtube-id";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
-
-const serializers = {
-  types: {
-    youtube: ({ node }) => {
-      // console.log("node :>> ", node);
-      const { url } = node;
-      const id = getYouTubeId(url);
-      return (
-        <>
-          <LiteYouTubeEmbed id={id} />
-          <br />
-        </>
-      );
-    },
-  },
-};
+import { useState } from "react";
+import TextContent from "../TextContent/TextContent";
 
 function SciPublTypes({ data }) {
-  const { title } = data;
+  const { title, sciPublTypes } = data;
+
+  const [activeTab, setActiveTab] = useState(sciPublTypes[0].sciPublType);
 
   return (
     <section className="features my-personal">
@@ -35,23 +15,47 @@ function SciPublTypes({ data }) {
             <h3>{title}</h3>
 
             <div className="col-xl-12 pt-2 px-2">
+              <nav>
+                <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                  {sciPublTypes.map((el) => {
+                    const { sciPublType, _key } = el;
+                    return (
+                      <a
+                        className={
+                          activeTab === sciPublType
+                            ? `nav-item nav-link active`
+                            : `nav-item nav-link`
+                        }
+                        href="#nav-home"
+                        onClick={() => setActiveTab(sciPublType)}
+                        key={_key}
+                      >
+                        <b style={{ textTransform: "uppercase" }}>
+                          {sciPublType}
+                        </b>
+                      </a>
+                    );
+                  })}
+                </div>
+              </nav>
+
               <div className="row align-self-start content text-justify">
-                <div className="icon-box my-dstyle">
-                  {/* {body && (
-                    <BlockContent
-                      blocks={body}
-                      projectId={clientConfig.projectId}
-                      dataset={clientConfig.dataset}
-                      serializers={serializers}
-                    />
-                  )}
-                  {!body && (
-                    <Image
-                      src={ComingSoon}
-                      alt="Контент скоро появиться"
-                      className="img-fluid"
-                    />
-                  )} */}
+                <div className="icon-box my-dstyle mt-4 tab-content">
+                  {sciPublTypes.map((el) => {
+                    const { sciPublType, publBody, _key } = el;
+                    return (
+                      <div
+                        className={
+                          activeTab === sciPublType
+                            ? `tab-pane fade show active`
+                            : `tab-pane fade`
+                        }
+                        key={_key}
+                      >
+                        <TextContent data={publBody} />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

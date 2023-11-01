@@ -4,6 +4,8 @@ import { clientConfig } from "@/lib/client";
 import getYouTubeId from "get-youtube-id";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+import Image from "next/image";
+import ComingSoon from "../../public/assets/img/coming-soon.png";
 
 const serializers = {
   types: {
@@ -22,12 +24,23 @@ const serializers = {
 
 function TextContent({ data }) {
   return (
-    <BlockContent
-      blocks={data}
-      projectId={clientConfig.projectId}
-      dataset={clientConfig.dataset}
-      serializers={serializers}
-    />
+    <>
+      {data && (
+        <BlockContent
+          blocks={data}
+          projectId={clientConfig.projectId}
+          dataset={clientConfig.dataset}
+          serializers={serializers}
+        />
+      )}
+      {!data && (
+        <Image
+          src={ComingSoon}
+          alt="Контент скоро появиться"
+          className="img-fluid"
+        />
+      )}
+    </>
   );
 }
 
