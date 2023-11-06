@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
-import { client, clientConfig } from "@/lib/client";
+import { client } from "@/lib/client";
 import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
@@ -12,11 +12,12 @@ import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
 import GuarantorsList from '@/components/GuarantorsList/GuarantorsList';
+import ReviewsList from '@/components/ReviewsList/ReviewsList';
 
 
-const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO }) => {
+const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO, guarantorsList }) => {
 
-  const { title, slug, metaDescription, filteredPerson } = bachelorEPPPage;
+  const { title, slug, metaDescription } = bachelorEPPPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -56,8 +57,11 @@ const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO }) => {
 
       <PageContentSection data={bachelorEPPPage} />
 
-      {slug.current === '/bachelor/educational-and-professional-programs/guarantor' &&
-        < GuarantorsList personList={filteredPerson} />
+      {slug.current === '/bachelor/educational-and-professional-programs/programs-and-guarantor' &&
+        <GuarantorsList personList={guarantorsList} />
+      }
+      {slug.current === '/bachelor/educational-and-professional-programs/reviews' &&
+        <ReviewsList personList={guarantorsList} />
       }
     </>
   )
@@ -81,16 +85,21 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
+  // const bachelorEPPPage = await client.fetch(
+  //   `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}
+  //   {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
+  // );
   const bachelorEPPPage = await client.fetch(
-    `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}
-    {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
+    `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}`
   );
+  const guarantorsList = await client.fetch(`*[_type == 'person' && count(edGuarantee) > 0]`);
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       bachelorEPPPage,
       mainMenuQO,
+      guarantorsList,
     }
   }
 }

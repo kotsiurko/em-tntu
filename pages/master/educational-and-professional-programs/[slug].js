@@ -12,11 +12,12 @@ import Header from '@/components/Header/Header';
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
 import GuarantorsList from '@/components/GuarantorsList/GuarantorsList';
+import ReviewsList from '@/components/ReviewsList/ReviewsList';
 
 
-const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
+const MasterPPPage = ({ masterEPPPage, mainMenuQO, guarantorsList }) => {
 
-  const { title, slug, metaDescription, filteredPerson } = masterEPPPage;
+  const { title, slug, metaDescription } = masterEPPPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -57,10 +58,11 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO }) => {
       {/* Page Content */}
       <PageContentSection data={masterEPPPage} />
 
-      {/* Тут має бути компонент зі списком гарантів */}
-      {/* ... */}
-      {slug.current === '/master/educational-and-professional-programs/guarantor' &&
-        < GuarantorsList personList={filteredPerson} />
+      {slug.current === '/master/educational-and-professional-programs/programs-and-guarantor' &&
+        <GuarantorsList personList={guarantorsList} />
+      }
+      {slug.current === '/master/educational-and-professional-programs/reviews' &&
+        <ReviewsList personList={guarantorsList} />
       }
     </>
   )
@@ -84,16 +86,21 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
+  // const masterEPPPage = await client.fetch(
+  //   `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}
+  //   {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
+  // );
   const masterEPPPage = await client.fetch(
-    `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}
-    {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
+    `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}`
   );
+  const guarantorsList = await client.fetch(`*[_type == 'person' && count(edGuarantee) > 0]`);
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       masterEPPPage,
       mainMenuQO,
+      guarantorsList,
     }
   }
 }
