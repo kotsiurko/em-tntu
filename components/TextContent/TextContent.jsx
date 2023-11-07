@@ -28,6 +28,7 @@ function TextContent({ data }) {
       {data && (
         <BlockContent
           blocks={data}
+          imageOptions={{ w: 640, h: 960, fit: "max" }}
           projectId={clientConfig.projectId}
           dataset={clientConfig.dataset}
           serializers={serializers}

@@ -144,9 +144,9 @@ const StaffItem = ({ personInfo }) => {
                     <>
                       <h4>Гарант освітньої програми:</h4>
                       <ul>
-                        {edGuarantee.map((el) => (
-                          <li key={el}>{el}</li>
-                        ))}
+                        {edGuarantee.map(({ edProgTitle, _key }) => {
+                          return <li key={_key}>{edProgTitle}</li>;
+                        })}
                       </ul>
                     </>
                   )}

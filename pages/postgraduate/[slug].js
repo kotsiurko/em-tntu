@@ -21,7 +21,6 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
 
   const { title, body, slug, postGraduateStudentArray, metaDescription } = postgraduateStudyData;
-  // console.log('postgraduateStudyData :>> ', postgraduateStudyData);
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -53,13 +52,13 @@ const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Абітурієнту"
+        chapterTitle="Аспірантура"
         pageTitle={title}
         pageUrl={slug.current}
       />
 
       {/* Page Content */}
-      {body && <PageContentSection data={postgraduateStudyData} />}
+      <PageContentSection data={postgraduateStudyData} />
 
       {postGraduateStudentArray && <section id="team" className="team">
         <div className="container" data-aos="fade-up">

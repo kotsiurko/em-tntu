@@ -1,4 +1,3 @@
-// import { urlFor } from "../../../lib/client";
 import { urlFor } from "@/lib/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -81,22 +80,18 @@ function GuarantorsItem({ person }) {
                     </div>
 
                     <div>
-                      <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={() => handleProgramClick(edProgURL)}
-                      >
+                      <button onClick={() => handleProgramClick(edProgURL)}>
                         {((isOPPOpen && opp_URL !== edProgURL) ||
-                          !isOPPOpen) && <>Дивитись</>}
+                          !isOPPOpen) && <>Переглянути</>}
                         {isOPPOpen && opp_URL === edProgURL && <>Закрити</>}
                       </button>
-                      {" | "}
-                      <Link href={edProgURL}>Завантажити</Link> |
+                      <span>&nbsp;|&nbsp;</span>
+                      <Link href={edProgURL}>Завантажити</Link>
+                      <span>&nbsp;|&nbsp;</span>
                       <Link
                         href={`/bachelor/educational-and-professional-programs/reviews`}
                       >
-                        {" "}
-                        <>До рецензій</>
+                        До рецензій
                       </Link>
                     </div>
                   </div>
@@ -107,16 +102,7 @@ function GuarantorsItem({ person }) {
           </div>
         </div>
       </div>
-      {isOPPOpen && (
-        <>
-          <DocsViewer docURL={opp_URL} />
-          {/* {isOPPOpen}
-          <br />
-          {opp_URL}
-          <br />
-          OPP is open */}
-        </>
-      )}
+      {isOPPOpen && <DocsViewer docURL={opp_URL} />}
     </>
   );
 }

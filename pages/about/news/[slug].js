@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import Head from 'next/head'
 import { urlFor } from "../../../lib/client";
 import Image from "next/image";
-import BlockContent from "@sanity/block-content-to-react";
 
 // Client connection
 import { menuItems } from '@/components/Header/menuItems';
-import { client, clientConfig } from "@/lib/client";
+import { client } from "@/lib/client";
 import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
 import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
 
@@ -18,6 +17,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import moment from "moment";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+
+import TextContent from "@/components/TextContent/TextContent";
+
 
 
 
@@ -115,12 +117,7 @@ const NewsItemArticle = ({
 
                     <hr />
 
-                    <BlockContent
-                      blocks={newsItemBody}
-                      imageOptions={{ w: 640, h: 960, fit: 'max' }}
-                      projectId={clientConfig.projectId}
-                      dataset={clientConfig.dataset}
-                    />
+                    <TextContent data={newsItemBody} />
 
                     <hr />
 

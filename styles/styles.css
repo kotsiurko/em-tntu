@@ -1,4 +1,29 @@
-﻿
+﻿/* reset */
+button{
+    border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+    
+        background: transparent;
+    
+        /* inherit font & color from ancestor */
+        color: #4154f1;
+        font: inherit;
+    
+        /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+        line-height: normal;
+    
+        /* Corrects font smoothing for webkit */
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+    
+        /* Corrects inability to style clickable `input` types in iOS */
+        -webkit-appearance: none;
+}
+
+
 /* Sticky footer */
 html, body {
     height: 100%;
@@ -357,4 +382,14 @@ hr {
 .my50pс{
     width: 45%;
     margin: 5px;
+}
+
+/* EDIT FEATURES FETURES TABS SECTIONs */
+.feture-tabs{
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+.features .feture-tabs {
+    margin-top: 0px;
 }
