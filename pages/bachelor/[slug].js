@@ -16,6 +16,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import DocsViewer from '@/components/DocsViewer/DocsViewer';
 import CallSchedule from '@/components/CallSchedule/CallSchedule';
 import WeeksSchedule from '@/components/WeeksSchedule/WeeksSchedule';
+import Practices from '@/components/Practices/Practices';
 
 const newsBool = "bachelorAcademicHonestyBool";
 
@@ -125,6 +126,8 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
           {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>}
+
+      <Practices />
     </>
   )
 }
