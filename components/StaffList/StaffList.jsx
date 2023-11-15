@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const StaffList = ({ staff }) => {
-  console.log("staff :>> ", staff);
+  // console.log("staff :>> ", staff);
   return (
     <div className="row gy-4">
       {staff.map(

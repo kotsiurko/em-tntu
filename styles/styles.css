@@ -1,26 +1,41 @@
 ﻿/* reset */
+
+.mainPage section {
+    padding: 60px 0;
+}
+
+/* Скинув відступи для секцій, щоб вони були ближчі одна до одної... */
+section {
+    padding: 0;
+}
+
+/* ...але додав відступ на мейн, щоб футер відсувався від мейну */
+main {
+    padding-bottom: 60px;
+}
+
 button{
     border: none;
-        margin: 0;
-        padding: 0;
-        width: auto;
-        overflow: visible;
-    
-        background: transparent;
-    
-        /* inherit font & color from ancestor */
-        color: #4154f1;
-        font: inherit;
-    
-        /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
-        line-height: normal;
-    
-        /* Corrects font smoothing for webkit */
-        -webkit-font-smoothing: inherit;
-        -moz-osx-font-smoothing: inherit;
-    
-        /* Corrects inability to style clickable `input` types in iOS */
-        -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+
+    background: transparent;
+
+    /* inherit font & color from ancestor */
+    color: #4154f1;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none;
 }
 
 
@@ -392,4 +407,14 @@ hr {
 
 .features .feture-tabs {
     margin-top: 0px;
+}
+
+.smallPortableText{
+    padding: 15px 0;
+}
+
+.team .member .member-info .smallPortableText > p{
+    padding: 0;
+    margin: 0;
+    /* outline: 1px solid tomato; */
 }

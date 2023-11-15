@@ -22,12 +22,7 @@ const newsBool = "bachelorAcademicHonestyBool";
 
 const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) => {
 
-
-
-  const { title, slug, academicHonesty, metaDescription, docURL, lessonDuration, callSchedule, semesterPeriod, weeksAmount, semesterStarts, eduPlanList } = bachelorPage;
-
-  console.log('bachelorPage :>> ', bachelorPage);
-  // console.log('callSchedule :>> ', callSchedule);
+  const { title, slug, academicHonesty, metaDescription, docURL, lessonDuration, callSchedule, semesterPeriod, weeksAmount, semesterStarts, eduPlanList, bachPracticesList } = bachelorPage;
 
   const [dataFromChild, setDataFromChild] = useState(initArr);
 
@@ -79,9 +74,11 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
       {/* Page Content */}
       <PageContentSection data={bachelorPage} />
 
+      {/* В МАГІСТРА цієї секції немає. звідти йде перенаправлення на сторінку з інформацією в бакалаврів */}
       {slug.current === '/bachelor/сonsultations' && <DocsViewer docURL={docURL} />}
 
       {/* Графіки навчального процесу */}
+      {/* За цей розділ не знаю чи він дублюватиметься з магістрів чи там будуть свої графіки... */}
       {slug.current === '/bachelor/schedules-of-educational-process' &&
         <>
           <CallSchedule data={{ lessonDuration, callSchedule }} />
@@ -127,7 +124,7 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, initArr, mainMenuQO }) =>
         </div>
       </section>}
 
-      <Practices />
+      {slug.current === '/bachelor/practices' && <Practices prList={bachPracticesList} />}
     </>
   )
 }

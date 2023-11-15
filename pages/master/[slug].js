@@ -13,12 +13,13 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from '@/components/PageContentSection/PageContentSection';
 import NewsItems from '@/components/NewsItems/NewsItems';
 import Pagination from '@/components/Pagination/Pagination';
+import Practices from '@/components/Practices/Practices';
 
 const newsBool = "masterAcademicHonestyBool";
 
 const MasterPage = ({ masterPage, totalNewsAmount, initArr, mainMenuQO }) => {
 
-  const { title, body, slug, academicHonesty, metaDescription } = masterPage;
+  const { title, slug, academicHonesty, metaDescription, masterPracticesList } = masterPage;
 
   const [dataFromChild, setDataFromChild] = useState(initArr);
 
@@ -88,6 +89,8 @@ const MasterPage = ({ masterPage, totalNewsAmount, initArr, mainMenuQO }) => {
           {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>}
+
+      {slug.current === '/master/practices' && <Practices prList={masterPracticesList} />}
     </>
   )
 }
