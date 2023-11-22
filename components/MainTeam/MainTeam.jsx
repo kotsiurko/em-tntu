@@ -29,7 +29,7 @@ function MainTeam({ teamArr }) {
               _id,
               slug,
             } = person;
-            console.log("person :>> ", person);
+            // console.log("person :>> ", person);
             return (
               <div
                 className="col-lg-3 col-md-6 d-flex align-items-stretch"

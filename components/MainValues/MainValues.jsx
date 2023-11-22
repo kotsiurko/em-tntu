@@ -14,7 +14,6 @@ function MainValues({ data }) {
         <div className="row justify-content-center">
           {valuesList.map((el) => {
             const { valueTitle, valueDescription, valueImage, _key } = el;
-            console.log("valueImage :>> ", valueImage);
             return (
               <div
                 className="col-lg-4 col-md-6 p-3 mt-lg-0"

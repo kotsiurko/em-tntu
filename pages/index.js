@@ -28,15 +28,10 @@ import MainTeam from '@/components/MainTeam/MainTeam';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ mainMenuQO, mainPage, mainStaffData }) {
-
-  // console.log('mainPage data:>> ', mainPage);
   const aboutData = mainPage.find(el => el.title === 'Хто ми є');
   const faqData = mainPage.find(el => el.title === 'Часті питання');
   const valuesData = mainPage.find(el => el.title === 'Наші цінності');
   const bookletsData = mainPage.find(el => el.title === 'Буклети');
-  // bookletsList
-  // console.log('valuesData :>> ', valuesData);
-  // console.log('mainStaffData :>> ', mainStaffData);
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 

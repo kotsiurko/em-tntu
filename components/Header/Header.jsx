@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 
 // Images
 import headerLogo from "../../public/assets/img/logo-header-new.png";
+import ukrFlag from "../../public/images/flag_ukr.png";
 import Link from "next/link";
 
 const Header = (props) => {
@@ -91,14 +92,17 @@ const Header = (props) => {
       <header id="header" className={headerStyles}>
         <div className="container-fluid container-xl">
           {/* NEED TO FIX ON PRODUCTION */}
-          <Link href="/" className="logo d-flex align-items-center">
-            <Image
-              src={headerLogo}
-              alt="Абревіатура кафедри Електричної інженерії"
-            />
-            &nbsp;|&nbsp;
-            <div>ЕЛЕКТРИЧНА ІНЖЕНЕРІЯ</div>
-          </Link>
+          <div className="d-flex justify-content-between">
+            <Link href="/" className="logo d-flex align-items-center">
+              <Image
+                src={headerLogo}
+                alt="Абревіатура кафедри Електричної інженерії"
+              />
+              &nbsp;|&nbsp;
+              <div>ЕЛЕКТРИЧНА ІНЖЕНЕРІЯ</div>
+            </Link>
+            <HeroesButton cls={`ukr-heros`} />
+          </div>
 
           {/* МЕНЮ ДИНАМІЧНО ПІДСТАВЛЯЄТЬСЯ ІЗ МАСИВУ ОБ'ЄКТІВ menuItems */}
           <nav
@@ -191,6 +195,7 @@ const Header = (props) => {
                   </li>
                 );
               })}
+              <HeroesButton cls={`ukr-heros-mobile`} />
             </ul>
             <i
               className={
@@ -209,3 +214,18 @@ const Header = (props) => {
 };
 
 export default Header;
+
+const HeroesButton = ({ cls }) => {
+  return (
+    <Link href="/" className={cls}>
+      <Image
+        src={ukrFlag}
+        alt="Ukrainian flag"
+        width={32}
+        height={22}
+        className="flag"
+      />
+      <span>Герої не вмирають!</span>
+    </Link>
+  );
+};

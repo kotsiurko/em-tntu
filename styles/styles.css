@@ -267,6 +267,10 @@ th.counter-width {
 
 
 /* NAVBAR */
+.navbar{
+    justify-content: center;
+}
+
 .navbar a,
 .navbar a:focus {
     padding: 10px 15px 10px 5px;
@@ -416,5 +420,62 @@ hr {
 .team .member .member-info .smallPortableText > p{
     padding: 0;
     margin: 0;
-    /* outline: 1px solid tomato; */
+}
+
+
+.ukr-heros {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #4154f1;
+    padding: 8px 20px;
+    border-radius: 4px;
+
+    font-family: "Nunito", sans-serif;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: #fff;
+}
+
+ul .ukr-heros-mobile{
+    display: none;
+}
+
+@media (max-width: 1366px) {
+    ul .ukr-heros-mobile{
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 auto;
+        max-width: 300px;
+        background: #4154f1;
+        padding: 8px 20px;
+        border-radius: 4px;
+
+        font-family: "Nunito", sans-serif;
+        font-size: 14px;
+        letter-spacing: .04em;
+        color: #fff;
+    }
+
+    ul .ukr-heros-mobile:hover {
+        background: #5969f3;
+        color: #fff;
+    }
+}
+
+.ukr-heros:hover {
+    background: #5969f3;
+    color: #fff;
+}
+
+.flag {
+    filter: drop-shadow(0 -1mm 4mm rgb(255, 255, 255));
+}
+
+
+@media (max-width: 1366px) {
+    .ukr-heros {
+        display: none;
+    }
 }
