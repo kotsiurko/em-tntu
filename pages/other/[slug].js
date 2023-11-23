@@ -51,7 +51,7 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Наука"
+        chapterTitle="Війна"
         pageTitle={title}
         pageUrl={slug.current}
       />
