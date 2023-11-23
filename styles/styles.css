@@ -248,7 +248,7 @@ th.counter-width {
 /* BREADCRUMBS */
 .breadcrumbs {
     min-height: 0;
-    margin-top: 82px;
+    margin-top: 102px;
 }
 @media (max-width: 1366px) {
     .breadcrumbs {
@@ -337,6 +337,7 @@ header .container-fluid.container-xl {
 
 
 .features .feature-icons .content .icon-box p {
+    font-size: 16px;
     color: #444444;
 }
 

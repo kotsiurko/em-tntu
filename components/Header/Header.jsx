@@ -217,7 +217,7 @@ export default Header;
 
 const HeroesButton = ({ cls }) => {
   return (
-    <Link href="/" className={cls}>
+    <Link href="/other/heroes" className={cls}>
       <Image
         src={ukrFlag}
         alt="Ukrainian flag"

@@ -20,9 +20,10 @@ import moment from "moment";
 import { Lightbox } from 'yet-another-react-lightbox';
 import "yet-another-react-lightbox/styles.css";
 import Link from 'next/link';
+import PageContentSection from '@/components/PageContentSection/PageContentSection';
 
 
-const InternationalActivityPage = ({
+const Intresting = ({
   intrestingData,
   mainMenuQO,
 }) => {
@@ -31,7 +32,7 @@ const InternationalActivityPage = ({
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [imgArr, setImgArr] = useState();
 
-  // console.log('intrestingData :>> ', intrestingData);
+  console.log('intrestingData :>> ', intrestingData);
   const {
     title,
     slug,
@@ -190,7 +191,7 @@ const InternationalActivityPage = ({
 }
 
 
-export default InternationalActivityPage;
+export default Intresting;
 
 export async function getStaticPaths() {
   const query = slugCurrent('intresting');

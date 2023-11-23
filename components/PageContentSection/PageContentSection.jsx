@@ -36,7 +36,8 @@ function PageContentSection({ data }) {
 
             <div className="col-xl-12 pt-2 px-2">
               <div className="row align-self-start content text-justify">
-                <div className="icon-box my-dstyle">
+                {/* <div className="icon-box my-dstyle"> */}
+                <div className="icon-box">
                   {body && (
                     <BlockContent
                       blocks={body}
