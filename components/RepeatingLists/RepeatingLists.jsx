@@ -1,6 +1,6 @@
 const RepeatingLists = ({ listTitle }) => {
   return (
-    <ul>
+    <ul className="listGap">
       {listTitle
         ?.reduce((acc, el, index) => {
           if (index > 0 && listTitle[index - 1].place === el.place) {
@@ -16,7 +16,7 @@ const RepeatingLists = ({ listTitle }) => {
             <p>
               <strong>{group[0].place}</strong>
             </p>
-            <ul>
+            <ul className="listGap">
               {group.map((el) => (
                 <li key={el._key}>
                   <p>{el.description}</p>

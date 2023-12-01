@@ -480,3 +480,20 @@ ul .ukr-heros-mobile{
         display: none;
     }
 }
+
+
+/* staffItem */
+.staffItem ul li p {
+    margin: 0;
+}
+
+.staffItem ul .listGap {
+    margin-bottom: 1rem;;
+}
+
+.staffItem h5 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #012970;
+}

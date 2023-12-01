@@ -9,9 +9,20 @@ import RepeatingLists from "@/components/RepeatingLists/RepeatingLists";
 // Other Libs
 import Image from "next/image";
 import Link from "next/link";
-import { getFullSciDegree } from "@/lib/helpers";
+import { getCourseId, getFullSciDegree, personPageTitle } from "@/lib/helpers";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+
+// Profile logos
+import tntuNTBLogo from "../../public/images/profileLogos/tntulibrary.jpg";
+import googleScholarLogo from "../../public/images/profileLogos/googlescholar.jpg";
+import scopusLogo from "../../public/images/profileLogos/scopus.jpg";
+import orcidLogo from "../../public/images/profileLogos/orcid.jpg";
+import rgsnLogo from "../../public/images/profileLogos/researchgate.jpg";
+import rIDtrLogo from "../../public/images/profileLogos/researcherid.jpg";
+import fbLogo from "../../public/images/profileLogos/facebook.jpg";
+import liLogo from "../../public/images/profileLogos/linkedin.jpg";
+import iCiLogo from "../../public/images/profileLogos/indexcopernicus.jpg";
 
 const StaffItem = ({ personInfo }) => {
   const [open, setOpen] = useState(false);
@@ -43,15 +54,24 @@ const StaffItem = ({ personInfo }) => {
     imageGallery,
   } = personInfo;
 
-  // console.log("personItem", personItem);
+  // console.log("personInfo", personInfo);
 
-  const name = `${firstName} ${secondName} ${fatherName}`;
+  const name = (
+    <>
+      <span className="text-uppercase">{firstName}</span>
+      <br /> {secondName} {fatherName}
+    </>
+  );
+
   const galleryArray = imageGallery?.map((el) => {
     return { src: urlFor(el).url() };
   });
+
   const sciDegreeFullName = getFullSciDegree(sciDegree);
+
   const { tntuNTB, googleScholar, scopus, orcid, rgsn, rIDtr, fb, li, iCi } =
     socials;
+
   function socialsPresent() {
     if (
       tntuNTB ||
@@ -68,148 +88,150 @@ const StaffItem = ({ personInfo }) => {
     else return false;
   }
 
+  const scheduleLink = `http://tntu.edu.ua/?p=uk/schedule&t=${firstName}+${secondName}+${fatherName}`;
+
   return (
     <section className="features my-personal">
       <div className="container" data-aos="fade-up">
         {/* <!-- Feature Icons --> */}
         <div className="row feature-icons">
-          <div className="row gx-0">
-            <h3>{name}</h3>
+          <div className="row gx-0 staffItem">
+            <h3>{personPageTitle(position)}</h3>
 
-            <div
-              className="col-xl-4 pt-2 px-2 d-flex"
-              data-aos="fade-right"
-              data-aos-delay="100"
-            >
-              <div className="row align-self-start">
-                {!galleryArray && (
-                  <div
-                    className="image-container"
-                    style={{ position: "relative" }}
-                  >
-                    <Image
-                      src={urlFor(mainPhoto).url()}
-                      fill
-                      priority
-                      className="img-fluid rounded image"
-                      alt={`${firstName} ${secondName}`}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
-                )}
-                {galleryArray && (
-                  <Link
-                    href="#"
-                    className="image-container"
-                    style={{ position: "relative" }}
+            <div className="d-flex justify-content-center align-items-center flex-wrap">
+              <div className="col-xl-4 pt-2 px-2 d-flex">
+                <div
+                  className="image-container"
+                  style={{ position: "relative", cursor: "pointer" }}
+                >
+                  <Image
+                    src={urlFor(mainPhoto).url()}
+                    fill
+                    // priority
+                    className="img-fluid rounded image"
+                    alt={`Full name`}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     onClick={() => setOpen(true)}
-                  >
-                    <Image
-                      src={urlFor(mainPhoto).url()}
-                      fill
-                      priority
-                      className="img-fluid rounded image"
-                      alt={`${firstName} ${secondName}`}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </Link>
-                )}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="col-xl-8 pt-2 px-2">
-              <div className="row align-self-start content text-justify">
-                <div className="icon-box my-dstyle">
-                  {/* <div className="icon-box my-dstyle" data-aos="fade-up"> */}
+              <div className="col-xl-4 pt-2 px-2 d-flex justify-content-center align-items-center">
+                <div className="d-flex flex-column text-center">
+                  <h3>{name}</h3>
                   {sciDegree !== "Немає" && (
-                    <h4>
+                    <h5>
                       Науковий ступінь:{" "}
                       <span className="h5">{sciDegreeFullName}</span>{" "}
-                    </h4>
+                    </h5>
                   )}
                   {acadStatus !== "Немає" && (
-                    <h4>
+                    <h5>
                       Вчене звання: <span className="h5">{acadStatus}</span>{" "}
-                    </h4>
+                    </h5>
                   )}
                   {position && (
-                    <h4>
+                    <h5>
                       Посада: <span className="h5">{position}</span>{" "}
-                    </h4>
+                    </h5>
                   )}
-
-                  <hr />
-
-                  {edGuarantee && (
-                    <>
-                      <h4>Гарант освітньої програми:</h4>
-                      <ul>
-                        {edGuarantee.map(({ edProgTitle, _key }) => {
-                          return <li key={_key}>{edProgTitle}</li>;
-                        })}
-                      </ul>
-                    </>
-                  )}
-
+                  <h5 className="pt-2">
+                    <Link href={scheduleLink}>Розклад на сторінці ТНТУ</Link>
+                  </h5>
                   {socialsPresent() && (
-                    <h4>
-                      Профілі на порталах науковометричних баз та соцмереж
-                    </h4>
-                  )}
-                  {socialsPresent() && (
-                    <ul>
+                    <div className="d-flex justify-content-center flex-wrap mt-2 mb-4">
                       {tntuNTB && (
-                        <li>
-                          <Link href={tntuNTB}>
-                            Науково-технічна бібліотека ТНТУ
-                          </Link>
-                        </li>
+                        <Link href={tntuNTB}>
+                          <Image
+                            src={tntuNTBLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {googleScholar && (
-                        <li>
-                          <Link href={googleScholar}>Google Scholar</Link>
-                        </li>
+                        <Link href={googleScholar}>
+                          <Image
+                            src={googleScholarLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {scopus && (
-                        <li>
-                          <Link href={scopus}>Scopus</Link>
-                        </li>
+                        <Link href={scopus}>
+                          <Image
+                            src={scopusLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {orcid && (
-                        <li>
-                          <Link href={orcid}>ORCID</Link>
-                        </li>
+                        <Link href={orcid}>
+                          <Image
+                            src={orcidLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {rgsn && (
-                        <li>
-                          <Link href={rgsn}>ResearchGate SN</Link>
-                        </li>
+                        <Link href={rgsn}>
+                          <Image
+                            src={rgsnLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {rIDtr && (
-                        <li>
-                          <Link href={rIDtr}>ResearcherID TR</Link>
-                        </li>
+                        <Link href={rIDtr}>
+                          <Image
+                            src={rIDtrLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {fb && (
-                        <li>
-                          <Link href={fb}>Facebook</Link>
-                        </li>
+                        <Link href={fb}>
+                          <Image
+                            src={fbLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {li && (
-                        <li>
-                          <Link href={li}>LinkedIn</Link>
-                        </li>
+                        <Link href={li}>
+                          <Image
+                            src={liLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
                       {iCi && (
-                        <li>
-                          <Link href={iCi}>Index Copernicus International</Link>
-                        </li>
+                        <Link href={iCi}>
+                          <Image
+                            src={iCiLogo}
+                            width={80}
+                            // height={40}
+                            alt="Науково-технічна бібліотека ТНТУ"
+                          />
+                        </Link>
                       )}
-                    </ul>
+                    </div>
                   )}
-
-                  <h4>Освіта</h4>
-                  <RepeatingLists listTitle={education} />
                 </div>
               </div>
             </div>
@@ -217,6 +239,21 @@ const StaffItem = ({ personInfo }) => {
             <div className="col-xl-12 pt-2 px-2">
               <div className="row align-self-start content text-justify">
                 <div className="icon-box my-dstyle">
+                  <hr />
+                  {edGuarantee && (
+                    <>
+                      <h4>Гарант освітньої програми:</h4>
+                      <ul className="listGap">
+                        {edGuarantee.map(({ edProgTitle, _key }) => {
+                          return <li key={_key}>{edProgTitle}</li>;
+                        })}
+                      </ul>
+                    </>
+                  )}
+
+                  <h4>Освіта</h4>
+                  <RepeatingLists listTitle={education} />
+
                   {achievements && (
                     <>
                       <h4>Професійні здобутки</h4>
@@ -242,7 +279,7 @@ const StaffItem = ({ personInfo }) => {
                   {sciInterests && (
                     <>
                       <h4>Наукові інтереси</h4>
-                      <ul>
+                      <ul className="listGap">
                         {sciInterests.map((el) => (
                           <li key={el}>{el}</li>
                         ))}
@@ -273,7 +310,7 @@ const StaffItem = ({ personInfo }) => {
                   {sciProjects && (
                     <>
                       <h4>Наукові теми та проєкти</h4>
-                      <ul>
+                      <ul className="listGap">
                         {sciProjects.map((el) => (
                           <li key={el}>{el}</li>
                         ))}
@@ -308,18 +345,20 @@ const StaffItem = ({ personInfo }) => {
                   <hr />
 
                   {languages && (
-                    <h4>
-                      Мови:{" "}
-                      <span className="h5">
-                        {languages.map((el) => el).join(", ") + "."}
-                      </span>
-                    </h4>
+                    <>
+                      <h4>Мови:</h4>
+                      <ul>
+                        {languages.map((el) => (
+                          <li key={el}>{el}</li>
+                        ))}
+                      </ul>
+                    </>
                   )}
 
                   {internship && (
                     <>
                       <h4>Стажування</h4>
-                      <ul>
+                      <ul className="listGap">
                         {internship.map((el) => (
                           <li key={el}>{el}</li>
                         ))}
@@ -329,7 +368,7 @@ const StaffItem = ({ personInfo }) => {
                   {certificates && (
                     <>
                       <h4>Сертифікати</h4>
-                      <ul>
+                      <ul className="listGap">
                         {certificates.map((el) => (
                           <li key={el}>{el}</li>
                         ))}
@@ -339,7 +378,7 @@ const StaffItem = ({ personInfo }) => {
                   {awards && (
                     <>
                       <h4>Нагороди та відзнаки</h4>
-                      <ul>
+                      <ul className="listGap">
                         {awards.map((el) => (
                           <li key={el}>{el}</li>
                         ))}
@@ -352,11 +391,13 @@ const StaffItem = ({ personInfo }) => {
                       <br />
                       <h4>НАВЧАЛЬНІ ДИСЦИПЛІНИ</h4>
                       <hr />
-                      <ul>
+                      <ul className="listGap">
                         {teachingSubjectList.map((el) => (
-                          <li key={el.teachingSubjectId}>
-                            {el.teachingSubjectName} - ID:{" "}
-                            {el.teachingSubjectId}
+                          <li key={el._key}>
+                            <Link href={el.teachingSubjectURL}>
+                              {el.teachingSubjectName} - ID:{" "}
+                              {getCourseId(el.teachingSubjectURL)}
+                            </Link>
                           </li>
                         ))}
                       </ul>
