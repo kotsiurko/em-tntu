@@ -68,7 +68,6 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
 
             {heroesList.map(heroPerson => {
               const { heroName, heroSecondAndFatherName, heroImage, lifeYears, secondaryText, body, heroPublications, _key } = heroPerson
-              console.log('heroPublications :>> ', heroPublications);
               return (
                 <div key={_key}>
                   <hr className='m-4' />

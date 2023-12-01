@@ -10,8 +10,6 @@ import RepeatingLists from "@/components/RepeatingLists/RepeatingLists";
 import Image from "next/image";
 import Link from "next/link";
 import { getCourseId, getFullSciDegree, personPageTitle } from "@/lib/helpers";
-import { Lightbox } from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
 
 // Profile logos
 import tntuNTBLogo from "../../public/images/profileLogos/tntulibrary.jpg";
@@ -23,9 +21,14 @@ import rIDtrLogo from "../../public/images/profileLogos/researcherid.jpg";
 import fbLogo from "../../public/images/profileLogos/facebook.jpg";
 import liLogo from "../../public/images/profileLogos/linkedin.jpg";
 import iCiLogo from "../../public/images/profileLogos/indexcopernicus.jpg";
+import LightBoxCustom from "./LightBoxCustom";
 
 const StaffItem = ({ personInfo }) => {
   const [open, setOpen] = useState(false);
+
+  const closeGallery = (state) => {
+    setOpen(state);
+  };
 
   const {
     mainPhoto,
@@ -54,7 +57,7 @@ const StaffItem = ({ personInfo }) => {
     imageGallery,
   } = personInfo;
 
-  // console.log("personInfo", personInfo);
+  console.log("personInfo", personInfo);
 
   const name = (
     <>
@@ -62,10 +65,6 @@ const StaffItem = ({ personInfo }) => {
       <br /> {secondName} {fatherName}
     </>
   );
-
-  const galleryArray = imageGallery?.map((el) => {
-    return { src: urlFor(el).url() };
-  });
 
   const sciDegreeFullName = getFullSciDegree(sciDegree);
 
@@ -407,15 +406,13 @@ const StaffItem = ({ personInfo }) => {
               </div>
             </div>
 
-            {/* <div> */}
-            {galleryArray && (
-              <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={galleryArray}
+            {imageGallery && (
+              <LightBoxCustom
+                imageGallery={imageGallery}
+                isOpen={open}
+                closeGallery={closeGallery}
               />
             )}
-            {/* </div> */}
           </div>
         </div>
         {/* <!-- End Feature Icons --> */}
