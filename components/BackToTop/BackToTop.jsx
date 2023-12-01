@@ -8,7 +8,7 @@ const BackToTop = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY; // => scroll position
-      if (scrollPosition > 50) {
+      if (scrollPosition > 1080) {
         setToTopStyles(
           "back-to-top d-flex align-items-center justify-content-center active"
         );
