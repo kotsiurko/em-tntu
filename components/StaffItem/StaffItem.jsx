@@ -57,7 +57,7 @@ const StaffItem = ({ personInfo }) => {
     imageGallery,
   } = personInfo;
 
-  console.log("personInfo", personInfo);
+  // console.log("personInfo", personInfo);
 
   const name = (
     <>
@@ -393,10 +393,15 @@ const StaffItem = ({ personInfo }) => {
                       <ul className="listGap">
                         {teachingSubjectList.map((el) => (
                           <li key={el._key}>
-                            <Link href={el.teachingSubjectURL}>
-                              {el.teachingSubjectName} - ID:{" "}
-                              {getCourseId(el.teachingSubjectURL)}
-                            </Link>
+                            {el.teachingSubjectURL && (
+                              <Link href={el.teachingSubjectURL}>
+                                {el.teachingSubjectName} - ID:{" "}
+                                {getCourseId(el.teachingSubjectURL)}
+                              </Link>
+                            )}
+                            {!el.teachingSubjectURL && (
+                              <>{el.teachingSubjectName}</>
+                            )}
                           </li>
                         ))}
                       </ul>

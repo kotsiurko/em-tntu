@@ -12,7 +12,6 @@ function LightBoxCustom({ imageGallery, isOpen, closeGallery }) {
   const captionsRef = useRef(null);
 
   const galleryArray = imageGallery?.map((el) => {
-    console.log("el IMAGEGALLEY:>> ", el);
     return {
       src: urlFor(el).url(),
       alt: el.caption,
