@@ -239,7 +239,7 @@ const StaffItem = ({ personInfo }) => {
               <div className="row align-self-start content text-justify">
                 <div className="icon-box my-dstyle">
                   <hr />
-                  {edGuarantee && (
+                  {edGuarantee && edGuarantee.length > 0 && (
                     <>
                       <h4>Гарант освітньої програми:</h4>
                       <ul className="listGap">
