@@ -68,8 +68,12 @@ const StaffItem = ({ personInfo }) => {
 
   const sciDegreeFullName = getFullSciDegree(sciDegree);
 
-  const { tntuNTB, googleScholar, scopus, orcid, rgsn, rIDtr, fb, li, iCi } =
-    socials;
+  let tntuNTB, googleScholar, scopus, orcid, rgsn, rIDtr, fb, li, iCi;
+
+  if (typeof socials !== "undefined" && socials !== null) {
+    ({ tntuNTB, googleScholar, scopus, orcid, rgsn, rIDtr, fb, li, iCi } =
+      socials);
+  }
 
   function socialsPresent() {
     if (
@@ -249,10 +253,8 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
-
                   <h4>Освіта</h4>
                   <RepeatingLists listTitle={education} />
-
                   {achievements && (
                     <>
                       <h4>Професійні здобутки</h4>
@@ -264,16 +266,19 @@ const StaffItem = ({ personInfo }) => {
                       />
                     </>
                   )}
-
                   {experience && (
                     <>
                       <h4>Досвід роботи</h4>
                       <RepeatingLists listTitle={experience} />
                     </>
                   )}
-
                   <br />
-                  <h4>НАУКОВА РОБОТА</h4>
+                  {(sciInterests ||
+                    publications ||
+                    inventions ||
+                    sciProjects ||
+                    reviewing ||
+                    reviewedDissertations) && <h4>НАУКОВА РОБОТА</h4>}
                   <hr />
                   {sciInterests && (
                     <>
@@ -305,7 +310,6 @@ const StaffItem = ({ personInfo }) => {
                       />
                     </>
                   )}
-
                   {sciProjects && (
                     <>
                       <h4>Наукові теми та проєкти</h4>
@@ -316,7 +320,6 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
-
                   {reviewing && (
                     <>
                       <h4>Рецензування</h4>
@@ -327,7 +330,6 @@ const StaffItem = ({ personInfo }) => {
                       />
                     </>
                   )}
-
                   {reviewedDissertations && (
                     <>
                       <h4>Рецензовані дисертаційні роботи</h4>
@@ -338,11 +340,9 @@ const StaffItem = ({ personInfo }) => {
                       />
                     </>
                   )}
-
                   <br />
                   <h4>УМІННЯ ТА НАВИЧКИ</h4>
                   <hr />
-
                   {languages && (
                     <>
                       <h4>Мови:</h4>
@@ -353,7 +353,6 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
-
                   {internship && (
                     <>
                       <h4>Стажування</h4>
@@ -384,7 +383,6 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
-
                   {teachingSubjectList && (
                     <>
                       <br />
