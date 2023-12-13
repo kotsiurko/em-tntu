@@ -20,7 +20,7 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
 
   const { title, slug, metaDescription, heroesList } = chapterPage;
 
-  console.log('Other Page  :>> ', chapterPage);
+  // console.log('Other Page  :>> ', chapterPage);
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
