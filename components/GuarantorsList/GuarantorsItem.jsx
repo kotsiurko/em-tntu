@@ -65,7 +65,7 @@ function GuarantorsItem({ person }) {
 
             {/* Список ОПП */}
             {edGuarantee?.map((el) => {
-              const { edProgTitle, edProgURL, edProgReviewsList, _key } = el;
+              const { edProgTitle, edProgURL, _key } = el;
               return (
                 <div
                   className="col-md-12 aos-init aos-animate"
