@@ -22,6 +22,7 @@ import fbLogo from "../../public/images/profileLogos/facebook.jpg";
 import liLogo from "../../public/images/profileLogos/linkedin.jpg";
 import iCiLogo from "../../public/images/profileLogos/indexcopernicus.jpg";
 import LightBoxCustom from "./LightBoxCustom";
+import CustomBlockContent from "../CustomBlockContent/CustomBlockContent";
 
 const StaffItem = ({ personInfo }) => {
   const [open, setOpen] = useState(false);
@@ -38,6 +39,7 @@ const StaffItem = ({ personInfo }) => {
     sciDegree,
     acadStatus,
     position,
+    position_continue,
     edGuarantee,
     socials,
     education,
@@ -54,6 +56,7 @@ const StaffItem = ({ personInfo }) => {
     certificates,
     awards,
     teachingSubjectList,
+    otherInfo,
     imageGallery,
   } = personInfo;
 
@@ -67,6 +70,14 @@ const StaffItem = ({ personInfo }) => {
   );
 
   const sciDegreeFullName = getFullSciDegree(sciDegree);
+
+  const fullPosition = () => {
+    if (position === "доцент" || position === "професор") {
+      return `${position} ${position_continue}`;
+    } else {
+      return position;
+    }
+  };
 
   let tntuNTB, googleScholar, scopus, orcid, rgsn, rIDtr, fb, li, iCi;
 
@@ -135,7 +146,7 @@ const StaffItem = ({ personInfo }) => {
                   )}
                   {position && (
                     <h5>
-                      Посада: <span className="h5">{position}</span>{" "}
+                      Посада: <span className="h5">{fullPosition()}</span>{" "}
                     </h5>
                   )}
                   <h5 className="pt-2">
@@ -253,25 +264,25 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
+
                   <h4>Освіта</h4>
                   <RepeatingLists listTitle={education} />
+
+                  <hr />
                   {achievements && (
-                    <>
-                      <h4>Професійні здобутки</h4>
-                      <hr />
-                      <BlockContent
-                        blocks={achievements}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>
+                    <CustomBlockContent
+                      title="Професійні здобутки"
+                      BCObject={achievements}
+                    />
                   )}
+
                   {experience && (
                     <>
                       <h4>Досвід роботи</h4>
                       <RepeatingLists listTitle={experience} />
                     </>
                   )}
+
                   <br />
                   {(sciInterests ||
                     publications ||
@@ -279,6 +290,7 @@ const StaffItem = ({ personInfo }) => {
                     sciProjects ||
                     reviewing ||
                     reviewedDissertations) && <h4>НАУКОВА РОБОТА</h4>}
+
                   <hr />
                   {sciInterests && (
                     <>
@@ -290,26 +302,21 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
+
                   {publications && (
-                    <>
-                      <h4>Публікації</h4>
-                      <BlockContent
-                        blocks={publications}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>
+                    <CustomBlockContent
+                      title="Публікації"
+                      BCObject={publications}
+                    />
                   )}
+
                   {inventions && (
-                    <>
-                      <h4>Винахідництво та раціоналізаторство</h4>
-                      <BlockContent
-                        blocks={inventions}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>
+                    <CustomBlockContent
+                      title="Винахідництво та раціоналізаторство"
+                      BCObject={inventions}
+                    />
                   )}
+
                   {sciProjects && (
                     <>
                       <h4>Наукові теми та проєкти</h4>
@@ -320,39 +327,36 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
+
                   {reviewing && (
-                    <>
-                      <h4>Рецензування</h4>
-                      <BlockContent
-                        blocks={reviewing}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>
+                    <CustomBlockContent
+                      title="Рецензування"
+                      BCObject={reviewing}
+                    />
                   )}
+
                   {reviewedDissertations && (
-                    <>
-                      <h4>Рецензовані дисертаційні роботи</h4>
-                      <BlockContent
-                        blocks={reviewedDissertations}
-                        projectId={clientConfig.projectId}
-                        dataset={clientConfig.dataset}
-                      />
-                    </>
+                    <CustomBlockContent
+                      title="Рецензовані дисертаційні роботи"
+                      BCObject={reviewedDissertations}
+                    />
                   )}
+
                   <br />
                   <h4>УМІННЯ ТА НАВИЧКИ</h4>
                   <hr />
+
                   {languages && (
                     <>
                       <h4>Мови:</h4>
-                      <ul>
+                      <ul className="listGap">
                         {languages.map((el) => (
                           <li key={el}>{el}</li>
                         ))}
                       </ul>
                     </>
                   )}
+
                   {internship && (
                     <>
                       <h4>Стажування</h4>
@@ -363,6 +367,7 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
+
                   {certificates && (
                     <>
                       <h4>Сертифікати</h4>
@@ -373,6 +378,7 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
+
                   {awards && (
                     <>
                       <h4>Нагороди та відзнаки</h4>
@@ -383,6 +389,7 @@ const StaffItem = ({ personInfo }) => {
                       </ul>
                     </>
                   )}
+
                   {teachingSubjectList && (
                     <>
                       <br />
@@ -404,6 +411,10 @@ const StaffItem = ({ personInfo }) => {
                         ))}
                       </ul>
                     </>
+                  )}
+
+                  {otherInfo && (
+                    <CustomBlockContent title="Інше" BCObject={otherInfo} />
                   )}
                 </div>
               </div>
