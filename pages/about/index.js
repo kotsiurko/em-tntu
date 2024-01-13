@@ -14,12 +14,14 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 // Components
 import Header from "@/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from "@/components/PageContentSection/PageContentSection";
+import IndexPageWithLinks from "@/components/IndexPageWithLinks/IndexPageWithLinks";
 
 const AboutPage = ({ mainMenuQO }) => {
   // const { title, slug, metaDescription } = aboutPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
+
+  const title = "Про кафедру";
 
   useEffect(() => {
     const menuObj = menuItemsMerger(menuItems, mainMenuQO);
@@ -34,20 +36,19 @@ const AboutPage = ({ mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>Про кафедру | Кафедра електричної інженерії ТНТУ</title>
+        <title>{title} | Кафедра електричної інженерії ТНТУ</title>
         <meta name="description" content="metaDescription" />
       </Head>
 
       <Header mainMenuArr={mainMenuArr} />
 
-      <Breadcrumbs
-        chapterTitle="Про кафедру"
-        pageTitle="Про кафедру"
-        pageUrl="/about"
-      />
+      <Breadcrumbs chapterTitle={title} pageTitle={title} pageUrl="/about" />
 
       {/* Page Content */}
-      {/* <PageContentSection data={null} /> */}
+      <IndexPageWithLinks
+        title={"Про кафедру"}
+        list={mainMenuArr[0].children}
+      />
     </>
   );
 };
