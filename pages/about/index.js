@@ -16,8 +16,8 @@ import Header from "@/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "@/components/PageContentSection/PageContentSection";
 
-const AboutPage = ({ aboutPage, mainMenuQO }) => {
-  const { title, slug, metaDescription } = aboutPage;
+const AboutPage = ({ mainMenuQO }) => {
+  // const { title, slug, metaDescription } = aboutPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -29,52 +29,38 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [aboutPage, mainMenuQO]);
+  }, [mainMenuQO]);
 
   return (
     <>
       <Head>
-        <title>{title} | Кафедра електричної інженерії ТНТУ</title>
-        <meta name="description" content={metaDescription} />
+        <title>Про кафедру | Кафедра електричної інженерії ТНТУ</title>
+        <meta name="description" content="metaDescription" />
       </Head>
 
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
         chapterTitle="Про кафедру"
-        pageTitle={title}
-        pageUrl={slug.current}
+        pageTitle="Про кафедру"
+        pageUrl="/about"
       />
 
       {/* Page Content */}
-      <PageContentSection data={aboutPage} />
+      {/* <PageContentSection data={null} /> */}
     </>
   );
 };
 
 export default AboutPage;
 
-export async function getStaticPaths() {
-  const pages = await client.fetch(slugCurrent("about"));
-
-  const paths = pages.map((about) => ({
-    params: {
-      slug: about.slug.current,
-    },
-  }));
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
-
-export async function getStaticProps({ params: { slug } }) {
-  const aboutPage = await client.fetch(chapterPageQuery("about", slug));
+export async function getStaticProps() {
+  // const aboutPage = await client.fetch(chapterPageQuery("about", slug));
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
-      aboutPage,
+      // aboutPage,
       mainMenuQO,
     },
   };

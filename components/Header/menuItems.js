@@ -2,7 +2,7 @@ export const menuItems = [
   {
     id: 1,
     title: "Кафедра",
-    url: "#",
+    url: "/about",
     icon: "bi bi-mortarboard",
     children: [
       {
@@ -18,7 +18,7 @@ export const menuItems = [
       },
       {
         title: "Матеріально-технічна база",
-        url: "#",
+        url: "/about/material-and-technical-base",
         id: 150,
         children: [
           {
@@ -31,7 +31,7 @@ export const menuItems = [
             url: "/about/material-and-technical-base/devs-of-students",
             id: 15040,
           },
-        ]
+        ],
       },
       // тут решта сторінок з адмінки
       {
@@ -44,12 +44,12 @@ export const menuItems = [
   {
     id: 2,
     title: "Спеціальності",
-    url: "#",
+    url: "/specialities",
     icon: "bi bi-wrench",
     children: [
       {
         title: "Наші стейкхолдери",
-        url: "#",
+        url: "/specialities/stakeholders",
         id: 240,
         children: [
           {
@@ -61,22 +61,22 @@ export const menuItems = [
       },
       {
         title: "Практико-орієнтована освіта",
-        url: '/specialities/practice-oriented-education',
+        url: "/specialities/practice-oriented-education",
         id: 250,
       },
       {
         title: "Тематичні екскурсії",
-        url: '/specialities/thematic-excursions',
+        url: "/specialities/thematic-excursions",
         id: 260,
       },
       {
         title: "Дуальна освіта",
-        url: '/specialities/dual-education',
+        url: "/specialities/dual-education",
         id: 280,
       },
       {
         title: "Психологічна підтримка студентів",
-        url: '/specialities/students-psychological-support',
+        url: "/specialities/students-psychological-support",
         id: 290,
       },
     ],
@@ -84,12 +84,12 @@ export const menuItems = [
   {
     id: 3,
     title: "Бакалавру",
-    url: "#",
+    url: "/bachelor",
     icon: "bi bi-emoji-laughing",
     children: [
       {
         title: "Освітньо-професійні програми",
-        url: "#",
+        url: "/bachelor/educational-and-professional-programs",
         id: 310,
         children: [
           {
@@ -104,12 +104,12 @@ export const menuItems = [
   {
     id: 4,
     title: "Магістру",
-    url: "#",
+    url: "/master",
     icon: "bi bi-emoji-sunglasses",
     children: [
       {
         title: "Освітньо-професійні програми",
-        url: "#",
+        url: "/master/educational-and-professional-programs",
         id: 410,
         children: [
           {
@@ -129,7 +129,7 @@ export const menuItems = [
   {
     id: 5,
     title: "Абітурієнту",
-    url: "#",
+    url: "/entrant",
     icon: "bi bi-emoji-smile-upside-down",
     children: [
       {
@@ -163,6 +163,11 @@ export const menuItems = [
         id: 570,
       },
       {
+        title: "Банківські реквізити",
+        url: "https://tntu.edu.ua/?p=uk/services/payment",
+        id: 580,
+      },
+      {
         title: "Інформаційний сайт абітурієнта ТНТУ",
         url: "https://vstup.tntu.edu.ua",
         id: 5100,
@@ -172,12 +177,12 @@ export const menuItems = [
   {
     id: 6,
     title: "Наука",
-    url: "#",
+    url: "/science",
     icon: "bi bi-lightbulb",
     children: [
       {
         title: "Конференція “Світлотехніка й електроенергетика”",
-        url: "#",
+        url: "/science/conference-lighting-and-power-engineering",
         id: 630,
         children: [
           {
@@ -200,7 +205,7 @@ export const menuItems = [
             url: "#",
             id: 63040,
           },
-        ]
+        ],
       },
       {
         title: "Лабораторія енергоощадності",
@@ -212,14 +217,14 @@ export const menuItems = [
   {
     id: 7,
     title: "Аспірантура",
-    url: "#",
+    url: "/postgraduate",
     icon: "bi bi-magic",
     children: [],
   },
   {
     id: 8,
     title: "Міжн. діяльність",
-    url: "#",
+    url: "/international-activity",
     icon: "bi bi-flag",
     children: [
       {
@@ -232,14 +237,14 @@ export const menuItems = [
   {
     id: 9,
     title: "Виховна діяльність",
-    url: "#",
+    url: "/educational-activity",
     icon: "bi bi-people",
     children: [],
   },
   {
     id: 10,
     title: "Посилання",
-    url: "#",
+    url: "/references",
     icon: "bi bi-link-45deg",
     children: [
       {
@@ -277,7 +282,7 @@ export const menuItems = [
   {
     id: 11,
     title: "Це цікаво",
-    url: "#",
+    url: "/intresting",
     icon: "bi bi-pin",
     children: [
       {
@@ -293,4 +298,3 @@ export const menuItems = [
     ],
   },
 ];
-

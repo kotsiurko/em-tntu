@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
-
-// import { menuItems } from "./menuItems";
+import { useRouter } from "next/router";
 
 // Images
 import headerLogo from "../../public/assets/img/logo-header-new.png";
@@ -9,9 +8,9 @@ import ukrFlag from "../../public/images/flag_ukr.png";
 import Link from "next/link";
 
 const Header = (props) => {
-  const { mainMenuArr } = props;
+  const { asPath } = useRouter();
 
-  // const [data, setData] = useState([]);
+  const { mainMenuArr } = props;
 
   const [headerStyles, setHeaderStyles] = useState("header fixed-top");
 
@@ -120,9 +119,10 @@ const Header = (props) => {
                   >
                     <Link
                       href={url}
-                      className={
-                        children.length > 0 ? null : "nav-link scrollto"
-                      }
+                      // className={
+                      //   children.length > 0 ? null : "nav-link scrollto"
+                      // }
+                      className={asPath.includes(url) ? "active" : ""}
                     >
                       {children.length > 0 ? (
                         <>
@@ -135,6 +135,7 @@ const Header = (props) => {
                     </Link>
                     {/* ==================================================================== */}
                     {/* ТУТ ВСТАВЛЯЄТЬСЯ УМОВА ДЛЯ ПІДМЕНЮ */}
+                    {/* ДРУГИЙ РІВЕНЬ */}
                     {/* UL */}
                     {children.length > 0 ? (
                       <ul
@@ -156,7 +157,11 @@ const Header = (props) => {
                               key={title}
                               data-id={id}
                             >
-                              <Link href={url}>
+                              <Link
+                                href={url}
+                                target={url.startsWith("http") ? "_blank" : ""}
+                                className={asPath.includes(url) ? "active" : ""}
+                              >
                                 {children ? (
                                   <>
                                     <span>{title}</span>
@@ -178,7 +183,14 @@ const Header = (props) => {
                                   {children.map((el) => {
                                     return (
                                       <li key={el.id}>
-                                        <Link href={el.url}>{el.title}</Link>
+                                        <Link
+                                          href={el.url}
+                                          className={
+                                            asPath === el.url ? "active" : ""
+                                          }
+                                        >
+                                          {el.title}
+                                        </Link>
                                       </li>
                                     );
                                   })}
