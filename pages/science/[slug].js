@@ -1,43 +1,36 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
+import { useEffect, useState } from "react";
+import Head from "next/head";
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
+import { menuItems } from "@/components/Header/menuItems";
 import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsQuery } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import {
+  mainMenuQueriesObjCreator,
+  chapterPageQuery,
+  slugCurrent,
+  newsQuery,
+} from "@/lib/queries";
+import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 
 // Components
-import Header from '@/components/Header/Header';
+import Header from "@/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from '@/components/PageContentSection/PageContentSection';
-import SciPublTypes from '@/components/SciPublTypes/SciPublTypes';
-
+import PageContentSection from "@/components/PageContentSection/PageContentSection";
+import SciPublTypes from "@/components/SciPublTypes/SciPublTypes";
 
 const SciencePage = ({ chapterPage, mainMenuQO }) => {
-
-  // console.log('chapterPage :>> ', chapterPage);
-
   const { title, slug, metaDescription, sciPublTypes } = chapterPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
-
-    const menuObj = menuItemsMerger(
-      menuItems,
-      mainMenuQO,
-    )
+    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
 
     setMainMenuArr((prevState) => {
       if (prevState) {
-        return menuCreator(
-          menuObj,
-          prevState,
-        )
+        return menuCreator(menuObj, prevState);
       }
     });
-
   }, [chapterPage, mainMenuQO]);
 
   return (
@@ -59,37 +52,45 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
 
       {/* {sciPublTypes && Компонент, що відображає сторінку із вкладками} */}
       {sciPublTypes && <SciPublTypes data={chapterPage} />}
-
     </>
-  )
-}
-
-
+  );
+};
 
 export default SciencePage;
 
 export async function getStaticPaths() {
-  const query = slugCurrent('science');
+  const query = slugCurrent("science");
 
   const pages = await client.fetch(query);
   const paths = pages.map((page) => ({
     params: {
-      slug: page.slug.current
-    }
+      slug: page.slug.current,
+    },
   }));
   return {
-    paths, fallback: 'blocking'
-  }
+    paths,
+    fallback: "blocking",
+  };
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const chapterPage = await client.fetch(chapterPageQuery('science', slug));
+  const chapterPage = await client.fetch(chapterPageQuery("science", slug));
   const mainMenuQO = await mainMenuQueriesObjCreator();
+
+  if (slug === "conference-lighting-and-power-engineering") {
+    return {
+      redirect: {
+        destination: "/science/conference-lighting-and-power-engineering/news",
+        permanent: false,
+        // statusCode: 301
+      },
+    };
+  }
 
   return {
     props: {
       chapterPage,
       mainMenuQO,
-    }
-  }
+    },
+  };
 }
