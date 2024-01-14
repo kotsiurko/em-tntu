@@ -118,7 +118,7 @@ const Header = (props) => {
                     data-id={id}
                   >
                     <Link
-                      href={url}
+                      href="#"
                       // className={
                       //   children.length > 0 ? null : "nav-link scrollto"
                       // }

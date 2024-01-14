@@ -18,7 +18,6 @@ import PageContentSection from "@/components/PageContentSection/PageContentSecti
 
 const AboutPage = ({ aboutPage, mainMenuQO }) => {
   const { title, slug, metaDescription } = aboutPage;
-
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
@@ -69,8 +68,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
+  console.log("slug :>> ", slug);
   const aboutPage = await client.fetch(chapterPageQuery("about", slug));
   const mainMenuQO = await mainMenuQueriesObjCreator();
+
+  if (slug === "material-and-technical-base") {
+    return {
+      redirect: {
+        destination: "/about/material-and-technical-base/university-base",
+        permanent: false,
+        // statusCode: 301
+      },
+    };
+  }
 
   return {
     props: {
