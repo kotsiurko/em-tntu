@@ -421,6 +421,8 @@ hr {
 .team .member .member-info .smallPortableText > p{
     padding: 0;
     margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
 }
 
 

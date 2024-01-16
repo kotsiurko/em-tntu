@@ -14,7 +14,7 @@ function MainTeam({ teamArr }) {
           <p>Керівний та професорський склад кафедри</p>
         </header>
 
-        <div className="row gy-4">
+        <div className="row gy-4 justify-content-md-center ">
           {teamArr.map((person) => {
             const {
               firstName,
@@ -32,13 +32,13 @@ function MainTeam({ teamArr }) {
             // console.log("person :>> ", person);
             return (
               <div
-                className="col-lg-3 col-md-6 d-flex align-items-stretch"
+                className="col-lg-2 col-md-6 d-flex align-items-stretch"
                 data-aos="fade-up"
                 data-aos-delay="100"
                 key={_id}
               >
                 <div className="member">
-                  <div className="member-img">
+                  <div className="member-img pb-2">
                     <Image
                       src={urlFor(mainPhoto).url()}
                       className="img-fluid"
@@ -114,6 +114,7 @@ function MainTeam({ teamArr }) {
                       dataset={clientConfig.dataset}
                       serializers={serializers}
                       className="smallPortableText"
+                      // style={{ lineHeight: "1.3" }}
                     />
                   </div>
                 </div>
