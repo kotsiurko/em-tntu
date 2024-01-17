@@ -499,3 +499,10 @@ ul .ukr-heros-mobile{
     margin: 0 0 10px 0;
     color: #012970;
 }
+
+.myPurecounter{
+    font-size: 36px;
+    display: block;
+    font-weight: 600;
+    color: #0b198f;
+}

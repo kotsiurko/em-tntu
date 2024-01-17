@@ -15,9 +15,11 @@ import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
 import Header from "@/components/Header/Header";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "@/components/PageContentSection/PageContentSection";
+import DownloadLinkBtn from "@/components/DownloadLinkBtn/DownloadLinkBtn";
 
 const AboutPage = ({ aboutPage, mainMenuQO }) => {
   const { title, slug, metaDescription } = aboutPage;
+  // console.log('slug :>> ', slug);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
@@ -47,6 +49,11 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
 
       {/* Page Content */}
       <PageContentSection data={aboutPage} />
+
+      {slug.current === "/about/strategy" &&
+        <DownloadLinkBtn href={aboutPage.docURL} />
+      }
+      {/* prop = docURL */}
     </>
   );
 };
