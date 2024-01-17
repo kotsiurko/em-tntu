@@ -83,6 +83,10 @@ const BachelorPage = ({
         pageUrl={slug.current}
       />
 
+      {slug.current === "/bachelor/practices" && (
+        <Practices prList={bachPracticesList} />
+      )}
+
       {/* Page Content */}
       <PageContentSection data={bachelorPage} />
 
@@ -142,9 +146,9 @@ const BachelorPage = ({
         </section>
       )}
 
-      {slug.current === "/bachelor/practices" && (
+      {/* {slug.current === "/bachelor/practices" && (
         <Practices prList={bachPracticesList} />
-      )}
+      )} */}
     </>
   );
 };
