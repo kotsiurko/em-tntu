@@ -283,15 +283,19 @@ const StaffItem = ({ personInfo }) => {
                     </>
                   )}
 
-                  <br />
                   {(sciInterests ||
                     publications ||
                     inventions ||
                     sciProjects ||
                     reviewing ||
-                    reviewedDissertations) && <h4>НАУКОВА РОБОТА</h4>}
+                    reviewedDissertations) && (
+                    <>
+                      <br />
+                      <h4>НАУКОВА РОБОТА</h4>
+                      <hr />
+                    </>
+                  )}
 
-                  <hr />
                   {sciInterests && (
                     <>
                       <h4>Наукові інтереси</h4>

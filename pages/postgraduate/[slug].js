@@ -20,7 +20,7 @@ import PageContentSection from '@/components/PageContentSection/PageContentSecti
 
 const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
 
-  const { title, body, slug, postGraduateStudentArray, metaDescription } = postgraduateStudyData;
+  const { title, slug, postGraduateStudentArray, metaDescription } = postgraduateStudyData;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -57,7 +57,6 @@ const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
-      {/* Page Content */}
       <PageContentSection data={postgraduateStudyData} />
 
       {postGraduateStudentArray && <section id="team" className="team">
