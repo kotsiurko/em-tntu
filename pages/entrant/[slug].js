@@ -20,7 +20,7 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
 import Pagination from "components/Pagination/Pagination";
-import LightBoxCustom from "components/LightBoxCustom/LightBoxCustom";
+import LightBoxCustom from "../../components/LightboxCustom/LightBoxCustom";
 
 const schoolsCooperationBool = "schoolsCooperationBool";
 const studentOlympiadsBool = "studentOlympiadsBool";
@@ -43,7 +43,6 @@ const EntrantsPage = ({
   const {
     title,
     slug,
-    newsForEntrants,
     schoolsCooperation,
     studentOlympiads,
     studentsHonors,
@@ -290,8 +289,6 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: {
       entrantsPage,
-      // totalNewsAmountForEntrants,
-      // initArrNewsForEntrants,
       totalNewsAmountSchoolsCooperation,
       initArrSchoolsCooperation,
       totalNewsAmountStudentOlympiads,
