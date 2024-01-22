@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import { urlFor } from "../lib/client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 // Client connection
 // Client connection
