@@ -21,7 +21,7 @@ import rIDtrLogo from "../../public/images/profileLogos/researcherid.jpg";
 import fbLogo from "../../public/images/profileLogos/facebook.jpg";
 import liLogo from "../../public/images/profileLogos/linkedin.jpg";
 import iCiLogo from "../../public/images/profileLogos/indexcopernicus.jpg";
-import LightBoxCustom from "./LightBoxCustom";
+import LightBoxCustom from "../LightboxCustom/LightBoxCustom";
 import CustomBlockContent from "../CustomBlockContent/CustomBlockContent";
 
 const StaffItem = ({ personInfo }) => {

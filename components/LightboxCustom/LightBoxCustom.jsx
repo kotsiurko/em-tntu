@@ -8,7 +8,7 @@ import Counter from "yet-another-react-lightbox/plugins/counter";
 import "yet-another-react-lightbox/plugins/counter.css";
 import { useRef, useState } from "react";
 
-function LightBoxCustom({ imageGallery, isOpen, closeGallery }) {
+function LightBoxCustom({ imageGallery, isOpen, closeGallery, index }) {
   const captionsRef = useRef(null);
 
   const galleryArray = imageGallery?.map((el) => {
@@ -38,6 +38,7 @@ function LightBoxCustom({ imageGallery, isOpen, closeGallery }) {
       }}
       counter={{ container: { style: { top: "unset", bottom: 0 } } }}
       slides={galleryArray}
+      index={index}
     />
   );
 }
