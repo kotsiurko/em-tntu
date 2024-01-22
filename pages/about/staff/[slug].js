@@ -3,15 +3,15 @@ import Head from 'next/head'
 
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
 // Components
 import Header from "/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import StaffItem from "@/components/StaffItem/StaffItem";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import StaffItem from "components/StaffItem/StaffItem";
 
 const PersonInfo = ({
   personItem,

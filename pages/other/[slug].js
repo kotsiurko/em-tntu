@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client, urlFor } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client, urlFor } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
 // Components
-import Header from '@/components/Header/Header';
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import Header from 'components/Header/Header';
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from 'components/PageContentSection/PageContentSection';
 import Image from 'next/image';
 import Link from 'next/link';
-import TextContent from '@/components/TextContent/TextContent';
+import TextContent from 'components/TextContent/TextContent';
 
 
 const OtherPage = ({ chapterPage, mainMenuQO }) => {

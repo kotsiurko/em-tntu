@@ -3,15 +3,15 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 // Client connection
-import { menuItems } from "@/components/Header/menuItems";
-import { client } from "@/lib/client";
-import { staffListQuery, mainMenuQueriesObjCreator } from "@/lib/queries";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
+import { staffListQuery, mainMenuQueriesObjCreator } from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import StaffList from "@/components/StaffList/StaffList";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import StaffList from "components/StaffList/StaffList";
 
 const Staff = ({ staffData, mainMenuQO }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);

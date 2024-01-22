@@ -1,5 +1,5 @@
 import BlockContent from "@sanity/block-content-to-react";
-import { clientConfig } from "@/lib/client";
+import { clientConfig } from "lib/client";
 import ComingSoon from "../../public/assets/img/coming-soon.png";
 import Image from "next/image";
 

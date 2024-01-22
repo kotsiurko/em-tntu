@@ -1,20 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import { urlFor } from "../../../lib/client";
+import { urlFor } from "../lib/client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // Client connection
 // Client connection
-import { menuItems } from "@/components/Header/menuItems";
-import { client } from "@/lib/client";
-import { staffListQuery, mainMenuQueriesObjCreator } from "@/lib/queries";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
+import { staffListQuery, mainMenuQueriesObjCreator } from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import StaffList from "@/components/StaffList/StaffList";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import StaffList from "components/StaffList/StaffList";
 
 const FormerStaff = ({ staffData, mainMenuQO }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);

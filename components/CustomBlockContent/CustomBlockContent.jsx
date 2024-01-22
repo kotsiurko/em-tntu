@@ -1,5 +1,5 @@
-// import { urlFor } from "@/lib/client";
-import { clientConfig } from "@/lib/client";
+// import { urlFor } from "lib/client";
+import { clientConfig } from "lib/client";
 import BlockContent from "@sanity/block-content-to-react";
 
 export default function CustomBlockContent({ title, BCObject }) {

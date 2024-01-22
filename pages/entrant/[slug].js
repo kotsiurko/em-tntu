@@ -3,33 +3,42 @@ import Head from 'next/head'
 import Image from "next/image";
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+// import { menuItems } from 'components/Header/menuItems';
+import { menuItems } from 'components/Header/menuItems';
+// import { client } from "lib/client";
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
+import { urlFor } from "lib/client";
 
 // Components
-import Header from '@/components/Header/Header';
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import Header from 'components/Header/Header';
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from 'components/PageContentSection/PageContentSection';
 
 // Other libs
 import { Lightbox } from 'yet-another-react-lightbox';
 import "yet-another-react-lightbox/styles.css";
-import NewsItems from '@/components/NewsItems/NewsItems';
-import Pagination from '@/components/Pagination/Pagination';
+import NewsItems from 'components/NewsItems/NewsItems';
+import Pagination from 'components/Pagination/Pagination';
+import LightBoxCustom from 'components/StaffItem/LightBoxCustom';
 
+// const newsForEntrantsBool = "newsForEntrantsBool";
 const schoolsCooperationBool = "schoolsCooperationBool";
 const studentOlympiadsBool = "studentOlympiadsBool";
+const studHonorsBool = "studHonorsBool";
 
 
 const EntrantsPage = ({ entrantsPage,
+  // totalNewsAmountForEntrants,
+  // initArrNewsForEntrants,
   totalNewsAmountSchoolsCooperation,
   initArrSchoolsCooperation,
   totalNewsAmountStudentOlympiads,
   initArrstudentOlympiads,
+  totalNewsAmountStudHonors,
+  initArrsStudHonors,
   mainMenuQO, }) => {
 
   const [open, setOpen] = useState(false);
@@ -38,14 +47,32 @@ const EntrantsPage = ({ entrantsPage,
 
   const { title, slug, newsForEntrants, schoolsCooperation, studentOlympiads, studentsHonors, metaDescription } = entrantsPage;
 
+  // // newsForEntrantsBool
+  // const [dataFromChildEntrantNews, setDataFromChildEntrantNews] = useState(initArrNewsForEntrants);
+  // const updateDataFromChildEntrantNews = (data) => {
+  //   setDataFromChildEntrantNews(data);
+  // };
+
+  const closeGallery = (state) => {
+    setOpen(state);
+  };
+
+  // schoolsCooperationBool
   const [dataFromChildSchoolsCoop, setDataFromChildSchoolsCoop] = useState(initArrSchoolsCooperation);
   const updateDataFromChildSchoolsCoop = (data) => {
     setDataFromChildSchoolsCoop(data);
   };
 
+  // studentOlympiadsBool
   const [dataFromChildStudOlymp, setDataFromChildStudOlymp] = useState(initArrstudentOlympiads);
   const updateDataFromChildStudOlymp = (data) => {
     setDataFromChildStudOlymp(data);
+  };
+
+  // studHonorsBool
+  const [dataFromChildStudHonors, setDataFromChildStudHonors] = useState(initArrsStudHonors);
+  const updateDataFromChildStudHonors = (data) => {
+    setDataFromChildStudHonors(data);
   };
 
   // MENU FORMATION PART ==============================================
@@ -70,12 +97,13 @@ const EntrantsPage = ({ entrantsPage,
 
   }, [initArrSchoolsCooperation, initArrstudentOlympiads, mainMenuQO]);
 
+  console.log('imgArr :>> ', imgArr);
   // MENU FORMATION PART ENDS =========================================
 
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: {title}</title>
+        <title>{`${title} | Кафедра електричної інженерії ТНТУ `}</title>
         <meta name="description" content={metaDescription} />
       </Head>
 
@@ -90,27 +118,25 @@ const EntrantsPage = ({ entrantsPage,
       {/* Page Content */}
       <PageContentSection data={entrantsPage} />
 
-      {newsForEntrants && <section id="team" className="team">
+      {/* {newsForEntrants && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
             <p>Події розділу</p>
           </header>
 
           <div className="row gy-4">
-            <NewsItems currentItems={newsForEntrants} />
+            <NewsItems currentItems={dataFromChildEntrantNews} />
           </div>
 
-          {/* PAGINATION BLOCK STARTS */}
           {totalNewsAmountForEntrants > newsPerPage && (
             <Pagination
               bool={newsForEntrantsBool}
               totalNewsAmount={totalNewsAmountForEntrants}
-              sendDataToParent={updateNewsForEntrants}
+              sendDataToParent={updateDataFromChildEntrantNews}
             />
           )}
-          {/* PAGINATION BLOCK ENDS */}
         </div>
-      </section>}
+      </section>} */}
 
       {schoolsCooperation && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
@@ -156,6 +182,28 @@ const EntrantsPage = ({ entrantsPage,
         </div>
       </section>}
 
+      {studentsHonors && <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
+
+          <div className="row gy-4">
+            <NewsItems currentItems={dataFromChildStudHonors} />
+          </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {totalNewsAmountStudentOlympiads > newsPerPage && (
+            <Pagination
+              bool={studHonorsBool}
+              totalNewsAmount={totalNewsAmountStudHonors}
+              sendDataToParent={updateDataFromChildStudHonors}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
+        </div>
+      </section>}
+
       {studentsHonors && <section className="features">
         <div className="container text-justify">
           {studentsHonors.map(el => {
@@ -163,7 +211,10 @@ const EntrantsPage = ({ entrantsPage,
             const { honorsPerYear, year, _key } = el;
 
             // При такому коді реакт лімітує кількість ререндерів
-            const galleryArray = honorsPerYear.map(el => { return { src: urlFor(el).url() } })
+            // const galleryArray = honorsPerYear.map(el => { return { src: urlFor(el).url() } })
+            // const galleryArray = honorsPerYear.map(el => { return { src: el } })
+            // console.log('galleryArray :>> ', galleryArray);
+            console.log('honorsPerYear :>> ', honorsPerYear);
 
             return (
               <div key={_key}>
@@ -185,7 +236,7 @@ const EntrantsPage = ({ entrantsPage,
 
                             onClick={() => {
                               setSelectedIndex(idx);
-                              setImgArr(galleryArray);
+                              setImgArr(honorsPerYear);
                               setOpen(true);
                             }}
                           >
@@ -214,11 +265,16 @@ const EntrantsPage = ({ entrantsPage,
         </div>
       </section>}
 
-      <Lightbox
+      {/* <Lightbox
         index={selectedIndex}
         open={open}
         close={() => setOpen(false)}
         slides={imgArr}
+      /> */}
+      <LightBoxCustom
+        imageGallery={imgArr}
+        isOpen={open}
+        closeGallery={closeGallery}
       />
 
     </>
@@ -245,6 +301,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { slug } }) {
   const entrantsPage = await client.fetch(chapterPageQuery('entrant', slug));
 
+  // const totalNewsAmountForEntrants = await client.fetch(
+  //   `count(*[_type == "news" && ${newsForEntrantsBool}])`
+  // );
+  // const initArrNewsForEntrants = await client.fetch(
+  //   `*[_type == "news" && ${newsForEntrantsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
+  // );
+
   const totalNewsAmountSchoolsCooperation = await client.fetch(
     `count(*[_type == "news" && ${schoolsCooperationBool}])`
   );
@@ -258,15 +321,26 @@ export async function getStaticProps({ params: { slug } }) {
   const initArrstudentOlympiads = await client.fetch(
     `*[_type == "news" && ${studentOlympiadsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
   );
+
+  const totalNewsAmountStudHonors = await client.fetch(
+    `count(*[_type == "news" && ${studHonorsBool}])`
+  );
+  const initArrsStudHonors = await client.fetch(
+    `*[_type == "news" && ${studHonorsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       entrantsPage,
+      // totalNewsAmountForEntrants,
+      // initArrNewsForEntrants,
       totalNewsAmountSchoolsCooperation,
       initArrSchoolsCooperation,
       totalNewsAmountStudentOlympiads,
       initArrstudentOlympiads,
+      totalNewsAmountStudHonors,
+      initArrsStudHonors,
       mainMenuQO,
     }
   }

@@ -2,24 +2,23 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Client connection
-import { menuItems } from "@/components/Header/menuItems";
-import { client } from "@/lib/client";
+import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
 import {
   mainMenuQueriesObjCreator,
   chapterPageQuery,
   slugCurrent,
-} from "@/lib/queries";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+} from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
-import Header from "@/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from "@/components/PageContentSection/PageContentSection";
-import DownloadLinkBtn from "@/components/DownloadLinkBtn/DownloadLinkBtn";
+import Header from "components/Header/Header";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from "components/PageContentSection/PageContentSection";
+import DownloadLinkBtn from "components/DownloadLinkBtn/DownloadLinkBtn";
 
 const AboutPage = ({ aboutPage, mainMenuQO }) => {
   const { title, slug, metaDescription } = aboutPage;
-  // console.log('slug :>> ', slug);
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>{title} | Кафедра електричної інженерії ТНТУ</title>
+        <title>{`${title} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={metaDescription} />
       </Head>
 
@@ -53,7 +52,6 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
       {slug.current === "/about/strategy" &&
         <DownloadLinkBtn href={aboutPage.docURL} />
       }
-      {/* prop = docURL */}
     </>
   );
 };

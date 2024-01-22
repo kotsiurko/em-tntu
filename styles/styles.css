@@ -506,3 +506,9 @@ ul .ukr-heros-mobile{
     font-weight: 600;
     color: #0b198f;
 }
+
+h10 {
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}

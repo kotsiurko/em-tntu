@@ -3,17 +3,17 @@ import Head from 'next/head'
 import { useRouter } from "next/router";
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent, newsPerPage } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
 // Components
-import Header from '@/components/Header/Header';
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from '@/components/PageContentSection/PageContentSection';
-import NewsItems from '@/components/NewsItems/NewsItems';
-import Pagination from '@/components/Pagination/Pagination';
+import Header from 'components/Header/Header';
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from 'components/PageContentSection/PageContentSection';
+import NewsItems from 'components/NewsItems/NewsItems';
+import Pagination from 'components/Pagination/Pagination';
 
 const InternationalActivityPage = ({
   internationalActivityPageData,

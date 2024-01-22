@@ -2,16 +2,16 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 // Client connection
-import { menuItems } from "@/components/Header/menuItems";
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, newsPerPage } from "@/lib/queries";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import NewsItems from "@/components/NewsItems/NewsItems";
-import Pagination from "@/components/Pagination/Pagination";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import NewsItems from "components/NewsItems/NewsItems";
+import Pagination from "components/Pagination/Pagination";
 
 const newsBool = "dualEducationBool";
 

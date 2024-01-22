@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { clientConfig, urlFor } from "@/lib/client";
+import { clientConfig, urlFor } from "lib/client";
 import BlockContent from "@sanity/block-content-to-react";
 import Link from "next/link";
-import { personCredentials } from "@/lib/helpers";
+import { personCredentials } from "lib/helpers";
 import { serializers } from "@sanity/block-content-to-react/lib/targets/dom";
 
 function MainTeam({ teamArr }) {

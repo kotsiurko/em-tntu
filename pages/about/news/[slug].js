@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head'
-import { urlFor } from "../../../lib/client";
+import { urlFor } from "lib/client";
 import Image from "next/image";
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
 // Components
-import Header from "/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import Header from "components/Header/Header";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 
 // Other libs
 import moment from "moment";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-import TextContent from "@/components/TextContent/TextContent";
+import TextContent from "components/TextContent/TextContent";
 
 
 

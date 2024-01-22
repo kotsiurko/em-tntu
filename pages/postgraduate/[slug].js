@@ -3,19 +3,19 @@ import Head from 'next/head'
 import Image from "next/image";
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client, clientConfig } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client, clientConfig } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
+import { urlFor } from "lib/client";
 
 import BlockContent from "@sanity/block-content-to-react";
 
 // Components
-import Header from '@/components/Header/Header';
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import Header from 'components/Header/Header';
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from 'components/PageContentSection/PageContentSection';
 
 
 const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
@@ -45,7 +45,7 @@ const PostgraduateStudyPage = ({ postgraduateStudyData, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>{title} | Кафедра електричної інженерії ТНТУ</title>
+        <title>{`${title} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={metaDescription} />
       </Head>
 

@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { urlFor } from "@/lib/client";
-import { clientConfig } from "@/lib/client";
+import { urlFor } from "lib/client";
+import { clientConfig } from "lib/client";
 import BlockContent from "@sanity/block-content-to-react";
 
 // Components
-import RepeatingLists from "@/components/RepeatingLists/RepeatingLists";
+import RepeatingLists from "components/RepeatingLists/RepeatingLists";
 
 // Other Libs
 import Image from "next/image";
 import Link from "next/link";
-import { getCourseId, getFullSciDegree, personPageTitle } from "@/lib/helpers";
+import { getCourseId, getFullSciDegree, personPageTitle } from "lib/helpers";
 
 // Profile logos
 import tntuNTBLogo from "../../public/images/profileLogos/tntulibrary.jpg";
@@ -60,7 +60,7 @@ const StaffItem = ({ personInfo }) => {
     imageGallery,
   } = personInfo;
 
-  // console.log("personInfo", personInfo);
+  // console.log("imageGallery", imageGallery);
 
   const name = (
     <>

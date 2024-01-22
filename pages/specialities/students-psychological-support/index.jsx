@@ -1,22 +1,22 @@
 import Head from "next/head";
 import Image from "next/image";
-import { urlFor } from "@/lib/client";
+import { urlFor } from "lib/client";
 import { useEffect, useState } from "react";
 
 // Client connection
-import { menuItems } from "@/components/Header/menuItems";
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, newsPerPage } from "@/lib/queries";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 
 // Other libs
 import moment from "moment";
-import NewsItems from "@/components/NewsItems/NewsItems";
-import Pagination from "@/components/Pagination/Pagination";
+import NewsItems from "components/NewsItems/NewsItems";
+import Pagination from "components/Pagination/Pagination";
 
 const newsBool = "studentsPsychologicalSupportBool";
 

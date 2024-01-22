@@ -1,8 +1,8 @@
-import { urlFor } from "@/lib/client";
+import { urlFor } from "lib/client";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./GuarantatorList.module.css";
-import { personCredentials } from "@/lib/helpers";
+import { personCredentials } from "lib/helpers";
 import DocsViewer from "../DocsViewer/DocsViewer";
 import { useState } from "react";
 

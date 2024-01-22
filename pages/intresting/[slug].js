@@ -4,23 +4,23 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 // Client connection
-import { menuItems } from '@/components/Header/menuItems';
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, chapterPageQuery, slugCurrent } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 
-import { urlFor } from "../../lib/client";
+import { urlFor } from "lib/client";
 
 // Components
-import Header from '@/components/Header/Header';
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import Header from 'components/Header/Header';
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 
 // Other libs
 import moment from "moment";
 import { Lightbox } from 'yet-another-react-lightbox';
 import "yet-another-react-lightbox/styles.css";
 import Link from 'next/link';
-import PageContentSection from '@/components/PageContentSection/PageContentSection';
+import PageContentSection from 'components/PageContentSection/PageContentSection';
 
 
 const Intresting = ({
@@ -69,7 +69,7 @@ const Intresting = ({
   return (
     <>
       <Head>
-        <title>{title} | Кафедра електричної інженерії ТНТУ</title>
+        <title>{`${title} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={metaDescription} />
       </Head>
 

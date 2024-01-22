@@ -2,26 +2,26 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Client connection
-import { menuItems } from "@/components/Header/menuItems";
-import { client } from "@/lib/client";
+import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
 import {
   mainMenuQueriesObjCreator,
   chapterPageQuery,
   slugCurrent,
   newsPerPage,
-} from "@/lib/queries";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
+} from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
-import Header from "@/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from "@/components/PageContentSection/PageContentSection";
-import NewsItems from "@/components/NewsItems/NewsItems";
-import Pagination from "@/components/Pagination/Pagination";
-import DocsViewer from "@/components/DocsViewer/DocsViewer";
-import CallSchedule from "@/components/CallSchedule/CallSchedule";
-import WeeksSchedule from "@/components/WeeksSchedule/WeeksSchedule";
-import Practices from "@/components/Practices/Practices";
+import Header from "components/Header/Header";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import PageContentSection from "components/PageContentSection/PageContentSection";
+import NewsItems from "components/NewsItems/NewsItems";
+import Pagination from "components/Pagination/Pagination";
+import DocsViewer from "components/DocsViewer/DocsViewer";
+import CallSchedule from "components/CallSchedule/CallSchedule";
+import WeeksSchedule from "components/WeeksSchedule/WeeksSchedule";
+import Practices from "components/Practices/Practices";
 
 const newsBool = "bachelorAcademicHonestyBool";
 
@@ -71,7 +71,7 @@ const BachelorPage = ({
   return (
     <>
       <Head>
-        <title>{title} | Кафедра електричної інженерії ТНТУ</title>
+        <title>{`${title} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={metaDescription} />
       </Head>
 

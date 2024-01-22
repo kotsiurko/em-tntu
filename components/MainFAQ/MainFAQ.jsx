@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { urlFor } from "@/lib/client";
+import { urlFor } from "lib/client";
 
 // Other libs
 import moment from "moment";

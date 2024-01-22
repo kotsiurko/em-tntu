@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Header from "@/components/Header/Header";
-import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import { mainMenuQueriesObjCreator } from "@/lib/queries";
-import { menuItems } from "@/components/Header/menuItems";
-import { menuCreator, menuItemsMerger } from "@/lib/menuCreator";
-import { client } from "@/lib/client";
+import Header from "components/Header/Header";
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import { mainMenuQueriesObjCreator } from "lib/queries";
+import { menuItems } from "components/Header/menuItems";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { client } from "lib/client";
 
 const SecretForm = ({ mainMenuQO, secretPage }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);

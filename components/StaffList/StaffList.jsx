@@ -1,5 +1,5 @@
-import { urlFor } from "@/lib/client";
-import { personCredentials } from "@/lib/helpers";
+import { urlFor } from "lib/client";
+import { personCredentials } from "lib/helpers";
 import Image from "next/image";
 import Link from "next/link";
 

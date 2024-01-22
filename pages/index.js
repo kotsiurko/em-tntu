@@ -3,10 +3,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google';
 
-import { menuItems } from '@/components/Header/menuItems';
-import { client } from "@/lib/client";
-import { mainMenuQueriesObjCreator, mainStaffListQuery } from '@/lib/queries';
-import { menuCreator, menuItemsMerger } from '@/lib/menuCreator';
+import { menuItems } from 'components/Header/menuItems';
+import { client } from "lib/client";
+import { mainMenuQueriesObjCreator, mainStaffListQuery } from 'lib/queries';
+import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 // import styles from '@/styles/Home.module.css'
 
 
@@ -16,12 +16,12 @@ import Header from "/components/Header/Header";
 
 // Images
 import electricMan from '../public/assets/img/hero-img.png'
-import MainFAQ from '@/components/MainFAQ/MainFAQ';
-import MainAbout from '@/components/MainAbout/MainAbout';
-import MainCounter from '@/components/MainCounter/MainCounter';
-import MainValues from '@/components/MainValues/MainValues';
-import MainBooklet from '@/components/MainBooklet/MainBooklet';
-import MainTeam from '@/components/MainTeam/MainTeam';
+import MainFAQ from 'components/MainFAQ/MainFAQ';
+import MainAbout from 'components/MainAbout/MainAbout';
+import MainCounter from 'components/MainCounter/MainCounter';
+import MainValues from 'components/MainValues/MainValues';
+import MainBooklet from 'components/MainBooklet/MainBooklet';
+import MainTeam from 'components/MainTeam/MainTeam';
 
 
 

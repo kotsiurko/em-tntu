@@ -1,4 +1,4 @@
-import { getCourseId } from "@/lib/helpers";
+import { getCourseId } from "lib/helpers";
 import Link from "next/link";
 import React from "react";
 

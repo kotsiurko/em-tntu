@@ -1,5 +1,5 @@
 import BlockContent from "@sanity/block-content-to-react";
-import { clientConfig } from "@/lib/client";
+import { clientConfig } from "lib/client";
 
 import getYouTubeId from "get-youtube-id";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
