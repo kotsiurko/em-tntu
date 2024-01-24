@@ -119,9 +119,6 @@ const Header = (props) => {
                   >
                     <Link
                       href="#"
-                      // className={
-                      //   children.length > 0 ? null : "nav-link scrollto"
-                      // }
                       className={asPath.includes(url) ? "active" : ""}
                     >
                       {children.length > 0 ? (
@@ -160,7 +157,7 @@ const Header = (props) => {
                               <Link
                                 href={url}
                                 target={url.startsWith("http") ? "_blank" : ""}
-                                className={asPath.includes(url) ? "active" : ""}
+                                className={asPath === url ? "active" : ""}
                               >
                                 {children ? (
                                   <>

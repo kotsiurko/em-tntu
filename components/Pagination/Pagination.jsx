@@ -5,7 +5,7 @@ import { useState } from "react";
 import { paginationQuery, newsPerPage } from "lib/queries";
 
 function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
-  const [currPage, setCurrPage] = useState(1);
+  const [currPage, setCurrPage] = useState(localStorage.getItem("curr_page"));
   const totalPages = Math.ceil(totalNewsAmount / newsPerPage);
 
   async function fetchPrevPage() {
@@ -15,6 +15,7 @@ function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
     const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(currPage - 1);
+    localStorage.setItem("curr_page", currPage - 1);
     sendDataToParent(result);
   }
 
@@ -25,6 +26,7 @@ function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
     const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(currPage + 1);
+    localStorage.setItem("curr_page", currPage + 1);
     sendDataToParent(result);
   }
 
@@ -34,6 +36,7 @@ function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
     const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(totalPages);
+    localStorage.setItem("curr_page", totalPages);
     sendDataToParent(result);
   }
 
@@ -43,6 +46,7 @@ function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
     const result = await client.fetch(paginationQuery(startIdx, endIdx, bool));
 
     setCurrPage(1);
+    localStorage.setItem("curr_page", 1);
     sendDataToParent(result);
   }
 

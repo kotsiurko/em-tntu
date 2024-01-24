@@ -70,7 +70,7 @@ const NewsItemArticle = ({
   return (
     <>
       <Head>
-        <title>{newsTitle} | Кафедра електричної інженерії ТНТУ</title>
+        <title>{`${newsTitle} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={metaDescription} />
         <meta property="og:title" content={newsTitle} />
         <meta property="og:description" content={newsItemBodyShort} />

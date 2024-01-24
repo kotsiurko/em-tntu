@@ -50,7 +50,7 @@ const PersonInfo = ({
   return (
     <>
       <Head>
-        <title>{name} | Кафедра електричної інженерії ТНТУ</title>
+        <title>{`${name} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={personMetaDescription} />
       </Head>
 

@@ -36,7 +36,7 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: {title}</title>
+        <title>{`${title} | Кафедра електричної інженерії ТНТУ`}</title>
         <meta name="description" content={metaDescription} />
       </Head>
 

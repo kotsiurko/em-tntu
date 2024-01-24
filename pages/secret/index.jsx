@@ -43,15 +43,17 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
   return (
     <>
       <Head>
-        <title>Кафедра електричної інженерії ТНТУ :: Історія кафедри</title>
+        <title>
+          Положення. розпоряджння. накази | Кафедра електричної інженерії ТНТУ
+        </title>
       </Head>
 
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
         chapterTitle="Про кафедру"
-        pageTitle="Колектив"
-        pageUrl="/about/staff"
+        pageTitle="Для працівників"
+        pageUrl="/secret"
       />
 
       {/* ======= Inner Page Section ======= */}
