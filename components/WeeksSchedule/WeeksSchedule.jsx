@@ -29,7 +29,7 @@ function WeeksSchedule({ data }) {
   return (
     <section className="features my-personal">
       <div className="container">
-        <header class="section-header">
+        <header className="section-header">
           <p>Графік навчальних тижнів</p>
           <span>{semesterPeriod}</span>
         </header>

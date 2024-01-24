@@ -157,7 +157,7 @@ const Header = (props) => {
                               <Link
                                 href={url}
                                 target={url.startsWith("http") ? "_blank" : ""}
-                                className={asPath === url ? "active" : ""}
+                                className={asPath.includes(url) ? "active" : ""}
                               >
                                 {children ? (
                                   <>

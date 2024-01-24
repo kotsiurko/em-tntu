@@ -104,7 +104,7 @@ const BachelorPage = ({
             data={{ semesterPeriod, weeksAmount, semesterStarts }}
           />
 
-          <header class="section-header" style={{ paddingBottom: 0 }}>
+          <header className="section-header" style={{ paddingBottom: 0 }}>
             <p>Навчальні плани</p>
           </header>
           {/* eduPlanList */}
@@ -112,7 +112,7 @@ const BachelorPage = ({
             const { eduPlanTitle, eduPlanURL } = el;
             return (
               <>
-                <header class="section-header">
+                <header className="section-header">
                   <span>{eduPlanTitle}</span>
                 </header>
                 <DocsViewer docURL={eduPlanURL} />

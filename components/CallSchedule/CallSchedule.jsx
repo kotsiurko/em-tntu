@@ -6,7 +6,7 @@ function CallSchedule({ data }) {
   return (
     <section className="features myPT-0">
       <div className="container">
-        <header class="section-header">
+        <header className="section-header">
           <p>Розклад дзвінків</p>
         </header>
         <table className="table table-bordered table-hover table-striped centered">
