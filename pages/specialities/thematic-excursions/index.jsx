@@ -1,26 +1,49 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // Client connection
-import { menuItems } from "components/Header/menuItems";
 import { client } from "lib/client";
+
+// Helpers
+import { menuItems } from "components/Header/menuItems";
 import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { getPortion } from "lib/helpers";
 
 // Components
-import Header from "/components/Header/Header";
+import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import NewsItems from "components/NewsItems/NewsItems";
-import Pagination from "components/Pagination/Pagination";
+import NewPagination from "components/Pagination/NewPagination";
 
 const newsBool = "thematicExcursionsBool";
 
-const ThematicExcursionNews = ({ totalNewsAmount, initArr, mainMenuQO }) => {
-  const [dataFromChild, setDataFromChild] = useState(initArr);
+// -----------------------------------------------------------------
+// ------ Page STARTS here -----------------------------------------
 
-  const updateDataFromChild = (data) => {
-    setDataFromChild(data);
-  };
+const ThematicExcursionNews = ({ totalNewsAmount, mainMenuQO }) => {
+  const router = useRouter();
+
+  const [resultQuery, setResultQuery] = useState();
+  const [currPage, setCurrPage] = useState();
+
+  useEffect(() => {
+    if (router.asPath.includes("?page=")) {
+      // розрізаю стрічку адреси пополам і дістаю з неї праву частину
+      const pageNum = parseInt(router.asPath.split("?page=")[1]);
+      setCurrPage(pageNum);
+      getData(pageNum);
+    } else {
+      setCurrPage(1);
+      getData(1);
+    }
+  }, []);
+
+  async function getData(page) {
+    const res = await getPortion(page, newsBool);
+    setResultQuery(res);
+  }
 
   // MENU FORMATION PART ==============================================
 
@@ -34,7 +57,7 @@ const ThematicExcursionNews = ({ totalNewsAmount, initArr, mainMenuQO }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [initArr, mainMenuQO]);
+  }, [mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -66,15 +89,17 @@ const ThematicExcursionNews = ({ totalNewsAmount, initArr, mainMenuQO }) => {
           </header>
 
           <div className="row gy-4">
-            <NewsItems currentItems={dataFromChild} />
+            <NewsItems currentItems={resultQuery} />
           </div>
 
           {/* PAGINATION BLOCK STARTS */}
           {totalNewsAmount > newsPerPage && (
-            <Pagination
-              bool={newsBool}
+            <NewPagination
               totalNewsAmount={totalNewsAmount}
-              sendDataToParent={updateDataFromChild}
+              currPage={currPage}
+              setResultQuery={setResultQuery}
+              setCurrPage={setCurrPage}
+              newsBool={newsBool}
             />
           )}
           {/* PAGINATION BLOCK ENDS */}
@@ -91,15 +116,11 @@ export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
   );
-  const initArr = await client.fetch(
-    `*[_type == "news" && ${newsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
-  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       totalNewsAmount,
-      initArr,
       mainMenuQO,
     },
   };
