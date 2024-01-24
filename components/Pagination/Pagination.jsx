@@ -1,8 +1,8 @@
-import { client } from "@/lib/client";
+import { client } from "lib/client";
 import { useState } from "react";
 
 // Client connection
-import { paginationQuery, newsPerPage } from "@/lib/queries";
+import { paginationQuery, newsPerPage } from "lib/queries";
 
 function Pagination({ totalNewsAmount, sendDataToParent, bool }) {
   const [currPage, setCurrPage] = useState(1);

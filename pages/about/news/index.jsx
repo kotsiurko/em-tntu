@@ -8,7 +8,7 @@ import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
-import Header from "/components/Header/Header";
+import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import Pagination from "components/Pagination/Pagination";
 import NewsItems from "components/NewsItems/NewsItems";
