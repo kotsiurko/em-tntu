@@ -1,40 +1,43 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // Client connection
-import { menuItems } from "components/Header/menuItems";
 import { client, urlFor } from "lib/client";
+
+// Helpers
+import { menuItems } from "components/Header/menuItems";
 import {
   mainMenuQueriesObjCreator,
   chapterPageQuery,
   slugCurrent,
   newsPerPage,
-  paginationQuery,
 } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { getPortion } from "lib/helpers";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
-import Pagination from "components/Pagination/Pagination";
+// import Pagination from "components/Pagination/Pagination";
 import LightBoxCustom from "../../components/LightboxCustom/LightBoxCustom";
+import NewPagination from "components/Pagination/NewPagination";
 
 const schoolsCooperationBool = "schoolsCooperationBool";
 const studentOlympiadsBool = "studentOlympiadsBool";
 const studHonorsBool = "studHonorsBool";
 
+// -----------------------------------------------------------------
+// ------ Page STARTS here -----------------------------------------
 const EntrantsPage = ({
   entrantsPage,
-  totalNewsAmountSchoolsCooperation,
-  initArrSchoolsCooperation,
-  totalNewsAmountStudentOlympiads,
-  initArrstudentOlympiads,
-  totalNewsAmountStudHonors,
-  initArrsStudHonors,
   mainMenuQO,
+  totalNewsAmountSchoolsCooperation,
+  totalNewsAmountStudentOlympiads,
+  totalNewsAmountStudHonors,
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -43,8 +46,6 @@ const EntrantsPage = ({
   const {
     title,
     slug,
-    schoolsCooperation,
-    studentOlympiads,
     studentsHonors,
     metaDescription,
   } = entrantsPage;
@@ -53,28 +54,44 @@ const EntrantsPage = ({
     setOpen(state);
   };
 
-  // schoolsCooperationBool
-  const [dataFromChildSchoolsCoop, setDataFromChildSchoolsCoop] = useState(
-    initArrSchoolsCooperation
-  );
-  const updateDataFromChildSchoolsCoop = (data) => {
-    setDataFromChildSchoolsCoop(data);
-  };
+  const router = useRouter();
 
-  // studentOlympiadsBool
-  const [dataFromChildStudOlymp, setDataFromChildStudOlymp] = useState(
-    initArrstudentOlympiads
-  );
-  const updateDataFromChildStudOlymp = (data) => {
-    setDataFromChildStudOlymp(data);
-  };
+  const [resultQuery, setResultQuery] = useState();
+  const [currPage, setCurrPage] = useState();
+  const [newsBool, setNewsBool] = useState();
+  const [totalNewsAmount, setTotalNewsAmount] = useState();
 
-  // studHonorsBool
-  const [dataFromChildStudHonors, setDataFromChildStudHonors] =
-    useState(initArrsStudHonors);
-  const updateDataFromChildStudHonors = (data) => {
-    setDataFromChildStudHonors(data);
-  };
+  useEffect(() => {
+    async function getData(page) {
+      let res;
+      if (slug.current === "/entrant/schools-cooperation") {
+        setNewsBool("schoolsCooperationBool")
+        setTotalNewsAmount(totalNewsAmountSchoolsCooperation);
+        res = await getPortion(page, "schoolsCooperationBool");
+      }
+      if (slug.current === "/entrant/student-olympiads") {
+        setNewsBool("studentOlympiadsBool")
+        setTotalNewsAmount(totalNewsAmountStudentOlympiads);
+        res = await getPortion(page, "studentOlympiadsBool");
+      }
+      if (slug.current === "/entrant/students-honors") {
+        setNewsBool("studHonorsBool")
+        setTotalNewsAmount(totalNewsAmountStudHonors);
+        res = await getPortion(page, "studHonorsBool");
+      }
+      setResultQuery(res);
+    }
+
+    if (router.asPath.includes("?page=")) {
+      // розрізаю стрічку адреси пополам і дістаю з неї праву частину
+      const pageNum = parseInt(router.asPath.split("?page=")[1]);
+      setCurrPage(pageNum);
+      getData(pageNum);
+    } else {
+      setCurrPage(1);
+      getData(1);
+    }
+  }, [router.asPath, slug, totalNewsAmountSchoolsCooperation, totalNewsAmountStudentOlympiads, totalNewsAmountStudHonors]);
 
   // MENU FORMATION PART ==============================================
 
@@ -88,7 +105,7 @@ const EntrantsPage = ({
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [initArrSchoolsCooperation, initArrstudentOlympiads, mainMenuQO]);
+  }, [mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -110,77 +127,30 @@ const EntrantsPage = ({
       {/* Page Content */}
       <PageContentSection data={entrantsPage} />
 
-      {schoolsCooperation && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+      {/* ======= Inner Page Team-Staff Section ======= */}
+      <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
 
-            <div className="row gy-4">
-              <NewsItems currentItems={dataFromChildSchoolsCoop} />
-            </div>
-
-            {/* PAGINATION BLOCK STARTS */}
-            {totalNewsAmountSchoolsCooperation > newsPerPage && (
-              <Pagination
-                bool={schoolsCooperationBool}
-                totalNewsAmount={totalNewsAmountSchoolsCooperation}
-                sendDataToParent={updateDataFromChildSchoolsCoop}
-              />
-            )}
-            {/* PAGINATION BLOCK ENDS */}
+          <div className="row gy-4">
+            <NewsItems currentItems={resultQuery} />
           </div>
-        </section>
-      )}
 
-      {studentOlympiads && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+          {totalNewsAmount > newsPerPage && (
+            <NewPagination
+              totalNewsAmount={totalNewsAmount}
+              currPage={currPage}
+              setResultQuery={setResultQuery}
+              setCurrPage={setCurrPage}
+              newsBool={newsBool}
+            />
+          )}
 
-            <div className="row gy-4">
-              <NewsItems currentItems={dataFromChildStudOlymp} />
-            </div>
-
-            {/* PAGINATION BLOCK STARTS */}
-            {totalNewsAmountStudentOlympiads > newsPerPage && (
-              <Pagination
-                bool={studentOlympiadsBool}
-                totalNewsAmount={totalNewsAmountStudentOlympiads}
-                sendDataToParent={updateDataFromChildStudOlymp}
-              />
-            )}
-            {/* PAGINATION BLOCK ENDS */}
-          </div>
-        </section>
-      )}
-
-      {studentsHonors && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
-
-            <div className="row gy-4">
-              <NewsItems currentItems={dataFromChildStudHonors} />
-            </div>
-
-            {/* PAGINATION BLOCK STARTS */}
-            {totalNewsAmountStudentOlympiads > newsPerPage && (
-              <Pagination
-                bool={studHonorsBool}
-                totalNewsAmount={totalNewsAmountStudHonors}
-                sendDataToParent={updateDataFromChildStudHonors}
-              />
-            )}
-            {/* PAGINATION BLOCK ENDS */}
-          </div>
-        </section>
-      )}
+        </div>
+      </section>
+      {/* ======= End Team-Staff Page Section ======= */}
 
       {studentsHonors && (
         <section className="features">
@@ -266,22 +236,13 @@ export async function getStaticProps({ params: { slug } }) {
   const totalNewsAmountSchoolsCooperation = await client.fetch(
     `count(*[_type == "news" && ${schoolsCooperationBool}])`
   );
-  const initArrSchoolsCooperation = await client.fetch(
-    paginationQuery(0, newsPerPage, schoolsCooperationBool)
-  );
 
   const totalNewsAmountStudentOlympiads = await client.fetch(
     `count(*[_type == "news" && ${studentOlympiadsBool}])`
   );
-  const initArrstudentOlympiads = await client.fetch(
-    paginationQuery(0, newsPerPage, studentOlympiadsBool)
-  );
 
   const totalNewsAmountStudHonors = await client.fetch(
     `count(*[_type == "news" && ${studHonorsBool}])`
-  );
-  const initArrsStudHonors = await client.fetch(
-    paginationQuery(0, newsPerPage, studHonorsBool)
   );
 
   const mainMenuQO = await mainMenuQueriesObjCreator();
@@ -289,13 +250,10 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: {
       entrantsPage,
-      totalNewsAmountSchoolsCooperation,
-      initArrSchoolsCooperation,
-      totalNewsAmountStudentOlympiads,
-      initArrstudentOlympiads,
-      totalNewsAmountStudHonors,
-      initArrsStudHonors,
       mainMenuQO,
+      totalNewsAmountSchoolsCooperation,
+      totalNewsAmountStudentOlympiads,
+      totalNewsAmountStudHonors,
     },
   };
 }

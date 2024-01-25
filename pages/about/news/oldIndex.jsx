@@ -1,49 +1,28 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 // Client connection
-import { client } from "lib/client";
-
-// Helpers
 import { menuItems } from "components/Header/menuItems";
+import { client } from "lib/client";
 import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
-import { getPortion } from "lib/helpers";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import Pagination from "components/Pagination/Pagination";
 import NewsItems from "components/NewsItems/NewsItems";
-import NewPagination from "components/Pagination/NewPagination";
 
 const newsBool = "allNewsBool";
 
-// -----------------------------------------------------------------
-// ------ Page STARTS here -----------------------------------------
+const NewsList = ({ totalNewsAmount, initArr, mainMenuQO }) => {
+  // console.log("initArr :>> ", initArr);
+  const [dataFromChild, setDataFromChild] = useState(initArr);
+  // console.log("dataFromChild :>> ", dataFromChild);
 
-const NewsList = ({ totalNewsAmount, mainMenuQO }) => {
-  const router = useRouter();
-
-  const [resultQuery, setResultQuery] = useState();
-  const [currPage, setCurrPage] = useState();
-
-  useEffect(() => {
-    if (router.asPath.includes("?page=")) {
-      // розрізаю стрічку адреси пополам і дістаю з неї праву частину
-      const pageNum = parseInt(router.asPath.split("?page=")[1]);
-      setCurrPage(pageNum);
-      getData(pageNum);
-    } else {
-      setCurrPage(1);
-      getData(1);
-    }
-  }, []);
-
-  async function getData(page) {
-    const res = await getPortion(page, newsBool);
-    setResultQuery(res);
-  }
+  const updateDataFromChild = (data) => {
+    setDataFromChild(data);
+  };
 
   // MENU FORMATION PART ==============================================
 
@@ -57,7 +36,7 @@ const NewsList = ({ totalNewsAmount, mainMenuQO }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [mainMenuQO]);
+  }, [initArr, mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -89,18 +68,18 @@ const NewsList = ({ totalNewsAmount, mainMenuQO }) => {
           </header>
 
           <div className="row gy-4">
-            <NewsItems currentItems={resultQuery} />
+            <NewsItems currentItems={dataFromChild} />
           </div>
 
+          {/* PAGINATION BLOCK STARTS */}
           {totalNewsAmount > newsPerPage && (
-            <NewPagination
+            <Pagination
+              bool={newsBool}
               totalNewsAmount={totalNewsAmount}
-              currPage={currPage}
-              setResultQuery={setResultQuery}
-              setCurrPage={setCurrPage}
-              newsBool={newsBool}
+              sendDataToParent={updateDataFromChild}
             />
           )}
+          {/* PAGINATION BLOCK ENDS */}
         </div>
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
@@ -112,15 +91,15 @@ export default NewsList;
 
 export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(`count(*[_type == "news"])`);
-  // const initArr = await client.fetch(
-  //   `*[_type == "news"] | order(publishedDate desc) [0...${newsPerPage}]`
-  // );
+  const initArr = await client.fetch(
+    `*[_type == "news"] | order(publishedDate desc) [0...${newsPerPage}]`
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       totalNewsAmount,
-      // initArr,
+      initArr,
       mainMenuQO,
     },
   };
