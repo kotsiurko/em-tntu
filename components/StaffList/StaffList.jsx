@@ -15,6 +15,7 @@ const StaffList = ({ staff }) => {
           sciDegree,
           acadStatus,
           position,
+          additional_requisites,
           mainPhoto,
           formerEmployeeBool,
           slug,
@@ -26,7 +27,7 @@ const StaffList = ({ staff }) => {
 
           return (
             <div
-              className="col-lg-2 col-md-4 d-flex align-items-stretch"
+              className="col-lg-3 col-md-4 d-flex align-items-stretch"
               data-aos="fade-up"
               data-aos-delay="100"
               key={firstName}
@@ -46,12 +47,17 @@ const StaffList = ({ staff }) => {
                         {firstName}
                       </firstname>
                       <br />
-                      {secondName}
-                      <br />
-                      {fatherName}
+                      {secondName} {fatherName}
                     </h4>
                   </Link>
-                  {personCredentials(sciDegree, acadStatus, position)}
+                  <span>
+                    {personCredentials(
+                      sciDegree,
+                      acadStatus,
+                      position,
+                      additional_requisites
+                    )}
+                  </span>
                   <a href={scheduleLink}>розклад</a>
                 </div>
               </div>

@@ -40,6 +40,7 @@ const StaffItem = ({ personInfo }) => {
     acadStatus,
     position,
     position_continue,
+    additional_requisites,
     edGuarantee,
     socials,
     education,
@@ -136,17 +137,23 @@ const StaffItem = ({ personInfo }) => {
                   {sciDegree !== "Немає" && (
                     <h5>
                       Науковий ступінь:{" "}
-                      <span className="h5">{sciDegreeFullName}</span>{" "}
+                      <span className="h5">{sciDegreeFullName}</span>
                     </h5>
                   )}
                   {acadStatus !== "Немає" && (
                     <h5>
-                      Вчене звання: <span className="h5">{acadStatus}</span>{" "}
+                      Вчене звання: <span className="h5">{acadStatus}</span>
                     </h5>
                   )}
                   {position && (
                     <h5>
-                      Посада: <span className="h5">{fullPosition()}</span>{" "}
+                      Посада: <span className="h5">{fullPosition()}</span>
+                    </h5>
+                  )}
+                  {additional_requisites && (
+                    <h5>
+                      Додатково:{" "}
+                      <span className="h5">{additional_requisites}</span>
                     </h5>
                   )}
                   <h5 className="pt-2">
