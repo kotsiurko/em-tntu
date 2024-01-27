@@ -166,9 +166,6 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, mainMenuQO }) => {
         </section>
       )}
 
-      {/* {slug.current === "/bachelor/practices" && (
-        <Practices prList={bachPracticesList} />
-      )} */}
     </>
   );
 };

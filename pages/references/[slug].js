@@ -20,6 +20,7 @@ const InternationalActivityPage = ({
 
   const {
     title,
+    metaDescription,
     slug,
   } = referencesData;
 

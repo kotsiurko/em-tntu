@@ -121,7 +121,7 @@ export const menuItems = [
       },
       {
         title: "Консультації",
-        url: "/bachelor/сonsultations",
+        url: "/bachelor/consultations",
         id: 470,
       },
     ],

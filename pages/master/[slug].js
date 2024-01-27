@@ -83,6 +83,10 @@ const MasterPage = ({ masterPage, totalNewsAmount, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
+      {slug.current === "/master/practices" && (
+        <Practices prList={masterPracticesList} />
+      )}
+
       {/* Page Content */}
       <PageContentSection data={masterPage} />
 
@@ -112,9 +116,6 @@ const MasterPage = ({ masterPage, totalNewsAmount, mainMenuQO }) => {
         </section>
       )}
 
-      {slug.current === "/master/practices" && (
-        <Practices prList={masterPracticesList} />
-      )}
     </>
   );
 };
@@ -149,7 +150,6 @@ export async function getStaticProps({ params: { slug } }) {
         destination:
           "/master/educational-and-professional-programs/programs-and-guarantor",
         permanent: false,
-        // statusCode: 301
       },
     };
   }
