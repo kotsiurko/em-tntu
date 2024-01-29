@@ -13,6 +13,7 @@ const StaffList = ({ staff }) => {
           secondName,
           fatherName,
           sciDegree,
+          sciDegreeShort,
           acadStatus,
           position,
           additional_requisites,
@@ -52,7 +53,7 @@ const StaffList = ({ staff }) => {
                   </Link>
                   <span>
                     {personCredentials(
-                      sciDegree,
+                      sciDegreeShort,
                       acadStatus,
                       position,
                       additional_requisites

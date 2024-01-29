@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { urlFor } from "lib/client";
-import { clientConfig } from "lib/client";
-import BlockContent from "@sanity/block-content-to-react";
+// import { clientConfig } from "lib/client";
+// import BlockContent from "@sanity/block-content-to-react";
 
 // Components
 import RepeatingLists from "components/RepeatingLists/RepeatingLists";
@@ -9,7 +9,7 @@ import RepeatingLists from "components/RepeatingLists/RepeatingLists";
 // Other Libs
 import Image from "next/image";
 import Link from "next/link";
-import { getCourseId, getFullSciDegree, personPageTitle } from "lib/helpers";
+import { getCourseId, personPageTitle } from "lib/helpers";
 
 // Profile logos
 import tntuNTBLogo from "../../public/images/profileLogos/tntulibrary.jpg";
@@ -37,6 +37,7 @@ const StaffItem = ({ personInfo }) => {
     secondName,
     fatherName,
     sciDegree,
+    sciDegreeFull,
     acadStatus,
     position,
     position_continue,
@@ -70,7 +71,7 @@ const StaffItem = ({ personInfo }) => {
     </>
   );
 
-  const sciDegreeFullName = getFullSciDegree(sciDegree);
+  // const sciDegreeFullName = getFullSciDegree(sciDegree);
 
   const fullPosition = () => {
     if (position === "доцент" || position === "професор") {
@@ -134,10 +135,10 @@ const StaffItem = ({ personInfo }) => {
               <div className="col-xl-4 pt-2 px-2 d-flex justify-content-center align-items-center">
                 <div className="d-flex flex-column text-center">
                   <h3>{name}</h3>
-                  {sciDegree !== "Немає" && (
+                  {sciDegreeFull && (
                     <h5>
                       Науковий ступінь:{" "}
-                      <span className="h5">{sciDegreeFullName}</span>
+                      <span className="h5">{sciDegreeFull}</span>
                     </h5>
                   )}
                   {acadStatus !== "Немає" && (
