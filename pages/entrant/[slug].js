@@ -43,12 +43,7 @@ const EntrantsPage = ({
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [imgArr, setImgArr] = useState();
 
-  const {
-    title,
-    slug,
-    studentsHonors,
-    metaDescription,
-  } = entrantsPage;
+  const { title, slug, studentsHonors, metaDescription } = entrantsPage;
 
   const closeGallery = (state) => {
     setOpen(state);
@@ -65,17 +60,17 @@ const EntrantsPage = ({
     async function getData(page) {
       let res;
       if (slug.current === "/entrant/schools-cooperation") {
-        setNewsBool("schoolsCooperationBool")
+        setNewsBool("schoolsCooperationBool");
         setTotalNewsAmount(totalNewsAmountSchoolsCooperation);
         res = await getPortion(page, "schoolsCooperationBool");
       }
       if (slug.current === "/entrant/student-olympiads") {
-        setNewsBool("studentOlympiadsBool")
+        setNewsBool("studentOlympiadsBool");
         setTotalNewsAmount(totalNewsAmountStudentOlympiads);
         res = await getPortion(page, "studentOlympiadsBool");
       }
       if (slug.current === "/entrant/students-honors") {
-        setNewsBool("studHonorsBool")
+        setNewsBool("studHonorsBool");
         setTotalNewsAmount(totalNewsAmountStudHonors);
         res = await getPortion(page, "studHonorsBool");
       }
@@ -91,7 +86,13 @@ const EntrantsPage = ({
       setCurrPage(1);
       getData(1);
     }
-  }, [router.asPath, slug, totalNewsAmountSchoolsCooperation, totalNewsAmountStudentOlympiads, totalNewsAmountStudHonors]);
+  }, [
+    router.asPath,
+    slug,
+    totalNewsAmountSchoolsCooperation,
+    totalNewsAmountStudentOlympiads,
+    totalNewsAmountStudHonors,
+  ]);
 
   // MENU FORMATION PART ==============================================
 
@@ -128,28 +129,31 @@ const EntrantsPage = ({
       <PageContentSection data={entrantsPage} />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
-      <section id="team" className="team">
-        <div className="container">
-          <header className="section-header">
-            <p>Події розділу</p>
-          </header>
+      {(slug.current === "/entrant/student-olympiads" ||
+        slug.current === "/entrant/students-honors" ||
+        slug.current === "/entrant/schools-cooperation") && (
+        <section id="team" className="team">
+          <div className="container">
+            <header className="section-header">
+              <p>Події розділу</p>
+            </header>
 
-          <div className="row gy-4">
-            <NewsItems currentItems={resultQuery} />
+            <div className="row gy-4">
+              <NewsItems currentItems={resultQuery} />
+            </div>
+
+            {totalNewsAmount > newsPerPage && (
+              <NewPagination
+                totalNewsAmount={totalNewsAmount}
+                currPage={currPage}
+                setResultQuery={setResultQuery}
+                setCurrPage={setCurrPage}
+                newsBool={newsBool}
+              />
+            )}
           </div>
-
-          {totalNewsAmount > newsPerPage && (
-            <NewPagination
-              totalNewsAmount={totalNewsAmount}
-              currPage={currPage}
-              setResultQuery={setResultQuery}
-              setCurrPage={setCurrPage}
-              newsBool={newsBool}
-            />
-          )}
-
-        </div>
-      </section>
+        </section>
+      )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {studentsHonors && (
