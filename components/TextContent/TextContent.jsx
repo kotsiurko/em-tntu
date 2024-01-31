@@ -1,26 +1,10 @@
 import BlockContent from "@sanity/block-content-to-react";
 import { clientConfig } from "lib/client";
-
-import getYouTubeId from "get-youtube-id";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 import Image from "next/image";
-import ComingSoon from "../../public/assets/img/coming-soon.png";
+import ComingSoon from "public/assets/img/coming-soon.png";
+import { customSerializers } from "lib/helpers";
 
-const serializers = {
-  types: {
-    youtube: ({ node }) => {
-      const { url } = node;
-      const id = getYouTubeId(url);
-      return (
-        <>
-          <LiteYouTubeEmbed id={id} />
-          <br />
-        </>
-      );
-    },
-  },
-};
+const serializers = customSerializers;
 
 function TextContent({ data }) {
   return (
