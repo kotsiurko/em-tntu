@@ -122,7 +122,7 @@ const InternationalActivityPage = ({
       <PageContentSection data={internationalActivityPage} />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
-      <section id="team" className="team">
+      {slug.current !== "/international-activity/international-partners" && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
             <p>Події розділу</p>
@@ -147,7 +147,7 @@ const InternationalActivityPage = ({
 
 
         </div>
-      </section>
+      </section>}
       {/* ======= End Team-Staff Page Section ======= */}
 
     </>
