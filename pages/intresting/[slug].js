@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Client connection
@@ -18,13 +19,10 @@ import { urlFor } from "lib/client";
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import LightBoxCustom from "components/LightboxCustom/LightBoxCustom";
 
 // Other libs
 import moment from "moment";
-import { Lightbox } from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import Link from "next/link";
-import PageContentSection from "components/PageContentSection/PageContentSection";
 
 const Intresting = ({ intrestingData, mainMenuQO }) => {
   const [open, setOpen] = useState(false);
@@ -71,9 +69,9 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
           <div className="container" data-aos="fade-up">
             {photoarchive.map((el) => {
               const { period, periodPhotos, _key } = el;
-              const galleryArray = periodPhotos.map((el) => {
-                return { src: urlFor(el).url() };
-              });
+              // const galleryArray = periodPhotos.map((el) => {
+              //   return { src: urlFor(el).url() };
+              // });
 
               return (
                 <div key={_key}>
@@ -89,7 +87,7 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
                           style={{ position: "relative" }}
                           onClick={() => {
                             setSelectedIndex(idx);
-                            setImgArr(galleryArray);
+                            setImgArr(periodPhotos);
                             setOpen(true);
                           }}
                           key={photo._key}
@@ -111,11 +109,11 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
             })}
           </div>
 
-          <Lightbox
+          <LightBoxCustom
+            imageGallery={imgArr}
+            isOpen={open}
+            closeGallery={() => setOpen(false)}
             index={selectedIndex}
-            open={open}
-            close={() => setOpen(false)}
-            slides={imgArr}
           />
         </section>
       )}

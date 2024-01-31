@@ -82,7 +82,7 @@ const InternationalActivityPage = ({
       setCurrPage(1);
       getData(1);
     }
-  }, [router.asPath, slug, totalNewsAmountAcadMobil]);
+  }, [router.asPath, slug, totalNewsAmountAcadMobil, totalNewsAmountECF, totalNewsAmountIntInternship, totalNewsAmountIntPractOfStudents, totalNewsAmountPTP]);
 
 
 
