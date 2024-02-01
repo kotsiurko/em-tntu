@@ -74,11 +74,11 @@ export const menuItems = [
         url: "/specialities/dual-education",
         id: 280,
       },
-      {
-        title: "Психологічна підтримка студентів",
-        url: "/specialities/students-psychological-support",
-        id: 290,
-      },
+      // {
+      //   title: "Психологічна підтримка студентів",
+      //   url: "/specialities/students-psychological-support",
+      //   id: 290,
+      // },
     ],
   },
   {

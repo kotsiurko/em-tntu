@@ -11,12 +11,13 @@ import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
+import DocsViewer from "../../../components/DocsViewer/DocsViewer";
 
 
 
 const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
 
-  const { title, slug, metaDescription } = stakeholdersPage;
+  const { title, slug, metaDescription, docURL } = stakeholdersPage;
 
   // MENU FORMATION PART ==============================================
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -58,6 +59,8 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
       />
 
       <PageContentSection data={stakeholdersPage} />
+
+      {docURL && <DocsViewer docURL={docURL} />}
     </>
   )
 }

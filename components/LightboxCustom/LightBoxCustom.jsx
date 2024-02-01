@@ -9,8 +9,6 @@ import "yet-another-react-lightbox/plugins/counter.css";
 import { useRef, useState } from "react";
 
 function LightBoxCustom({ imageGallery, isOpen, closeGallery, index }) {
-  console.log("imageGallery :>> ", imageGallery);
-
   const captionsRef = useRef(null);
 
   const galleryArray = imageGallery?.map((el) => {
