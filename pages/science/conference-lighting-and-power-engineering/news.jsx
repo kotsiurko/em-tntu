@@ -35,7 +35,7 @@ const ConferenceNews = ({ totalNewsAmount, initArr, mainMenuQO }) => {
       setCurrPage(1);
       getData(1);
     }
-  }, []);
+  }, [router.asPath]);
 
   async function getData(page) {
     const res = await getPortion(page, newsBool);

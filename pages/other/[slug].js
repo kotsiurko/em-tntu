@@ -108,7 +108,7 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
                   </div>
 
                   {/* БЛОК НОВИН */}
-                  <h4>Пов'язані новини у масмедіа</h4>
+                  <h4>Пов&apos;язані новини у масмедіа</h4>
                   <hr className="my-2" />
                   <div className="row gx-0">
                     {heroPublications.map((heroPubl) => {
