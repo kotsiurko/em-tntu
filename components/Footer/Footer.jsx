@@ -2,6 +2,8 @@ import Image from "next/image";
 
 // Images
 import logo from "../../public/assets/img/logo.png";
+import moment from "moment";
+import "moment/locale/uk";
 
 const Footer = () => {
   return (
@@ -56,10 +58,10 @@ const Footer = () => {
                 >
                   <i className="bi bi-google"></i>
                 </a>
-                <a href="https://www.instagram.com/" className="instagram">
+                {/* <a href="https://www.instagram.com/" className="instagram">
                   {" "}
                   <i className="bi bi-instagram"></i>
-                </a>
+                </a> */}
                 <a
                   href="https://www.youtube.com/channel/UCkRiBJEjnihxVqZvl5lAv_A"
                   className="youtube"
@@ -91,13 +93,13 @@ const Footer = () => {
 
       <div className="container">
         <div className="credits">
-          © 1999-2022. Тернопільський національний технічний університет імені
+          © 1999-2024. Тернопільський національний технічний університет імені
           Івана Пулюя
           <br />
-          © 1999-2022. Факультет прикладних інформаційних технологій та
+          © 1999-2024. Факультет прикладних інформаційних технологій та
           електроінженерії
           <br />
-          © 1999-2022. Кафедра електричної інженерії
+          © 2018-2024. Кафедра електричної інженерії
           <br />
         </div>
         <div className="credits">
@@ -106,10 +108,7 @@ const Footer = () => {
             Коцюрко Роман Володимирович
           </a>
           <br />
-          {/* Тут можна прописати логіку для автоматичного оновлення дати змін: */}
-          {/* Треба зафетчити усі схеми із Сеніті та витягнути з кожної з них _createdAt || _updatedAt: */}
-          {/* І показувати лише найостаннішу дату */}
-          Інформацію поновлено: 15 квітня 2023 р.
+          Інформацію поновлено: {moment().format("MMMM YYYY")} р.
         </div>
         <div className="credits">
           {/* All the links in the footer should remain intact. */}

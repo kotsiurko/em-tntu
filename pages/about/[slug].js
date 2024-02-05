@@ -16,9 +16,10 @@ import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import DownloadLinkBtn from "components/DownloadLinkBtn/DownloadLinkBtn";
+import AboutContacts from "components/AboutContacts/AboutContacts";
 
 const AboutPage = ({ aboutPage, mainMenuQO }) => {
-  const { title, slug, metaDescription } = aboutPage;
+  const { title, slug, metaDescription, contacts } = aboutPage;
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
@@ -51,6 +52,10 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
 
       {slug.current === "/about/strategy" &&
         <DownloadLinkBtn href={aboutPage.docURL} />
+      }
+
+      {slug.current === "/about/contacts" &&
+        <AboutContacts data={contacts} />
       }
     </>
   );

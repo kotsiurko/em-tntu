@@ -123,6 +123,7 @@ const ProtectedPage = ({
                   placeholder="Введіть пошуковий запит"
                   value={searchQuery}
                   onChange={handleInputChange}
+                  style={{ width: 250 }}
                 />
               </div>
               <button

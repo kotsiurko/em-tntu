@@ -36,7 +36,7 @@ export const menuItems = [
       // тут решта сторінок з адмінки
       {
         title: "Для працівників",
-        url: "/secret",
+        url: "/about/secret",
         id: 170,
       },
     ],
@@ -74,11 +74,6 @@ export const menuItems = [
         url: "/specialities/dual-education",
         id: 280,
       },
-      // {
-      //   title: "Психологічна підтримка студентів",
-      //   url: "/specialities/students-psychological-support",
-      //   id: 290,
-      // },
     ],
   },
   {

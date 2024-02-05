@@ -24,7 +24,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
         localStorage.removeItem("authenticated"); // Видалити статус аутентифікації через 15 хвилин
       }, 900000); // 15 хвилин = 900 000 мілісекунд
 
-      router.push("/secret/protected-page");
+      router.push("/about/secret/protected-page");
     } else {
       alert("Невірний пароль");
     }
@@ -44,7 +44,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
     <>
       <Head>
         <title>
-          Положення. розпоряджння. накази | Кафедра електричної інженерії ТНТУ
+          Положення, розпоряджння, накази | Кафедра електричної інженерії ТНТУ
         </title>
       </Head>
 
@@ -53,7 +53,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
       <Breadcrumbs
         chapterTitle="Про кафедру"
         pageTitle="Для працівників"
-        pageUrl="/secret"
+        pageUrl="/about/secret"
       />
 
       {/* ======= Inner Page Section ======= */}
