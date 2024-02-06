@@ -47,7 +47,7 @@ const Staff = ({ staffData, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Колектив"
         pageUrl="/about/staff"
       />

@@ -51,7 +51,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Для працівників"
         pageUrl="/about/secret"
       />

@@ -101,7 +101,7 @@ const ProtectedPage = ({
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Для працівників"
         pageUrl="/secret"
       />

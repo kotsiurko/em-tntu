@@ -57,7 +57,7 @@ const PersonInfo = ({
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Колектив"
         pageUrl="/about/staff"
         subPageTitle={name}

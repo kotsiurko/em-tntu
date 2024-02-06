@@ -42,7 +42,7 @@ const AboutPage = ({ aboutPage, mainMenuQO }) => {
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle={title}
         pageUrl={slug.current}
       />

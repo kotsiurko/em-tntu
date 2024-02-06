@@ -94,6 +94,11 @@ export const menuItems = [
           },
         ],
       },
+      {
+        title: "Захисти дипломних робіт бакалаврів",
+        url: "/bachelor/diploma-theses-defense",
+        id: 385,
+      },
     ],
   },
   {
@@ -118,6 +123,11 @@ export const menuItems = [
         title: "Консультації",
         url: "/bachelor/consultations",
         id: 470,
+      },
+      {
+        title: "Захисти дипломних робіт магістрів",
+        url: "/master/diploma-theses-defense",
+        id: 485,
       },
     ],
   },

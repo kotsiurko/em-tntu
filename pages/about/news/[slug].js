@@ -80,7 +80,7 @@ const NewsItemArticle = ({
       <Header mainMenuArr={mainMenuArr} />
 
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Новини"
         pageUrl="/about/news"
         subPageTitle={newsTitle}

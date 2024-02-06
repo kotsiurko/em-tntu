@@ -27,12 +27,15 @@ import WeeksSchedule from "components/WeeksSchedule/WeeksSchedule";
 import Practices from "components/Practices/Practices";
 import NewPagination from "components/Pagination/NewPagination";
 
-const newsBool = "bachelorAcademicHonestyBool";
-
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const BachelorPage = ({ bachelorPage, totalNewsAmount, mainMenuQO }) => {
+const BachelorPage = ({ bachelorPage,
+  totalNewsAmountNormative,
+  totalNewsAmountElective,
+  totalNewsAcHonestyAmount,
+  mainMenuQO, }) => {
+
   const {
     title,
     slug,
@@ -53,22 +56,54 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, mainMenuQO }) => {
   const [resultQuery, setResultQuery] = useState();
   const [currPage, setCurrPage] = useState();
 
-  useEffect(() => {
-    if (router.asPath.includes("?page=")) {
-      // розрізаю стрічку адреси пополам і дістаю з неї праву частину
-      const pageNum = parseInt(router.asPath.split("?page=")[1]);
-      setCurrPage(pageNum);
-      getData(pageNum);
-    } else {
-      setCurrPage(1);
-      getData(1);
-    }
-  }, []);
 
-  async function getData(page) {
-    const res = await getPortion(page, newsBool);
-    setResultQuery(res);
-  }
+  useEffect(() => {
+    if (slug.current === '/bachelor/academic-honesty' || slug.current === '/bachelor/elective-disciplines' || slug.current === '/bachelor/normative-disciplines') {
+      async function getData(page, newsBool) {
+        const res = await getPortion(page, newsBool);
+        console.log('res :>> ', res);
+        setResultQuery(res);
+      }
+
+      if (router.asPath.includes("?page=")) {
+        const pageNum = parseInt(router.asPath.split("?page=")[1]);
+        setCurrPage(pageNum);
+        getData(pageNum, getNewsBool(slug.current));
+      } else {
+        setCurrPage(1);
+        getData(1, getNewsBool(slug.current));
+      }
+    }
+
+  }, [router.asPath, slug]);
+
+
+  const getNewsBool = (currentSlug) => {
+    switch (currentSlug) {
+      case "/bachelor/academic-honesty":
+        return "bachelorAcademicHonestyBool";
+      case "/bachelor/elective-disciplines":
+        return "bachelorElectiveDiscBool";
+      case "/bachelor/normative-disciplines":
+        return "bachelorNormativeDiscBool";
+      default:
+        return "";
+    }
+  };
+
+  const getTotalNewsAmount = (currentSlug) => {
+    switch (currentSlug) {
+      case "/bachelor/academic-honesty":
+        return totalNewsAcHonestyAmount;
+      case "/bachelor/elective-disciplines":
+        return totalNewsAmountElective;
+      case "/bachelor/normative-disciplines":
+        return totalNewsAmountNormative;
+      default:
+        return 0;
+    }
+  };
+
 
   // MENU FORMATION PART ==============================================
 
@@ -140,7 +175,7 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, mainMenuQO }) => {
         </>
       )}
 
-      {academicHonesty && (
+      {(slug.current === '/bachelor/academic-honesty' || slug.current === '/bachelor/elective-disciplines' || slug.current === '/bachelor/normative-disciplines') &&
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">
@@ -151,20 +186,18 @@ const BachelorPage = ({ bachelorPage, totalNewsAmount, mainMenuQO }) => {
               <NewsItems currentItems={resultQuery} />
             </div>
 
-            {/* PAGINATION BLOCK STARTS */}
-            {totalNewsAmount > newsPerPage && (
+            {getTotalNewsAmount(slug.current) > newsPerPage && (
               <NewPagination
-                totalNewsAmount={totalNewsAmount}
+                totalNewsAmount={getTotalNewsAmount(slug.current)}
                 currPage={currPage}
                 setResultQuery={setResultQuery}
                 setCurrPage={setCurrPage}
-                newsBool={newsBool}
+                newsBool={getNewsBool(slug.current)}
               />
             )}
-            {/* PAGINATION BLOCK ENDS */}
           </div>
         </section>
-      )}
+      }
 
     </>
   );
@@ -189,9 +222,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const bachelorPage = await client.fetch(chapterPageQuery("bachelor", slug));
-  const totalNewsAmount = await client.fetch(
-    `count(*[_type == "news" && ${newsBool}])`
+
+  const totalNewsAmountNormative = await client.fetch(
+    `count(*[_type == "news" && bachelorNormativeDiscBool])`
   );
+  const totalNewsAmountElective = await client.fetch(
+    `count(*[_type == "news" && bachelorElectiveDiscBool])`
+  );
+  const totalNewsAcHonestyAmount = await client.fetch(
+    `count(*[_type == "news" && bachelorAcademicHonestyBool])`
+  );
+
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   if (slug === "educational-and-professional-programs") {
@@ -208,7 +249,9 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: {
       bachelorPage,
-      totalNewsAmount,
+      totalNewsAmountNormative,
+      totalNewsAmountElective,
+      totalNewsAcHonestyAmount,
       mainMenuQO,
     },
   };

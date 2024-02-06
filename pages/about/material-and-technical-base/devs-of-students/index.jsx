@@ -38,7 +38,7 @@ const DevsOfStudents = ({ totalNewsAmount, mainMenuQO }) => {
       setCurrPage(1);
       getData(1);
     }
-  }, []);
+  }, [router.asPath]);
 
   async function getData(page) {
     const res = await getPortion(page, newsBool);
@@ -78,7 +78,7 @@ const DevsOfStudents = ({ totalNewsAmount, mainMenuQO }) => {
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Матеріально-технічна база"
         subPageUrl="devs-of-students"
         subPageTitle="Розробки студентів"

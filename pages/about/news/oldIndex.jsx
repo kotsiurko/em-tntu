@@ -55,7 +55,7 @@ const NewsList = ({ totalNewsAmount, initArr, mainMenuQO }) => {
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
-        chapterTitle="Про кафедру"
+        chapterTitle="Кафедра"
         pageTitle="Новини"
         pageUrl="/about/news"
       />
