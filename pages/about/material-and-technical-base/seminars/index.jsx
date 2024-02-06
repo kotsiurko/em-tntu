@@ -22,7 +22,7 @@ const newsBool = "seninarsBool";
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const Seminars = ({ totalNewsAmount, initArr, mainMenuQO }) => {
+const Seminars = ({ totalNewsAmount, mainMenuQO }) => {
   const router = useRouter();
 
   const [resultQuery, setResultQuery] = useState();
@@ -116,15 +116,11 @@ export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
   );
-  const initArr = await client.fetch(
-    `*[_type == "news" && ${newsBool}] | order(publishedDate desc) [0...${newsPerPage}]`
-  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       totalNewsAmount,
-      initArr,
       mainMenuQO,
     },
   };

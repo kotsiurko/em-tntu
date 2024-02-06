@@ -112,15 +112,11 @@ export default NewsList;
 
 export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(`count(*[_type == "news"])`);
-  // const initArr = await client.fetch(
-  //   `*[_type == "news"] | order(publishedDate desc) [0...${newsPerPage}]`
-  // );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       totalNewsAmount,
-      // initArr,
       mainMenuQO,
     },
   };
