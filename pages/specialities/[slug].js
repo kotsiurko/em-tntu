@@ -26,22 +26,45 @@ import PageContentSection from "components/PageContentSection/PageContentSection
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
 
-const newsBool = "nonFormalEducationBool";
-
 const SpecialitiesPage = ({
   specialitiesPage,
-  totalNewsAmount,
+  totalNewsAmountNonFormalEduc,
+  totalNewsAmountDualEduc,
   mainMenuQO,
 }) => {
-  const { title, slug, nonFormalEducation, alumni, metaDescription } =
+  const {
+    title,
+    slug,
+    // nonFormalEducation,
+    alumni,
+    metaDescription
+  } =
     specialitiesPage;
 
   const router = useRouter();
 
   const [resultQuery, setResultQuery] = useState();
   const [currPage, setCurrPage] = useState();
+  const [newsBool, setNewsBool] = useState();
+  const [totalNewsAmount, setTotalNewsAmount] = useState();
 
   useEffect(() => {
+
+    async function getData(page) {
+      let res;
+      if (slug.current === "/specialities/non-formal-education") {
+        setNewsBool("nonFormalEducationBool")
+        setTotalNewsAmount(totalNewsAmountNonFormalEduc);
+        res = await getPortion(page, "nonFormalEducationBool");
+      }
+      if (slug.current === "/specialities/dual-education") {
+        setNewsBool("dualEducationBool")
+        setTotalNewsAmount(totalNewsAmountDualEduc);
+        res = await getPortion(page, "dualEducationBool");
+      }
+      setResultQuery(res);
+    }
+
     if (router.asPath.includes("?page=")) {
       // розрізаю стрічку адреси пополам і дістаю з неї праву частину
       const pageNum = parseInt(router.asPath.split("?page=")[1]);
@@ -51,12 +74,7 @@ const SpecialitiesPage = ({
       setCurrPage(1);
       getData(1);
     }
-  }, [router.asPath]);
-
-  async function getData(page) {
-    const res = await getPortion(page, newsBool);
-    setResultQuery(res);
-  }
+  }, [router.asPath, slug, totalNewsAmountDualEduc, totalNewsAmountNonFormalEduc]);
 
   // MENU FORMATION PART ==============================================
 
@@ -92,31 +110,34 @@ const SpecialitiesPage = ({
       {/* Page Content */}
       <PageContentSection data={specialitiesPage} />
 
-      {nonFormalEducation && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+      {/* ======= Inner Page Team-Staff Section ======= */}
+      {(slug.current === "/specialities/non-formal-education" || slug.current === "/specialities/dual-education") && <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
 
-            <div className="row gy-4">
-              <NewsItems currentItems={resultQuery} />
-            </div>
 
-            {/* PAGINATION BLOCK STARTS */}
-            {totalNewsAmount > newsPerPage && (
-              <NewPagination
-                totalNewsAmount={totalNewsAmount}
-                currPage={currPage}
-                setResultQuery={setResultQuery}
-                setCurrPage={setCurrPage}
-                newsBool={newsBool}
-              />
-            )}
-            {/* PAGINATION BLOCK ENDS */}
+          <div className="row gy-4">
+            <NewsItems currentItems={resultQuery} />
           </div>
-        </section>
-      )}
+
+          {/* PAGINATION BLOCK STARTS */}
+          {(totalNewsAmount > newsPerPage) && (
+            <NewPagination
+              totalNewsAmount={totalNewsAmount}
+              currPage={currPage}
+              setResultQuery={setResultQuery}
+              setCurrPage={setCurrPage}
+              newsBool={newsBool}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
+
+
+        </div>
+      </section>}
+      {/* ======= End Team-Staff Page Section ======= */}
 
       {alumni && (
         <section id="team" className="team">
@@ -189,9 +210,14 @@ export async function getStaticProps({ params: { slug } }) {
   const specialitiesPage = await client.fetch(
     chapterPageQuery("specialities", slug)
   );
-  const totalNewsAmount = await client.fetch(
-    `count(*[_type == "news" && ${newsBool}])`
+
+  const totalNewsAmountNonFormalEduc = await client.fetch(
+    `count(*[_type == "news" && nonFormalEducationBool])`
   );
+  const totalNewsAmountDualEduc = await client.fetch(
+    `count(*[_type == "news" && dualEducationBool])`
+  );
+
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   if (slug === "stakeholders") {
@@ -207,7 +233,8 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: {
       specialitiesPage,
-      totalNewsAmount,
+      totalNewsAmountNonFormalEduc,
+      totalNewsAmountDualEduc,
       mainMenuQO,
     },
   };

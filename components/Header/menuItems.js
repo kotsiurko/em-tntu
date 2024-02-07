@@ -69,11 +69,6 @@ export const menuItems = [
         url: "/specialities/thematic-excursions",
         id: 260,
       },
-      {
-        title: "Дуальна освіта",
-        url: "/specialities/dual-education",
-        id: 280,
-      },
     ],
   },
   {
@@ -213,9 +208,14 @@ export const menuItems = [
         ],
       },
       {
-        title: "Лабораторія енергоощадності",
+        title: "НДЛ Енергоощадності та проблем енергетики",
         url: "/about/material-and-technical-base/laboratory-of-energy-saving",
         id: 660,
+      },
+      {
+        title: "НДЛ Електромагнітної сумісності джерел живлення світлотехнічних пристроїв і систем",
+        url: "/about/material-and-technical-base/ndl-light-engineering",
+        id: 665,
       },
     ],
   },

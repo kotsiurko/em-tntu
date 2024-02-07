@@ -52,7 +52,7 @@ function ReviewsList({ personList }) {
             position,
             mainPhoto,
           } = guarantor;
-          console.log("el review :>> ", el);
+          // console.log("el review :>> ", el);
 
           return (
             <div

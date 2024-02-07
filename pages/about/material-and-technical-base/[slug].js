@@ -90,29 +90,32 @@ const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
       <PageContentSection data={aboutMTBPage} />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
-      <section id="team" className="team">
-        <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>Події розділу</p>
-          </header>
+      {slug.current === "/about/material-and-technical-base/educational-labs" &&
+        <section id="team" className="team">
+          <div className="container" data-aos="fade-up">
+            <header className="section-header">
+              <p>Події розділу</p>
+            </header>
 
-          <div className="row gy-4">
-            <NewsItems currentItems={resultQuery} />
+            <div className="row gy-4">
+              <NewsItems currentItems={resultQuery} />
+            </div>
+
+            {/* PAGINATION BLOCK STARTS */}
+            {totalNewsAmount > newsPerPage && (
+              <NewPagination
+                totalNewsAmount={totalNewsAmount}
+                currPage={currPage}
+                setResultQuery={setResultQuery}
+                setCurrPage={setCurrPage}
+                newsBool={newsBool}
+              />
+            )}
+            {/* PAGINATION BLOCK ENDS */}
           </div>
+        </section>
+      }
 
-          {/* PAGINATION BLOCK STARTS */}
-          {totalNewsAmount > newsPerPage && (
-            <NewPagination
-              totalNewsAmount={totalNewsAmount}
-              currPage={currPage}
-              setResultQuery={setResultQuery}
-              setCurrPage={setCurrPage}
-              newsBool={newsBool}
-            />
-          )}
-          {/* PAGINATION BLOCK ENDS */}
-        </div>
-      </section>
       {/* ======= End Team-Staff Page Section ======= */}
     </>
   );

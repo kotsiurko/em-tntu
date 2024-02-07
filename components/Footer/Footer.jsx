@@ -80,9 +80,8 @@ const Footer = () => {
                 <br />
                 корпус ТНТУ № 7, кімн. 403
                 <br />
-                <br />
-                <strong>Телефон:</strong> (0352) 43-51-14
-                <br />
+                {/* <strong>Телефон:</strong> (0352) 43-51-14
+                <br /> */}
                 <strong>Email:</strong> kaf_ei@tu.edu.te.ua
                 <br />
               </p>
