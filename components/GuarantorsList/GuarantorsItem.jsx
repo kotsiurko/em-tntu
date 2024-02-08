@@ -11,13 +11,18 @@ function GuarantorsItem({ person }) {
     firstName,
     secondName,
     fatherName,
-    sciDegree,
+    sciDegreeShort,
     acadStatus,
     edGuarantee,
     position,
     mainPhoto,
+    imageGallery,
     slug,
   } = person;
+
+  const guranteePhoto = imageGallery?.find(
+    (item) => item.edGuaranteeBool === true
+  );
 
   const [isOPPOpen, setIsOPPOpen] = useState(false);
   const [opp_URL, setOpp_URL] = useState();
@@ -39,69 +44,93 @@ function GuarantorsItem({ person }) {
 
   return (
     <>
-      <div className="row mb-4" key={`${firstName} ${secondName}`}>
-        <div className="col-lg-3">
-          <div className="image-container" style={{ position: "relative" }}>
-            <Image
-              src={urlFor(mainPhoto).url()}
-              fill
-              priority
-              className="img-fluid rounded image"
-              alt={`${firstName} ${secondName}`}
-            />
-          </div>
-        </div>
-
-        <div className="col-lg-9 mt-5 mt-lg-0 d-flex">
-          <div className="row align-self-center gy-4">
-            <div className={styles.personTitle}>
-              <Link href={`/about/staff/${slug.current}`}>
-                <h2 className={styles.name}>
-                  {firstName} {secondName} {fatherName}
-                </h2>
-                <p>{personCredentials(sciDegree, acadStatus, position)}</p>
-              </Link>
+      <div className="d-flex justify-content-center">
+        <div className="row align-self-center gy-4">
+          <div className={styles.personTitle}>
+            <h2 className={styles.name}>
+              Гарант освітньо-професійної програми
+            </h2>
+            {/* Фото */}
+            <div
+              className="image-container my-4"
+              style={{ position: "relative" }}
+            >
+              {guranteePhoto && (
+                <Image
+                  src={urlFor(guranteePhoto).url()}
+                  fill
+                  priority
+                  className="img-fluid image"
+                  alt={`${firstName} ${secondName}`}
+                  style={{ maxHeight: 680 }}
+                />
+              )}
+              {!guranteePhoto && (
+                <Image
+                  src={urlFor(mainPhoto).url()}
+                  fill
+                  priority
+                  className="img-fluid image"
+                  alt={`${firstName} ${secondName}`}
+                  style={{ maxHeight: 680 }}
+                />
+              )}
             </div>
+
+            {/* Облікові дані */}
+            <Link href={`/about/staff/${slug.current}`}>
+              <h2 className={styles.name}>
+                {firstName} {secondName} {fatherName}
+              </h2>
+              <p>
+                {personCredentials(
+                  sciDegreeShort,
+                  acadStatus,
+                  position
+                  // additional_requisites
+                )}
+              </p>
+            </Link>
 
             {/* Список ОПП */}
             {edGuarantee?.map((el) => {
               const { edProgTitle, edProgURL, _key } = el;
               return (
                 <div
-                  className="col-md-12 aos-init aos-animate"
+                  className="col-md-12 m-2"
                   data-aos="zoom-out"
-                  data-aos-delay="400"
+                  data-aos-delay="100"
                   key={_key}
                 >
                   <div className="feature-box d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
-                      <i className="bi bi-check"></i>
+                      <Link href={edProgURL}>
+                        <i className="bi bi-cloud-download"></i>
+                      </Link>
                       <h3>{edProgTitle}</h3>
                     </div>
 
-                    <div>
+                    <div style={{ width: 120 }}>
                       <button onClick={() => handleProgramClick(edProgURL)}>
                         {((isOPPOpen && opp_URL !== edProgURL) ||
                           !isOPPOpen) && <>Переглянути</>}
                         {isOPPOpen && opp_URL === edProgURL && <>Закрити</>}
                       </button>
-                      <span>&nbsp;|&nbsp;</span>
-                      <Link href={edProgURL}>Завантажити</Link>
-                      <span>&nbsp;|&nbsp;</span>
+                      <hr />
                       <Link
                         href={`/bachelor/educational-and-professional-programs/reviews`}
                       >
-                        До рецензій
+                        Рецензії
                       </Link>
                     </div>
                   </div>
                 </div>
               );
             })}
-            {/* Кінець списку */}
           </div>
         </div>
       </div>
+
       {isOPPOpen && <DocsViewer docURL={opp_URL} />}
     </>
   );

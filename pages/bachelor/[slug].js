@@ -36,10 +36,12 @@ const BachelorPage = ({ bachelorPage,
   totalNewsAcHonestyAmount,
   mainMenuQO, }) => {
 
+  console.log('bachelorPage :>> ', bachelorPage);
+
   const {
     title,
     slug,
-    academicHonesty,
+    // academicHonesty,
     metaDescription,
     docURL,
     lessonDuration,
@@ -144,7 +146,7 @@ const BachelorPage = ({ bachelorPage,
       <PageContentSection data={bachelorPage} />
 
       {/* В МАГІСТРА цієї секції немає. звідти йде перенаправлення на сторінку з інформацією в бакалаврів */}
-      {slug.current === "/bachelor/сonsultations" && (
+      {slug.current === "/bachelor/consultations" && (
         <DocsViewer docURL={docURL} />
       )}
 
@@ -157,8 +159,8 @@ const BachelorPage = ({ bachelorPage,
             data={{ semesterPeriod, weeksAmount, semesterStarts }}
           />
 
-          <header className="section-header" style={{ paddingBottom: 0 }}>
-            <p>Навчальні плани</p>
+          <header className="section-header" style={{ paddingBottom: 0, paddingTop: 60 }}>
+            <p>Графіки освітнього процесу</p>
           </header>
           {/* eduPlanList */}
           {eduPlanList.map((el) => {
@@ -166,7 +168,7 @@ const BachelorPage = ({ bachelorPage,
             return (
               <>
                 <header className="section-header">
-                  <span>{eduPlanTitle}</span>
+                  <h5>{eduPlanTitle}</h5>
                 </header>
                 <DocsViewer docURL={eduPlanURL} />
               </>

@@ -4,7 +4,8 @@ function CallSchedule({ data }) {
   const { lessonDuration, callSchedule } = data;
 
   return (
-    <section className="features myPT-0">
+    // <section className="features myPT-0">
+    <section className="features pt-5">
       <div className="container">
         <header className="section-header">
           <p>Розклад дзвінків</p>

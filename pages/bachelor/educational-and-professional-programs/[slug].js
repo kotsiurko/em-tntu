@@ -17,7 +17,7 @@ import ReviewsList from 'components/ReviewsList/ReviewsList';
 
 const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO, guarantorsList }) => {
 
-  const { title, slug, metaDescription } = bachelorEPPPage;
+  const { title, slug, metaDescription } = bachelorEPPPage;;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -85,14 +85,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  // const bachelorEPPPage = await client.fetch(
-  //   `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}
-  //   {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
-  // );
   const bachelorEPPPage = await client.fetch(
     `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}`
   );
-  const guarantorsList = await client.fetch(`*[_type == 'person' && count(edGuarantee) > 0]`);
+
+  const guarantorsList = await client.fetch(`*[_type == 'person' && edGuaranteeLevel == 'перший']`);
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {

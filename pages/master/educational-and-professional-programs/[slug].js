@@ -93,7 +93,7 @@ export async function getStaticProps({ params: { slug } }) {
   const masterEPPPage = await client.fetch(
     `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}`
   );
-  const guarantorsList = await client.fetch(`*[_type == 'person' && count(edGuarantee) > 0]`);
+  const guarantorsList = await client.fetch(`*[_type == 'person' && edGuaranteeLevel == 'другий']`);
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {

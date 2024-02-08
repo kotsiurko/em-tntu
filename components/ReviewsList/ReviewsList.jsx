@@ -47,7 +47,7 @@ function ReviewsList({ personList }) {
             secondName,
             fatherName,
             slug,
-            sciDegree,
+            sciDegreeShort,
             acadStatus,
             position,
             mainPhoto,
@@ -91,7 +91,7 @@ function ReviewsList({ personList }) {
                 {/* <!-- Tab Content --> */}
                 <div className="tab-content">
                   <div className="tab-pane fade show active" id={`tab1-${key}`}>
-                    {reviewList.map((el) => {
+                    {reviewList?.map((el) => {
                       const { edProgReviewTitle, edProgReviewURL, _key } = el;
                       // console.log("el review :>> ", el);
                       return (
@@ -147,7 +147,7 @@ function ReviewsList({ personList }) {
                             </h2>
                             <p>
                               {personCredentials(
-                                sciDegree,
+                                sciDegreeShort,
                                 acadStatus,
                                 position
                               )}

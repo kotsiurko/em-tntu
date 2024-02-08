@@ -132,28 +132,28 @@ const EntrantsPage = ({
       {(slug.current === "/entrant/student-olympiads" ||
         slug.current === "/entrant/students-honors" ||
         slug.current === "/entrant/schools-cooperation") && (
-        <section id="team" className="team">
-          <div className="container">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+          <section id="team" className="team">
+            <div className="container">
+              <header className="section-header">
+                <p>Події розділу</p>
+              </header>
 
-            <div className="row gy-4">
-              <NewsItems currentItems={resultQuery} />
+              <div className="row gy-4">
+                <NewsItems currentItems={resultQuery} />
+              </div>
+
+              {totalNewsAmount > newsPerPage && (
+                <NewPagination
+                  totalNewsAmount={totalNewsAmount}
+                  currPage={currPage}
+                  setResultQuery={setResultQuery}
+                  setCurrPage={setCurrPage}
+                  newsBool={newsBool}
+                />
+              )}
             </div>
-
-            {totalNewsAmount > newsPerPage && (
-              <NewPagination
-                totalNewsAmount={totalNewsAmount}
-                currPage={currPage}
-                setResultQuery={setResultQuery}
-                setCurrPage={setCurrPage}
-                newsBool={newsBool}
-              />
-            )}
-          </div>
-        </section>
-      )}
+          </section>
+        )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {studentsHonors && (
