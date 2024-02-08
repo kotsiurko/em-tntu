@@ -64,14 +64,11 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
       />
 
       {/* Фотоархів кафедри */}
-      {asPath === "/intresting/photoarchive" && (
+      {/* {asPath === "/intresting/photoarchive" && (
         <section id="values" className="values">
           <div className="container" data-aos="fade-up">
             {photoarchive.map((el) => {
               const { period, periodPhotos, _key } = el;
-              // const galleryArray = periodPhotos.map((el) => {
-              //   return { src: urlFor(el).url() };
-              // });
 
               return (
                 <div key={_key}>
@@ -116,7 +113,7 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
             index={selectedIndex}
           />
         </section>
-      )}
+      )} */}
 
       {/* Публікації в пресі */}
       {asPath === "/intresting/press-publications" && (

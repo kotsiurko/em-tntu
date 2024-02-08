@@ -12,6 +12,11 @@ const Header = (props) => {
 
   const { mainMenuArr } = props;
 
+  // Вирізаю блок меню АСПІРАНТУРА
+  // її id = 7
+  const newArray = mainMenuArr.filter((item) => item.id !== 7);
+  // console.log("newArray :>> ", newArray);
+
   const [headerStyles, setHeaderStyles] = useState("header fixed-top");
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -109,7 +114,7 @@ const Header = (props) => {
             className={isMobileMenuOpen ? "navbar navbar-mobile" : "navbar"}
           >
             <ul>
-              {mainMenuArr.map(({ id, title, url, children }) => {
+              {newArray.map(({ id, title, url, children }) => {
                 return (
                   <li
                     className={children.length > 0 ? "dropdown" : null}

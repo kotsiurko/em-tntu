@@ -213,7 +213,8 @@ export const menuItems = [
         id: 660,
       },
       {
-        title: "НДЛ Електромагнітної сумісності джерел живлення світлотехнічних пристроїв і систем",
+        title:
+          "НДЛ Електромагнітної сумісності джерел живлення світлотехнічних пристроїв і систем",
         url: "/about/material-and-technical-base/ndl-light-engineering",
         id: 665,
       },
@@ -290,6 +291,11 @@ export const menuItems = [
     url: "/intresting",
     icon: "bi bi-pin",
     children: [
+      {
+        title: "Фотоархів кафедри",
+        url: "https://www.facebook.com/kaf.ei.tntu/photos_by",
+        id: 1110,
+      },
       {
         title: "Відеоархів кафедри",
         url: "https://www.youtube.com/@user-qe1wj7xn4u",

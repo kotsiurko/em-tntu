@@ -273,7 +273,9 @@ th.counter-width {
 
 .navbar a,
 .navbar a:focus {
-    padding: 10px 15px 10px 5px;
+    /* Відступи, якщо присутні усі розділи меню */
+    /* padding: 10px 15px 10px 5px; */
+    padding: 10px 22px 10px 16px;
     font-size: 14px;
     letter-spacing: -.02em;
     font-weight: 700;
