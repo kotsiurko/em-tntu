@@ -208,6 +208,11 @@ export const menuItems = [
         ],
       },
       {
+        title: "Конференція ФПТ “Advanced Applied Energy and Information Technologies”",
+        url: "https://icaaeit.tntu.org.ua/",
+        id: 635,
+      },
+      {
         title: "НДЛ Енергоощадності та проблем енергетики",
         url: "/about/material-and-technical-base/laboratory-of-energy-saving",
         id: 660,
