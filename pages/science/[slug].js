@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
 // Client connection
 import { menuItems } from "components/Header/menuItems";
-import { client } from "lib/client";
+import { client, urlFor } from "lib/client";
 import {
   mainMenuQueriesObjCreator,
   chapterPageQuery,
   slugCurrent,
-  newsQuery,
 } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
@@ -19,7 +20,8 @@ import PageContentSection from "components/PageContentSection/PageContentSection
 import SciPublTypes from "components/SciPublTypes/SciPublTypes";
 
 const SciencePage = ({ chapterPage, mainMenuQO }) => {
-  const { title, slug, metaDescription, sciPublTypes } = chapterPage;
+
+  const { title, slug, metaDescription, sciPublTypes, sciStudActiv } = chapterPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
@@ -52,6 +54,45 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
 
       {/* {sciPublTypes && Компонент, що відображає сторінку із вкладками} */}
       {sciPublTypes && <SciPublTypes data={chapterPage} />}
+
+      {slug.current === "/science/students-scientific-activity" &&
+        <div>
+          <section className="section">
+            <div className="container">
+              <header className="section-header">
+                <p>Конференції</p>
+              </header>
+              {sciStudActiv.map(el => {
+                const { _key, sciStudActivItemTitle, itemPhoto, itemUrl } = el;
+                // console.log('el :>> ', el);
+                return (
+                  <div key={_key}>
+                    {/* картинка */}
+                    <hr />
+                    <div
+                      className="image-container"
+                      style={{ position: "relative" }}
+                    >
+                      <Image
+                        src={urlFor(itemPhoto).url()}
+                        fill
+                        // priority
+                        className="img-fluid rounded image"
+                        alt={`Full name`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        style={{ maxHeight: 450 }}
+                      />
+                    </div>
+                    <div style={{ textAlign: "center", marginBottom: 20 }}>
+                      <p><strong>{sciStudActivItemTitle}</strong></p>
+                      <Link href={itemUrl}><p>Збірник в Elartu</p></Link>
+                    </div>
+                  </div>)
+              })}
+            </div>
+          </section>
+        </div>
+      }
     </>
   );
 };
