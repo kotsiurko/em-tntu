@@ -30,13 +30,14 @@ import NewPagination from "components/Pagination/NewPagination";
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const BachelorPage = ({ bachelorPage,
+const BachelorPage = ({
+  bachelorPage,
   totalNewsAmountNormative,
   totalNewsAmountElective,
   totalNewsAcHonestyAmount,
-  mainMenuQO, }) => {
-
-  console.log('bachelorPage :>> ', bachelorPage);
+  mainMenuQO,
+}) => {
+  // console.log('bachelorPage :>> ', bachelorPage);
 
   const {
     title,
@@ -58,12 +59,15 @@ const BachelorPage = ({ bachelorPage,
   const [resultQuery, setResultQuery] = useState();
   const [currPage, setCurrPage] = useState();
 
-
   useEffect(() => {
-    if (slug.current === '/bachelor/academic-honesty' || slug.current === '/bachelor/elective-disciplines' || slug.current === '/bachelor/normative-disciplines') {
+    if (
+      slug.current === "/bachelor/academic-honesty" ||
+      slug.current === "/bachelor/elective-disciplines" ||
+      slug.current === "/bachelor/normative-disciplines"
+    ) {
       async function getData(page, newsBool) {
         const res = await getPortion(page, newsBool);
-        console.log('res :>> ', res);
+        console.log("res :>> ", res);
         setResultQuery(res);
       }
 
@@ -76,9 +80,7 @@ const BachelorPage = ({ bachelorPage,
         getData(1, getNewsBool(slug.current));
       }
     }
-
   }, [router.asPath, slug]);
-
 
   const getNewsBool = (currentSlug) => {
     switch (currentSlug) {
@@ -105,7 +107,6 @@ const BachelorPage = ({ bachelorPage,
         return 0;
     }
   };
-
 
   // MENU FORMATION PART ==============================================
 
@@ -159,7 +160,10 @@ const BachelorPage = ({ bachelorPage,
             data={{ semesterPeriod, weeksAmount, semesterStarts }}
           />
 
-          <header className="section-header" style={{ paddingBottom: 0, paddingTop: 60 }}>
+          <header
+            className="section-header"
+            style={{ paddingBottom: 0, paddingTop: 60 }}
+          >
             <p>Графіки освітнього процесу</p>
           </header>
           {/* eduPlanList */}
@@ -177,7 +181,9 @@ const BachelorPage = ({ bachelorPage,
         </>
       )}
 
-      {(slug.current === '/bachelor/academic-honesty' || slug.current === '/bachelor/elective-disciplines' || slug.current === '/bachelor/normative-disciplines') &&
+      {(slug.current === "/bachelor/academic-honesty" ||
+        slug.current === "/bachelor/elective-disciplines" ||
+        slug.current === "/bachelor/normative-disciplines") && (
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">
@@ -199,8 +205,7 @@ const BachelorPage = ({ bachelorPage,
             )}
           </div>
         </section>
-      }
-
+      )}
     </>
   );
 };
