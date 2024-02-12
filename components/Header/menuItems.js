@@ -193,7 +193,7 @@ export const menuItems = [
           {
             title: "Новини розділу",
             url: "/science/conference-lighting-and-power-engineering/news",
-            id: 63020,
+            id: 63010,
           },
           // {
           //   title: "Матеріаіли 2015",
@@ -208,7 +208,8 @@ export const menuItems = [
         ],
       },
       {
-        title: "Конференція ФПТ “Advanced Applied Energy and Information Technologies”",
+        title:
+          "Конференція ФПТ “Advanced Applied Energy and Information Technologies”",
         url: "https://icaaeit.tntu.org.ua/",
         id: 635,
       },
