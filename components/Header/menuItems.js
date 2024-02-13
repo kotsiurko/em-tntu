@@ -37,7 +37,7 @@ export const menuItems = [
       {
         title: "Для працівників",
         url: "/about/secret",
-        id: 170,
+        id: 180,
       },
     ],
   },

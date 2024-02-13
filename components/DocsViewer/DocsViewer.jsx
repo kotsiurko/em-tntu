@@ -12,6 +12,8 @@ const DocsViewer = ({ docURL }) => {
   let fileFormat = "";
   if (docURL?.endsWith("docx")) {
     fileFormat = "docx";
+  } else if (docURL?.endsWith("doc")) {
+    fileFormat = "doc";
   } else {
     fileFormat = "pdf";
   }
