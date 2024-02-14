@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,20 +12,13 @@ import {
   mainMenuQueriesObjCreator,
   chapterItemQuery,
   slugCurrent,
-  newsPerPage,
 } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
-import { getPortion } from "lib/helpers";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from "components/PageContentSection/PageContentSection";
-import NewsItems from "components/NewsItems/NewsItems";
-import NewPagination from "components/Pagination/NewPagination";
 import TeachingSubjectItems from "components/TeachingSubjectItems/TeachingSubjectItems";
-
-const newsBool = "eduLabsBool";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
@@ -37,8 +29,6 @@ const EduLabPage = ({
   currSlug,
 }) => {
   const { title, slug, metaDescription, labsList } = eduLabPage;
-  console.log('eduLabPage :>> ', eduLabPage);
-  console.log('currSlug :>> ', currSlug);
 
   // Відфільтрувати аудиторію за номером зі списку labsList
   // і витягую з нього об'єкт за допомогою [0]

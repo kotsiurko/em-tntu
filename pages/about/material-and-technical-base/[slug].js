@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 // Client connection
 import { client } from "lib/client";
@@ -11,18 +10,14 @@ import {
   mainMenuQueriesObjCreator,
   chapterItemQuery,
   slugCurrent,
-  newsPerPage,
 } from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
-import { getPortion } from "lib/helpers";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
-import NewsItems from "components/NewsItems/NewsItems";
-import NewPagination from "components/Pagination/NewPagination";
-import EduLabsList from "components/EduLabsList/EduLabsList";
+
 
 const newsBool = "eduLabsBool";
 
@@ -31,29 +26,7 @@ const newsBool = "eduLabsBool";
 
 const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
 
-  const { title, slug, metaDescription, labsList } = aboutMTBPage;
-
-  const router = useRouter();
-
-  const [resultQuery, setResultQuery] = useState();
-  const [currPage, setCurrPage] = useState();
-
-  useEffect(() => {
-    if (router.asPath.includes("?page=")) {
-      // розрізаю стрічку адреси пополам і дістаю з неї праву частину
-      const pageNum = parseInt(router.asPath.split("?page=")[1]);
-      setCurrPage(pageNum);
-      getData(pageNum);
-    } else {
-      setCurrPage(1);
-      getData(1);
-    }
-  }, [router.asPath]);
-
-  async function getData(page) {
-    const res = await getPortion(page, newsBool);
-    setResultQuery(res);
-  }
+  const { title, slug, metaDescription } = aboutMTBPage;
 
   // MENU FORMATION PART ==============================================
 
