@@ -9,7 +9,7 @@ import RepeatingLists from "components/RepeatingLists/RepeatingLists";
 // Other Libs
 import Image from "next/image";
 import Link from "next/link";
-import { getCourseId, personPageTitle } from "lib/helpers";
+import { personPageTitle } from "lib/helpers";
 
 // Profile logos
 import tntuNTBLogo from "../../public/images/profileLogos/tntulibrary.jpg";
@@ -23,6 +23,7 @@ import liLogo from "../../public/images/profileLogos/linkedin.jpg";
 import iCiLogo from "../../public/images/profileLogos/indexcopernicus.jpg";
 import LightBoxCustom from "../LightboxCustom/LightBoxCustom";
 import CustomBlockContent from "../CustomBlockContent/CustomBlockContent";
+import TeachingSubjectItems from "../TeachingSubjectItems/TeachingSubjectItems";
 
 const StaffItem = ({ personInfo }) => {
   const [open, setOpen] = useState(false);
@@ -408,19 +409,7 @@ const StaffItem = ({ personInfo }) => {
                         <h4>НАВЧАЛЬНІ ДИСЦИПЛІНИ</h4>
                         <hr />
                         <ul className="listGap">
-                          {teachingSubjectList.map((el) => (
-                            <li key={el._key}>
-                              {el.teachingSubjectURL && (
-                                <Link href={el.teachingSubjectURL}>
-                                  {el.teachingSubjectName} - ID:{" "}
-                                  {getCourseId(el.teachingSubjectURL)}
-                                </Link>
-                              )}
-                              {!el.teachingSubjectURL && (
-                                <>{el.teachingSubjectName}</>
-                              )}
-                            </li>
-                          ))}
+                          <TeachingSubjectItems list={teachingSubjectList} />
                         </ul>
                       </>
                     )}

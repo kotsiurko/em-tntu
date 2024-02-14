@@ -29,9 +29,8 @@ const newsBool = "eduLabsBool";
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
-
-  const { title, slug, metaDescription, labsList } = aboutMTBPage;
+const EduLabsPage = ({ eduLabsPage, totalNewsAmount, mainMenuQO }) => {
+  const { title, slug, metaDescription, labsList } = eduLabsPage;
 
   const router = useRouter();
 
@@ -67,7 +66,7 @@ const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
         return menuCreator(menuObj, prevState);
       }
     });
-  }, [aboutMTBPage, mainMenuQO]);
+  }, [eduLabsPage, mainMenuQO]);
 
   // MENU FORMATION PART ENDS =========================================
 
@@ -88,33 +87,58 @@ const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
         subPageUrl={slug.current}
       />
 
-      {/* < !-- ======= Features Section ======= --> */}
-      {slug.current !==
-        "/about/material-and-technical-base/educational-labs" && (
-          <PageContentSection data={aboutMTBPage} />
-        )}
+      {/* ======= Inner Page Team-Staff Section ======= */}
+      <EduLabsList labsList={labsList} />
+
+      <section className="team">
+        <div className="container" data-aos="fade-up">
+          <header className="section-header">
+            <p>Події розділу</p>
+          </header>
+
+          <div className="row gy-4">
+            <NewsItems currentItems={resultQuery} />
+          </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {totalNewsAmount > newsPerPage && (
+            <NewPagination
+              totalNewsAmount={totalNewsAmount}
+              currPage={currPage}
+              setResultQuery={setResultQuery}
+              setCurrPage={setCurrPage}
+              newsBool={newsBool}
+            />
+          )}
+          {/* PAGINATION BLOCK ENDS */}
+        </div>
+      </section>
+      {/* ======= End Team-Staff Page Section ======= */}
     </>
   );
 };
 
-export default AboutMTBPage;
+export default EduLabsPage;
 
-export async function getStaticPaths() {
-  const pages = await client.fetch(slugCurrent("about-mtb"));
-  const paths = pages.map((page) => ({
-    params: {
-      slug: page.slug.current,
-    },
-  }));
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
+// export async function getStaticPaths() {
+//   const pages = await client.fetch(slugCurrent("about-mtb"));
+//   const paths = pages.map((page) => ({
+//     params: {
+//       slug: page.slug.current,
+//     },
+//   }));
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// }
 
-export async function getStaticProps({ params: { slug } }) {
-  const aboutMTBPage = await client.fetch(
-    chapterItemQuery("about-mtb", `/about/material-and-technical-base/${slug}`)
+export async function getStaticProps() {
+  const eduLabsPage = await client.fetch(
+    chapterItemQuery(
+      "about-mtb",
+      `/about/material-and-technical-base/educational-labs`
+    )
   );
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
@@ -123,7 +147,7 @@ export async function getStaticProps({ params: { slug } }) {
 
   return {
     props: {
-      aboutMTBPage,
+      eduLabsPage,
       totalNewsAmount,
       mainMenuQO,
     },

@@ -1,7 +1,8 @@
 import React from "react";
+import Link from "next/link";
 
 function EduLabsList({ labsList }) {
-  console.log("labsList :>> ", labsList);
+  // console.log("labsList :>> ", labsList);
 
   return (
     <section className="features my-personal">
@@ -32,8 +33,21 @@ function EduLabsList({ labsList }) {
                   } = el;
                   return (
                     <tr key={_key}>
-                      <td>{labNumber}</td>
-                      <td>{labTitle}</td>
+                      <td>
+                        <Link
+                          href={`/about/material-and-technical-base/educational-labs/${labNumber}`}
+                        >
+                          {labNumber}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/about/material-and-technical-base/educational-labs/${labNumber}`}
+                        >
+                          {labTitle}
+                        </Link>
+                      </td>
+                      {/* <td>{labTitle}</td> */}
                       <td align="center">{labArea}</td>
                       <td align="center">{labSittingPlaces}</td>
                     </tr>
