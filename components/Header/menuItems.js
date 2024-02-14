@@ -37,7 +37,7 @@ export const menuItems = [
       {
         title: "Для працівників",
         url: "/about/secret",
-        id: 170,
+        id: 180,
       },
     ],
   },
@@ -182,33 +182,34 @@ export const menuItems = [
     children: [
       {
         title: "Конференція “Світлотехніка й електроенергетика”",
-        url: "/science/conference-lighting-and-power-engineering",
+        url: "/science/conference-lighting-and-power-engineering/conference-2024",
         id: 630,
         children: [
-          {
-            title: "Сайт конференції",
-            url: "#",
-            id: 63010,
-          },
+          // {
+          //   title: "Сайт конференції",
+          //   url: "#",
+          //   id: 63010,
+          // },
           {
             title: "Новини розділу",
             url: "/science/conference-lighting-and-power-engineering/news",
-            id: 63020,
+            id: 63010,
           },
-          {
-            title: "Матеріаіли 2015",
-            url: "#",
-            id: 63030,
-          },
-          {
-            title: "Матеріаіли 2018",
-            url: "#",
-            id: 63040,
-          },
+          // {
+          //   title: "Матеріаіли 2015",
+          //   url: "#",
+          //   id: 63030,
+          // },
+          // {
+          //   title: "Матеріаіли 2018",
+          //   url: "#",
+          //   id: 63040,
+          // },
         ],
       },
       {
-        title: "Конференція ФПТ “Advanced Applied Energy and Information Technologies”",
+        title:
+          "Конференція ФПТ “Advanced Applied Energy and Information Technologies”",
         url: "https://icaaeit.tntu.org.ua/",
         id: 635,
       },
