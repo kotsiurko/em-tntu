@@ -6,14 +6,7 @@ import { useRouter } from "next/router";
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-  newsPerPage,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent, newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 // Components
@@ -27,12 +20,10 @@ import NewPagination from "components/Pagination/NewPagination";
 // ------ Page STARTS here -----------------------------------------
 const EducationalActivityPage = ({
   educationalActivityPage,
-  mainMenuQO,
   totalNewsAmountSportLife,
   totalNewsAmountExcursions,
   totalNewsAmountFacultyDays,
 }) => {
-
   const { title, slug, metaDescription } = educationalActivityPage;
   const router = useRouter();
 
@@ -45,17 +36,17 @@ const EducationalActivityPage = ({
     async function getData(page) {
       let res;
       if (slug.current === "/educational-activity/sport-life") {
-        setNewsBool("eaSportLifeBool")
+        setNewsBool("eaSportLifeBool");
         setTotalNewsAmount(totalNewsAmountSportLife);
         res = await getPortion(page, "eaSportLifeBool");
       }
       if (slug.current === "/educational-activity/excursions") {
-        setNewsBool("eaExcursionsBool")
+        setNewsBool("eaExcursionsBool");
         setTotalNewsAmount(totalNewsAmountExcursions);
         res = await getPortion(page, "eaExcursionsBool");
       }
       if (slug.current === "/educational-activity/faculty-days") {
-        setNewsBool("eaFacultyDaysBool")
+        setNewsBool("eaFacultyDaysBool");
         setTotalNewsAmount(totalNewsAmountFacultyDays);
         res = await getPortion(page, "eaFacultyDaysBool");
       }
@@ -71,25 +62,13 @@ const EducationalActivityPage = ({
       setCurrPage(1);
       getData(1);
     }
-  }, [router.asPath, slug, totalNewsAmountExcursions, totalNewsAmountFacultyDays, totalNewsAmountSportLife]);
-
-
-
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-
-    // MENU FORMATION PART ENDS =========================================
-  }, [mainMenuQO, resultQuery]);
+  }, [
+    router.asPath,
+    slug,
+    totalNewsAmountExcursions,
+    totalNewsAmountFacultyDays,
+    totalNewsAmountSportLife,
+  ]);
 
   return (
     <>
@@ -98,7 +77,7 @@ const EducationalActivityPage = ({
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Виховна діяльність"
@@ -129,7 +108,6 @@ const EducationalActivityPage = ({
               newsBool={newsBool}
             />
           )}
-
         </div>
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
@@ -171,12 +149,9 @@ export async function getStaticProps({ params: { slug } }) {
     `count(*[_type == "news" && eaFacultyDaysBool])`
   );
 
-  const mainMenuQO = await mainMenuQueriesObjCreator();
-
   return {
     props: {
       educationalActivityPage,
-      mainMenuQO,
       totalNewsAmountSportLife,
       totalNewsAmountExcursions,
       totalNewsAmountFacultyDays,

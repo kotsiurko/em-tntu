@@ -7,14 +7,7 @@ import { useRouter } from "next/router";
 import { client, clientConfig } from "lib/client";
 import { urlFor } from "lib/client";
 
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-  newsPerPage,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent, newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 import BlockContent from "@sanity/block-content-to-react";
@@ -30,16 +23,8 @@ const SpecialitiesPage = ({
   specialitiesPage,
   totalNewsAmountNonFormalEduc,
   totalNewsAmountDualEduc,
-  mainMenuQO,
 }) => {
-  const {
-    title,
-    slug,
-    // nonFormalEducation,
-    alumni,
-    metaDescription
-  } =
-    specialitiesPage;
+  const { title, slug, alumni, metaDescription } = specialitiesPage;
 
   const router = useRouter();
 
@@ -49,16 +34,15 @@ const SpecialitiesPage = ({
   const [totalNewsAmount, setTotalNewsAmount] = useState();
 
   useEffect(() => {
-
     async function getData(page) {
       let res;
       if (slug.current === "/specialities/non-formal-education") {
-        setNewsBool("nonFormalEducationBool")
+        setNewsBool("nonFormalEducationBool");
         setTotalNewsAmount(totalNewsAmountNonFormalEduc);
         res = await getPortion(page, "nonFormalEducationBool");
       }
       if (slug.current === "/specialities/dual-education") {
-        setNewsBool("dualEducationBool")
+        setNewsBool("dualEducationBool");
         setTotalNewsAmount(totalNewsAmountDualEduc);
         res = await getPortion(page, "dualEducationBool");
       }
@@ -74,23 +58,12 @@ const SpecialitiesPage = ({
       setCurrPage(1);
       getData(1);
     }
-  }, [router.asPath, slug, totalNewsAmountDualEduc, totalNewsAmountNonFormalEduc]);
-
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
+  }, [
+    router.asPath,
+    slug,
+    totalNewsAmountDualEduc,
+    totalNewsAmountNonFormalEduc,
+  ]);
 
   return (
     <>
@@ -99,7 +72,7 @@ const SpecialitiesPage = ({
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Спеціальності"
@@ -111,32 +84,32 @@ const SpecialitiesPage = ({
       <PageContentSection data={specialitiesPage} />
 
       {/* ======= Inner Page Team-Staff Section ======= */}
-      {(slug.current === "/specialities/non-formal-education" || slug.current === "/specialities/dual-education") && <section id="team" className="team">
-        <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>Події розділу</p>
-          </header>
+      {(slug.current === "/specialities/non-formal-education" ||
+        slug.current === "/specialities/dual-education") && (
+        <section id="team" className="team">
+          <div className="container" data-aos="fade-up">
+            <header className="section-header">
+              <p>Події розділу</p>
+            </header>
 
+            <div className="row gy-4">
+              <NewsItems currentItems={resultQuery} />
+            </div>
 
-          <div className="row gy-4">
-            <NewsItems currentItems={resultQuery} />
+            {/* PAGINATION BLOCK STARTS */}
+            {totalNewsAmount > newsPerPage && (
+              <NewPagination
+                totalNewsAmount={totalNewsAmount}
+                currPage={currPage}
+                setResultQuery={setResultQuery}
+                setCurrPage={setCurrPage}
+                newsBool={newsBool}
+              />
+            )}
+            {/* PAGINATION BLOCK ENDS */}
           </div>
-
-          {/* PAGINATION BLOCK STARTS */}
-          {(totalNewsAmount > newsPerPage) && (
-            <NewPagination
-              totalNewsAmount={totalNewsAmount}
-              currPage={currPage}
-              setResultQuery={setResultQuery}
-              setCurrPage={setCurrPage}
-              newsBool={newsBool}
-            />
-          )}
-          {/* PAGINATION BLOCK ENDS */}
-
-
-        </div>
-      </section>}
+        </section>
+      )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {alumni && (
@@ -169,8 +142,6 @@ const SpecialitiesPage = ({
                       </div>
                       <div className="member-info news">
                         <h4>{name}</h4>
-                        {/* <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p> */}
-                        {/* <p>{newsItemBodyShort}</p> */}
                         <BlockContent
                           blocks={body}
                           projectId={clientConfig.projectId}
@@ -218,8 +189,6 @@ export async function getStaticProps({ params: { slug } }) {
     `count(*[_type == "news" && dualEducationBool])`
   );
 
-  const mainMenuQO = await mainMenuQueriesObjCreator();
-
   if (slug === "stakeholders") {
     return {
       redirect: {
@@ -235,7 +204,6 @@ export async function getStaticProps({ params: { slug } }) {
       specialitiesPage,
       totalNewsAmountNonFormalEduc,
       totalNewsAmountDualEduc,
-      mainMenuQO,
     },
   };
 }

@@ -52,7 +52,7 @@ export default function Home({ mainMenuQO, mainPage, mainStaffData }) {
       </Head>
 
       <div className="mainPage">
-        <Header mainMenuArr={mainMenuArr} />
+        <Header />
 
         {/* ======= Hero Section ======= */}
         <section id="hero" className="hero d-flex align-items-center">

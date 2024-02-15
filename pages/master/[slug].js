@@ -6,14 +6,7 @@ import { useRouter } from "next/router";
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-  newsPerPage,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent, newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 // Components
@@ -27,15 +20,13 @@ import NewPagination from "components/Pagination/NewPagination";
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const MasterPage = ({ masterPage,
+const MasterPage = ({
+  masterPage,
   totalNewsAmountNormative,
   totalNewsAmountElective,
   totalNewsAcHonestyAmount,
-  mainMenuQO }) => {
-
-
-  const { title, slug, academicHonesty, metaDescription, masterPracticesList } =
-    masterPage;
+}) => {
+  const { title, slug, metaDescription, masterPracticesList } = masterPage;
 
   const router = useRouter();
 
@@ -43,7 +34,11 @@ const MasterPage = ({ masterPage,
   const [currPage, setCurrPage] = useState();
 
   useEffect(() => {
-    if (slug.current === '/master/academic-honesty' || slug.current === '/master/elective-disciplines' || slug.current === '/master/normative-disciplines') {
+    if (
+      slug.current === "/master/academic-honesty" ||
+      slug.current === "/master/elective-disciplines" ||
+      slug.current === "/master/normative-disciplines"
+    ) {
       async function getData(page, newsBool) {
         const res = await getPortion(page, newsBool);
         setResultQuery(res);
@@ -58,7 +53,6 @@ const MasterPage = ({ masterPage,
         getData(1, getNewsBool(slug.current));
       }
     }
-
   }, [router.asPath, slug]);
 
   const getNewsBool = (currentSlug) => {
@@ -87,22 +81,6 @@ const MasterPage = ({ masterPage,
     }
   };
 
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
-
   return (
     <>
       <Head>
@@ -110,7 +88,7 @@ const MasterPage = ({ masterPage,
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Магістру"
@@ -125,7 +103,9 @@ const MasterPage = ({ masterPage,
       {/* Page Content */}
       <PageContentSection data={masterPage} />
 
-      {(slug.current === '/master/academic-honesty' || slug.current === '/master/elective-disciplines' || slug.current === '/master/normative-disciplines') &&
+      {(slug.current === "/master/academic-honesty" ||
+        slug.current === "/master/elective-disciplines" ||
+        slug.current === "/master/normative-disciplines") && (
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">
@@ -147,8 +127,7 @@ const MasterPage = ({ masterPage,
             )}
           </div>
         </section>
-      }
-
+      )}
     </>
   );
 };
@@ -183,8 +162,6 @@ export async function getStaticProps({ params: { slug } }) {
     `count(*[_type == "news" && masterAcademicHonestyBool])`
   );
 
-  const mainMenuQO = await mainMenuQueriesObjCreator();
-
   if (slug === "educational-and-professional-programs") {
     return {
       redirect: {
@@ -200,7 +177,6 @@ export async function getStaticProps({ params: { slug } }) {
       totalNewsAmountNormative,
       totalNewsAmountElective,
       totalNewsAcHonestyAmount,
-      mainMenuQO,
     },
   };
 }

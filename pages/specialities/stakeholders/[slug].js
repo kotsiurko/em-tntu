@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-import Head from 'next/head'
+import Head from "next/head";
 
 // Client connection
-import { menuItems } from 'components/Header/menuItems';
 import { client } from "lib/client";
-import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from 'lib/queries';
-import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
+import { chapterItemQuery, slugCurrent } from "lib/queries";
 
 // Components
 import Header from "/components/Header/Header";
@@ -13,33 +10,8 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import DocsViewer from "../../../components/DocsViewer/DocsViewer";
 
-
-
-const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
-
+const StakeholdersItemArticle = ({ stakeholdersPage }) => {
   const { title, slug, metaDescription, docURL } = stakeholdersPage;
-
-  // MENU FORMATION PART ==============================================
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-
-    const menuObj = menuItemsMerger(
-      menuItems,
-      mainMenuQO,
-    )
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(
-          menuObj,
-          prevState,
-        )
-      }
-    });
-  }, [stakeholdersPage, mainMenuQO]);
-  // MENU FORMATION PART ENDS =========================================
-
 
   return (
     <>
@@ -48,7 +20,7 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Спеціальності"
@@ -62,9 +34,8 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
 
       {docURL && <DocsViewer docURL={docURL} />}
     </>
-  )
-}
-
+  );
+};
 
 export default StakeholdersItemArticle;
 
@@ -73,23 +44,23 @@ export async function getStaticPaths() {
 
   const paths = newsArr.map((newsItem) => ({
     params: {
-      slug: newsItem.slug.current
-    }
+      slug: newsItem.slug.current,
+    },
   }));
   return {
-    paths, fallback: 'blocking'
-  }
+    paths,
+    fallback: "blocking",
+  };
 }
 
 export async function getStaticProps({ params: { slug } }) {
-
-  const stakeholdersPage = await client.fetch(chapterItemQuery("specialities-sh", `/specialities/stakeholders/${slug}`));
-  const mainMenuQO = await mainMenuQueriesObjCreator();
+  const stakeholdersPage = await client.fetch(
+    chapterItemQuery("specialities-sh", `/specialities/stakeholders/${slug}`)
+  );
 
   return {
     props: {
       stakeholdersPage,
-      mainMenuQO,
-    }
-  }
+    },
+  };
 }

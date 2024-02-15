@@ -1,48 +1,23 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Client connection
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterItemQuery,
-  slugCurrent,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterItemQuery, slugCurrent } from "lib/queries";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 
-
 const newsBool = "eduLabsBool";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
-
+const AboutMTBPage = ({ aboutMTBPage }) => {
   const { title, slug, metaDescription } = aboutMTBPage;
-
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [aboutMTBPage, mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
 
   return (
     <>
@@ -51,7 +26,7 @@ const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Кафедра"
@@ -64,8 +39,8 @@ const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
       {/* < !-- ======= Features Section ======= --> */}
       {slug.current !==
         "/about/material-and-technical-base/educational-labs" && (
-          <PageContentSection data={aboutMTBPage} />
-        )}
+        <PageContentSection data={aboutMTBPage} />
+      )}
     </>
   );
 };
@@ -89,16 +64,10 @@ export async function getStaticProps({ params: { slug } }) {
   const aboutMTBPage = await client.fetch(
     chapterItemQuery("about-mtb", `/about/material-and-technical-base/${slug}`)
   );
-  const totalNewsAmount = await client.fetch(
-    `count(*[_type == "news" && ${newsBool}])`
-  );
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       aboutMTBPage,
-      totalNewsAmount,
-      mainMenuQO,
     },
   };
 }

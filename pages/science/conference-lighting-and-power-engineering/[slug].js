@@ -1,45 +1,19 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Client connection
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  slugCurrent,
-  chapterItemQuery,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { slugCurrent, chapterItemQuery } from "lib/queries";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
-import { } from "lib/queries";
+import {} from "lib/queries";
 
-const LEConference = ({
-  chapterConferencePage,
-  mainMenuQO,
-}) => {
+const LEConference = ({ chapterConferencePage }) => {
   const { title, slug, metaDescription } = chapterConferencePage;
-
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
 
   return (
     <>
@@ -48,8 +22,7 @@ const LEConference = ({
         <meta name="description" content={metaDescription} />
       </Head>
 
-      {/* В хедер треба передавати вже сформований масив */}
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
@@ -68,7 +41,6 @@ const LEConference = ({
 export default LEConference;
 
 export async function getStaticPaths() {
-
   const pages = await client.fetch(slugCurrent("scienceLEConference"));
   const paths = pages.map((page) => ({
     params: {
@@ -83,14 +55,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const chapterConferencePage = await client.fetch(
-    chapterItemQuery("scienceLEConference", `/science/conference-lighting-and-power-engineering/${slug}`)
+    chapterItemQuery(
+      "scienceLEConference",
+      `/science/conference-lighting-and-power-engineering/${slug}`
+    )
   );
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       chapterConferencePage,
-      mainMenuQO,
     },
   };
 }

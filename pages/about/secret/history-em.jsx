@@ -1,34 +1,8 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import { mainMenuQueriesObjCreator } from "lib/queries";
-import { menuItems } from "components/Header/menuItems";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
-import { client } from "lib/client";
 
-// Other libs
-import moment from "moment";
-
-const HistoryEM = ({
-  mainMenuQO,
-  // secretDocsList,
-}) => {
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-  const router = useRouter();
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-    // MENU FORMATION PART ENDS =========================================
-  }, [mainMenuQO]);
-
+const HistoryEM = ({}) => {
   return (
     <>
       <Head>
@@ -38,14 +12,12 @@ const HistoryEM = ({
         </title>
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Кафедра"
         pageTitle="Історія кафедри енергозбереження та енергетичного менеджменту"
         pageUrl="/secret/history-em"
-        // subPageTitle="/secret/history-em"
-        // subPageUrl="Історія кафедри енергозбереження та енергетичного менеджменту"
       />
 
       {/* ======= Inner Page Section ======= */}
@@ -329,15 +301,3 @@ const HistoryEM = ({
 };
 
 export default HistoryEM;
-
-export async function getStaticProps() {
-  const mainMenuQO = await mainMenuQueriesObjCreator();
-  // const secretDocsList = await client.fetch(`*[_type == "secretPage" && defined(docs)] | order(year desc)`);
-
-  return {
-    props: {
-      mainMenuQO,
-      // secretDocsList,
-    },
-  };
-}

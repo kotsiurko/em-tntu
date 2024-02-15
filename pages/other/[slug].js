@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Client connection
-import { menuItems } from "components/Header/menuItems";
 import { client, urlFor } from "lib/client";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent } from "lib/queries";
 
 // Components
 import Header from "components/Header/Header";
@@ -22,20 +15,6 @@ import TextContent from "components/TextContent/TextContent";
 const OtherPage = ({ chapterPage, mainMenuQO }) => {
   const { title, slug, metaDescription, heroesList } = chapterPage;
 
-  // console.log('Other Page  :>> ', chapterPage);
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [chapterPage, mainMenuQO]);
-
   return (
     <>
       <Head>
@@ -43,7 +22,7 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Війна"
@@ -129,9 +108,7 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
                             <div className="position-relative">
                               <Image
                                 src={urlFor(heroPublScreenshot).url()}
-                                // src={`https://cdn.sanity.io/images/asnyakur/production/0884ab8625644d1a4f01a1b1249536a90536ff88-640x480.png`}
                                 className="img-fluid image-fit"
-                                // alt={mainPhoto.caption}
                                 alt="some title"
                                 sizes="(max-width: 768px) 100vw"
                                 fill={true}
@@ -187,12 +164,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const chapterPage = await client.fetch(chapterPageQuery("other", slug));
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       chapterPage,
-      mainMenuQO,
     },
   };
 }

@@ -6,9 +6,7 @@ import { useRouter } from "next/router";
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 // Components
@@ -45,22 +43,6 @@ const MasterEppMeetings = ({ totalNewsAmount, mainMenuQO }) => {
     setResultQuery(res);
   }
 
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
-
   return (
     <>
       <Head>
@@ -71,8 +53,7 @@ const MasterEppMeetings = ({ totalNewsAmount, mainMenuQO }) => {
         />
       </Head>
 
-      {/* В хедер треба передавати вже сформований масив */}
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
@@ -118,12 +99,10 @@ export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
   );
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       totalNewsAmount,
-      mainMenuQO,
     },
   };
 }

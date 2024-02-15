@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import { useEffect, useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 // Client connection
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from 'components/Header/menuItems';
-import { mainMenuQueriesObjCreator, newsPerPage } from 'lib/queries';
-import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
+import { menuItems } from "components/Header/menuItems";
+import { newsPerPage } from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 import { getPortion } from "lib/helpers";
 
 // Components
-import Header from 'components/Header/Header';
+import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
@@ -22,9 +22,7 @@ const newsBool = "bachelorDiplomaDefenceBool";
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-
 const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
-
   const router = useRouter();
 
   const [resultQuery, setResultQuery] = useState();
@@ -46,33 +44,18 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
     const res = await getPortion(page, newsBool);
     setResultQuery(res);
   }
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-
-    const menuObj = menuItemsMerger(
-      menuItems,
-      mainMenuQO,
-    )
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(
-          menuObj,
-          prevState,
-        )
-      }
-    });
-  }, [mainMenuQO]);
 
   return (
     <>
       <Head>
-        <title>Захисти дипломних робіт бакалаврів | Кафедра електричної інженерії ТНТУ</title>
+        <title>
+          Захисти дипломних робіт бакалаврів | Кафедра електричної інженерії
+          ТНТУ
+        </title>
         <meta name="description" content="Захисти дипломних робіт бакалаврів" />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Бакалавру"
@@ -107,23 +90,19 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
     </>
-  )
-}
-
+  );
+};
 
 export default BachelorDefencePage;
 
-
 export async function getStaticProps() {
-  const mainMenuQO = await mainMenuQueriesObjCreator();
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
   );
 
   return {
     props: {
-      mainMenuQO,
       totalNewsAmount,
-    }
-  }
+    },
+  };
 }

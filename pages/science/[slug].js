@@ -4,14 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Client connection
-import { menuItems } from "components/Header/menuItems";
 import { client, urlFor } from "lib/client";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent } from "lib/queries";
 
 // Components
 import Header from "components/Header/Header";
@@ -19,21 +13,9 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import SciPublTypes from "components/SciPublTypes/SciPublTypes";
 
-const SciencePage = ({ chapterPage, mainMenuQO }) => {
-
-  const { title, slug, metaDescription, sciPublTypes, sciStudActiv } = chapterPage;
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [chapterPage, mainMenuQO]);
+const SciencePage = ({ chapterPage }) => {
+  const { title, slug, metaDescription, sciPublTypes, sciStudActiv } =
+    chapterPage;
 
   return (
     <>
@@ -42,7 +24,7 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Наука"
@@ -55,16 +37,15 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
       {/* {sciPublTypes && Компонент, що відображає сторінку із вкладками} */}
       {sciPublTypes && <SciPublTypes data={chapterPage} />}
 
-      {slug.current === "/science/students-scientific-activity" &&
+      {slug.current === "/science/students-scientific-activity" && (
         <div>
           <section className="section">
             <div className="container">
               <header className="section-header">
                 <p>Конференції</p>
               </header>
-              {sciStudActiv.map(el => {
+              {sciStudActiv.map((el) => {
                 const { _key, sciStudActivItemTitle, itemPhoto, itemUrl } = el;
-                // console.log('el :>> ', el);
                 return (
                   <div key={_key}>
                     {/* картинка */}
@@ -84,15 +65,20 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
                       />
                     </div>
                     <div style={{ textAlign: "center", marginBottom: 20 }}>
-                      <p><strong>{sciStudActivItemTitle}</strong></p>
-                      <Link href={itemUrl}><p>Збірник в Elartu</p></Link>
+                      <p>
+                        <strong>{sciStudActivItemTitle}</strong>
+                      </p>
+                      <Link href={itemUrl}>
+                        <p>Збірник в Elartu</p>
+                      </Link>
                     </div>
-                  </div>)
+                  </div>
+                );
               })}
             </div>
           </section>
         </div>
-      }
+      )}
     </>
   );
 };
@@ -116,7 +102,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const chapterPage = await client.fetch(chapterPageQuery("science", slug));
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   if (slug === "conference-lighting-and-power-engineering") {
     return {
@@ -131,7 +116,6 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: {
       chapterPage,
-      mainMenuQO,
     },
   };
 }

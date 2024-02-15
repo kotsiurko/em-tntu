@@ -6,14 +6,7 @@ import { useRouter } from "next/router";
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-  newsPerPage,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent, newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 // Components
@@ -35,14 +28,10 @@ const BachelorPage = ({
   totalNewsAmountNormative,
   totalNewsAmountElective,
   totalNewsAcHonestyAmount,
-  mainMenuQO,
 }) => {
-  // console.log('bachelorPage :>> ', bachelorPage);
-
   const {
     title,
     slug,
-    // academicHonesty,
     metaDescription,
     docURL,
     lessonDuration,
@@ -108,22 +97,6 @@ const BachelorPage = ({
     }
   };
 
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
-
   return (
     <>
       <Head>
@@ -131,7 +104,7 @@ const BachelorPage = ({
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Бакалавру"
@@ -240,8 +213,6 @@ export async function getStaticProps({ params: { slug } }) {
     `count(*[_type == "news" && bachelorAcademicHonestyBool])`
   );
 
-  const mainMenuQO = await mainMenuQueriesObjCreator();
-
   if (slug === "educational-and-professional-programs") {
     return {
       redirect: {
@@ -259,7 +230,6 @@ export async function getStaticProps({ params: { slug } }) {
       totalNewsAmountNormative,
       totalNewsAmountElective,
       totalNewsAcHonestyAmount,
-      mainMenuQO,
     },
   };
 }

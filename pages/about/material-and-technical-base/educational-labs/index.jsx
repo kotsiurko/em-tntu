@@ -6,20 +6,12 @@ import { useRouter } from "next/router";
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterItemQuery,
-  slugCurrent,
-  newsPerPage,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterItemQuery, newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
 import EduLabsList from "components/EduLabsList/EduLabsList";
@@ -54,22 +46,6 @@ const EduLabsPage = ({ eduLabsPage, totalNewsAmount, mainMenuQO }) => {
     setResultQuery(res);
   }
 
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [eduLabsPage, mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
-
   return (
     <>
       <Head>
@@ -77,7 +53,7 @@ const EduLabsPage = ({ eduLabsPage, totalNewsAmount, mainMenuQO }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Кафедра"
@@ -120,19 +96,6 @@ const EduLabsPage = ({ eduLabsPage, totalNewsAmount, mainMenuQO }) => {
 
 export default EduLabsPage;
 
-// export async function getStaticPaths() {
-//   const pages = await client.fetch(slugCurrent("about-mtb"));
-//   const paths = pages.map((page) => ({
-//     params: {
-//       slug: page.slug.current,
-//     },
-//   }));
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// }
-
 export async function getStaticProps() {
   const eduLabsPage = await client.fetch(
     chapterItemQuery(
@@ -143,13 +106,11 @@ export async function getStaticProps() {
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
   );
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       eduLabsPage,
       totalNewsAmount,
-      mainMenuQO,
     },
   };
 }

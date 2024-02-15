@@ -7,14 +7,7 @@ import { useRouter } from "next/router";
 import { client, urlFor } from "lib/client";
 
 // Helpers
-import { menuItems } from "components/Header/menuItems";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-  newsPerPage,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent, newsPerPage } from "lib/queries";
 import { getPortion } from "lib/helpers";
 
 // Components
@@ -22,7 +15,6 @@ import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
-// import Pagination from "components/Pagination/Pagination";
 import LightBoxCustom from "../../components/LightboxCustom/LightBoxCustom";
 import NewPagination from "components/Pagination/NewPagination";
 
@@ -34,7 +26,6 @@ const studHonorsBool = "studHonorsBool";
 // ------ Page STARTS here -----------------------------------------
 const EntrantsPage = ({
   entrantsPage,
-  mainMenuQO,
   totalNewsAmountSchoolsCooperation,
   totalNewsAmountStudentOlympiads,
   totalNewsAmountStudHonors,
@@ -94,22 +85,6 @@ const EntrantsPage = ({
     totalNewsAmountStudHonors,
   ]);
 
-  // MENU FORMATION PART ==============================================
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
-  // MENU FORMATION PART ENDS =========================================
-
   return (
     <>
       <Head>
@@ -117,7 +92,7 @@ const EntrantsPage = ({
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Абітурієнту"
@@ -132,28 +107,28 @@ const EntrantsPage = ({
       {(slug.current === "/entrant/student-olympiads" ||
         slug.current === "/entrant/students-honors" ||
         slug.current === "/entrant/schools-cooperation") && (
-          <section id="team" className="team">
-            <div className="container">
-              <header className="section-header">
-                <p>Події розділу</p>
-              </header>
+        <section id="team" className="team">
+          <div className="container">
+            <header className="section-header">
+              <p>Події розділу</p>
+            </header>
 
-              <div className="row gy-4">
-                <NewsItems currentItems={resultQuery} />
-              </div>
-
-              {totalNewsAmount > newsPerPage && (
-                <NewPagination
-                  totalNewsAmount={totalNewsAmount}
-                  currPage={currPage}
-                  setResultQuery={setResultQuery}
-                  setCurrPage={setCurrPage}
-                  newsBool={newsBool}
-                />
-              )}
+            <div className="row gy-4">
+              <NewsItems currentItems={resultQuery} />
             </div>
-          </section>
-        )}
+
+            {totalNewsAmount > newsPerPage && (
+              <NewPagination
+                totalNewsAmount={totalNewsAmount}
+                currPage={currPage}
+                setResultQuery={setResultQuery}
+                setCurrPage={setCurrPage}
+                newsBool={newsBool}
+              />
+            )}
+          </div>
+        </section>
+      )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {studentsHonors && (
@@ -249,12 +224,9 @@ export async function getStaticProps({ params: { slug } }) {
     `count(*[_type == "news" && ${studHonorsBool}])`
   );
 
-  const mainMenuQO = await mainMenuQueriesObjCreator();
-
   return {
     props: {
       entrantsPage,
-      mainMenuQO,
       totalNewsAmountSchoolsCooperation,
       totalNewsAmountStudentOlympiads,
       totalNewsAmountStudHonors,

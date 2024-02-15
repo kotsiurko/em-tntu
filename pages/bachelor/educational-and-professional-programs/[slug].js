@@ -1,42 +1,18 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
+import Head from "next/head";
 
 // Client connection
-import { menuItems } from 'components/Header/menuItems';
 import { client } from "lib/client";
-import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from 'lib/queries';
-import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
+import { chapterItemQuery, slugCurrent } from "lib/queries";
 
 // Components
-import Header from 'components/Header/Header';
+import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from 'components/PageContentSection/PageContentSection';
-import GuarantorsList from 'components/GuarantorsList/GuarantorsList';
-import ReviewsList from 'components/ReviewsList/ReviewsList';
+import PageContentSection from "components/PageContentSection/PageContentSection";
+import GuarantorsList from "components/GuarantorsList/GuarantorsList";
+import ReviewsList from "components/ReviewsList/ReviewsList";
 
-
-const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO, guarantorsList }) => {
-
-  const { title, slug, metaDescription } = bachelorEPPPage;;
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-
-    const menuObj = menuItemsMerger(
-      menuItems,
-      mainMenuQO,
-    )
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(
-          menuObj,
-          prevState,
-        )
-      }
-    });
-  }, [bachelorEPPPage, mainMenuQO]);
+const BachelorPPPage = ({ bachelorEPPPage, guarantorsList }) => {
+  const { title, slug, metaDescription } = bachelorEPPPage;
 
   return (
     <>
@@ -45,7 +21,7 @@ const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO, guarantorsList }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Бакалавру"
@@ -57,46 +33,50 @@ const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO, guarantorsList }) => {
 
       <PageContentSection data={bachelorEPPPage} />
 
-      {slug.current === '/bachelor/educational-and-professional-programs/programs-and-guarantor' &&
+      {slug.current ===
+        "/bachelor/educational-and-professional-programs/programs-and-guarantor" && (
         <GuarantorsList personList={guarantorsList} />
-      }
-      {slug.current === '/bachelor/educational-and-professional-programs/reviews' &&
+      )}
+      {slug.current ===
+        "/bachelor/educational-and-professional-programs/reviews" && (
         <ReviewsList personList={guarantorsList} />
-      }
+      )}
     </>
-  )
-}
-
+  );
+};
 
 export default BachelorPPPage;
 
 export async function getStaticPaths() {
-  const pages = await client.fetch(slugCurrent('bachelor'));
+  const pages = await client.fetch(slugCurrent("bachelor"));
 
   const paths = pages.map((page) => ({
     params: {
-      slug: page.slug.current
-    }
+      slug: page.slug.current,
+    },
   }));
   return {
-    paths, fallback: 'blocking'
-  }
+    paths,
+    fallback: "blocking",
+  };
 }
 
 export async function getStaticProps({ params: { slug } }) {
-
   const bachelorEPPPage = await client.fetch(
-    `${chapterItemQuery('bachelor-epp', `/bachelor/educational-and-professional-programs/${slug}`)}`
+    `${chapterItemQuery(
+      "bachelor-epp",
+      `/bachelor/educational-and-professional-programs/${slug}`
+    )}`
   );
 
-  const guarantorsList = await client.fetch(`*[_type == 'person' && edGuaranteeLevel == 'перший']`);
-  const mainMenuQO = await mainMenuQueriesObjCreator();
+  const guarantorsList = await client.fetch(
+    `*[_type == 'person' && edGuaranteeLevel == 'перший']`
+  );
 
   return {
     props: {
       bachelorEPPPage,
-      mainMenuQO,
       guarantorsList,
-    }
-  }
+    },
+  };
 }

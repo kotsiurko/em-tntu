@@ -8,9 +8,7 @@ import { menuItems } from "components/Header/menuItems";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 import { client } from "lib/client";
 
-const SecretForm = ({ mainMenuQO, secretPage }) => {
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
+const SecretForm = ({ secretPage }) => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
@@ -30,16 +28,6 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
     }
   };
 
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [mainMenuQO]);
-
   return (
     <>
       <Head>
@@ -48,7 +36,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
         </title>
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Кафедра"
@@ -93,14 +81,12 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
 export default SecretForm;
 
 export async function getStaticProps() {
-  const mainMenuQO = await mainMenuQueriesObjCreator();
   const secretPage = await client.fetch(
     `*[_type == "secretPage" && defined(secretPagePass)]`
   );
 
   return {
     props: {
-      mainMenuQO,
       secretPage,
     },
   };

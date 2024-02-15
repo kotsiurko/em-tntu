@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -7,14 +9,46 @@ import headerLogo from "../../public/assets/img/logo-header-new.png";
 import ukrFlag from "../../public/images/flag_ukr.png";
 import Link from "next/link";
 
-const Header = (props) => {
+// Helpers
+import { mainMenuQueriesObjCreator } from "lib/queries";
+import { menuItems } from "components/Header/menuItems";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+
+const Header = () => {
+  // MENU FORMATION PART ==============================================
+
+  const [mainMenuQO, setMainMenuQO] = useState([]);
+
+  useEffect(() => {
+    const fetchMainMenu = async () => {
+      const mainMenuQO = await mainMenuQueriesObjCreator();
+      const menuObj = menuItemsMerger(menuItems, mainMenuQO);
+      setMainMenuQO(menuCreator(menuObj, menuItems));
+    };
+    fetchMainMenu();
+  }, []);
+
+  // const [mainMenuArr, setMainMenuArr] = useState(menuItems);
+
+  // useEffect(() => {
+  //   const menuObj = menuItemsMerger(menuItems, mainMenuQO);
+
+  //   setMainMenuArr((prevState) => {
+  //     if (prevState) {
+  //       return menuCreator(menuObj, prevState);
+  //     }
+  //   });
+  // }, [mainMenuQO]);
+
+  // MENU FORMATION PART ENDS =========================================
+
   const { asPath } = useRouter();
 
-  const { mainMenuArr } = props;
+  // const { mainMenuArr } = props;
 
   // Вирізаю блок меню АСПІРАНТУРА
   // її id = 7
-  const newArray = mainMenuArr.filter((item) => item.id !== 7);
+  const newArray = mainMenuQO.filter((item) => item.id !== 7);
   // console.log("newArray :>> ", newArray);
 
   const [headerStyles, setHeaderStyles] = useState("header fixed-top");

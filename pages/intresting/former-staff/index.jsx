@@ -1,22 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import { useEffect, useState } from "react";
 
 // Client connection
-// Client connection
-import { menuItems } from "components/Header/menuItems";
 import { client } from "lib/client";
-import { staffListQuery, mainMenuQueriesObjCreator } from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { staffListQuery } from "lib/queries";
 
 // Components
 import Header from "/components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import StaffList from "components/StaffList/StaffList";
 
-const FormerStaff = ({ staffData, mainMenuQO }) => {
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
+const FormerStaff = ({ staffData }) => {
   // Фільтрую масив і залишаю лише ті новини, що містять поле formerEmployeeBool
   const filteredArray = staffData.filter(
     (item) => item.formerEmployeeBool === true
@@ -24,16 +18,6 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
 
   // Сортую масив новин і виводжу їх в порядку свіжіші - вище.
   const sortedArray = filteredArray.sort((a, b) => b.weight - a.weight);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [staffData, mainMenuQO]);
 
   return (
     <>
@@ -45,7 +29,7 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
         />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Це цікаво"
@@ -72,12 +56,10 @@ export default FormerStaff;
 
 export async function getStaticProps() {
   const staffData = await client.fetch(staffListQuery);
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       staffData,
-      mainMenuQO,
     },
   };
 }

@@ -5,48 +5,24 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Client connection
-import { menuItems } from "components/Header/menuItems";
 import { client } from "lib/client";
-import {
-  mainMenuQueriesObjCreator,
-  chapterPageQuery,
-  slugCurrent,
-} from "lib/queries";
-import { menuCreator, menuItemsMerger } from "lib/menuCreator";
+import { chapterPageQuery, slugCurrent } from "lib/queries";
 
 import { urlFor } from "lib/client";
 
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import LightBoxCustom from "components/LightboxCustom/LightBoxCustom";
 
 // Other libs
 import moment from "moment";
 
-const Intresting = ({ intrestingData, mainMenuQO }) => {
-  const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
-  const [imgArr, setImgArr] = useState();
-
-  const { title, slug, photoarchive, pressPublications, metaDescription } =
-    intrestingData;
+const Intresting = ({ intrestingData }) => {
+  const { title, slug, pressPublications, metaDescription } = intrestingData;
 
   const router = useRouter();
 
   const { asPath } = router;
-
-  const [mainMenuArr, setMainMenuArr] = useState(menuItems);
-
-  useEffect(() => {
-    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
-
-    setMainMenuArr((prevState) => {
-      if (prevState) {
-        return menuCreator(menuObj, prevState);
-      }
-    });
-  }, [intrestingData, mainMenuQO]);
 
   return (
     <>
@@ -55,65 +31,13 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Header mainMenuArr={mainMenuArr} />
+      <Header />
 
       <Breadcrumbs
         chapterTitle="Це цікаво"
         pageTitle={title}
         pageUrl={slug.current}
       />
-
-      {/* Фотоархів кафедри */}
-      {/* {asPath === "/intresting/photoarchive" && (
-        <section id="values" className="values">
-          <div className="container" data-aos="fade-up">
-            {photoarchive.map((el) => {
-              const { period, periodPhotos, _key } = el;
-
-              return (
-                <div key={_key}>
-                  <header className="section-header">
-                    <p>{period}</p>
-                  </header>
-
-                  <div className="flex-elements">
-                    {periodPhotos.map((photo, idx) => {
-                      return (
-                        <div
-                          className="new-image-container"
-                          style={{ position: "relative" }}
-                          onClick={() => {
-                            setSelectedIndex(idx);
-                            setImgArr(periodPhotos);
-                            setOpen(true);
-                          }}
-                          key={photo._key}
-                        >
-                          <Image
-                            src={urlFor(photo).url()}
-                            fill
-                            className="img-thumbnail rounded photo-archive-images"
-                            alt={photo.caption}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <hr />
-                </div>
-              );
-            })}
-          </div>
-
-          <LightBoxCustom
-            imageGallery={imgArr}
-            isOpen={open}
-            closeGallery={() => setOpen(false)}
-            index={selectedIndex}
-          />
-        </section>
-      )} */}
 
       {/* Публікації в пресі */}
       {asPath === "/intresting/press-publications" && (
@@ -124,7 +48,6 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
             </header>
 
             {pressPublications.map((el) => {
-              // console.log('el :>> ', el);
               const {
                 _key,
                 publScreen,
@@ -190,12 +113,10 @@ export async function getStaticProps({ params: { slug } }) {
   const intrestingData = await client.fetch(
     chapterPageQuery("intresting", slug)
   );
-  const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       intrestingData,
-      mainMenuQO,
     },
     // revalidate: 300
   };
