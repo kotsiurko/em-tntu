@@ -11,6 +11,7 @@ const Header = (props) => {
   const { asPath } = useRouter();
 
   const { mainMenuArr } = props;
+  console.log("mainMenuArr :>> ", mainMenuArr);
 
   // Вирізаю блок меню АСПІРАНТУРА
   // її id = 7

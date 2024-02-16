@@ -33,7 +33,7 @@ const EduLabPage = ({
   // Відфільтрувати аудиторію за номером зі списку labsList
   // і витягую з нього об'єкт за допомогою [0]
   const currEduLab = labsList.filter(el => el.labNumber === currSlug)[0]
-  const { labNumber, labTitle, labArea, labSittingPlaces, labChief, labChiefUrl, labDisciplines, labPhoto } = currEduLab;
+  const { labNumber, labTitle, labArea, labSittingPlaces, labChief, labChiefUrl, labDisciplines, lab3DTour, labPhoto } = currEduLab;
 
   // // MENU FORMATION PART ==============================================
 
@@ -110,14 +110,15 @@ const EduLabPage = ({
                       <ul><TeachingSubjectItems list={labDisciplines} /></ul>
                     </>
                     }
-                    <div>
+                    {lab3DTour && <p><Link href={lab3DTour}>Посилання на 3D тур</Link></p>}
+                    {/* <div>
                       <span></span>
                     </div>
                     <br />
                     <div>
                       <span></span><br />
                       <br />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
