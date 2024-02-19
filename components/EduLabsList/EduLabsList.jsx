@@ -3,6 +3,7 @@ import Link from "next/link";
 import Modal from "../Modal/Modal";
 import Image from "next/image";
 import LightBoxCustom from "../LightboxCustom/LightBoxCustom";
+import TeachingSubjectItems from "components/TeachingSubjectItems/TeachingSubjectItems";
 
 import { urlFor } from "lib/client";
 
