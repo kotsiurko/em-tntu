@@ -23,18 +23,24 @@ import TeachingSubjectItems from "components/TeachingSubjectItems/TeachingSubjec
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const EduLabPage = ({
-  eduLabPage,
-  mainMenuQO,
-  currSlug,
-}) => {
+const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
   const { title, slug, metaDescription, labsList } = eduLabPage;
 
   // Відфільтрувати аудиторію за номером зі списку labsList
   // і витягую з нього об'єкт за допомогою [0]
-  const currEduLab = labsList.filter(el => el.labNumber === currSlug)[0]
-  const { labNumber, labTitle, labArea, labSittingPlaces, labChief, labChiefUrl, labDisciplines, lab3DTour, labPhoto } = currEduLab;
-
+  const currEduLab = labsList.filter((el) => el.labNumber === currSlug)[0];
+  const {
+    labNumber,
+    labTitle,
+    labArea,
+    labSittingPlaces,
+    labChief,
+    labChiefUrl,
+    labDisciplines,
+    lab3DTour,
+    labGallery,
+  } = currEduLab;
+  console.log("currEduLab :>> ", currEduLab);
   // // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -73,7 +79,9 @@ const EduLabPage = ({
       <section className="team">
         <div className="container" data-aos="fade-up">
           <header className="section-header">
-            <p>{labNumber} – {labTitle}</p>
+            <p>
+              {labNumber} – {labTitle}
+            </p>
           </header>
 
           {/* <div className="row gy-4">
@@ -81,36 +89,57 @@ const EduLabPage = ({
           </div> */}
 
           <div className="row gx-0">
-
-            {labPhoto && <div className="col-xl-3 pt-2 px-2 d-flex aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
+            {labGallery && (
               <div
-                className="image-container"
-                style={{ position: "relative" }}
+                className="col-xl-3 pt-2 px-2 d-flex aos-init aos-animate"
+                data-aos="fade-right"
+                data-aos-delay="100"
               >
-                <Image
-                  src={urlFor(labPhoto).url()}
-                  fill
-                  priority
-                  className="img-fluid image rounded"
-                  alt="Текст"
-                />
+                <div
+                  className="image-container"
+                  style={{ position: "relative" }}
+                >
+                  <Image
+                    src={urlFor(labGallery[0]).url()}
+                    fill
+                    priority
+                    className="img-fluid image rounded"
+                    alt="Текст"
+                  />
+                </div>
               </div>
-
-            </div>}
+            )}
 
             <div className="col-xl-9 pt-2 px-2 d-flex">
               <div className="row align-self-start content text-justify">
-                <div className="icon-box aos-init aos-animate" data-aos="fade-up">
+                <div
+                  className="icon-box aos-init aos-animate"
+                  data-aos="fade-up"
+                >
                   <div>
                     {labArea && <p>Площа приміщення: {labArea}</p>}
-                    {labSittingPlaces && <p>Кількість посадкових місць: {labSittingPlaces}</p>}
-                    {labChief && <p>Відповідальна особа: <Link href={labChiefUrl}>{labChief}</Link></p>}
-                    {labDisciplines && <>
-                      <p className="mb-0">Закріплені навчальні дисципліни:</p>
-                      <ul><TeachingSubjectItems list={labDisciplines} /></ul>
-                    </>
-                    }
-                    {lab3DTour && <p><Link href={lab3DTour}>Посилання на 3D тур</Link></p>}
+                    {labSittingPlaces && (
+                      <p>Кількість посадкових місць: {labSittingPlaces}</p>
+                    )}
+                    {labChief && (
+                      <p>
+                        Відповідальна особа:{" "}
+                        <Link href={labChiefUrl}>{labChief}</Link>
+                      </p>
+                    )}
+                    {labDisciplines && (
+                      <>
+                        <p className="mb-0">Закріплені навчальні дисципліни:</p>
+                        <ul>
+                          <TeachingSubjectItems list={labDisciplines} />
+                        </ul>
+                      </>
+                    )}
+                    {lab3DTour && (
+                      <p>
+                        <Link href={lab3DTour}>Посилання на 3D тур</Link>
+                      </p>
+                    )}
                     {/* <div>
                       <span></span>
                     </div>
@@ -123,9 +152,7 @@ const EduLabPage = ({
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
 

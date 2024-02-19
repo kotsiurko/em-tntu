@@ -541,4 +541,9 @@ h10 {
     transition: 0.2s linear;
 }
 
+@media (min-width: 576px) {
+    .modal-dialog {
+        min-width: 800px;
+    }
+}
 /* MODAL ENDS */
