@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Modal from "../Modal/Modal";
+import ModalLauncher from "../Modal/ModalLauncher";
 
 function EduLabsList({ labsList }) {
   // console.log("labsList :>> ", labsList);
+
+  const [show, setShow] = useState(false);
+  const showModal = () => {
+    setShow(true);
+  };
+  const hideModal = () => {
+    setShow(false);
+  };
 
   return (
     <section className="features my-personal">
@@ -58,6 +68,19 @@ function EduLabsList({ labsList }) {
           </div>
         </div>
       </div>
+      {/* <button
+        type="button"
+        className="btn btn-primary"
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+        // showModal={showModal}
+      >
+        Launch demo modal
+      </button> */}
+      <ModalLauncher showModal={showModal} />
+      <Modal show={show} hideModal={hideModal}>
+        Modal content
+      </Modal>
     </section>
   );
 }

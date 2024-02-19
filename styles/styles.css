@@ -518,3 +518,27 @@ h10 {
 .content .icon-box div {
     width: 100%;
 }
+
+/* MODAL */
+
+.modal {
+    display: block;
+    visibility: hidden;
+}
+
+.modal-show {
+    visibility: visible;
+    background-color: rgba(169, 169, 169, 0.8);
+    transition: opacity 0.2s linear;
+}
+
+.modal-content {
+    opacity: 0;
+}
+
+.modal-show .modal-content {
+    opacity: 1;
+    transition: 0.2s linear;
+}
+
+/* MODAL ENDS */
