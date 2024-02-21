@@ -10,40 +10,25 @@ import { urlFor } from "lib/client";
 function EduLabsList({ labsList }) {
   // console.log("labsList :>> ", labsList);
 
-  const [show, setShow] = useState(false);
-  const showModal = () => {
-    setShow(true);
-  };
-  const hideModal = () => {
-    setShow(false);
-  };
+  // const [show, setShow] = useState(false);
+  // const showModal = () => {
+  //   setShow(true);
+  // };
+  // const hideModal = () => {
+  //   setShow(false);
+  // };
 
-  const [modalRoom, setModalRoom] = useState("");
-  const [modalRoomObj, setModalRoomObj] = useState("");
-  const [open, setOpen] = useState(false);
-  const closeGallery = (state) => {
-    setOpen(state);
-  };
-  //
+  // const [modalRoom, setModalRoom] = useState("");
+  // const [modalRoomObj, setModalRoomObj] = useState("");
+  // const [open, setOpen] = useState(false);
+  // const closeGallery = (state) => {
+  //   setOpen(state);
+  // };
 
-  useEffect(() => {
-    const currEduLab = labsList.filter((el) => el.labNumber === modalRoom)[0];
-    setModalRoomObj(currEduLab);
-  }, [modalRoom]);
-
-  // ---------------------------
-  // const {
-  //   labNumber,
-  //   labTitle,
-  //   labArea,
-  //   labSittingPlaces,
-  //   labChief,
-  //   labChiefUrl,
-  //   labDisciplines,
-  //   lab3DTour,
-  //   labPhoto,
-  // } = currEduLab;
-  // ---------------------------
+  // useEffect(() => {
+  //   const currEduLab = labsList.filter((el) => el.labNumber === modalRoom)[0];
+  //   setModalRoomObj(currEduLab);
+  // }, [modalRoom]);
 
   return (
     <section className="features my-personal">
@@ -67,20 +52,16 @@ function EduLabsList({ labsList }) {
                     labTitle,
                     labArea,
                     labSittingPlaces,
-                    labChief,
-                    labChiefUrl,
-                    labDisciplines,
-                    labPhoto,
                   } = el;
                   return (
                     <tr key={_key}>
                       <td>
-                        {/* <Link
+                        <Link
                           href={`/about/material-and-technical-base/educational-labs/${labNumber}`}
                         >
                           {labNumber}
-                        </Link> */}
-                        <button
+                        </Link>
+                        {/* <button
                           type="button"
                           // className="btn btn-outline-primary mt-3"
                           onClick={() => {
@@ -89,7 +70,7 @@ function EduLabsList({ labsList }) {
                           }}
                         >
                           {labNumber}
-                        </button>
+                        </button> */}
                       </td>
                       <td>
                         <Link
@@ -110,7 +91,7 @@ function EduLabsList({ labsList }) {
         </div>
       </div>
       {/* ---------------------------------------------- */}
-      {modalRoomObj && (
+      {/* {modalRoomObj && (
         <Modal
           show={show}
           hideModal={hideModal}
@@ -118,14 +99,14 @@ function EduLabsList({ labsList }) {
         >
           <ModalContent modalRoomObj={modalRoomObj} setOpen={setOpen} />
         </Modal>
-      )}
-      {modalRoomObj?.labGallery && (
+      )} */}
+      {/* {modalRoomObj?.labGallery && (
         <LightBoxCustom
           imageGallery={modalRoomObj?.labGallery}
           isOpen={open}
           closeGallery={closeGallery}
         />
-      )}
+      )} */}
       {/* ---------------------------------------------- */}
     </section>
   );

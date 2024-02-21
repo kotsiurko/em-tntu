@@ -19,6 +19,7 @@ import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import TeachingSubjectItems from "components/TeachingSubjectItems/TeachingSubjectItems";
+import LightBoxCustom from "components/LightboxCustom/LightBoxCustom";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
@@ -40,10 +41,14 @@ const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
     lab3DTour,
     labGallery,
   } = currEduLab;
-  console.log("currEduLab :>> ", currEduLab);
+  // console.log("currEduLab :>> ", currEduLab);
   // // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
+  const [open, setOpen] = useState(false);
+  const closeGallery = (state) => {
+    setOpen(state);
+  };
 
   useEffect(() => {
     const menuObj = menuItemsMerger(menuItems, mainMenuQO);
@@ -91,13 +96,16 @@ const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
           <div className="row gx-0">
             {labGallery && (
               <div
-                className="col-xl-3 pt-2 px-2 d-flex aos-init aos-animate"
+                className="col-xl-5 pt-2 px-2 d-flex aos-init aos-animate"
                 data-aos="fade-right"
                 data-aos-delay="100"
               >
                 <div
                   className="image-container"
-                  style={{ position: "relative" }}
+                  style={{ position: "relative", cursor: "pointer" }}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
                 >
                   <Image
                     src={urlFor(labGallery[0]).url()}
@@ -110,7 +118,7 @@ const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
               </div>
             )}
 
-            <div className="col-xl-9 pt-2 px-2 d-flex">
+            <div className="col-xl-7 pt-2 px-2 d-flex">
               <div className="row align-self-start content text-justify">
                 <div
                   className="icon-box aos-init aos-animate"
@@ -154,6 +162,13 @@ const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
             </div>
           </div>
         </div>
+        {labGallery && (
+          <LightBoxCustom
+            imageGallery={labGallery}
+            isOpen={open}
+            closeGallery={closeGallery}
+          />
+        )}
       </section>
 
       {/* ======= End Team-Staff Page Section ======= */}

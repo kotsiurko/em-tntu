@@ -21,9 +21,6 @@ const Modal = ({ children, show, hideModal, title }) => (
         </div>
         <div className="modal-body">{children}</div>
         <div className="modal-footer">
-          {/* <button type="button" className="btn btn-primary" onClick={hideModal}>
-            Save
-          </button> */}
           <button
             type="button"
             className="btn btn-secondary"
