@@ -181,9 +181,7 @@ const BachelorPage = ({
         </>
       )}
 
-      {(slug.current === "/bachelor/academic-honesty" ||
-        slug.current === "/bachelor/elective-disciplines" ||
-        slug.current === "/bachelor/normative-disciplines") && (
+      {slug.current === "/bachelor/academic-honesty" && (
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">

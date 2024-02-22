@@ -125,7 +125,7 @@ const MasterPage = ({ masterPage,
       {/* Page Content */}
       <PageContentSection data={masterPage} />
 
-      {(slug.current === '/master/academic-honesty' || slug.current === '/master/elective-disciplines' || slug.current === '/master/normative-disciplines') &&
+      {slug.current === '/master/academic-honesty' &&
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">

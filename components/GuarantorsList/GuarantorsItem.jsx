@@ -1,12 +1,25 @@
+import { useRouter } from "next/router";
+
 import { urlFor } from "lib/client";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./GuarantatorList.module.css";
 import { personCredentials } from "lib/helpers";
 import DocsViewer from "../DocsViewer/DocsViewer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function GuarantorsItem({ person }) {
+  const router = useRouter();
+  const [chapter, setChapter] = useState();
+
+  useEffect(() => {
+    if (router.route.startsWith("/master")) {
+      setChapter("/master");
+    } else {
+      setChapter("/bachelor");
+    }
+  }, [router.route]);
+
   const {
     firstName,
     secondName,
@@ -24,22 +37,10 @@ function GuarantorsItem({ person }) {
     (item) => item.edGuaranteeBool === true
   );
 
-  const [isOPPOpen, setIsOPPOpen] = useState(false);
-  const [opp_URL, setOpp_URL] = useState();
+  const [openedDocIndex, setOpenedDocIndex] = useState(null);
 
-  const handleProgramClick = (edProgURL) => {
-    if (isOPPOpen === false && opp_URL !== edProgURL) {
-      setIsOPPOpen(true);
-      setOpp_URL(edProgURL);
-    }
-    if (isOPPOpen === true && opp_URL === edProgURL) {
-      setIsOPPOpen(false);
-      setOpp_URL(null);
-    }
-    if (isOPPOpen === true && opp_URL !== edProgURL) {
-      setIsOPPOpen(true);
-      setOpp_URL(edProgURL);
-    }
+  const handleProgramClick = (index) => {
+    setOpenedDocIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -93,8 +94,10 @@ function GuarantorsItem({ person }) {
             </Link>
 
             {/* Список ОПП */}
-            {edGuarantee?.map((el) => {
+            {edGuarantee?.map((el, index) => {
               const { edProgTitle, edProgURL, _key } = el;
+              const isOpen = openedDocIndex === index;
+
               return (
                 <div
                   className="col-md-12 m-2"
@@ -111,27 +114,34 @@ function GuarantorsItem({ person }) {
                     </div>
 
                     <div style={{ width: 120 }}>
-                      <button onClick={() => handleProgramClick(edProgURL)}>
+                      {/* <button onClick={() => handleProgramClick(edProgURL)}>
                         {((isOPPOpen && opp_URL !== edProgURL) ||
                           !isOPPOpen) && <>Переглянути</>}
                         {isOPPOpen && opp_URL === edProgURL && <>Закрити</>}
+                      </button> */}
+                      <button onClick={() => handleProgramClick(index)}>
+                        {isOpen ? "Закрити" : "Переглянути"}
                       </button>
                       <hr />
+
                       <Link
-                        href={`/bachelor/educational-and-professional-programs/reviews`}
+                        href={`${chapter}/educational-and-professional-programs/reviews`}
                       >
                         Рецензії
                       </Link>
                     </div>
                   </div>
+                  {isOpen && (
+                    <div className="mt-4">
+                      <DocsViewer docURL={edProgURL} />
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
       </div>
-
-      {isOPPOpen && <DocsViewer docURL={opp_URL} />}
     </>
   );
 }
