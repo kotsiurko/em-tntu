@@ -26,6 +26,7 @@ import CallSchedule from "components/CallSchedule/CallSchedule";
 import WeeksSchedule from "components/WeeksSchedule/WeeksSchedule";
 import Practices from "components/Practices/Practices";
 import NewPagination from "components/Pagination/NewPagination";
+import EduPlanList from "../../components/EduPlanList/EduPlanList";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
@@ -52,12 +53,14 @@ const BachelorPage = ({
     semesterStarts,
     eduPlanList,
     bachPracticesList,
+    eduPlansList,
   } = bachelorPage;
 
   const router = useRouter();
 
   const [resultQuery, setResultQuery] = useState();
   const [currPage, setCurrPage] = useState();
+
 
   useEffect(() => {
     if (
@@ -67,7 +70,6 @@ const BachelorPage = ({
     ) {
       async function getData(page, newsBool) {
         const res = await getPortion(page, newsBool);
-        console.log("res :>> ", res);
         setResultQuery(res);
       }
 
@@ -144,7 +146,10 @@ const BachelorPage = ({
       )}
 
       {/* Page Content */}
-      <PageContentSection data={bachelorPage} />
+      {slug.current !== "/bachelor/educational-plans" && (
+        <PageContentSection data={bachelorPage} />
+      )}
+
 
       {/* В МАГІСТРА цієї секції немає. звідти йде перенаправлення на сторінку з інформацією в бакалаврів */}
       {slug.current === "/bachelor/consultations" && (
@@ -203,6 +208,11 @@ const BachelorPage = ({
             )}
           </div>
         </section>
+      )}
+
+      {/* сторінка НАВЧАЛЬНІ ПЛАНИ */}
+      {slug.current === "/bachelor/educational-plans" && (
+        <EduPlanList list={eduPlansList} />
       )}
     </>
   );

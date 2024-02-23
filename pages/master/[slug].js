@@ -23,6 +23,7 @@ import PageContentSection from "components/PageContentSection/PageContentSection
 import NewsItems from "components/NewsItems/NewsItems";
 import Practices from "components/Practices/Practices";
 import NewPagination from "components/Pagination/NewPagination";
+import EduPlanList from "../../components/EduPlanList/EduPlanList";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
@@ -34,7 +35,7 @@ const MasterPage = ({ masterPage,
   mainMenuQO }) => {
 
 
-  const { title, slug, academicHonesty, metaDescription, masterPracticesList } =
+  const { title, slug, metaDescription, masterPracticesList, eduPlansList } =
     masterPage;
 
   const router = useRouter();
@@ -123,7 +124,9 @@ const MasterPage = ({ masterPage,
       )}
 
       {/* Page Content */}
-      <PageContentSection data={masterPage} />
+      {slug.current !== "/master/educational-plans" && (
+        <PageContentSection data={masterPage} />
+      )}
 
       {slug.current === '/master/academic-honesty' &&
         <section id="team" className="team">
@@ -148,6 +151,11 @@ const MasterPage = ({ masterPage,
           </div>
         </section>
       }
+
+      {/* сторінка НАВЧАЛЬНІ ПЛАНИ */}
+      {slug.current === "/master/educational-plans" && (
+        <EduPlanList list={eduPlansList} />
+      )}
 
     </>
   );
