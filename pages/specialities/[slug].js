@@ -25,6 +25,7 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
+import TitleAndLinkList from "../../components/titleAndLinkList/titleAndLinkList";
 
 const SpecialitiesPage = ({
   specialitiesPage,
@@ -35,9 +36,9 @@ const SpecialitiesPage = ({
   const {
     title,
     slug,
-    // nonFormalEducation,
     alumni,
-    metaDescription
+    metaDescription,
+    bachAgreementList,
   } =
     specialitiesPage;
 
@@ -109,6 +110,22 @@ const SpecialitiesPage = ({
 
       {/* Page Content */}
       <PageContentSection data={specialitiesPage} />
+
+      {/* bachAgreementList */}
+      {/* Сторінка ДУАЛЬНА ОСВІТА */}
+      {slug.current === "/specialities/dual-education" &&
+        <section id="team" className="team">
+          <div className="container" data-aos="fade-up">
+            <header className="section-header">
+              <p>Договори</p>
+            </header>
+
+            <TitleAndLinkList list={bachAgreementList} />
+
+
+
+          </div>
+        </section>}
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       {(slug.current === "/specialities/non-formal-education" || slug.current === "/specialities/dual-education") && <section id="team" className="team">
