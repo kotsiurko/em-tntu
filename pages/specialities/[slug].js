@@ -25,7 +25,7 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
-import TitleAndLinkList from "components/titleAndLinkList/titleAndLinkList";
+import TitleAndLinkList from "../../components/TitleAndLinkList/TitleAndLinkList";
 
 const SpecialitiesPage = ({
   specialitiesPage,
