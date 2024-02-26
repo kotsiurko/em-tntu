@@ -6,8 +6,6 @@ import moment from "moment";
 import Link from "next/link";
 
 function NewsItems({ currentItems }) {
-  console.log("currentItems :>> ", currentItems);
-
   return (
     <>
       {currentItems?.length > 0 &&
