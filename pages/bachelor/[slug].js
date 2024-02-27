@@ -173,14 +173,14 @@ const BachelorPage = ({
           </header>
           {/* eduPlanList */}
           {eduPlanList.map((el) => {
-            const { eduPlanTitle, eduPlanURL } = el;
+            const { eduPlanTitle, eduPlanURL, _key } = el;
             return (
-              <>
+              <div key={_key} >
                 <header className="section-header">
                   <h5>{eduPlanTitle}</h5>
                 </header>
                 <DocsViewer docURL={eduPlanURL} />
-              </>
+              </div>
             );
           })}
         </>
