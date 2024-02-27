@@ -285,6 +285,11 @@ export const menuItems = [
         id: 1050,
       },
       {
+        title: "Відділ забезпечення якості освіти",
+        url: "https://tntu.edu.ua/?p=uk/structure/vj",
+        id: 1060,
+      },
+      {
         title: "Нормативна база",
         url: "https://docs.tntu.edu.ua",
         id: 1070,
