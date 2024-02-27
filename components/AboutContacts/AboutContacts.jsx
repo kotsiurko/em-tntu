@@ -16,35 +16,45 @@ export default function AboutContacts({ data }) {
               </header>
               <div className="col-lg-6">
                 <div className="row gy-4">
-                  <div className="col-md-6">
-                    <div className="info-box">
-                      <i className="bi bi-geo-alt"></i>
-                      <h3>Адреса</h3>
-                      <TextContent data={address} />
+                  {address && (
+                    <div className="col-md-6">
+                      <div className="info-box">
+                        <i className="bi bi-geo-alt"></i>
+                        <h3>Адреса</h3>
+                        <TextContent data={address} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="info-box">
-                      <i className="bi bi-telephone"></i>
-                      <h3>Телефонуйте</h3>
-                      <p>{callUs}</p>
+                  )}
+
+                  {callUs && (
+                    <div className="col-md-6">
+                      <div className="info-box">
+                        <i className="bi bi-telephone"></i>
+                        <h3>Телефонуйте</h3>
+                        <p>{callUs}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="info-box">
-                      <i className="bi bi-envelope"></i>
-                      <h3>Пишіть</h3>
-                      {/* <p>{mailUs}</p> */}
-                      <TextContent data={mailUs} />
+                  )}
+
+                  {mailUs && (
+                    <div className="col-md-6">
+                      <div className="info-box">
+                        <i className="bi bi-envelope"></i>
+                        <h3>Пишіть</h3>
+                        <TextContent data={mailUs} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="info-box">
-                      <i className="bi bi-clock"></i>
-                      <h3>Ми відкриті</h3>
-                      <p>{openHours}</p>
+                  )}
+
+                  {openHours && (
+                    <div className="col-md-6">
+                      <div className="info-box">
+                        <i className="bi bi-clock"></i>
+                        <h3>Ми відкриті</h3>
+                        <p>{openHours}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
@@ -54,7 +64,6 @@ export default function AboutContacts({ data }) {
                   width="600"
                   height="450"
                   style={{ border: 0 }}
-                  // allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
