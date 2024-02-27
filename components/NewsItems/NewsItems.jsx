@@ -8,7 +8,7 @@ import Link from "next/link";
 function NewsItems({ currentItems }) {
   return (
     <>
-      {currentItems &&
+      {currentItems?.length > 0 &&
         currentItems.map((item) => {
           const {
             newsTitle,
@@ -53,6 +53,11 @@ function NewsItems({ currentItems }) {
             </div>
           );
         })}
+      {currentItems?.length === 0 && (
+        <header className="section-header">
+          <p className="fs-4">Новин скоро з'являться в цьому розділі</p>
+        </header>
+      )}
     </>
   );
 }

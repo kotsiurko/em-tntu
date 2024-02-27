@@ -25,7 +25,7 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
-import TitleAndLinkList from "../../components/titleAndLinkList/titleAndLinkList";
+import TitleAndLinkList from "../../components/TitleAndLinkList/TitleAndLinkList";
 
 const SpecialitiesPage = ({
   specialitiesPage,
@@ -33,13 +33,7 @@ const SpecialitiesPage = ({
   totalNewsAmountDualEduc,
   mainMenuQO,
 }) => {
-  const {
-    title,
-    slug,
-    alumni,
-    metaDescription,
-    bachAgreementList,
-  } =
+  const { title, slug, alumni, metaDescription, bachAgreementList } =
     specialitiesPage;
 
   const router = useRouter();
@@ -50,16 +44,15 @@ const SpecialitiesPage = ({
   const [totalNewsAmount, setTotalNewsAmount] = useState();
 
   useEffect(() => {
-
     async function getData(page) {
       let res;
       if (slug.current === "/specialities/non-formal-education") {
-        setNewsBool("nonFormalEducationBool")
+        setNewsBool("nonFormalEducationBool");
         setTotalNewsAmount(totalNewsAmountNonFormalEduc);
         res = await getPortion(page, "nonFormalEducationBool");
       }
       if (slug.current === "/specialities/dual-education") {
-        setNewsBool("dualEducationBool")
+        setNewsBool("dualEducationBool");
         setTotalNewsAmount(totalNewsAmountDualEduc);
         res = await getPortion(page, "dualEducationBool");
       }
@@ -75,7 +68,12 @@ const SpecialitiesPage = ({
       setCurrPage(1);
       getData(1);
     }
-  }, [router.asPath, slug, totalNewsAmountDualEduc, totalNewsAmountNonFormalEduc]);
+  }, [
+    router.asPath,
+    slug,
+    totalNewsAmountDualEduc,
+    totalNewsAmountNonFormalEduc,
+  ]);
 
   // MENU FORMATION PART ==============================================
 
@@ -113,7 +111,7 @@ const SpecialitiesPage = ({
 
       {/* bachAgreementList */}
       {/* Сторінка ДУАЛЬНА ОСВІТА */}
-      {slug.current === "/specialities/dual-education" &&
+      {slug.current === "/specialities/dual-education" && (
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">
@@ -121,39 +119,37 @@ const SpecialitiesPage = ({
             </header>
 
             <TitleAndLinkList list={bachAgreementList} />
-
-
-
           </div>
-        </section>}
+        </section>
+      )}
 
       {/* ======= Inner Page Team-Staff Section ======= */}
-      {(slug.current === "/specialities/non-formal-education" || slug.current === "/specialities/dual-education") && <section id="team" className="team">
-        <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>Події розділу</p>
-          </header>
+      {(slug.current === "/specialities/non-formal-education" ||
+        slug.current === "/specialities/dual-education") && (
+        <section id="team" className="team">
+          <div className="container" data-aos="fade-up">
+            <header className="section-header">
+              <p>Події розділу</p>
+            </header>
 
+            <div className="row gy-4">
+              <NewsItems currentItems={resultQuery} />
+            </div>
 
-          <div className="row gy-4">
-            <NewsItems currentItems={resultQuery} />
+            {/* PAGINATION BLOCK STARTS */}
+            {totalNewsAmount > newsPerPage && (
+              <NewPagination
+                totalNewsAmount={totalNewsAmount}
+                currPage={currPage}
+                setResultQuery={setResultQuery}
+                setCurrPage={setCurrPage}
+                newsBool={newsBool}
+              />
+            )}
+            {/* PAGINATION BLOCK ENDS */}
           </div>
-
-          {/* PAGINATION BLOCK STARTS */}
-          {(totalNewsAmount > newsPerPage) && (
-            <NewPagination
-              totalNewsAmount={totalNewsAmount}
-              currPage={currPage}
-              setResultQuery={setResultQuery}
-              setCurrPage={setCurrPage}
-              newsBool={newsBool}
-            />
-          )}
-          {/* PAGINATION BLOCK ENDS */}
-
-
-        </div>
-      </section>}
+        </section>
+      )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {alumni && (
