@@ -55,7 +55,7 @@ function NewsItems({ currentItems }) {
         })}
       {currentItems?.length === 0 && (
         <header className="section-header">
-          <p className="fs-4">Новин скоро з'являться в цьому розділі</p>
+          <p className="fs-4">Новин скоро з&apos;являться в цьому розділі</p>
         </header>
       )}
     </>
