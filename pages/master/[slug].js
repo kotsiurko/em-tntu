@@ -21,22 +21,38 @@ import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
+import DocsViewer from "components/DocsViewer/DocsViewer";
+import CallSchedule from "components/CallSchedule/CallSchedule";
+import WeeksSchedule from "components/WeeksSchedule/WeeksSchedule";
 import Practices from "components/Practices/Practices";
 import NewPagination from "components/Pagination/NewPagination";
 import EduPlanList from "../../components/EduPlanList/EduPlanList";
+import TitleAndLinkList from "../../components/TitleAndLinkList/TitleAndLinkList";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const MasterPage = ({ masterPage,
+const MasterPage = ({
+  masterPage,
   totalNewsAmountNormative,
   totalNewsAmountElective,
   totalNewsAcHonestyAmount,
-  mainMenuQO }) => {
-
-
-  const { title, slug, metaDescription, masterPracticesList, eduPlansList } =
-    masterPage;
+  mainMenuQO,
+}) => {
+  const {
+    title,
+    slug,
+    metaDescription,
+    blankList,
+    docsForMasterThesisList,
+    lessonDuration,
+    callSchedule,
+    semesterPeriod,
+    weeksAmount,
+    semesterStarts,
+    eduPlanList,
+    eduPlansList,
+  } = masterPage;
 
   const router = useRouter();
 
@@ -44,7 +60,11 @@ const MasterPage = ({ masterPage,
   const [currPage, setCurrPage] = useState();
 
   useEffect(() => {
-    if (slug.current === '/master/academic-honesty' || slug.current === '/master/elective-disciplines' || slug.current === '/master/normative-disciplines') {
+    if (
+      slug.current === "/master/academic-honesty" ||
+      slug.current === "/master/elective-disciplines" ||
+      slug.current === "/master/normative-disciplines"
+    ) {
       async function getData(page, newsBool) {
         const res = await getPortion(page, newsBool);
         setResultQuery(res);
@@ -59,7 +79,6 @@ const MasterPage = ({ masterPage,
         getData(1, getNewsBool(slug.current));
       }
     }
-
   }, [router.asPath, slug]);
 
   const getNewsBool = (currentSlug) => {
@@ -128,7 +147,7 @@ const MasterPage = ({ masterPage,
         <PageContentSection data={masterPage} />
       )}
 
-      {slug.current === '/master/academic-honesty' &&
+      {slug.current === "/master/academic-honesty" && (
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
             <header className="section-header">
@@ -150,13 +169,74 @@ const MasterPage = ({ masterPage,
             )}
           </div>
         </section>
-      }
+      )}
 
       {/* сторінка НАВЧАЛЬНІ ПЛАНИ */}
       {slug.current === "/master/educational-plans" && (
         <EduPlanList list={eduPlansList} />
       )}
 
+      {/* Методичні рекомендації до курсових робіт */}
+      {slug.current ===
+        "/master/methodological-recommendations-for-courseworks" &&
+        blankList && (
+          <section id="team" className="team">
+            <div className="container" data-aos="fade-up">
+              <header className="section-header">
+                <p className="fs-4">
+                  Документи для курсового проєктування. Бланки
+                </p>
+              </header>
+              <TitleAndLinkList list={blankList} />
+            </div>
+          </section>
+        )}
+
+      {/* Виконання кваліфікаційних робіт бакалаврів */}
+      {slug.current ===
+        "/master/performance-of-qualification-works-of-masters" &&
+        docsForMasterThesisList && (
+          <section id="team" className="team">
+            <div className="container">
+              <header className="section-header">
+                <p className="fs-4">
+                  Необхідні документи для виконання кваліфікаційних робіт
+                  магістра
+                </p>
+              </header>
+              <TitleAndLinkList list={docsForMasterThesisList} />
+            </div>
+          </section>
+        )}
+
+      {/* Графіки навчального процесу */}
+      {slug.current === "/master/schedules-of-educational-process" && (
+        <>
+          <CallSchedule data={{ lessonDuration, callSchedule }} />
+          <WeeksSchedule
+            data={{ semesterPeriod, weeksAmount, semesterStarts }}
+          />
+
+          <header
+            className="section-header"
+            style={{ paddingBottom: 0, paddingTop: 60 }}
+          >
+            <p>Графіки освітнього процесу</p>
+          </header>
+          {/* eduPlanList */}
+          {eduPlanList.map((el) => {
+            const { eduPlanTitle, eduPlanURL, _key } = el;
+            return (
+              <div key={_key}>
+                <header className="section-header">
+                  <h5>{eduPlanTitle}</h5>
+                </header>
+                <DocsViewer docURL={eduPlanURL} />
+              </div>
+            );
+          })}
+        </>
+      )}
     </>
   );
 };

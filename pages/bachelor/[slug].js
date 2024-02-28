@@ -27,6 +27,7 @@ import WeeksSchedule from "components/WeeksSchedule/WeeksSchedule";
 import Practices from "components/Practices/Practices";
 import NewPagination from "components/Pagination/NewPagination";
 import EduPlanList from "../../components/EduPlanList/EduPlanList";
+import TitleAndLinkList from "../../components/TitleAndLinkList/TitleAndLinkList";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
@@ -45,7 +46,9 @@ const BachelorPage = ({
     slug,
     // academicHonesty,
     metaDescription,
+    blankList,
     docURL,
+    docsForBachThesisList,
     lessonDuration,
     callSchedule,
     semesterPeriod,
@@ -60,7 +63,6 @@ const BachelorPage = ({
 
   const [resultQuery, setResultQuery] = useState();
   const [currPage, setCurrPage] = useState();
-
 
   useEffect(() => {
     if (
@@ -150,14 +152,45 @@ const BachelorPage = ({
         <PageContentSection data={bachelorPage} />
       )}
 
+      {/* Методичні рекомендації до курсових робіт */}
+      {slug.current ===
+        "/bachelor/methodological-recommendations-for-courseworks" &&
+        blankList && (
+          <section id="team" className="team">
+            <div className="container">
+              <header className="section-header">
+                <p className="fs-4">
+                  Документи для курсового проєктування. Бланки
+                </p>
+              </header>
+              <TitleAndLinkList list={blankList} />
+            </div>
+          </section>
+        )}
 
       {/* В МАГІСТРА цієї секції немає. звідти йде перенаправлення на сторінку з інформацією в бакалаврів */}
       {slug.current === "/bachelor/consultations" && (
         <DocsViewer docURL={docURL} />
       )}
 
+      {/* Виконання кваліфікаційних робіт бакалаврів */}
+      {slug.current ===
+        "/bachelor/performance-of-qualification-works-of-bachelors" &&
+        docsForBachThesisList && (
+          <section id="team" className="team">
+            <div className="container">
+              <header className="section-header">
+                <p className="fs-4">
+                  Необхідні документи для виконання кваліфікаційних робіт
+                  бакалавра
+                </p>
+              </header>
+              <TitleAndLinkList list={docsForBachThesisList} />
+            </div>
+          </section>
+        )}
+
       {/* Графіки навчального процесу */}
-      {/* За цей розділ не знаю чи він дублюватиметься з магістрів чи там будуть свої графіки... */}
       {slug.current === "/bachelor/schedules-of-educational-process" && (
         <>
           <CallSchedule data={{ lessonDuration, callSchedule }} />
@@ -175,7 +208,7 @@ const BachelorPage = ({
           {eduPlanList.map((el) => {
             const { eduPlanTitle, eduPlanURL, _key } = el;
             return (
-              <div key={_key} >
+              <div key={_key}>
                 <header className="section-header">
                   <h5>{eduPlanTitle}</h5>
                 </header>
@@ -188,7 +221,7 @@ const BachelorPage = ({
 
       {slug.current === "/bachelor/academic-honesty" && (
         <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
+          <div className="container">
             <header className="section-header">
               <p>Події розділу</p>
             </header>

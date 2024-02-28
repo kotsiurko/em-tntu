@@ -21,7 +21,7 @@ function TitleAndLinkList({ list }) {
 
           return (
             <div
-              className="col-md-12 m-2"
+              className="col-md-12 mt-2 mb-2"
               data-aos="zoom-out"
               data-aos-delay="100"
               key={_key}
