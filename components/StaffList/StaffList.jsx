@@ -59,7 +59,13 @@ const StaffList = ({ staff }) => {
                       additional_requisites
                     )}
                   </span>
-                  <a href={scheduleLink}>розклад</a>
+                  {/* Якщо доп. персонал, то розкладу непотрібно */}
+                  {!(
+                    position === "провідний інженер" ||
+                    position === "інженер 2-ї категорії" ||
+                    position === "інженер 1-ї категорії" ||
+                    position === "лаборант"
+                  ) && <Link href={scheduleLink}>розклад</Link>}
                 </div>
               </div>
             </div>

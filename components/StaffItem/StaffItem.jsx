@@ -159,7 +159,16 @@ const StaffItem = ({ personInfo }) => {
                       </h5>
                     )}
                     <h5 className="pt-2">
-                      <Link href={scheduleLink}>Розклад на сторінці ТНТУ</Link>
+                      {!(
+                        position === "провідний інженер" ||
+                        position === "інженер 2-ї категорії" ||
+                        position === "інженер 1-ї категорії" ||
+                        position === "лаборант"
+                      ) && (
+                        <Link href={scheduleLink}>
+                          Розклад на сторінці ТНТУ
+                        </Link>
+                      )}
                     </h5>
                     {socialsPresent() && (
                       <div className="d-flex justify-content-center flex-wrap mt-2 mb-4">
