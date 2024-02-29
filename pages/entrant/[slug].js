@@ -45,6 +45,28 @@ const EntrantsPage = ({
 
   const { title, slug, studentsHonors, metaDescription } = entrantsPage;
 
+
+  // -----------------------------------
+
+  const [selectedYear, setSelectedYear] = useState(null);
+  const handleYearClick = (year) => {
+    if (selectedYear === year) {
+      setSelectedYear(null); // Закриття акордеону при повторному кліку
+    } else {
+      setSelectedYear(year);
+    }
+    setSelectedIndex(null); // Скидання вибору зображення при зміні року
+  };
+
+  const handleImageClick = (idx, honorsPerYear) => {
+    setSelectedIndex(idx);
+    setImgArr(honorsPerYear);
+    setOpen(true);
+  };
+
+  // -----------------------------------
+
+
   const closeGallery = (state) => {
     setOpen(state);
   };
@@ -157,52 +179,68 @@ const EntrantsPage = ({
       {/* ======= End Team-Staff Page Section ======= */}
 
       {studentsHonors && (
-        <section className="features">
-          <div className="container text-justify">
-            {studentsHonors.map((el) => {
-              const { honorsPerYear, year, _key } = el;
+        <section id="faq" className="faq">
+          <div className="container" data-aos="fade-up">
+            <header className="section-header">
+              <h2>ЧаПи</h2>
+              <p>Часті питання</p>
+            </header>
 
-              return (
-                <div key={_key}>
-                  <header className="section-header">
-                    <p>{year}</p>
-                  </header>
-                  <div className="row">
-                    <div className="d-flex flex-wrap justify-content-center">
-                      {honorsPerYear.map((photo, idx) => {
-                        const imgLink = urlFor(photo).url();
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="accordion accordion-flush" id="faqlist">
+                  {studentsHonors.map((el, index) => (
+                    <div className="accordion-item" key={el._key}>
+                      <h2 className="accordion-header">
+                        <button
+                          className="accordion-button collapsed"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#faq-content-${el._key}`}
+                          onClick={() => handleYearClick(el.year)}
+                        >
+                          {el.year}
+                        </button>
+                      </h2>
+                      <div
+                        id={`faq-content-${el._key}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#faqlist"
+                      >
+                        <div className="accordion-body">
+                          <div className="row">
+                            <div className="d-flex flex-wrap justify-content-center align-items-center">
+                              {el.honorsPerYear.map((photo, idx) => {
+                                const imgLink = urlFor(photo).url();
 
-                        return (
-                          <div className="p-1" key={photo._key}>
-                            <div
-                              className="image-container"
-                              style={{
-                                position: "relative",
-                                cursor: "pointer",
-                              }}
-                              onClick={() => {
-                                setSelectedIndex(idx);
-                                setImgArr(honorsPerYear);
-                                setOpen(true);
-                              }}
-                            >
-                              <Image
-                                src={imgLink}
-                                className="img-thumbnail"
-                                alt={photo.caption}
-                                width={440}
-                                height={280}
-                                priority
-                              />
+                                return (
+                                  <div className="p-1" key={photo._key}>
+                                    <div
+                                      // className="image-container"
+                                      style={{ position: "relative", cursor: "pointer" }}
+                                      onClick={() => handleImageClick(idx, el.honorsPerYear)}
+                                    >
+                                      <Image
+                                        src={imgLink}
+                                        className="img-thumbnail"
+                                        alt={photo.caption}
+                                        height={280}
+                                        width={200}
+                                        priority
+                                      />
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
-                        );
-                      })}
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              );
-            })}
+
+              </div>
+            </div>
           </div>
         </section>
       )}
