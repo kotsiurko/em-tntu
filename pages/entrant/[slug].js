@@ -45,10 +45,10 @@ const EntrantsPage = ({
 
   const { title, slug, studentsHonors, metaDescription } = entrantsPage;
 
-
   // -----------------------------------
 
-  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedYear, setSelectedYear] = useState();
+
   const handleYearClick = (year) => {
     if (selectedYear === year) {
       setSelectedYear(null); // Закриття акордеону при повторному кліку
@@ -65,7 +65,6 @@ const EntrantsPage = ({
   };
 
   // -----------------------------------
-
 
   const closeGallery = (state) => {
     setOpen(state);
@@ -154,36 +153,35 @@ const EntrantsPage = ({
       {(slug.current === "/entrant/student-olympiads" ||
         slug.current === "/entrant/students-honors" ||
         slug.current === "/entrant/schools-cooperation") && (
-          <section id="team" className="team">
-            <div className="container">
-              <header className="section-header">
-                <p>Події розділу</p>
-              </header>
+        <section id="team" className="team">
+          <div className="container">
+            <header className="section-header">
+              <p>Події розділу</p>
+            </header>
 
-              <div className="row gy-4">
-                <NewsItems currentItems={resultQuery} />
-              </div>
-
-              {totalNewsAmount > newsPerPage && (
-                <NewPagination
-                  totalNewsAmount={totalNewsAmount}
-                  currPage={currPage}
-                  setResultQuery={setResultQuery}
-                  setCurrPage={setCurrPage}
-                  newsBool={newsBool}
-                />
-              )}
+            <div className="row gy-4">
+              <NewsItems currentItems={resultQuery} />
             </div>
-          </section>
-        )}
+
+            {totalNewsAmount > newsPerPage && (
+              <NewPagination
+                totalNewsAmount={totalNewsAmount}
+                currPage={currPage}
+                setResultQuery={setResultQuery}
+                setCurrPage={setCurrPage}
+                newsBool={newsBool}
+              />
+            )}
+          </div>
+        </section>
+      )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {studentsHonors && (
         <section id="faq" className="faq">
           <div className="container" data-aos="fade-up">
             <header className="section-header">
-              <h2>ЧаПи</h2>
-              <p>Часті питання</p>
+              <p>Галерея відзнак студентів</p>
             </header>
 
             <div className="row">
@@ -193,7 +191,11 @@ const EntrantsPage = ({
                     <div className="accordion-item" key={el._key}>
                       <h2 className="accordion-header">
                         <button
-                          className="accordion-button collapsed"
+                          className={
+                            index === 0
+                              ? `accordion-button`
+                              : `accordion-button collapsed`
+                          }
                           data-bs-toggle="collapse"
                           data-bs-target={`#faq-content-${el._key}`}
                           onClick={() => handleYearClick(el.year)}
@@ -203,7 +205,11 @@ const EntrantsPage = ({
                       </h2>
                       <div
                         id={`faq-content-${el._key}`}
-                        className="accordion-collapse collapse"
+                        className={
+                          index === 0
+                            ? "accordion-collapse collapse show"
+                            : "accordion-collapse collapse"
+                        }
                         data-bs-parent="#faqlist"
                       >
                         <div className="accordion-body">
@@ -215,9 +221,13 @@ const EntrantsPage = ({
                                 return (
                                   <div className="p-1" key={photo._key}>
                                     <div
-                                      // className="image-container"
-                                      style={{ position: "relative", cursor: "pointer" }}
-                                      onClick={() => handleImageClick(idx, el.honorsPerYear)}
+                                      style={{
+                                        position: "relative",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() =>
+                                        handleImageClick(idx, el.honorsPerYear)
+                                      }
                                     >
                                       <Image
                                         src={imgLink}
@@ -238,7 +248,6 @@ const EntrantsPage = ({
                     </div>
                   ))}
                 </div>
-
               </div>
             </div>
           </div>
