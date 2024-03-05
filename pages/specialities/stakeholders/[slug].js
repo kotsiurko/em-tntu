@@ -12,12 +12,13 @@ import Header from "/components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import DocsViewer from "../../../components/DocsViewer/DocsViewer";
+import TitleAndLinkList from "../../../components/TitleAndLinkList/TitleAndLinkList";
 
 
 
 const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
 
-  const { title, slug, metaDescription, docURL } = stakeholdersPage;
+  const { title, slug, metaDescription, coopAgreementList, docURL } = stakeholdersPage;
 
   // MENU FORMATION PART ==============================================
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -58,9 +59,26 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
         subPageUrl={slug.current}
       />
 
-      <PageContentSection data={stakeholdersPage} />
+
+      {slug.current !== "/specialities/stakeholders/cooperation-agreements" && (
+        <PageContentSection data={stakeholdersPage} />
+      )}
 
       {docURL && <DocsViewer docURL={docURL} />}
+
+      {/* Сторінка ДОГОВОРИ ПРО СПІВПРАЦЮ */}
+      {slug.current === "/specialities/stakeholders/cooperation-agreements" && (
+        <section id="team" className="team">
+          <div className="container" data-aos="fade-up">
+            <header className="section-header">
+              <p>Договори про співпрацю</p>
+            </header>
+
+            <TitleAndLinkList list={coopAgreementList} />
+          </div>
+        </section>
+      )}
+
     </>
   )
 }

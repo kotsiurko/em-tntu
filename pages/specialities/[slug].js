@@ -109,7 +109,6 @@ const SpecialitiesPage = ({
       {/* Page Content */}
       <PageContentSection data={specialitiesPage} />
 
-      {/* bachAgreementList */}
       {/* Сторінка ДУАЛЬНА ОСВІТА */}
       {slug.current === "/specialities/dual-education" && (
         <section id="team" className="team">
@@ -126,30 +125,30 @@ const SpecialitiesPage = ({
       {/* ======= Inner Page Team-Staff Section ======= */}
       {(slug.current === "/specialities/non-formal-education" ||
         slug.current === "/specialities/dual-education") && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
+          <section id="team" className="team">
+            <div className="container" data-aos="fade-up">
+              <header className="section-header">
+                <p>Події розділу</p>
+              </header>
 
-            <div className="row gy-4">
-              <NewsItems currentItems={resultQuery} />
+              <div className="row gy-4">
+                <NewsItems currentItems={resultQuery} />
+              </div>
+
+              {/* PAGINATION BLOCK STARTS */}
+              {totalNewsAmount > newsPerPage && (
+                <NewPagination
+                  totalNewsAmount={totalNewsAmount}
+                  currPage={currPage}
+                  setResultQuery={setResultQuery}
+                  setCurrPage={setCurrPage}
+                  newsBool={newsBool}
+                />
+              )}
+              {/* PAGINATION BLOCK ENDS */}
             </div>
-
-            {/* PAGINATION BLOCK STARTS */}
-            {totalNewsAmount > newsPerPage && (
-              <NewPagination
-                totalNewsAmount={totalNewsAmount}
-                currPage={currPage}
-                setResultQuery={setResultQuery}
-                setCurrPage={setCurrPage}
-                newsBool={newsBool}
-              />
-            )}
-            {/* PAGINATION BLOCK ENDS */}
-          </div>
-        </section>
-      )}
+          </section>
+        )}
       {/* ======= End Team-Staff Page Section ======= */}
 
       {alumni && (
