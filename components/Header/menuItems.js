@@ -182,7 +182,7 @@ export const menuItems = [
     children: [
       {
         title: "Конференція “Світлотехніка й електроенергетика”",
-        url: "/science/conference-lighting-and-power-engineering/conference-2024",
+        url: "/science/conference-lighting-and-power-engineering/news",
         id: 630,
         children: [
           // {
