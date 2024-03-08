@@ -110,7 +110,7 @@ const ProtectedPage = ({
       <section className="inner-page">
         <div className="container">
           <header className="section-header">
-            <p>КАФЕДРАЛЬНІ ПОЛОЖЕННЯ, РОЗПОРЯДЖЕННЯ ТА НАКАЗИ</p>
+            <p>КАФЕДРАЛЬНІ НАКАЗИ, РОЗПОРЯДЖЕННЯ ТА ПОЛОЖЕННЯ ПО КАФЕДРІ</p>
           </header>
 
           <div className="d-flex justify-content-between align-items-center mb-4">
@@ -179,7 +179,7 @@ const ProtectedPage = ({
                         <thead>
                           <tr style={{ textAlign: 'center' }}>
                             <th scope="col" style={{ minWidth: "50px" }}>Дата</th>
-                            <th scope="col" style={{ minWidth: "80px" }}>№ наказу</th>
+                            <th scope="col" style={{ minWidth: "90px" }}>Реєстр. №</th>
                             <th scope="col">Назва документу</th>
                             <th scope="col" style={{ width: "160px" }}>Категорія</th>
                             <th scope="col" style={{ minWidth: "140px" }}>Для кого</th>
@@ -189,10 +189,10 @@ const ProtectedPage = ({
                           {docs && docs.map(row => {
                             return (
                               <tr key={row._key}>
-                                <td scope="row">{moment(row.publishedDate).format("DD.MM")}</td>
-                                <th scope="row">{row.docNumber}</th>
-                                <td scope="row"><a href={row.docUrl} download>{row.docTitle}</a></td>
-                                <td scope="row">
+                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{moment(row.publishedDate).format("DD.MM")}</td>
+                                <th scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{row.docNumber}</th>
+                                <td scope="row" style={{ verticalAlign: 'middle' }}><a href={row.docUrl} download>{row.docTitle}</a></td>
+                                <td scope="row" style={{ verticalAlign: 'middle' }}>
                                   <button
                                     type="button"
                                     style={{ width: '100%' }}
@@ -200,7 +200,7 @@ const ProtectedPage = ({
                                     onClick={() => (handleCatClick(row.docCats))}
                                   >{row.docCats}</button>
                                 </td>
-                                <td scope="row" style={{ textAlign: 'center' }}><a href={null} >{row.docForWhom}</a>
+                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}><a href={null} >{row.docForWhom}</a>
                                 </td>
                               </tr>
                             )

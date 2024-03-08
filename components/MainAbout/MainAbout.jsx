@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { urlFor } from "lib/client";
 
 function MainAbout({ data }) {
@@ -17,13 +18,20 @@ function MainAbout({ data }) {
               <h2>{whoWeArePrimary}</h2>
               <p>{whoWeAreSecondary}</p>
               <div className="text-center text-lg-start">
-                <a
-                  href="kolektyv.aspx"
+                <Link
+                  href="about/staff"
                   className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"
                 >
                   <span>Колектив кафедри</span>
                   <i className="bi bi-arrow-right"></i>
-                </a>
+                </Link>
+                {/* <a
+                  href="about/staff"
+                  className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"
+                >
+                  <span>Колектив кафедри</span>
+                  <i className="bi bi-arrow-right"></i>
+                </a> */}
               </div>
             </div>
           </div>
