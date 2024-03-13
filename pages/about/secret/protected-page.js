@@ -150,11 +150,7 @@ const ProtectedPage = ({
           <div className="accordion" id="accordionExample">
 
             {selectedDocList.map(({ pageTitle, _id, docs }) => {
-              console.log('selectedDocList :>> ', selectedDocList);
-              console.log('docs :>> ', docs);
               const sortedDocs = docs.sort((a, b) => {
-                // Порівнюємо дати у форматі "yyyy-mm-dd", які знаходяться у полях `publishedDate`
-                // Якщо `a` має більшу дату, ніж `b`, то `a` буде розташований перед `b` у відсортованому масиві
                 if (a.publishedDate > b.publishedDate) {
                   return -1; // Передаємо `-1`, щоб `a` був розташований перед `b`
                 }
@@ -163,7 +159,6 @@ const ProtectedPage = ({
                 }
                 return 0; // Повертаємо `0`, якщо дати рівні
               });
-              console.log('sortedDocs :>> ', sortedDocs);
               return (
                 <div className="card" key={_id} style={{ "fontSize": "0.9rem" }}>
                   <div className="card-header" id="headingOne">
@@ -201,20 +196,35 @@ const ProtectedPage = ({
                         </thead>
                         <tbody>
                           {docs && sortedDocs.map(row => {
+                            const { _key, publishedDate, docNumber, docUrl, docTitle, docCats, docForWhom } = row;
+                            const buttonClass = (() => {
+                              switch (docCats) {
+                                case 'з кадрових питань':
+                                  return 'btn btn-danger btn-sm';
+                                case 'по роботі ЕК':
+                                  return 'btn btn-success btn-sm';
+                                case 'практика':
+                                  return 'btn btn-info btn-sm text-white';
+                                case 'різне':
+                                  return 'btn btn-secondary btn-sm';
+                                default:
+                                  return 'btn btn-primary btn-sm'; // За замовчуванням
+                              }
+                            })();
                             return (
-                              <tr key={row._key}>
-                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{moment(row.publishedDate).format("DD.MM.YY")}</td>
-                                <th scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{row.docNumber}</th>
-                                <td scope="row" style={{ verticalAlign: 'middle' }}><a href={row.docUrl} download>{row.docTitle}</a></td>
+                              <tr key={_key}>
+                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{moment(publishedDate).format("DD.MM.YY")}</td>
+                                <th scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{docNumber}</th>
+                                <td scope="row" style={{ verticalAlign: 'middle' }}><a href={docUrl} download>{docTitle}</a></td>
                                 <td scope="row" style={{ verticalAlign: 'middle' }}>
                                   <button
                                     type="button"
                                     style={{ width: '100%' }}
-                                    className="btn btn-outline-primary btn-sm"
-                                    onClick={() => (handleCatClick(row.docCats))}
-                                  >{row.docCats}</button>
+                                    className={buttonClass}
+                                    onClick={() => (handleCatClick(docCats))}
+                                  >{docCats}</button>
                                 </td>
-                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}><a href={null} >{row.docForWhom}</a>
+                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}><a href={null} >{docForWhom}</a>
                                 </td>
                               </tr>
                             )
