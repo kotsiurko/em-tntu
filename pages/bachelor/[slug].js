@@ -147,6 +147,22 @@ const BachelorPage = ({
         <Practices prList={bachPracticesList} />
       )}
 
+      {/* Е-навчання */}
+      {slug.current === "/bachelor/e-learning" && (
+        <section className="services">
+          <div className="container">
+            <div class="row gy-4">
+              <div class="col-lg-12 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-box blue" style={{ padding: 15 }} >
+                  <h3>ATutor</h3>
+                  <a href="#" class="read-more"><span>Сервер дистанційного навчання ТНТУ імені Івана Пулюя</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section >
+      )}
+
       {/* Page Content */}
       {slug.current !== "/bachelor/educational-plans" && (
         <PageContentSection data={bachelorPage} />
@@ -247,6 +263,7 @@ const BachelorPage = ({
       {slug.current === "/bachelor/educational-plans" && (
         <EduPlanList list={eduPlansList} />
       )}
+
     </>
   );
 };

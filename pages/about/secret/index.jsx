@@ -60,7 +60,7 @@ const SecretForm = ({ mainMenuQO, secretPage }) => {
       <section className="inner-page">
         <div className="container">
           <header className="section-header">
-            <p>КАФЕДРАЛЬНІ НАКАЗИ, РОЗПОРЯДЖЕННЯ ТА ПОЛОЖЕННЯ ПО КАФЕДРІ</p>
+            <p>НАКАЗИ, РОЗПОРЯДЖЕННЯ ТА ПОЛОЖЕННЯ ПО КАФЕДРІ</p>
           </header>
 
           <form onSubmit={handleSubmit}>

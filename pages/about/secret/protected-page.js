@@ -110,7 +110,7 @@ const ProtectedPage = ({
       <section className="inner-page">
         <div className="container">
           <header className="section-header">
-            <p>КАФЕДРАЛЬНІ НАКАЗИ, РОЗПОРЯДЖЕННЯ ТА ПОЛОЖЕННЯ ПО КАФЕДРІ</p>
+            <p>НАКАЗИ, РОЗПОРЯДЖЕННЯ ТА ПОЛОЖЕННЯ ПО КАФЕДРІ</p>
           </header>
 
           <div className="d-flex justify-content-between align-items-center mb-4">
@@ -150,6 +150,20 @@ const ProtectedPage = ({
           <div className="accordion" id="accordionExample">
 
             {selectedDocList.map(({ pageTitle, _id, docs }) => {
+              console.log('selectedDocList :>> ', selectedDocList);
+              console.log('docs :>> ', docs);
+              const sortedDocs = docs.sort((a, b) => {
+                // Порівнюємо дати у форматі "yyyy-mm-dd", які знаходяться у полях `publishedDate`
+                // Якщо `a` має більшу дату, ніж `b`, то `a` буде розташований перед `b` у відсортованому масиві
+                if (a.publishedDate > b.publishedDate) {
+                  return -1; // Передаємо `-1`, щоб `a` був розташований перед `b`
+                }
+                if (a.publishedDate < b.publishedDate) {
+                  return 1; // Передаємо `1`, щоб `b` був розташований перед `a`
+                }
+                return 0; // Повертаємо `0`, якщо дати рівні
+              });
+              console.log('sortedDocs :>> ', sortedDocs);
               return (
                 <div className="card" key={_id} style={{ "fontSize": "0.9rem" }}>
                   <div className="card-header" id="headingOne">
@@ -186,10 +200,10 @@ const ProtectedPage = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {docs && docs.map(row => {
+                          {docs && sortedDocs.map(row => {
                             return (
                               <tr key={row._key}>
-                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{moment(row.publishedDate).format("DD.MM")}</td>
+                                <td scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{moment(row.publishedDate).format("DD.MM.YY")}</td>
                                 <th scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{row.docNumber}</th>
                                 <td scope="row" style={{ verticalAlign: 'middle' }}><a href={row.docUrl} download>{row.docTitle}</a></td>
                                 <td scope="row" style={{ verticalAlign: 'middle' }}>
