@@ -149,16 +149,8 @@ const ProtectedPage = ({
 
           <div className="accordion" id="accordionExample">
 
+            {/* Групую документи за роками */}
             {selectedDocList.map(({ pageTitle, _id, docs }) => {
-              const sortedDocs = docs.sort((a, b) => {
-                if (a.publishedDate > b.publishedDate) {
-                  return -1; // Передаємо `-1`, щоб `a` був розташований перед `b`
-                }
-                if (a.publishedDate < b.publishedDate) {
-                  return 1; // Передаємо `1`, щоб `b` був розташований перед `a`
-                }
-                return 0; // Повертаємо `0`, якщо дати рівні
-              });
               return (
                 <div className="card" key={_id} style={{ "fontSize": "0.9rem" }}>
                   <div className="card-header" id="headingOne">
@@ -195,7 +187,8 @@ const ProtectedPage = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {docs && sortedDocs.map(row => {
+                          {/* Виводжу документи поточного року */}
+                          {docs.reverse().map(row => {
                             const { _key, publishedDate, docNumber, docUrl, docTitle, docCats, docForWhom } = row;
                             const buttonClass = (() => {
                               switch (docCats) {

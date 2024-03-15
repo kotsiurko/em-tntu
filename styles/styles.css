@@ -157,7 +157,7 @@ th.counter-width {
 }
 
 .new-image-container {
-    /* width: 250px; */
+    width: 240px;
     height: 180px;
     cursor: pointer;
 }
