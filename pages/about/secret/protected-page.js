@@ -141,7 +141,7 @@ const ProtectedPage = ({
               className="btn btn-primary"
               onClick={() => {
                 localStorage.removeItem("authenticated");
-                router.push("/secret");
+                router.push("/about/secret");
               }}>
               Вийти
             </button>
