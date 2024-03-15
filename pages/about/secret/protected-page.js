@@ -151,6 +151,10 @@ const ProtectedPage = ({
 
             {/* Групую документи за роками */}
             {selectedDocList.map(({ pageTitle, _id, docs }) => {
+              // перекрутити масив
+              const reversedDocsArr = docs.reverse();
+              console.log('docs :>> ', docs);
+              console.log('reversedDocsArr :>> ', reversedDocsArr);
               return (
                 <div className="card" key={_id} style={{ "fontSize": "0.9rem" }}>
                   <div className="card-header" id="headingOne">
@@ -188,7 +192,7 @@ const ProtectedPage = ({
                         </thead>
                         <tbody>
                           {/* Виводжу документи поточного року */}
-                          {docs.toReversed().map(row => {
+                          {reversedDocsArr.map(row => {
                             const { _key, publishedDate, docNumber, docUrl, docTitle, docCats, docForWhom } = row;
                             const buttonClass = (() => {
                               switch (docCats) {
