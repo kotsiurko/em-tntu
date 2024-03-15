@@ -188,7 +188,7 @@ const ProtectedPage = ({
                         </thead>
                         <tbody>
                           {/* Виводжу документи поточного року */}
-                          {docs.map(row => {
+                          {docs.toReversed().map(row => {
                             const { _key, publishedDate, docNumber, docUrl, docTitle, docCats, docForWhom } = row;
                             const buttonClass = (() => {
                               switch (docCats) {
