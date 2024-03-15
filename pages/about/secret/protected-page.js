@@ -152,7 +152,16 @@ const ProtectedPage = ({
             {/* Групую документи за роками */}
             {selectedDocList.map(({ pageTitle, _id, docs }) => {
               // перекрутити масив
-              const reversedDocsArr = docs.reverse();
+              // const reversedDocsArr = docs.reverse();
+              const reversedDocsArr = []
+
+              for (let i = docs.length - 1; i >= 0; i--) {
+                const valueAtIndex = docs[i]
+
+                reversedDocsArr.push(valueAtIndex)
+              }
+
+
               console.log('docs :>> ', docs);
               console.log('reversedDocsArr :>> ', reversedDocsArr);
               return (
