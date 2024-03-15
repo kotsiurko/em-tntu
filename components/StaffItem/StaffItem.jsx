@@ -435,7 +435,7 @@ const StaffItem = ({ personInfo }) => {
                             return (
                               <div
                                 className="new-image-container m-1"
-                                style={{ position: "relative", maxWidth: 250 }}
+                                style={{ position: "relative", maxWidth: 240 }}
                                 onClick={() => {
                                   setSelectedIndex(idx);
                                   setImgArr(null);

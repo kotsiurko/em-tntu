@@ -63,57 +63,6 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
-      {/* Фотоархів кафедри */}
-      {/* {asPath === "/intresting/photoarchive" && (
-        <section id="values" className="values">
-          <div className="container" data-aos="fade-up">
-            {photoarchive.map((el) => {
-              const { period, periodPhotos, _key } = el;
-
-              return (
-                <div key={_key}>
-                  <header className="section-header">
-                    <p>{period}</p>
-                  </header>
-
-                  <div className="flex-elements">
-                    {periodPhotos.map((photo, idx) => {
-                      return (
-                        <div
-                          className="new-image-container"
-                          style={{ position: "relative" }}
-                          onClick={() => {
-                            setSelectedIndex(idx);
-                            setImgArr(periodPhotos);
-                            setOpen(true);
-                          }}
-                          key={photo._key}
-                        >
-                          <Image
-                            src={urlFor(photo).url()}
-                            fill
-                            className="img-thumbnail rounded photo-archive-images"
-                            alt={photo.caption}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <hr />
-                </div>
-              );
-            })}
-          </div>
-
-          <LightBoxCustom
-            imageGallery={imgArr}
-            isOpen={open}
-            closeGallery={() => setOpen(false)}
-            index={selectedIndex}
-          />
-        </section>
-      )} */}
 
       {/* Публікації в пресі */}
       {asPath === "/intresting/press-publications" && (
