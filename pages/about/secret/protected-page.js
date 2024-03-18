@@ -151,19 +151,15 @@ const ProtectedPage = ({
 
             {/* Групую документи за роками */}
             {selectedDocList.map(({ pageTitle, _id, docs }) => {
-              // перекрутити масив
+              // перекручую масив, але чомусь
               // const reversedDocsArr = docs.reverse();
+              // не працює, тому перекручую звичайним перебором
               const reversedDocsArr = []
-
               for (let i = docs.length - 1; i >= 0; i--) {
                 const valueAtIndex = docs[i]
-
                 reversedDocsArr.push(valueAtIndex)
               }
 
-
-              console.log('docs :>> ', docs);
-              console.log('reversedDocsArr :>> ', reversedDocsArr);
               return (
                 <div className="card" key={_id} style={{ "fontSize": "0.9rem" }}>
                   <div className="card-header" id="headingOne">

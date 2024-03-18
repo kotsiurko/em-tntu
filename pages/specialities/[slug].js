@@ -31,6 +31,7 @@ const SpecialitiesPage = ({
   specialitiesPage,
   totalNewsAmountNonFormalEduc,
   totalNewsAmountDualEduc,
+  totalNewsAmountEventsWOLecturers,
   mainMenuQO,
 }) => {
   const { title, slug, alumni, metaDescription, bachAgreementList } =
@@ -56,6 +57,12 @@ const SpecialitiesPage = ({
         setTotalNewsAmount(totalNewsAmountDualEduc);
         res = await getPortion(page, "dualEducationBool");
       }
+      if (slug.current === "/specialities/events-with-other-lecturers") {
+        setNewsBool("eventsWOLecturersBool");
+        setTotalNewsAmount(totalNewsAmountEventsWOLecturers);
+        res = await getPortion(page, "eventsWOLecturersBool");
+      }
+      // /specialities/events-with-other-lecturers
       setResultQuery(res);
     }
 
@@ -73,6 +80,7 @@ const SpecialitiesPage = ({
     slug,
     totalNewsAmountDualEduc,
     totalNewsAmountNonFormalEduc,
+    totalNewsAmountEventsWOLecturers,
   ]);
 
   // MENU FORMATION PART ==============================================
@@ -124,7 +132,9 @@ const SpecialitiesPage = ({
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       {(slug.current === "/specialities/non-formal-education" ||
-        slug.current === "/specialities/dual-education") && (
+        slug.current === "/specialities/dual-education" ||
+        slug.current === "/specialities/events-with-other-lecturers"
+      ) && (
           <section id="team" className="team">
             <div className="container" data-aos="fade-up">
               <header className="section-header">
@@ -230,6 +240,10 @@ export async function getStaticProps({ params: { slug } }) {
     `count(*[_type == "news" && dualEducationBool])`
   );
 
+  const totalNewsAmountEventsWOLecturers = await client.fetch(
+    `count(*[_type == "news" && eventsWOLecturersBool])`
+  )
+
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   if (slug === "stakeholders") {
@@ -247,6 +261,7 @@ export async function getStaticProps({ params: { slug } }) {
       specialitiesPage,
       totalNewsAmountNonFormalEduc,
       totalNewsAmountDualEduc,
+      totalNewsAmountEventsWOLecturers,
       mainMenuQO,
     },
   };
