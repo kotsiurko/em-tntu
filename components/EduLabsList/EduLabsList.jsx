@@ -35,7 +35,7 @@ function EduLabsList({ labsList }) {
       <div className="container">
         <div className="row feature-icons">
           <div className="row gx-0">
-            <h3>Навчальні лабораторії</h3>
+            <h3>Навчальні аудиторії</h3>
 
             <table className="table table-striped table-hover table-sm">
               <tbody>

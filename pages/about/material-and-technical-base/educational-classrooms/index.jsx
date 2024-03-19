@@ -19,7 +19,6 @@ import { getPortion } from "lib/helpers";
 // Components
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
 import EduLabsList from "components/EduLabsList/EduLabsList";
@@ -137,7 +136,7 @@ export async function getStaticProps() {
   const eduLabsPage = await client.fetch(
     chapterItemQuery(
       "about-mtb",
-      `/about/material-and-technical-base/educational-labs`
+      `/about/material-and-technical-base/educational-classrooms`
     )
   );
   const totalNewsAmount = await client.fetch(

@@ -69,11 +69,6 @@ export const menuItems = [
         url: "/specialities/thematic-excursions",
         id: 260,
       },
-      // {
-      //   title: "Події з викладачами інших кафедр",
-      //   url: "/specialities/events-with-other-lecturers",
-      //   id: 295,
-      // },
     ],
   },
   {
