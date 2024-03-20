@@ -84,15 +84,17 @@ const DevsOfStudents = ({ totalNewsAmount, mainMenuQO }) => {
         subPageTitle="Розробки студентів"
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Розробки студентів</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>РОЗРОБКИ СТУДЕНТІВ</p>
-          </header>
 
           <div className="row gy-4">
-            {/* <NewsItems currentItems={dataFromChild} /> */}
             <NewsItems currentItems={resultQuery} />
           </div>
 

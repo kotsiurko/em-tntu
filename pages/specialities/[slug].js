@@ -114,6 +114,12 @@ const SpecialitiesPage = ({
         pageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {/* Page Content */}
       {slug.current !== "/specialities/events-with-other-lecturers" && <PageContentSection data={specialitiesPage} />}
 
@@ -132,20 +138,20 @@ const SpecialitiesPage = ({
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       {(slug.current === "/specialities/non-formal-education" ||
+        slug.current === "/specialities/dual-education"
+      ) && (
+          <section className="features my-personal">
+            <div className="row feature-icons">
+              <h3>Події розділу</h3>
+            </div>
+          </section>
+        )
+      }
+      {(slug.current === "/specialities/non-formal-education" ||
         slug.current === "/specialities/dual-education" ||
         slug.current === "/specialities/events-with-other-lecturers"
       ) && (
           <>
-            <section className="features my-personal">
-              <div className="container">
-                <div className="row feature-icons">
-                  <div className="row gx-0">
-                    <h3>{title}</h3>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             <section id="team" className="team">
               <div className="container" data-aos="fade-up">
                 <div className="row gy-4">

@@ -143,6 +143,12 @@ const BachelorPage = ({
         pageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {slug.current === "/bachelor/practices" && (
         <Practices prList={bachPracticesList} />
       )}
@@ -238,9 +244,6 @@ const BachelorPage = ({
       {slug.current === "/bachelor/academic-honesty" && (
         <section id="team" className="team">
           <div className="container">
-            <header className="section-header">
-              <p>Події розділу</p>
-            </header>
 
             <div className="row gy-4">
               <NewsItems currentItems={resultQuery} />

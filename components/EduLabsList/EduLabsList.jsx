@@ -8,28 +8,6 @@ import TeachingSubjectItems from "components/TeachingSubjectItems/TeachingSubjec
 import { urlFor } from "lib/client";
 
 function EduLabsList({ labsList }) {
-  // console.log("labsList :>> ", labsList);
-
-  // const [show, setShow] = useState(false);
-  // const showModal = () => {
-  //   setShow(true);
-  // };
-  // const hideModal = () => {
-  //   setShow(false);
-  // };
-
-  // const [modalRoom, setModalRoom] = useState("");
-  // const [modalRoomObj, setModalRoomObj] = useState("");
-  // const [open, setOpen] = useState(false);
-  // const closeGallery = (state) => {
-  //   setOpen(state);
-  // };
-
-  // useEffect(() => {
-  //   const currEduLab = labsList.filter((el) => el.labNumber === modalRoom)[0];
-  //   setModalRoomObj(currEduLab);
-  // }, [modalRoom]);
-
   return (
     <section className="features my-personal">
       <div className="container">

@@ -80,13 +80,15 @@ const CommunicWithSH = ({ totalNewsAmount, mainMenuQO }) => {
         subPageTitle="Комунікацї зі стейкхолдерами"
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Комунікації зі стейкхолдерами</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>КОМУНІКАЦІЇ ЗІ СТЕЙКХОЛДЕРАМИ</p>
-          </header>
-
           <div className="row gy-4">
             <NewsItems currentItems={resultQuery} />
           </div>

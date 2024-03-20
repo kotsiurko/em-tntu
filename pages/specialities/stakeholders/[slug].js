@@ -59,6 +59,12 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
         subPageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
 
       {slug.current !== "/specialities/stakeholders/cooperation-agreements" && (
         <PageContentSection data={stakeholdersPage} />

@@ -81,13 +81,15 @@ const NewsList = ({ totalNewsAmount, mainMenuQO }) => {
         pageUrl="/about/news"
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Події на кафедрі</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container">
-          <header className="section-header">
-            <p>НОВИНИ КАФЕДРИ</p>
-          </header>
-
           <div className="row gy-4">
             <NewsItems currentItems={resultQuery} />
           </div>
