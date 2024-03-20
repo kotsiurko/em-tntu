@@ -115,7 +115,7 @@ const SpecialitiesPage = ({
       />
 
       {/* Page Content */}
-      <PageContentSection data={specialitiesPage} />
+      {slug.current !== "/specialities/events-with-other-lecturers" && <PageContentSection data={specialitiesPage} />}
 
       {/* Сторінка ДУАЛЬНА ОСВІТА */}
       {slug.current === "/specialities/dual-education" && (
@@ -135,29 +135,37 @@ const SpecialitiesPage = ({
         slug.current === "/specialities/dual-education" ||
         slug.current === "/specialities/events-with-other-lecturers"
       ) && (
-          <section id="team" className="team">
-            <div className="container" data-aos="fade-up">
-              <header className="section-header">
-                <p>Події розділу</p>
-              </header>
-
-              <div className="row gy-4">
-                <NewsItems currentItems={resultQuery} />
+          <>
+            <section className="features my-personal">
+              <div className="container">
+                <div className="row feature-icons">
+                  <div className="row gx-0">
+                    <h3>{title}</h3>
+                  </div>
+                </div>
               </div>
+            </section>
 
-              {/* PAGINATION BLOCK STARTS */}
-              {totalNewsAmount > newsPerPage && (
-                <NewPagination
-                  totalNewsAmount={totalNewsAmount}
-                  currPage={currPage}
-                  setResultQuery={setResultQuery}
-                  setCurrPage={setCurrPage}
-                  newsBool={newsBool}
-                />
-              )}
-              {/* PAGINATION BLOCK ENDS */}
-            </div>
-          </section>
+            <section id="team" className="team">
+              <div className="container" data-aos="fade-up">
+                <div className="row gy-4">
+                  <NewsItems currentItems={resultQuery} />
+                </div>
+
+                {/* PAGINATION BLOCK STARTS */}
+                {totalNewsAmount > newsPerPage && (
+                  <NewPagination
+                    totalNewsAmount={totalNewsAmount}
+                    currPage={currPage}
+                    setResultQuery={setResultQuery}
+                    setCurrPage={setCurrPage}
+                    newsBool={newsBool}
+                  />
+                )}
+                {/* PAGINATION BLOCK ENDS */}
+              </div>
+            </section>
+          </>
         )}
       {/* ======= End Team-Staff Page Section ======= */}
 
