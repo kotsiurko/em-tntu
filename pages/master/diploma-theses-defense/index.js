@@ -80,13 +80,16 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
         pageUrl="/master/diploma-theses-defense"
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Захисти дипломних робіт магістрів</h3>
+        </div>
+      </section>
+
       {/* NEWS LIST */}
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>Захисти дипломних робіт магістрів</p>
-          </header>
 
           <div className="row gy-4">
             <NewsItems currentItems={resultQuery} />

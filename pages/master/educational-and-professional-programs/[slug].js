@@ -55,6 +55,12 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO, guarantorsList }) => {
         subPageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {/* Page Content */}
       <PageContentSection data={masterEPPPage} />
 

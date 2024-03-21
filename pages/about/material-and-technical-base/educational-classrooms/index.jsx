@@ -86,14 +86,20 @@ const EduLabsPage = ({ eduLabsPage, totalNewsAmount, mainMenuQO }) => {
         subPageUrl={slug.current}
       />
 
+      <section className="features my-personal container">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       <EduLabsList labsList={labsList} />
 
       <section className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
+          {/* <header className="section-header">
             <p>Події розділу</p>
-          </header>
+          </header> */}
 
           <div className="row gy-4">
             <NewsItems currentItems={resultQuery} />

@@ -41,7 +41,6 @@ const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
     lab3DTour,
     labGallery,
   } = currEduLab;
-  // console.log("currEduLab :>> ", currEduLab);
   // // MENU FORMATION PART ==============================================
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -79,15 +78,21 @@ const EduLabPage = ({ eduLabPage, mainMenuQO, currSlug }) => {
         subPageUrl={slug.current}
       />
 
+      <section className="features my-personal container">
+        <div className="row feature-icons">
+          <h3>{labNumber} – {labTitle}</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       {/* <EduLabsList labsList={labsList} /> */}
       <section className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
+          {/* <header className="section-header">
             <p>
               {labNumber} – {labTitle}
             </p>
-          </header>
+          </header> */}
 
           {/* <div className="row gy-4">
             <p>Some info</p>
@@ -195,7 +200,7 @@ export async function getStaticProps({ params: { slug } }) {
   const eduLabPage = await client.fetch(
     chapterItemQuery(
       "about-mtb",
-      `/about/material-and-technical-base/educational-labs`
+      `/about/material-and-technical-base/educational-classrooms`
     )
   );
 

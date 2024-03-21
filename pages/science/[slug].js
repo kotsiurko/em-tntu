@@ -50,9 +50,15 @@ const SciencePage = ({ chapterPage, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {!sciPublTypes && <PageContentSection data={chapterPage} />}
 
-      {/* {sciPublTypes && Компонент, що відображає сторінку із вкладками} */}
+      {/* Сторінка Головні наукові публікації */}
       {sciPublTypes && <SciPublTypes data={chapterPage} />}
 
       {slug.current === "/science/students-scientific-activity" && (

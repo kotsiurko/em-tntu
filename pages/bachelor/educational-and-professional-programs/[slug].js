@@ -55,6 +55,12 @@ const BachelorPPPage = ({ bachelorEPPPage, mainMenuQO, guarantorsList }) => {
         subPageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       <PageContentSection data={bachelorEPPPage} />
 
       {slug.current === '/bachelor/educational-and-professional-programs/programs-and-guarantor' &&

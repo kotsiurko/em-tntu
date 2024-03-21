@@ -79,13 +79,15 @@ const BachelorEppMeetings = ({ totalNewsAmount, mainMenuQO }) => {
         subPageUrl="/bachelor/educational-and-professional-programs/meetings"
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Зустрічі</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>ЗУСТРІЧІ</p>
-          </header>
-
           <div className="row gy-4">
             <NewsItems currentItems={resultQuery} />
           </div>

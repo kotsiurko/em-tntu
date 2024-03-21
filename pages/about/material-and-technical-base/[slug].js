@@ -61,6 +61,12 @@ const AboutMTBPage = ({ aboutMTBPage, totalNewsAmount, mainMenuQO }) => {
         subPageUrl={slug.current}
       />
 
+      <section className="features my-personal container">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {/* < !-- ======= Features Section ======= --> */}
       {slug.current !==
         "/about/material-and-technical-base/educational-labs" && (

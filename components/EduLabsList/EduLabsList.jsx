@@ -12,34 +12,26 @@ function EduLabsList({ labsList }) {
     <section className="features my-personal">
       <div className="container">
         <div className="row feature-icons">
-          <div className="row gx-0">
-            <h3>Навчальні аудиторії</h3>
-
-            <table className="table table-striped table-hover table-sm">
-              <tbody>
-                <tr>
-                  <th>Номер</th>
-                  <th>Назва лабораторії (аудиторії)</th>
-                  <th>Площа, кв.м.</th>
-                  <th>К-ть. місць</th>
-                </tr>
-                {labsList.map((el) => {
-                  const {
-                    _key,
-                    labNumber,
-                    labTitle,
-                    labArea,
-                    labSittingPlaces,
-                  } = el;
-                  return (
-                    <tr key={_key}>
-                      <td>
-                        <Link
-                          href={`/about/material-and-technical-base/educational-labs/${labNumber}`}
-                        >
-                          {labNumber}
-                        </Link>
-                        {/* <button
+          <table className="table table-striped table-hover table-sm">
+            <tbody>
+              <tr>
+                <th>Номер</th>
+                <th>Назва лабораторії (аудиторії)</th>
+                <th>Площа, кв.м.</th>
+                <th>К-ть. місць</th>
+              </tr>
+              {labsList.map((el) => {
+                const { _key, labNumber, labTitle, labArea, labSittingPlaces } =
+                  el;
+                return (
+                  <tr key={_key}>
+                    <td>
+                      <Link
+                        href={`/about/material-and-technical-base/educational-classrooms/${labNumber}`}
+                      >
+                        {labNumber}
+                      </Link>
+                      {/* <button
                           type="button"
                           // className="btn btn-outline-primary mt-3"
                           onClick={() => {
@@ -49,23 +41,22 @@ function EduLabsList({ labsList }) {
                         >
                           {labNumber}
                         </button> */}
-                      </td>
-                      <td>
-                        <Link
-                          href={`/about/material-and-technical-base/educational-labs/${labNumber}`}
-                        >
-                          {labTitle}
-                        </Link>
-                      </td>
-                      {/* <td>{labTitle}</td> */}
-                      <td align="center">{labArea}</td>
-                      <td align="center">{labSittingPlaces}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                    </td>
+                    <td>
+                      <Link
+                        href={`/about/material-and-technical-base/educational-classrooms/${labNumber}`}
+                      >
+                        {labTitle}
+                      </Link>
+                    </td>
+                    {/* <td>{labTitle}</td> */}
+                    <td align="center">{labArea}</td>
+                    <td align="center">{labSittingPlaces}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
       {/* ---------------------------------------------- */}

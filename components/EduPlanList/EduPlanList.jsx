@@ -13,8 +13,8 @@ function EduPlanList({ list }) {
   };
 
   return (
-    <section className="features guaranors">
-      <div className="container aos-init aos-animate" data-aos="fade-up">
+    <section className="features guaranors pt-2">
+      <div className="container aos-init aos-animate py-4" data-aos="fade-up">
         {list?.map((el, index) => {
           const { eduPlanTitle, eduPlanURL, _key } = el;
           const isOpen = openedDocIndex === index;
