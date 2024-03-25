@@ -106,6 +106,12 @@ const EducationalActivityPage = ({
         pageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
       {/* Page Content */}
       <PageContentSection data={educationalActivityPage} />
 

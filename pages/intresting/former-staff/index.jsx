@@ -3,7 +3,6 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 // Client connection
-// Client connection
 import { menuItems } from "components/Header/menuItems";
 import { client } from "lib/client";
 import { staffListQuery, mainMenuQueriesObjCreator } from "lib/queries";
@@ -53,13 +52,15 @@ const FormerStaff = ({ staffData, mainMenuQO }) => {
         pageUrl="/intresting/former-staff"
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Працювали на кафедрі</h3>
+        </div>
+      </section>
+
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
-          <header className="section-header">
-            <p>ПРАЦЮВАЛИ НА КАФЕДРІ</p>
-          </header>
-
           <StaffList staff={sortedArray} />
         </div>
       </section>

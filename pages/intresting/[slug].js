@@ -63,14 +63,17 @@ const Intresting = ({ intrestingData, mainMenuQO }) => {
         pageUrl={slug.current}
       />
 
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>{title}</h3>
+        </div>
+      </section>
+
 
       {/* Публікації в пресі */}
       {asPath === "/intresting/press-publications" && (
         <section id="values" className="values">
           <div className="container" data-aos="fade-up">
-            <header className="section-header header-publication">
-              <p>{title}</p>
-            </header>
 
             {pressPublications.map((el) => {
               // console.log('el :>> ', el);
