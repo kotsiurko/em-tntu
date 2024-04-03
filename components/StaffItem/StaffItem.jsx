@@ -60,6 +60,7 @@ const StaffItem = ({ personInfo }) => {
     certificates,
     awards,
     teachingSubjectList,
+    contactEmail,
     otherInfo,
     imageGallery,
   } = personInfo;
@@ -138,6 +139,7 @@ const StaffItem = ({ personInfo }) => {
                     <h3>{name}</h3>
                     {sciDegreeFull && (
                       <h5>
+                        <hr />
                         Науковий ступінь:{" "}
                         <span className="h5">{sciDegreeFull}</span>
                       </h5>
@@ -157,6 +159,17 @@ const StaffItem = ({ personInfo }) => {
                         Додатково:{" "}
                         <span className="h5">{additional_requisites}</span>
                       </h5>
+                    )}
+                    {contactEmail && (
+                      <>
+                        <hr />
+                        <Link
+                          href={`mailto:${contactEmail}`}
+                          style={{ fontSize: 20 }}
+                        >
+                          {contactEmail}
+                        </Link>
+                      </>
                     )}
                     <h5 className="pt-2">
                       {!(
