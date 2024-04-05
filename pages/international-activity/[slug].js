@@ -127,7 +127,9 @@ const InternationalActivityPage = ({
       </section>
 
       {/* Page Content */}
-      {/* <PageContentSection data={internationalActivityPage} /> */}
+      {slug.current !== "/international-activity/international-partners" &&
+        <PageContentSection data={internationalActivityPage} />
+      }
 
       {slug.current === "/international-activity/programs-trainings-projects" && <section id="team" className="team">
         <div className="container" data-aos="fade-up">
