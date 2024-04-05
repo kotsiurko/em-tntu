@@ -16,6 +16,7 @@ import Header from 'components/Header/Header';
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from 'components/PageContentSection/PageContentSection';
 import NewsItems from 'components/NewsItems/NewsItems';
+import ImageTextItems from 'components/ImageTextItems/ImageTextItems';
 import NewPagination from "components/Pagination/NewPagination";
 
 // -----------------------------------------------------------------
@@ -34,6 +35,7 @@ const InternationalActivityPage = ({
     title,
     slug,
     metaDescription,
+    intProgsTrainsAndProjects,
   } = internationalActivityPage;
   const router = useRouter();
 
@@ -125,7 +127,34 @@ const InternationalActivityPage = ({
       </section>
 
       {/* Page Content */}
-      <PageContentSection data={internationalActivityPage} />
+      {/* <PageContentSection data={internationalActivityPage} /> */}
+
+      {slug.current === "/international-activity/programs-trainings-projects" && <section id="team" className="team">
+        <div className="container" data-aos="fade-up">
+          {/* <header className="section-header">
+            <p>Події розділу</p>
+          </header> */}
+
+
+          <div className="row gy-4">
+            <ImageTextItems currentItems={intProgsTrainsAndProjects} />
+          </div>
+
+          {/* PAGINATION BLOCK STARTS */}
+          {/* {(totalNewsAmount > newsPerPage) && (
+            <NewPagination
+              totalNewsAmount={totalNewsAmount}
+              currPage={currPage}
+              setResultQuery={setResultQuery}
+              setCurrPage={setCurrPage}
+              newsBool={newsBool}
+            />
+          )} */}
+          {/* PAGINATION BLOCK ENDS */}
+
+
+        </div>
+      </section>}
 
       {/* ======= Inner Page Team-Staff Section ======= */}
       {slug.current !== "/international-activity/international-partners" && <section id="team" className="team">
