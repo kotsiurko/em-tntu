@@ -15,9 +15,10 @@ import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
-import HeroesList from "../../components/HeroesList/HeroesList";
+import HeroesList from "components/HeroesList/HeroesList";
 
 const OtherPage = ({ chapterPage, mainMenuQO }) => {
+  // console.log('chapterPage :>> ', chapterPage);
   const { title, slug, metaDescription, heroesList } = chapterPage;
 
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
@@ -63,23 +64,25 @@ const OtherPage = ({ chapterPage, mainMenuQO }) => {
 
 export default OtherPage;
 
-export async function getStaticPaths() {
-  const query = slugCurrent("other");
+// export async function getStaticPaths() {
+//   const query = slugCurrent("other");
 
-  const pages = await client.fetch(query);
-  const paths = pages.map((page) => ({
-    params: {
-      slug: page.slug.current,
-    },
-  }));
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
+//   const pages = await client.fetch(query);
+//   const paths = pages.map((page) => ({
+//     params: {
+//       slug: page.slug.current,
+//     },
+//   }));
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// }
 
-export async function getStaticProps({ params: { slug } }) {
-  const chapterPage = await client.fetch(chapterPageQuery("other", slug));
+export async function getStaticProps() {
+  // const chapterPage = await client.fetch(chapterPageQuery("other", slug));
+  const chapterPage = await client.fetch(`*[_type == "other"][0]`);
+  // `*[_type == "person"]
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
