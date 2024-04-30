@@ -1,11 +1,7 @@
 // Client connection
 import { urlFor } from "lib/client";
-// import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
-// import Header from "components/Header/Header";
-// import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-// import PageContentSection from "components/PageContentSection/PageContentSection";
 import Image from "next/image";
 import Link from "next/link";
 import TextContent from "components/TextContent/TextContent";
@@ -19,13 +15,10 @@ function HeroItem({ heroPerson }) {
     secondaryText,
     body,
     heroPublications,
-    _key,
   } = heroPerson;
 
   return (
-    <div key={_key} className="my-2">
-      <hr className="my-5" />
-      {/* <hr /> */}
+    <div className="my-2">
       {/* БЛОК З ФОТО ТА ПРЕДСТАВЛЕННЯМ */}
       <div className="d-flex justify-content-center align-items-center flex-wrap">
         <div className="col-xl-4 pt-2 px-2 d-flex">
