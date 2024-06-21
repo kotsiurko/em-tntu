@@ -3,23 +3,26 @@ import TextContent from "../TextContent/TextContent";
 import { useRouter } from "next/router";
 
 function SciPublTypes({ data }) {
-  // console.log("data :>> ", data);
   const { sciPublTypes } = data;
-  // const router = useRouter();
-  // console.log("router :>> ", router);
+  const router = useRouter();
 
+  console.log("sciPublTypes :>> ", sciPublTypes);
   // тут з адресного рядка витягувати активну табу, а якщо такої нема, то тоді першу табу відображати
-  const [activeTab, setActiveTab] = useState(sciPublTypes[0].sciPublType);
+  const [activeTab, setActiveTab] = useState(sciPublTypes[0]._key);
 
-  // useEffect(() => {
-  //   if (router.asPath.includes(`${router.query.slug}#`)) {
-  //     console.log(
-  //       'router.asPath.split("/main-scientific-publications#")[1] :>> ',
-  //       router.asPath.split("/main-scientific-publications#")[1]
-  //     );
-  //     setActiveTab(router.asPath.split("/main-scientific-publications#")[1]);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (router.asPath.includes(`${router.query.slug}#`)) {
+      // 1. ПРОЧИТАТИ ПІСЛЯ СЛЕША НАЗВУ ВКЛАДКИ
+      const cuttedTab = router.asPath.split(
+        "/main-scientific-publications#"
+      )[1];
+
+      // 2. ЗРОБИТИ АКТИВНОЮ ВІДПОВІДНУ ВКЛАДКУ
+      setActiveTab(cuttedTab);
+
+      setActiveTab(router.asPath.split("/main-scientific-publications#")[1]);
+    }
+  }, [router.asPath, router.query.slug]);
 
   return (
     <section className="features my-personal">
@@ -30,18 +33,16 @@ function SciPublTypes({ data }) {
             <nav>
               <div className="nav nav-tabs" id="nav-tab" role="tablist">
                 {sciPublTypes.map((el) => {
-                  // console.log("el :>> ", el);
                   const { sciPublType, _key } = el;
                   return (
                     <a
                       className={
-                        activeTab === sciPublType
+                        activeTab === _key
                           ? `nav-item nav-link active`
                           : `nav-item nav-link`
                       }
-                      // href={`#${sciPublType}`}
-                      href="tab-link"
-                      onClick={() => setActiveTab(sciPublType)}
+                      href={`#${_key}`}
+                      onClick={() => setActiveTab(_key)}
                       key={_key}
                     >
                       <b style={{ textTransform: "uppercase" }}>
@@ -53,14 +54,16 @@ function SciPublTypes({ data }) {
               </div>
             </nav>
 
+            {/* {activeTab} */}
             <div className="row align-self-start content text-justify">
               <div className="icon-box my-dstyle mt-4 tab-content">
                 {sciPublTypes.map((el) => {
                   const { sciPublType, publBody, _key } = el;
+                  console.log("publBody :>> ", publBody);
                   return (
                     <div
                       className={
-                        activeTab === sciPublType
+                        activeTab === _key
                           ? `tab-pane fade show active`
                           : `tab-pane fade`
                       }
