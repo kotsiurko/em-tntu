@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const StaffList = ({ staff }) => {
-  // console.log("staff :>> ", staff);
   return (
     <div className="row gy-4">
       {staff.map(
@@ -12,6 +11,7 @@ const StaffList = ({ staff }) => {
           firstName,
           secondName,
           fatherName,
+          gender,
           sciDegree,
           sciDegreeShort,
           acadStatus,
@@ -56,7 +56,8 @@ const StaffList = ({ staff }) => {
                       sciDegreeShort,
                       acadStatus,
                       position,
-                      additional_requisites
+                      additional_requisites,
+                      gender
                     )}
                   </span>
                   {/* Якщо доп. персонал, то розкладу непотрібно */}

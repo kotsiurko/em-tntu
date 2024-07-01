@@ -10,6 +10,7 @@ import RepeatingLists from "components/RepeatingLists/RepeatingLists";
 import Image from "next/image";
 import Link from "next/link";
 import { personPageTitle } from "lib/helpers";
+import { gT } from "lib/genderTranslates";
 
 // Profile logos
 import tntuNTBLogo from "../../public/images/profileLogos/tntulibrary.jpg";
@@ -34,11 +35,14 @@ const StaffItem = ({ personInfo }) => {
     setOpen(state);
   };
 
+  // console.log("PersonInfo: ", personInfo);
+
   const {
     mainPhoto,
     firstName,
     secondName,
     fatherName,
+    gender,
     sciDegreeFull,
     acadStatus,
     position,
@@ -76,9 +80,9 @@ const StaffItem = ({ personInfo }) => {
 
   const fullPosition = () => {
     if (position === "доцент" || position === "професор") {
-      return `${position} ${position_continue}`;
+      return `${gT(position, gender)} ${position_continue}`;
     } else {
-      return position;
+      return gT(position, gender);
     }
   };
 
@@ -146,7 +150,7 @@ const StaffItem = ({ personInfo }) => {
                     )}
                     {acadStatus !== "Немає" && (
                       <h5>
-                        Вчене звання: <span className="h5">{acadStatus}</span>
+                        Вчене звання: <span className="h5">{gT(acadStatus, gender)}</span>
                       </h5>
                     )}
                     {position && (
