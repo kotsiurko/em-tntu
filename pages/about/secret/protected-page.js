@@ -185,7 +185,7 @@ const ProtectedPage = ({
                     data-parent="#accordionExample"
                   >
                     <div className="card-body">
-                      <table className="table table-striped table-hover table-sm">
+                      <table className="table table-hover table-sm">
                         <thead>
                           <tr style={{ textAlign: 'center' }}>
                             <th scope="col" style={{ minWidth: "50px" }}>Дата</th>
