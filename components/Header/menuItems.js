@@ -210,7 +210,7 @@ export const menuItems = [
       {
         title:
           "Конференція ФПТ “Advanced Applied Energy and Information Technologies”",
-        url: "https://icaaeit.tntu.org.ua/",
+        url: "https://elartu.tntu.edu.ua/handle/lib/36264",
         id: 635,
       },
       {
