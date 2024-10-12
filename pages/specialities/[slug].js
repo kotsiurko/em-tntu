@@ -178,9 +178,9 @@ const SpecialitiesPage = ({
       {alumni && (
         <section id="team" className="team">
           <div className="container" data-aos="fade-up">
-            <header className="section-header">
+            {/* <header className="section-header">
               <p>Наші випускники</p>
-            </header>
+            </header> */}
 
             <div className="row gy-4">
               {alumni.map((el) => {
