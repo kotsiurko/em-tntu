@@ -122,13 +122,13 @@ function GuarantorsItem({ person }) {
                       <button onClick={() => handleProgramClick(index)}>
                         {isOpen ? "Закрити" : "Переглянути"}
                       </button>
-                      <hr />
+                      {/* <hr />
 
                       <Link
                         href={`${chapter}/educational-and-professional-programs/reviews`}
                       >
                         Рецензії
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                   {isOpen && (
