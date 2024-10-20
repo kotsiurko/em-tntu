@@ -3,84 +3,52 @@ import { useState } from "react";
 import DocsViewer from "../DocsViewer/DocsViewer";
 
 function ReviewsList({ personList }) {
-  const res = personList.map((person) => {
-    return person.edGuarantee.map((op) => {
-      return {
-        programTitle: op.edProgTitle,
-        reviewList: op.edProgReviewsList,
-        guarantor: person,
-        key: op._key,
-      };
-    });
-  });
-  const reviewArr = res.flat();
+  const allReviews = personList
+    .flatMap((person) => person.edGuarantee) // Витягуємо масив edGuarantee
+    .flatMap((op) => op.edProgReviewsList || []); // Витягуємо масив рецензій, якщо він є
 
-  const [isOPPOpen, setIsOPPOpen] = useState(false);
-  const [opp_URL, setOpp_URL] = useState();
+  // console.log("allReviews", allReviews);
 
-  const handleReviewClick = (edProgReviewURL) => {
-    if (isOPPOpen === false && opp_URL !== edProgReviewURL) {
-      setIsOPPOpen(true);
-      setOpp_URL(edProgReviewURL);
-    }
-    if (isOPPOpen === true && opp_URL === edProgReviewURL) {
-      setIsOPPOpen(false);
-      setOpp_URL(null);
-    }
-    if (isOPPOpen === true && opp_URL !== edProgReviewURL) {
-      setIsOPPOpen(true);
-      setOpp_URL(edProgReviewURL);
-    }
+  const [openedDocIndex, setOpenedDocIndex] = useState(null);
+
+  const handleProgramClick = (index) => {
+    setOpenedDocIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
-    <section className="features guaranors">
-      <div className="container aos-init aos-animate" data-aos="fade-up">
-        {reviewArr.map((el) => {
-          const { programTitle, reviewList } = el;
+    <section className="features guaranors pt-2">
+      <div className="container aos-init aos-animate py-4" data-aos="fade-up">
+        {allReviews?.map((el, index) => {
+          const { edProgReviewTitle, edProgReviewURL, _key } = el;
+          const isOpen = openedDocIndex === index;
 
           return (
             <div
-              className="row feture-tabs"
-              data-aos="fade-up"
-              key={programTitle}
+              className="col-md-12 m-2"
+              data-aos="zoom-out"
+              data-aos-delay="100"
+              key={_key}
             >
-              <div className="col-lg-12">
-                <div className="tab-content">
-                  <div className="tab-pane fade show active">
-                    {reviewList?.map((el) => {
-                      const { edProgReviewTitle, edProgReviewURL, _key } = el;
-                      return (
-                        <div
-                          className="d-flex align-items-center justify-content-between"
-                          key={_key}
-                        >
-                          <div className="d-flex align-items-center mb-2">
-                            <i className="bi bi-check2"></i>
-                            <h4>{edProgReviewTitle}</h4>
-                          </div>
-                          <div className="d-flex align-items-center mb-2">
-                            <button
-                              onClick={() => handleReviewClick(edProgReviewURL)}
-                            >
-                              {((isOPPOpen && opp_URL !== edProgReviewURL) ||
-                                !isOPPOpen) && <>Переглянути</>}
-                              {isOPPOpen && opp_URL === edProgReviewURL && (
-                                <>Закрити </>
-                              )}
-                            </button>
-                            <span>&nbsp;|&nbsp;</span>
-                            <Link href={edProgReviewURL}>Завантажити</Link>
-                          </div>
-                        </div>
-                      );
-                    })}
-                    <div className="mt-4">
-                      {isOPPOpen && <DocsViewer docURL={opp_URL} />}
-                    </div>
-                  </div>
+              <div className="feature-box d-flex align-items-center justify-content-between">
+                <div className="d-flex align-items-center">
+                  <Link href={edProgReviewURL}>
+                    <i className="bi bi-cloud-download"></i>
+                  </Link>
+                  <h3>{edProgReviewTitle}</h3>
                 </div>
+
+                <button
+                  onClick={() => handleProgramClick(index)}
+                  style={{ width: 120 }}
+                >
+                  {isOpen ? "Закрити" : "Переглянути"}
+                </button>
               </div>
+              {isOpen && (
+                <div className="mt-4">
+                  <DocsViewer docURL={edProgReviewURL} />
+                </div>
+              )}
             </div>
           );
         })}

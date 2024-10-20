@@ -61,7 +61,6 @@ const MasterPPPage = ({ masterEPPPage, mainMenuQO, guarantorsList }) => {
         </div>
       </section>
 
-      {/* Page Content */}
       <PageContentSection data={masterEPPPage} />
 
       {slug.current === '/master/educational-and-professional-programs/programs-and-guarantor' &&
@@ -92,13 +91,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
 
-  // const masterEPPPage = await client.fetch(
-  //   `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}
-  //   {..., 'filteredPerson': *[_type == 'person' && _id in ^.personReferences[]._ref]}`
-  // );
   const masterEPPPage = await client.fetch(
     `${chapterItemQuery('master-epp', `/master/educational-and-professional-programs/${slug}`)}`
   );
+
   const guarantorsList = await client.fetch(`*[_type == 'person' && edGuaranteeLevel == 'другий']`);
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
