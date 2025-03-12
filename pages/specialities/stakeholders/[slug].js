@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import Head from 'next/head'
+import Head from "next/head";
 
 // Client connection
-import { menuItems } from 'components/Header/menuItems';
+import { menuItems } from "components/Header/menuItems";
 import { client } from "lib/client";
-import { mainMenuQueriesObjCreator, chapterItemQuery, slugCurrent } from 'lib/queries';
-import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
+import {
+  mainMenuQueriesObjCreator,
+  chapterItemQuery,
+  slugCurrent,
+} from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 
 // Components
 import Header from "/components/Header/Header";
@@ -14,33 +18,23 @@ import PageContentSection from "components/PageContentSection/PageContentSection
 import DocsViewer from "../../../components/DocsViewer/DocsViewer";
 import TitleAndLinkList from "../../../components/TitleAndLinkList/TitleAndLinkList";
 
-
-
 const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
-
-  const { title, slug, metaDescription, coopAgreementList, docURL } = stakeholdersPage;
+  const { title, slug, metaDescription, coopAgreementList, docURL } =
+    stakeholdersPage;
 
   // MENU FORMATION PART ==============================================
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
-
-    const menuObj = menuItemsMerger(
-      menuItems,
-      mainMenuQO,
-    )
+    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
 
     setMainMenuArr((prevState) => {
       if (prevState) {
-        return menuCreator(
-          menuObj,
-          prevState,
-        )
+        return menuCreator(menuObj, prevState);
       }
     });
   }, [stakeholdersPage, mainMenuQO]);
   // MENU FORMATION PART ENDS =========================================
-
 
   return (
     <>
@@ -65,7 +59,6 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
         </div>
       </section>
 
-
       {slug.current !== "/specialities/stakeholders/cooperation-agreements" && (
         <PageContentSection data={stakeholdersPage} />
       )}
@@ -74,21 +67,11 @@ const StakeholdersItemArticle = ({ stakeholdersPage, mainMenuQO }) => {
 
       {/* Сторінка ДОГОВОРИ ПРО СПІВПРАЦЮ */}
       {slug.current === "/specialities/stakeholders/cooperation-agreements" && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            <header className="section-header">
-              <p>Договори про співпрацю</p>
-            </header>
-
-            <TitleAndLinkList list={coopAgreementList} />
-          </div>
-        </section>
+        <TitleAndLinkList list={coopAgreementList} />
       )}
-
     </>
-  )
-}
-
+  );
+};
 
 export default StakeholdersItemArticle;
 
@@ -97,23 +80,25 @@ export async function getStaticPaths() {
 
   const paths = newsArr.map((newsItem) => ({
     params: {
-      slug: newsItem.slug.current
-    }
+      slug: newsItem.slug.current,
+    },
   }));
   return {
-    paths, fallback: 'blocking'
-  }
+    paths,
+    fallback: "blocking",
+  };
 }
 
 export async function getStaticProps({ params: { slug } }) {
-
-  const stakeholdersPage = await client.fetch(chapterItemQuery("specialities-sh", `/specialities/stakeholders/${slug}`));
+  const stakeholdersPage = await client.fetch(
+    chapterItemQuery("specialities-sh", `/specialities/stakeholders/${slug}`)
+  );
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
   return {
     props: {
       stakeholdersPage,
       mainMenuQO,
-    }
-  }
+    },
+  };
 }

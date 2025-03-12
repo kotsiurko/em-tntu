@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import { useEffect, useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 // Client connection
 import { client } from "lib/client";
 
 // Helpers
-import { menuItems } from 'components/Header/menuItems';
-import { mainMenuQueriesObjCreator, newsPerPage } from 'lib/queries';
-import { menuCreator, menuItemsMerger } from 'lib/menuCreator';
+import { menuItems } from "components/Header/menuItems";
+import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
+import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 import { getPortion } from "lib/helpers";
 
 // Components
-import Header from 'components/Header/Header';
+import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
@@ -22,9 +22,7 @@ const newsBool = "bachelorDiplomaDefenceBool";
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-
 const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
-
   const router = useRouter();
 
   const [resultQuery, setResultQuery] = useState();
@@ -49,18 +47,11 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
   const [mainMenuArr, setMainMenuArr] = useState(menuItems);
 
   useEffect(() => {
-
-    const menuObj = menuItemsMerger(
-      menuItems,
-      mainMenuQO,
-    )
+    const menuObj = menuItemsMerger(menuItems, mainMenuQO);
 
     setMainMenuArr((prevState) => {
       if (prevState) {
-        return menuCreator(
-          menuObj,
-          prevState,
-        )
+        return menuCreator(menuObj, prevState);
       }
     });
   }, [mainMenuQO]);
@@ -68,7 +59,10 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
   return (
     <>
       <Head>
-        <title>Захисти дипломних робіт бакалаврів | Кафедра електричної інженерії ТНТУ</title>
+        <title>
+          Захисти кваліфікаційних робіт бакалаврів | Кафедра електричної
+          інженерії ТНТУ
+        </title>
         <meta name="description" content="Захисти дипломних робіт бакалаврів" />
       </Head>
 
@@ -76,13 +70,13 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
 
       <Breadcrumbs
         chapterTitle="Бакалавру"
-        pageTitle="Захисти дипломних робіт бакалаврів"
+        pageTitle="Захисти кваліфікаційних робіт бакалаврів"
         pageUrl="/bachelor/diploma-theses-defense"
       />
 
       <section className="features my-personal">
         <div className="row feature-icons">
-          <h3>Захисти дипломних робіт бакалаврів</h3>
+          <h3>Захисти кваліфікаційних робіт бакалаврів</h3>
         </div>
       </section>
 
@@ -90,7 +84,6 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
       {/* ======= Inner Page Team-Staff Section ======= */}
       <section id="team" className="team">
         <div className="container" data-aos="fade-up">
-
           <div className="row gy-4">
             <NewsItems currentItems={resultQuery} />
           </div>
@@ -110,12 +103,10 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
       </section>
       {/* ======= End Team-Staff Page Section ======= */}
     </>
-  )
-}
-
+  );
+};
 
 export default BachelorDefencePage;
-
 
 export async function getStaticProps() {
   const mainMenuQO = await mainMenuQueriesObjCreator();
@@ -127,6 +118,6 @@ export async function getStaticProps() {
     props: {
       mainMenuQO,
       totalNewsAmount,
-    }
-  }
+    },
+  };
 }
