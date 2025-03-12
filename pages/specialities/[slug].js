@@ -29,6 +29,7 @@ import TitleAndLinkList from "../../components/TitleAndLinkList/TitleAndLinkList
 
 const SpecialitiesPage = ({
   specialitiesPage,
+  totalNewsAmountAlumni,
   totalNewsAmountNonFormalEduc,
   totalNewsAmountDualEduc,
   totalNewsAmountEventsWOLecturers,
@@ -47,6 +48,11 @@ const SpecialitiesPage = ({
   useEffect(() => {
     async function getData(page) {
       let res;
+      if (slug.current === "/specialities/alumni") {
+        setNewsBool("alumniBool");
+        setTotalNewsAmount(totalNewsAmountAlumni);
+        res = await getPortion(page, "alumniBool");
+      }
       if (slug.current === "/specialities/non-formal-education") {
         setNewsBool("nonFormalEducationBool");
         setTotalNewsAmount(totalNewsAmountNonFormalEduc);
@@ -78,6 +84,7 @@ const SpecialitiesPage = ({
   }, [
     router.asPath,
     slug,
+    totalNewsAmountAlumni,
     totalNewsAmountDualEduc,
     totalNewsAmountNonFormalEduc,
     totalNewsAmountEventsWOLecturers,
@@ -121,7 +128,9 @@ const SpecialitiesPage = ({
       </section>
 
       {/* Page Content */}
-      {slug.current !== "/specialities/events-with-other-lecturers" && <PageContentSection data={specialitiesPage} />}
+      {slug.current !== "/specialities/events-with-other-lecturers" && (
+        <PageContentSection data={specialitiesPage} />
+      )}
 
       {/* Сторінка ДУАЛЬНА ОСВІТА */}
       {slug.current === "/specialities/dual-education" && (
@@ -137,90 +146,42 @@ const SpecialitiesPage = ({
       )}
 
       {/* ======= Inner Page Team-Staff Section ======= */}
-      {(slug.current === "/specialities/non-formal-education" ||
-        slug.current === "/specialities/dual-education"
-      ) && (
-          <section className="features my-personal">
-            <div className="row feature-icons">
-              <h3>Події розділу</h3>
-            </div>
-          </section>
-        )
-      }
-      {(slug.current === "/specialities/non-formal-education" ||
-        slug.current === "/specialities/dual-education" ||
-        slug.current === "/specialities/events-with-other-lecturers"
-      ) && (
-          <>
-            <section id="team" className="team">
-              <div className="container" data-aos="fade-up">
-                <div className="row gy-4">
-                  <NewsItems currentItems={resultQuery} />
-                </div>
-
-                {/* PAGINATION BLOCK STARTS */}
-                {totalNewsAmount > newsPerPage && (
-                  <NewPagination
-                    totalNewsAmount={totalNewsAmount}
-                    currPage={currPage}
-                    setResultQuery={setResultQuery}
-                    setCurrPage={setCurrPage}
-                    newsBool={newsBool}
-                  />
-                )}
-                {/* PAGINATION BLOCK ENDS */}
-              </div>
-            </section>
-          </>
-        )}
-      {/* ======= End Team-Staff Page Section ======= */}
-
-      {alumni && (
-        <section id="team" className="team">
-          <div className="container" data-aos="fade-up">
-            {/* <header className="section-header">
-              <p>Наші випускники</p>
-            </header> */}
-
-            <div className="row gy-4">
-              {alumni.map((el) => {
-                const { name, photo, body, _key } = el;
-
-                return (
-                  <div
-                    className="col-lg-6 d-flex align-items-stretch"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    key={_key}
-                  >
-                    <div className="member news">
-                      <div className="position-relative">
-                        <Image
-                          src={urlFor(photo).url()}
-                          className="img-fluid"
-                          alt={photo.caption}
-                          width={440}
-                          height={280}
-                        />
-                      </div>
-                      <div className="member-info news">
-                        <h4>{name}</h4>
-                        {/* <p className="publishDate">Опубліковано: {moment(publishedDate).format("YYYY-MM-DD о HH:mm")}</p> */}
-                        {/* <p>{newsItemBodyShort}</p> */}
-                        <BlockContent
-                          blocks={body}
-                          projectId={clientConfig.projectId}
-                          dataset={clientConfig.dataset}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+      {(slug.current === "/specialities/alumni" ||
+        slug.current === "/specialities/non-formal-education" ||
+        slug.current === "/specialities/dual-education") && (
+        <section className="features my-personal">
+          <div className="row feature-icons">
+            <h3>Події розділу</h3>
           </div>
         </section>
       )}
+      {(slug.current === "/specialities/alumni" ||
+        slug.current === "/specialities/non-formal-education" ||
+        slug.current === "/specialities/dual-education" ||
+        slug.current === "/specialities/events-with-other-lecturers") && (
+        <>
+          <section id="team" className="team">
+            <div className="container" data-aos="fade-up">
+              <div className="row gy-4">
+                <NewsItems currentItems={resultQuery} />
+              </div>
+
+              {/* PAGINATION BLOCK STARTS */}
+              {totalNewsAmount > newsPerPage && (
+                <NewPagination
+                  totalNewsAmount={totalNewsAmount}
+                  currPage={currPage}
+                  setResultQuery={setResultQuery}
+                  setCurrPage={setCurrPage}
+                  newsBool={newsBool}
+                />
+              )}
+              {/* PAGINATION BLOCK ENDS */}
+            </div>
+          </section>
+        </>
+      )}
+      {/* ======= End Team-Staff Page Section ======= */}
     </>
   );
 };
@@ -247,6 +208,10 @@ export async function getStaticProps({ params: { slug } }) {
     chapterPageQuery("specialities", slug)
   );
 
+  const totalNewsAmountAlumni = await client.fetch(
+    `count(*[_type == "news" && alumniBool])`
+  );
+
   const totalNewsAmountNonFormalEduc = await client.fetch(
     `count(*[_type == "news" && nonFormalEducationBool])`
   );
@@ -256,7 +221,7 @@ export async function getStaticProps({ params: { slug } }) {
 
   const totalNewsAmountEventsWOLecturers = await client.fetch(
     `count(*[_type == "news" && eventsWOLecturersBool])`
-  )
+  );
 
   const mainMenuQO = await mainMenuQueriesObjCreator();
 
@@ -273,6 +238,7 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: {
       specialitiesPage,
+      totalNewsAmountAlumni,
       totalNewsAmountNonFormalEduc,
       totalNewsAmountDualEduc,
       totalNewsAmountEventsWOLecturers,

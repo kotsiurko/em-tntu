@@ -7,7 +7,11 @@ import { client } from "lib/client";
 
 // Helpers
 import { menuItems } from "components/Header/menuItems";
-import { mainMenuQueriesObjCreator, newsPerPage } from "lib/queries";
+import {
+  chapterPageQuery,
+  mainMenuQueriesObjCreator,
+  newsPerPage,
+} from "lib/queries";
 import { menuCreator, menuItemsMerger } from "lib/menuCreator";
 import { getPortion } from "lib/helpers";
 
@@ -16,13 +20,18 @@ import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import NewsItems from "components/NewsItems/NewsItems";
 import NewPagination from "components/Pagination/NewPagination";
+import PageContentSection from "components/PageContentSection/PageContentSection";
 
 const newsBool = "alumniBool";
 
 // -----------------------------------------------------------------
 // ------ Page STARTS here -----------------------------------------
 
-const ThematicExcursionNews = ({ totalNewsAmount, mainMenuQO }) => {
+const Alumni = ({ specialitiesPage, totalNewsAmount, mainMenuQO }) => {
+  console.log("specialitiesPage", specialitiesPage);
+  const { title, slug, alumni, metaDescription, bachAgreementList } =
+    specialitiesPage;
+
   const router = useRouter();
 
   const [resultQuery, setResultQuery] = useState();
@@ -77,13 +86,24 @@ const ThematicExcursionNews = ({ totalNewsAmount, mainMenuQO }) => {
       {/* <!-- ======= Breadcrumbs ======= --> */}
       <Breadcrumbs
         chapterTitle="Спеціальності"
-        pageTitle="Випускники кафедри"
+        pageTitle="Випускники"
         pageUrl="alumni"
       />
 
       <section className="features my-personal">
         <div className="row feature-icons">
-          <h3>Випускники кафедри (inner page)</h3>
+          <h3>Випускники</h3>
+        </div>
+      </section>
+
+      {/* Page Content */}
+      {slug.current !== "/specialities/events-with-other-lecturers" && (
+        <PageContentSection data={specialitiesPage} />
+      )}
+
+      <section className="features my-personal">
+        <div className="row feature-icons">
+          <h3>Події розділу</h3>
         </div>
       </section>
 
@@ -112,9 +132,13 @@ const ThematicExcursionNews = ({ totalNewsAmount, mainMenuQO }) => {
   );
 };
 
-export default ThematicExcursionNews;
+export default Alumni;
 
 export async function getStaticProps() {
+  const specialitiesPage = await client.fetch(
+    chapterPageQuery("specialities", "alumni")
+  );
+
   const totalNewsAmount = await client.fetch(
     `count(*[_type == "news" && ${newsBool}])`
   );
@@ -122,6 +146,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      specialitiesPage,
       totalNewsAmount,
       mainMenuQO,
     },
