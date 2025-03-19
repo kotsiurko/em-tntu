@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 // Client connection
-import { client, clientConfig } from "lib/client";
+import { client } from "lib/client";
 import { urlFor } from "lib/client";
 
 import { menuItems } from "components/Header/menuItems";
