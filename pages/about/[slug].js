@@ -20,6 +20,7 @@ import Header from "components/Header/Header";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import PageContentSection from "components/PageContentSection/PageContentSection";
 import NewsItems from "components/NewsItems/NewsItems";
+import NewPagination from "components/Pagination/NewPagination";
 import DownloadLinkBtn from "components/DownloadLinkBtn/DownloadLinkBtn";
 import AboutContacts from "components/AboutContacts/AboutContacts";
 import DocsViewer from "components/DocsViewer/DocsViewer";
