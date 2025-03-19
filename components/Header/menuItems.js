@@ -90,7 +90,7 @@ export const menuItems = [
         ],
       },
       {
-        title: "Захисти дипломних робіт бакалаврів",
+        title: "Захисти кваліфікаційних робіт бакалаврів",
         url: "/bachelor/diploma-theses-defense",
         id: 385,
       },
@@ -120,7 +120,7 @@ export const menuItems = [
         id: 470,
       },
       {
-        title: "Захисти дипломних робіт магістрів",
+        title: "Захисти кваліфікаційних робіт магістрів",
         url: "/master/diploma-theses-defense",
         id: 485,
       },

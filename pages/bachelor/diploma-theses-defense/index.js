@@ -63,7 +63,10 @@ const BachelorDefencePage = ({ mainMenuQO, totalNewsAmount }) => {
           Захисти кваліфікаційних робіт бакалаврів | Кафедра електричної
           інженерії ТНТУ
         </title>
-        <meta name="description" content="Захисти дипломних робіт бакалаврів" />
+        <meta
+          name="description"
+          content="Захисти кваліфікаційних робіт бакалаврів"
+        />
       </Head>
 
       <Header mainMenuArr={mainMenuArr} />
