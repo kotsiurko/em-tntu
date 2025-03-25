@@ -185,27 +185,19 @@ export const menuItems = [
         url: "/science/conference-lighting-and-power-engineering/news",
         id: 630,
         children: [
-          // {
-          //   title: "Сайт конференції",
-          //   url: "#",
-          //   id: 63010,
-          // },
           {
             title: "Новини розділу",
             url: "/science/conference-lighting-and-power-engineering/news",
             id: 63010,
           },
-          // {
-          //   title: "Матеріаіли 2015",
-          //   url: "#",
-          //   id: 63030,
-          // },
-          // {
-          //   title: "Матеріаіли 2018",
-          //   url: "#",
-          //   id: 63040,
-          // },
         ],
+      },
+      {
+        title:
+          "Конференція “Фундаментальні та прикладні проблеми сучасних технологій”",
+        url: "/science/conference-fundamental-and-applied-problems-of-modern-technologies/general-information",
+        id: 632,
+        children: [],
       },
       {
         title:
