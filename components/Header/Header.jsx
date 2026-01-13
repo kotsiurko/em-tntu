@@ -15,7 +15,8 @@ const Header = (props) => {
 
   // Вирізаю блок меню АСПІРАНТУРА
   // її id = 7
-  const newArray = mainMenuArr.filter((item) => item.id !== 7);
+  // const newArray = mainMenuArr.filter((item) => item.id !== 7);
+  const newArray = mainMenuArr;
   // console.log("newArray :>> ", newArray);
 
   const [headerStyles, setHeaderStyles] = useState("header fixed-top");

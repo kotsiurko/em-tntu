@@ -113,7 +113,7 @@ export default function Home({ mainMenuQO, mainPage, mainStaffData }) {
                 <div className="row gy-4 my-font-size">
                   {mainMenuArr
                     // вирізаю розділ АСПІРАНТУРА
-                    .filter((item) => item.id !== 7)
+                    // .filter((item) => item.id !== 7)
                     .map(({ id, title, url, icon, children }) => {
                       return (
                         <div className="col-lg-4 col-md-6 col-sm-12" key={id}>

@@ -1,60 +1,59 @@
 ﻿/* reset */
 
 .mainPage section {
-    padding: 60px 0;
+  padding: 60px 0;
 }
 
 /* Скинув відступи для секцій, щоб вони були ближчі одна до одної... */
 section {
-    padding: 0;
+  padding: 0;
 }
 
 /* ...але додав відступ на мейн, щоб футер відсувався від мейну */
 main {
-    padding-bottom: 60px;
+  padding-bottom: 60px;
 }
 
-button{
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
 
-    background: transparent;
+  background: transparent;
 
-    /* inherit font & color from ancestor */
-    color: #4154f1;
-    font: inherit;
+  /* inherit font & color from ancestor */
+  color: #4154f1;
+  font: inherit;
 
-    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
-    line-height: normal;
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
 
-    /* Corrects font smoothing for webkit */
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
 
-    /* Corrects inability to style clickable `input` types in iOS */
-    -webkit-appearance: none;
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
 }
-
 
 /* Sticky footer */
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
-#__next{
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
+#__next {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 /* END OF Sticky footer */
-
 
 /* ul,
 ol {
@@ -62,122 +61,118 @@ ol {
     list-style: none;
 } */
 
-
 .text-justify {
-    text-align: justify
+  text-align: justify;
 }
 
 .header .logo {
-    line-height: 1;
+  line-height: 1;
 }
 
 .h10 {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 .h11 {
-    font-size:0.9rem;
+  font-size: 0.9rem;
 }
 
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 
 .contact .my-font-size .info-box p {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .contact .my-font-size .info-box p i {
-    font-size: 0.8rem;
-    padding-right: 0.6rem;
+  font-size: 0.8rem;
+  padding-right: 0.6rem;
 }
 
 .section-header p {
-    font-size: 28px;
+  font-size: 28px;
 }
 
-
 .features .feature-icons {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .ei-logo {
-    height: 120px;
+  height: 120px;
 }
 
 .container .my-style {
-    padding: 0;
+  padding: 0;
 }
 
 th.counter-width {
-    min-width: 40px;
+  min-width: 40px;
 }
 .features .feature-icons .content .my-dstyle {
-    display: block;
+  display: block;
 }
 
 /* Media query */
 /* 991 - 1199 */
 @media screen and (min-width: 991px) and (max-width: 1199px) {
-    .team .member .member-info {
-        padding: 10px 2px 20px;
-        text-align: left;
-    }
+  .team .member .member-info {
+    padding: 10px 2px 20px;
+    text-align: left;
+  }
 }
-
-
 
 /* ============================================== */
 /* Responsive fix for the Next.js Image component */
 /* ============================================== */
 .image-container {
-    width: 100%;
+  width: 100%;
 }
 
 .image-container > div {
-    position: unset !important;
+  position: unset !important;
 }
 
 .image-container .image {
-    object-fit: contain;
-    width: 100% !important;
-    position: relative !important;
-    height: unset !important;
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
 }
 
 .image-container .news-image {
-    object-fit: contain;
-    width: 40% !important;
-    position: relative !important;
-    height: unset !important;
+  object-fit: contain;
+  width: 40% !important;
+  position: relative !important;
+  height: unset !important;
 }
 
-.photo-archive-images{
-    /* object-fit: contain; */
-    object-fit: cover;
+.photo-archive-images {
+  /* object-fit: contain; */
+  object-fit: cover;
 }
 
 .new-image-container {
-    width: 240px;
-    height: 180px;
-    cursor: pointer;
+  width: 240px;
+  height: 180px;
+  cursor: pointer;
 }
 
-.flex-elements{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+.flex-elements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
 /* ============================================== */
-.image-fit{
-    object-fit: cover;
+.image-fit {
+  object-fit: cover;
 }
 
 /* ============================================== */
 
 .my-personal {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 /* .features.my-personal blockquote{
@@ -185,105 +180,103 @@ th.counter-width {
 } */
 
 .features.my-personal blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 0px 0.5em;
-    padding: 0.5em 10px;
-    quotes: "\201C" "\201D" "\2018" "\2019";
-    font-size: 15px;
-    color: #848484;
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 0px 0.5em;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+  font-size: 15px;
+  color: #848484;
 }
 
 .features.my-personal blockquote:before {
-    color: #ccc;
-    content: open-quote;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4em;
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
 }
 
-.features.guaranors{
-    padding: 0;
+.features.guaranors {
+  padding: 0;
 }
-
-
 
 /* NEWS */
 .member.news {
-    display: flex;
-    gap: .5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
-.member.news .position-relative{
-    width: 40%;
+.member.news .position-relative {
+  width: 40%;
 }
 
-.member-info.news{
-    display: flex;
-    flex-direction: column;
-    width: 58%;
+.member-info.news {
+  display: flex;
+  flex-direction: column;
+  width: 58%;
 }
 
 .team .member .member-info {
-    text-align: center;
-    font-style: normal;
+  text-align: center;
+  font-style: normal;
 }
 
 .team .member .member-info.news {
-    text-align: left;
+  text-align: left;
 }
 
 .team .member .member-info.news p {
-    padding: 0;
-    margin: 0;
-    line-height: 1.4;
-    font-style: normal;
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
+  font-style: normal;
 }
 
 .member .member-info.news p.publishDate {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 /* BREADCRUMBS */
 .breadcrumbs {
-    min-height: 0;
-    margin-top: 102px;
+  min-height: 0;
+  margin-top: 102px;
 }
 @media (max-width: 1366px) {
-    .breadcrumbs {
-        margin-top: 66px;
-    }
+  .breadcrumbs {
+    margin-top: 66px;
+  }
 }
 
-.breadcrumbs ol{
-    padding: 0;
+.breadcrumbs ol {
+  padding: 0;
 }
 
 .features.my-personal figure {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-
 /* NAVBAR */
-.navbar{
-    justify-content: center;
+.navbar {
+  justify-content: center;
 }
 
 .navbar a,
 .navbar a:focus {
-    /* Відступи, якщо присутні усі розділи меню */
-    /* padding: 10px 15px 10px 5px; */
-    padding: 10px 22px 10px 16px;
-    font-size: 14px;
-    letter-spacing: -.02em;
-    font-weight: 700;
+  /* Відступи, якщо присутні усі розділи меню */
+  /* padding: 10px 15px 10px 5px; */
+  /* padding: 10px 22px 10px 16px; */
+  padding: 10px 12px 10px 13px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 /* На випадок, якщо меню все ж буде зменшене */
 .navbar-mobile ul {
-    padding-left: 20px;
+  padding-left: 20px;
 }
 
 /* @media (max-width: 1399px) {
@@ -309,241 +302,233 @@ th.counter-width {
   }
 }
 
-
 /* ---------------------- */
 
-
 header .container-fluid.container-xl {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1399px) {
-    header .container-fluid.container-xl {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+  header .container-fluid.container-xl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
-.form-group{
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+.form-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 /* ------------------------ */
 .header.header-scrolled {
-    padding: 15px 0 0 0;
+  padding: 15px 0 0 0;
 }
 
-
 .features .feature-icons .content .icon-box p {
-    font-size: 16px;
-    color: #444444;
+  font-size: 16px;
+  color: #444444;
 }
 
 /*  */
 hr {
-    margin: .3rem 0;
+  margin: 0.3rem 0;
 }
 
 .team .member .member-info {
-    padding: 10px 15px 10px 15px;
+  padding: 10px 15px 10px 15px;
 }
-
 
 /* ----------------------------------- */
-.values{
-    padding: 30px 0;
+.values {
+  padding: 30px 0;
 }
 
-.header-publication{
-    padding: 0;
-    text-transform: uppercase;
+.header-publication {
+  padding: 0;
+  text-transform: uppercase;
 }
 
-.publication-section{
-    margin: 40px 0 0;
+.publication-section {
+  margin: 40px 0 0;
 }
 
-.publication-section::after{
-    content: '';
-    background-color: #012970 ;
-    height: 1px;
-    opacity: .3;
-    display: block;
+.publication-section::after {
+  content: "";
+  background-color: #012970;
+  height: 1px;
+  opacity: 0.3;
+  display: block;
 }
 
-.publication-title{
-    padding-bottom: 15px;
+.publication-title {
+  padding-bottom: 15px;
 }
 
-.hr-line{
-    margin-bottom: 40px;
+.hr-line {
+  margin-bottom: 40px;
 }
 
 /* ----------------------------------- */
 /* TABLE */
 .centered {
-    margin: 0 auto;
-    width: fit-content;
-    text-align: center;
+  margin: 0 auto;
+  width: fit-content;
+  text-align: center;
 }
 .centered th,
 .centered td {
-    padding: 0.2rem 2rem;
+  padding: 0.2rem 2rem;
 }
 /* ----------------------------------- */
 
-.myPT-0{
-    padding-top: 0;
+.myPT-0 {
+  padding-top: 0;
 }
 
-
-.my50pс{
-    width: 45%;
-    margin: 5px;
+.my50pс {
+  width: 45%;
+  margin: 5px;
 }
 
 /* EDIT FEATURES FETURES TABS SECTIONs */
-.feture-tabs{
-    margin-top: 20px;
-    margin-bottom: 60px;
+.feture-tabs {
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
 
 .features .feture-tabs {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
-.smallPortableText{
-    padding: 15px 0;
+.smallPortableText {
+  padding: 15px 0;
 }
 
-.team .member .member-info .smallPortableText > p{
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
-    line-height: 1.4;
+.team .member .member-info .smallPortableText > p {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
 }
-
 
 .ukr-heros {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #4154f1;
+  padding: 8px 20px;
+  border-radius: 4px;
+
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+ul .ukr-heros-mobile {
+  display: none;
+}
+
+@media (max-width: 1366px) {
+  ul .ukr-heros-mobile {
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 12px;
+    margin: 0 auto;
+    max-width: 300px;
     background: #4154f1;
     padding: 8px 20px;
     border-radius: 4px;
 
     font-family: "Nunito", sans-serif;
     font-size: 14px;
-    letter-spacing: .04em;
+    letter-spacing: 0.04em;
     color: #fff;
-}
+  }
 
-ul .ukr-heros-mobile{
-    display: none;
-}
-
-@media (max-width: 1366px) {
-    ul .ukr-heros-mobile{
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin: 0 auto;
-        max-width: 300px;
-        background: #4154f1;
-        padding: 8px 20px;
-        border-radius: 4px;
-
-        font-family: "Nunito", sans-serif;
-        font-size: 14px;
-        letter-spacing: .04em;
-        color: #fff;
-    }
-
-    ul .ukr-heros-mobile:hover {
-        background: #5969f3;
-        color: #fff;
-    }
+  ul .ukr-heros-mobile:hover {
+    background: #5969f3;
+    color: #fff;
+  }
 }
 
 .ukr-heros:hover {
-    background: #5969f3;
-    color: #fff;
+  background: #5969f3;
+  color: #fff;
 }
 
 .flag {
-    filter: drop-shadow(0 -1mm 4mm rgb(255, 255, 255));
+  filter: drop-shadow(0 -1mm 4mm rgb(255, 255, 255));
 }
-
 
 @media (max-width: 1366px) {
-    .ukr-heros {
-        display: none;
-    }
+  .ukr-heros {
+    display: none;
+  }
 }
-
 
 /* staffItem */
 .staffItem ul li p {
-    margin: 0;
+  margin: 0;
 }
 
 .staffItem ul .listGap {
-    margin-bottom: 1rem;;
+  margin-bottom: 1rem;
 }
 
 .staffItem h5 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 10px 0;
-    color: #012970;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #012970;
 }
 
-.myPurecounter{
-    font-size: 36px;
-    display: block;
-    font-weight: 600;
-    color: #0b198f;
+.myPurecounter {
+  font-size: 36px;
+  display: block;
+  font-weight: 600;
+  color: #0b198f;
 }
 
 h10 {
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
 }
 
 .content .icon-box div {
-    width: 100%;
+  width: 100%;
 }
 
 /* MODAL */
 
 .modal {
-    display: block;
-    visibility: hidden;
+  display: block;
+  visibility: hidden;
 }
 
 .modal-show {
-    visibility: visible;
-    background-color: rgba(169, 169, 169, 0.8);
-    transition: opacity 0.2s linear;
+  visibility: visible;
+  background-color: rgba(169, 169, 169, 0.8);
+  transition: opacity 0.2s linear;
 }
 
 .modal-content {
-    opacity: 0;
+  opacity: 0;
 }
 
 .modal-show .modal-content {
-    opacity: 1;
-    transition: 0.2s linear;
+  opacity: 1;
+  transition: 0.2s linear;
 }
 
 @media (min-width: 576px) {
-    .modal-dialog {
-        min-width: 800px;
-    }
+  .modal-dialog {
+    min-width: 800px;
+  }
 }
 /* MODAL ENDS */
