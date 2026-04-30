@@ -3,6 +3,7 @@ import { useState } from "react";
 import DocsViewer from "../DocsViewer/DocsViewer";
 
 function ReviewsList({ personList }) {
+  // console.log("personList :>> ", personList);
   const allReviews = personList
     .flatMap((person) => person.edGuarantee) // Витягуємо масив edGuarantee
     .flatMap((op) => op.edProgReviewsList || []); // Витягуємо масив рецензій, якщо він є
