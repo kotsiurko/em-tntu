@@ -83,7 +83,7 @@ const NewsList = ({ totalNewsAmount, mainMenuQO }) => {
 
       <section className="features my-personal">
         <div className="row feature-icons">
-          <h3>Події на кафедрі</h3>
+          <h3>Новини</h3>
         </div>
       </section>
 

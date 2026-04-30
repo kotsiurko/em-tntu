@@ -6,7 +6,7 @@ export const menuItems = [
     icon: "bi bi-mortarboard",
     children: [
       {
-        title: "Події на кафедрі",
+        title: "Новини",
         url: "/about/news",
         id: 101,
       },
